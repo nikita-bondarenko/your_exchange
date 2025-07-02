@@ -1,0 +1,227 @@
+[
+    {
+        "id": 3,
+        "title": "RUB",
+        "code": null,
+        "type": "BANK",
+        "weight": 0,
+        "directions": [
+            {
+                "id": 22,
+                "title": "Промсвязьбанк RUB",
+                "title_network": "Промсвязьбанк",
+                "code": "PSBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 16,
+                "title": "Тинькофф QR RUB",
+                "title_network": "Тинькофф QR",
+                "code": "TCSBQRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 113,
+                "title": "МТС Банк RUB",
+                "title_network": "МТС Банк",
+                "code": "MTSBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 103,
+                "title": "Счет телефона RUB",
+                "title_network": "Счет телефона",
+                "code": "MWRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 23,
+                "title": "Почта Банк RUB",
+                "title_network": "Почта Банк",
+                "code": "POSTBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 3,
+                "title": "Сбербанк RUB",
+                "title_network": "Сбербанк",
+                "code": "SBERRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 25,
+                "title": "Карта Мир RUB",
+                "title_network": "Карта Мир",
+                "code": "MIRCRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 24,
+                "title": "Открытие RUB",
+                "title_network": "Открытие",
+                "code": "OPNBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 94,
+                "title": "РНКБ RUB",
+                "title_network": "РНКБ",
+                "code": "RNKBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 93,
+                "title": "ЮMoney RUB",
+                "title_network": "ЮMoney",
+                "code": "YAMRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 89,
+                "title": "Visa/MC RUB",
+                "title_network": "Visa/MC",
+                "code": "CARDRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 21,
+                "title": "Райффайзен RUB",
+                "title_network": "Райффайзен",
+                "code": "RFBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 19,
+                "title": "Россельхозбанк RUB",
+                "title_network": "Россельхозбанк",
+                "code": "RSHBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 15,
+                "title": "Тинькофф RUB",
+                "title_network": "Тинькофф",
+                "code": "TCSBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 30,
+                "title": "Авангард RUB",
+                "title_network": "Авангард",
+                "code": "AVBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 29,
+                "title": "Альфа cash-in RUB",
+                "title_network": "Альфа cash-in",
+                "code": "ACCRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 28,
+                "title": "Альфа-Банк RUB",
+                "title_network": "Альфа-Банк",
+                "code": "ACRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 27,
+                "title": "ВТБ RUB",
+                "title_network": "ВТБ",
+                "code": "VTBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 18,
+                "title": "Русский Стандарт RUB",
+                "title_network": "Русский Стандарт",
+                "code": "RUSSTRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 17,
+                "title": "Хоум Кредит RUB",
+                "title_network": "Хоум Кредит",
+                "code": "HCBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 111,
+                "title": "Т-Банк cash-in RUB",
+                "title_network": "Т-Банк cash-in",
+                "code": "TCSBCRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 20,
+                "title": "Росбанк RUB",
+                "title_network": "Росбанк",
+                "code": "ROSBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 90,
+                "title": "QIWI RUB",
+                "title_network": "QIWI",
+                "code": "QWRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 62,
+                "title": "rub",
+                "title_network": "rub",
+                "code": "APIRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 60,
+                "title": "СБП RUB",
+                "title_network": "СБП",
+                "code": "SBPRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 26,
+                "title": "Газпромбанк RUB",
+                "title_network": "Газпромбанк",
+                "code": "GPBRUB",
+                "type": "BANK",
+                "weight": 0
+            },
+            {
+                "id": 112,
+                "title": "Ozon Банк RUB",
+                "title_network": "Ozon Банк",
+                "code": "OZONBRUB",
+                "type": "BANK",
+                "weight": 0
+            }
+        ]
+    }
+]

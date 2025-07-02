@@ -1,0 +1,35 @@
+[
+    {
+        "id": 31,
+        "title": "Наличные USD",
+        "code": "CASHUSD",
+        "type": "CASH",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 32,
+        "title": "Наличные RUB",
+        "code": "CASHRUB",
+        "type": "CASH",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 33,
+        "title": "Наличные EUR",
+        "code": "CASHEUR",
+        "type": "CASH",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 69,
+        "title": "Наличные AED",
+        "code": "CASHAED",
+        "type": "CASH",
+        "weight": 0,
+        "directions": []
+    }
+    
+]

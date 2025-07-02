@@ -1,0 +1,302 @@
+[
+    {
+        "id": 1,
+        "title": "Bitcoin",
+        "code": "BTC",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 2,
+        "title": "Ethereum",
+        "code": null,
+        "type": "COIN",
+        "weight": 0,
+        "directions": [
+            {
+                "id": 2,
+                "title": "Ethereum (ERC20)",
+                "title_network": "ERC20",
+                "code": "ETH",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 110,
+                "title": "Ethereum OPTIMISM",
+                "title_network": "OPTIMISM",
+                "code": "ETHOPTM",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 109,
+                "title": "Ethereum ARBITRUM",
+                "title_network": "ARBITRUM",
+                "code": "ETHARBTM",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 12,
+                "title": "ETHBEP20",
+                "title_network": "BEP20",
+                "code": "ETHBEP20",
+                "type": "COIN",
+                "weight": 0
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Tether",
+        "code": null,
+        "type": "COIN",
+        "weight": 0,
+        "directions": [
+            {
+                "id": 99,
+                "title": "Tether ARBITRUM (USDT)",
+                "title_network": "ARBITRUM",
+                "code": "USDTARBTM",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 6,
+                "title": "Tether BEP20",
+                "title_network": "BEP20",
+                "code": "USDTBEP20",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 108,
+                "title": "Tether OPTIMISM",
+                "title_network": "OPTIMISM",
+                "code": "USDTOPTM",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 5,
+                "title": "Tether ERC20",
+                "title_network": "ERC20",
+                "code": "USDTERC20",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 4,
+                "title": "Tether TRC20",
+                "title_network": "TRC20",
+                "code": "USDTTRC20",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 107,
+                "title": "Tether AVALANCHE",
+                "title_network": "AVALANCHE",
+                "code": "USDTAVAXC",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 67,
+                "title": "Tether POLYGON",
+                "title_network": "POLYGON",
+                "code": "USDTPOLYGON",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 96,
+                "title": "Tether SOL (USDT)",
+                "title_network": "SOL (USDT)",
+                "code": "USDTSOL",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 98,
+                "title": "Tether TON (USDT)",
+                "title_network": "TON (USDT)",
+                "code": "USDTTON",
+                "type": "COIN",
+                "weight": 0
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "title": "USDCoin",
+        "code": null,
+        "type": "COIN",
+        "weight": 0,
+        "directions": [
+            {
+                "id": 7,
+                "title": "USDCoin ERC20",
+                "title_network": "ERC20",
+                "code": "USDCERC20",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 9,
+                "title": "USDCoin BEP20",
+                "title_network": "BEP20",
+                "code": "USDCBEP20",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 68,
+                "title": "USDCoin POLYGON",
+                "title_network": "POLYGON",
+                "code": "USDCPOLYGON",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 97,
+                "title": "USDCoin SOL (USDC)",
+                "title_network": "SOL (USDC)",
+                "code": "USDCSOL",
+                "type": "COIN",
+                "weight": 0
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "title": "Litecoin",
+        "code": "LTC",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 14,
+        "title": "Ether Classic",
+        "code": "ETC",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 66,
+        "title": "BTCBEP20",
+        "code": "BTCBEP20",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 70,
+        "title": "Dogecoin",
+        "code": "DOGE",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 71,
+        "title": "TRON",
+        "code": "TRX",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 72,
+        "title": "Cardano",
+        "code": "ADA",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 73,
+        "title": "Ripple",
+        "code": "XRP",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 75,
+        "title": "Cryptorg Code",
+        "code": "USDTCRYPTORG",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 76,
+        "title": "Binance USD",
+        "code": "BUSD",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 77,
+        "title": "Polkadot",
+        "code": "DOT",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 79,
+        "title": "TrueUSD",
+        "code": null,
+        "type": "COIN",
+        "weight": 0,
+        "directions": [
+            {
+                "id": 11,
+                "title": "TrueUSD ERC20",
+                "title_network": "ERC20",
+                "code": "TUSDERC20",
+                "type": "COIN",
+                "weight": 0
+            },
+            {
+                "id": 79,
+                "title": "TrueUSD TRC20",
+                "title_network": "TRC20",
+                "code": "TUSDTRC20",
+                "type": "COIN",
+                "weight": 0
+            }
+        ]
+    },
+    {
+        "id": 86,
+        "title": "BinanceCoin BEP20",
+        "code": "BNBBEP20",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 91,
+        "title": "Bitcoin Cash",
+        "code": "BCH",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    },
+    {
+        "id": 95,
+        "title": "Solana",
+        "code": "SOL",
+        "type": "COIN",
+        "weight": 0,
+        "directions": []
+    }
+]
