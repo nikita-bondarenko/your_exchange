@@ -61,7 +61,9 @@ export default function ExchangeResultPage() {
             принята в работу
           </div>
           <div className="text-16 text-[#BFBFBF] mb-18 text-center leading-[120%]">
-            Наш оператор свяжется <br />с вами в течение 15 минут
+          Наш оператор свяжется <br />с вами в течение 15 минут <br /> <br />
+            Курс обмена может меняться в&nbsp;зависимости от&nbsp;волатильности
+            рынка. Итоговый курс сделки озвучит оператор.
           </div>
           <div className="w-full h-1 bg-[#BFBFBF] mt-5 mb-13"></div>
           <div className="flex flex-col items-center gap-2">

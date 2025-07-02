@@ -24,8 +24,8 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="theme-color" content="#ffffff" />
-        <title>TopTapCryptoGames Exchange</title>
-        <meta name="description" content="TopTapCryptoGames Exchange - Telegram Mini App" />
+        <title>Секретный Обменник</title>
+        <meta name="description" content="Секретный Обменник - Telegram Mini App" />
       </head>
       <body className={`${inter.variable} antialiased flex flex-col h-screen`}>
         <StoreProvider>
