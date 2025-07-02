@@ -21,7 +21,7 @@ const CryptoNetSelect: React.FC<CryptoNetSelectProps> = memo(
             className={clsx(
               "border  border-[#FFFFFF] rounded-full bg-[#FFFFFF] text-[#B5B5B5] text-13 leading-normal duration-500 px-21 py-9",
               {
-                "[&]:border-[#F09810] [&]:bg-[#F09810] [&]:text-white pointer-events-none":
+                "[&]:border-[#333333] [&]:bg-[#333333] [&]:text-white pointer-events-none":
                   value?.id === option?.id,
               }
             )}

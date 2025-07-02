@@ -80,19 +80,17 @@ export default function Home() {
     <>
       <div className="container h-full flex flex-col">
         <div
-          className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col"
-          style={{
-            background: "linear-gradient(135deg, #F09810 0%, #FF902F 100%)",
-          }}
+          className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col bg-white"
+  
         >
           <div className="flex-grow flex flex-col justify-center">
             <div className="flex justify-between">
               <div className="max-w-205">
-                <h1 className="font-bold text-white text-32 mb-15 leading-normal">
-                Top Exchange
+                <h1 className="font-bold text-black text-32 mb-15 leading-normal">
+                  Секретный Обменник
                 </h1>
-                <p className="text-16 font-medium mb-30 text-white ">
-                  Покупка и продажа криптовалюты по&nbsp;выгодному&nbsp;курсу
+                <p className="text-16 font-medium mb-30 text-[#505050] ">
+                  Покупка и&nbsp;продажа <br/>криптовалюты <br/>по&nbsp;выгодному курсу
                 </p>
               </div>
               <ProfileButton
@@ -121,11 +119,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 gap-6">
-            <Button
-              onClick={toExchangePage}
-              className="home-btn"
-              type={"dark"}
-            >
+            <Button onClick={toExchangePage} className="home-btn" type={"primary"}>
               Начать обмен
             </Button>
             <Button

@@ -8,10 +8,10 @@ const ProfileButton: FC<{ onClick?: () => void, avatar?: string }> = memo(({ onC
       onClick={onClick}
       className="relative w-46 h-46 bg-[#000000]  rounded-full flex justify-center items-center shrink-0"
     >
-      <span className="absolute  inset-0 rounded-full animation-wave border border-white  wave1"></span>
-      <span className="absolute inset-0 rounded-full animation-wave border border-white   wave2"></span>
-      <span className="absolute inset-0 rounded-full animation-wave border border-white  wave3"></span>
-      <span className="absolute inset-0 rounded-full border border-white z-20"></span>
+      <span className="absolute  inset-0 rounded-full animation-wave border border-[#262626]  wave1"></span>
+      <span className="absolute inset-0 rounded-full animation-wave border border-[#262626]   wave2"></span>
+      <span className="absolute inset-0 rounded-full animation-wave border border-[#262626]  wave3"></span>
+      <span className="absolute inset-0 rounded-full border border-[#262626] z-20"></span>
       <Icon src="person.svg" className={clsx("w-15 h-17", {"opacity-100": avatar})}></Icon>
         <img
           src={avatar}

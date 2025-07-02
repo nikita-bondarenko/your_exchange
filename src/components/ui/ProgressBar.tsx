@@ -16,9 +16,9 @@ type StepProps = {
 const Step: React.FC<StepProps> = ({ isActive, isCompleted, delay }) => (
   <div
     className={clsx(
-      "w-20 h-20 border-2 border-[#F09810] rounded-full flex items-center justify-center relative shrink-0",
+      "w-20 h-20 border-2 border-[#333333] rounded-full flex items-center justify-center relative shrink-0",
       {
-        "bg-[#F09810]": isCompleted,
+        "bg-[#333333]": isCompleted,
         "delay-500": delay,
       }
     )}
@@ -53,7 +53,7 @@ const ProgressLine: React.FC<ProgressLineProps> = ({ currentStep, stepNumber, is
     <div className="w-52 h-2 bg-[#CCCCCC] rounded-full relative">
       <div
         className={clsx(
-          "h-2 bg-[#F09810] rounded-full absolute top-0 left-0",
+          "h-2 bg-[#333333] rounded-full absolute top-0 left-0",
           {
             [getWidth()]: true,
             "delay-1000": isBackward && stepNumber === 1 || (!isBackward && stepNumber === 2 && currentStep !== 3),
@@ -71,7 +71,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 }) => {
   return (
     <div className="flex items-center gap-5 [&_*]:transition-all [&_*]:duration-500">
-      <div className="w-20 h-20 rounded-full relative shrink-0 bg-[#F09810]">
+      <div className="w-20 h-20 rounded-full relative shrink-0 bg-[#333333]">
         <Icon src="header-sign.svg" className="w-10 h-10 top-6 center-x" />
       </div>
       <ProgressLine currentStep={currentStep} stepNumber={1} isBackward={isBackward} />

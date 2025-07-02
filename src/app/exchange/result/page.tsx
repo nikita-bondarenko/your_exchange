@@ -95,7 +95,7 @@ export default function ExchangeResultPage() {
             </Button>
             <Button
               onClick={handleGoHome}
-              type="dark"
+              type="bordary"
               className="w-full text-15 py-15"
             >
               В главное меню

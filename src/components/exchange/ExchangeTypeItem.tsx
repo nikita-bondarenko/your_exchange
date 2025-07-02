@@ -30,7 +30,7 @@ const ExchangeTypeItem: React.FC<ExchangeTypeItemProps> = memo(
         className={clsx(
           "h-46 flex items-center justify-between w-[101%] duration-500 transition-all bg-[#FFFFFF] px-18 relative",
           {
-            "[&]:bg-[#FFF8E5] pointer-events-none z-20": isSelected,
+            "[&]:bg-[#EBEBEB] pointer-events-none z-20": isSelected,
           }
         )}
         onClick={onClick}
