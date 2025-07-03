@@ -83,7 +83,7 @@ export default function Home() {
           className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col bg-white relative overflow-hidden"
 
         >
-            <div className="absolute top-1/2 -translate-y-1/2 right-[-127px] w-[471px] h-[471px] bg-[url(/images/money-man.webp)] bg-contain"></div>
+            <div className="absolute bottom-[45px] translate-y-[10%] right-[30%] translate-x-1/2 w-[140%] aspect-square bg-[url(/images/money-man.webp)] bg-contain"></div>
           <div className="flex-grow flex flex-col justify-center relative z-10">
             <div className="flex justify-between">
               <div className="max-w-205">
