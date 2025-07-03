@@ -43,6 +43,7 @@ export type ExchangeState = {
   exchangeRate: Rate | null;
   currencySellAmount: ExchangeInput<number | null>;
   currencyBuyAmount: ExchangeInput<number | null>;
+  isRateBeingPulled: boolean;
 };
 
 export const initialState: ExchangeState = {
@@ -88,6 +89,7 @@ export const initialState: ExchangeState = {
     value: null,
     error: null,
   },
+  isRateBeingPulled: false,
 };
 
 export const calculateSecondaryProperties = (
@@ -151,7 +153,7 @@ export const exchangeSlice = createSlice({
 
       state.selectedNetwork.value = networks[0] || null;
       state.selectedBank.value = banks[0] || null;
-      state.selectedCity.value =  null;
+      state.selectedCity.value = null;
     },
     setCurrenciesSell: (state, action: PayloadAction<Currency[]>) => {
       state.currenciesSell = action.payload;
@@ -197,7 +199,6 @@ export const exchangeSlice = createSlice({
       state.selectedCity.value = action.payload;
     },
     setSelectedCityError: (state, action: PayloadAction<string | null>) => {
-
       state.selectedCity.error = action.payload;
     },
     setNetworks: (state, action: PayloadAction<Network[] | null>) => {
@@ -282,6 +283,9 @@ export const exchangeSlice = createSlice({
     clearAll: (state) => {
       return initialState;
     },
+    setIsRateBeingPulled: (state, action: PayloadAction<boolean>) => {
+      state.isRateBeingPulled = action.payload;
+    },
   },
 });
 
@@ -317,6 +321,7 @@ export const {
   clearCurrencies,
   clearAll,
   setInitialData,
+  setIsRateBeingPulled
 } = exchangeSlice.actions;
 
 export default exchangeSlice.reducer;

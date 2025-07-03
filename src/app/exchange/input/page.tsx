@@ -9,7 +9,7 @@ import { store } from "@/redux/store";
 import ExchangeInput from "@/components/exchange/ExchangeInput";
 import { validateAllFields } from "@/redux/helpers/validateAllFields";
 import { selectCurrencyTypes } from "@/redux/selectors";
-import { setAreErrorsVisible } from "@/redux/slices/exchangeSlice/exchangeSlice";
+import { setAreErrorsVisible, setIsRateBeingPulled } from "@/redux/slices/exchangeSlice/exchangeSlice";
 
 export default memo(function Page() {
   const dispatch = useAppDispatch();
@@ -30,11 +30,15 @@ export default memo(function Page() {
   const {givenType, receivedType} = useAppSelector(selectCurrencyTypes);
 
   useEffect(() => {
-    dispatch(setIsLoading(false))
+    console.log('[Exchange Input Page] Component mounted, starting rate pulling');
+    dispatch(setIsLoading(false));
+    dispatch(setIsRateBeingPulled(true)); // Start automatic rate updates
     return () => {
+      console.log('[Exchange Input Page] Component unmounting, stopping rate pulling');
       dispatch(setAreErrorsVisible(false));
+      dispatch(setIsRateBeingPulled(false)); // Stop automatic rate updates
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="container">

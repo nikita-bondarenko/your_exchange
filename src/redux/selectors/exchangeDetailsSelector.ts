@@ -173,13 +173,15 @@ export const selectExchangeCreateData = createSelector(
   (state: RootState) => state.exchange.cardNumber,
   (state: RootState) => state.user.id,
   (state: RootState) => state.exchange.exchangeRate?.id,
+  (state: RootState) => state.exchange.exchangeRate?.course,
   (
     currencySellAmount,
     currencyBuyAmount,
     walletAddress,
     cardNumber,
     userId,
-    exchangeRateId
+    exchangeRateId,
+    course
   ): ExchangesCreateApiArg => {
     return {
       user_id: userId || -1,
@@ -188,6 +190,7 @@ export const selectExchangeCreateData = createSelector(
       currency_get_amount: currencyBuyAmount.value || -1,
       card: cardNumber.value || "",
       wallet: walletAddress.value || "",
+      course: course || 0
     };
   }
 );

@@ -83,6 +83,7 @@ export type ExchangesCreateApiArg = {
     currency_get_amount: number
     card?: string
     wallet?: string
+    course: number
 };
 
 export type Faq = {
