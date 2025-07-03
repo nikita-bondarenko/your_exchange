@@ -18,4 +18,4 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd /home/devops/tg-mini-app-frontends
-          sh pull.sh  
+          bash pull.sh  
