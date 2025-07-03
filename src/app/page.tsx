@@ -57,14 +57,14 @@ export default function Home() {
       text: "FAQ",
       onClick: toFaqPage,
     },
-    {
-      text: "Соглашение",
-      onClick: openTerms,
-    },
-    {
-      text: "Политика AML",
-      onClick: openPolicy,
-    },
+      // {
+    //   text: "Соглашение",
+    //   onClick: openTerms,
+    // },
+    // {
+    //   text: "Политика AML",
+    //   onClick: openPolicy,
+    // },
     {
       text: "Профиль",
       onClick: toProfilePage,
