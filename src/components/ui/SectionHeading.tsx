@@ -2,6 +2,7 @@ import { valueMask } from "@/helpers/valueMask";
 import React, { memo, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import Icon from "../helpers/Icon";
+import { useCallSupport } from "@/hooks/useCallSupport";
 
 export type HeadingRate = {
   from: {
@@ -49,6 +50,7 @@ clearTimeout(timeout.current);
     const handleMinValueClick: React.MouseEventHandler = () => {
       setIsMessageOpen(true);
     };
+     const {callSupport} = useCallSupport()
     return (
       <div className="flex items-end justify-between mb-10 pl-6  gap-10">
         <h2 className="text-16 font-medium leading-normal  shrink-0 min-w-100">
@@ -117,9 +119,9 @@ clearTimeout(timeout.current);
           <p className="text-black mb-[5px] text-[14px]">
             Минимальная сумма обмена может быть ниже
           </p>
-          <span className="text-[#999999] text-[13px]">
+          <button onClick={callSupport} className="text-[#999999] text-[13px]">
             Уточните подробности у оператора
-          </span>
+          </button>
         </div>
       </div>
     );
