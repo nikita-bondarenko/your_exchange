@@ -8,6 +8,7 @@ import {
   setSelectedCityValue,
   setSelectedCurrencySell,
   setSelectedCurrencyBuy,
+  setPhoneNumberValue,
 } from "../../slices/exchangeSlice/exchangeSlice";
 import { validateAllFields } from "../../helpers/validateAllFields";
 import { AppDispatch, RootState } from "../../store";
@@ -24,7 +25,8 @@ validateListener.startListening({
     setCardNumberValue,
     setSelectedCityValue,
     setSelectedCurrencySell,
-    setSelectedCurrencyBuy
+    setSelectedCurrencyBuy,
+    setPhoneNumberValue
   ),
   effect: async (action: PayloadAction<any>, listenerApi) => {
     const state = listenerApi.getState() as RootState;

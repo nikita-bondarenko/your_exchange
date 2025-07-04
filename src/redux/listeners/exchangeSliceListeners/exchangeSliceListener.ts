@@ -17,6 +17,7 @@ import {
   setSelectedCurrencySell,
   setSelectedCurrencySellType,
   setSelectedNetworkValue,
+  setIsPhoneNumberUsed,
 } from "../../slices/exchangeSlice/exchangeSlice";
 import { AppDispatch, RootState } from "@/redux/store";
 import { exchangeTypesButtons } from "@/data/exchangeTypesButtons";
@@ -237,6 +238,12 @@ exchangeSliceListener.startListening({
       selectedCity,
       selectedCurrencyBuy,
     } = state.exchange;
+
+    // Check if bank name contains "СБП" to set phone number usage
+    if (selectedBankValue) {
+      const isSpbBank = selectedBankValue.name.includes('СБП');
+      dispatch(setIsPhoneNumberUsed(isSpbBank));
+    }
 
     if (
       !selectedCurrencySell?.id ||

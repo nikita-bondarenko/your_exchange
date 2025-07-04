@@ -3,6 +3,7 @@ import { RootState } from "../store";
 import {
   setSelectedBankError,
   setCardNumberError,
+  setPhoneNumberError,
   setSelectedCityError,
   setCurrencySellAmountError,
   setCurrencyBuyAmountError,
@@ -51,7 +52,7 @@ export const validateAllFields = (
 
   // Validate card fields
   if (selectedCurrencySellType === "BANK" || selectedCurrencyBuyType === "BANK") {
-    const { currencySellAmount, currencyBuyAmount, selectedBank, cardNumber, exchangeRate } = state.exchange;
+    const { currencySellAmount, currencyBuyAmount, selectedBank, cardNumber, phoneNumber, isPhoneNumberUsed, exchangeRate } = state.exchange;
     const position = selectedCurrencySellType === "BANK" ? "given" : "received";
 
     const amountError = validateExchangeInput({
@@ -68,12 +69,26 @@ export const validateAllFields = (
       minValue: 0,
     }) : null;
 
-    const cardNumberError = validateExchangeInput({
-      value: cardNumber.value,
-      inputType: "cardNumber",
-      position,
-      minValue: 0,
-    });
+    // Validate either phone number or card number based on isPhoneNumberUsed
+    let cardNumberError = null;
+    let phoneNumberError = null;
+    
+    if (isPhoneNumberUsed) {
+      phoneNumberError = validateExchangeInput({
+        value: phoneNumber?.value || null,
+        inputType: "phoneNumber",
+        position,
+        minValue: 0,
+        isPhoneNumberUsed: true,
+      });
+    } else {
+      cardNumberError = validateExchangeInput({
+        value: cardNumber.value,
+        inputType: "cardNumber",
+        position,
+        minValue: 0,
+      });
+    }
 
     if (position === "given") {
       dispatch(setCurrencySellAmountError(amountError));
@@ -82,9 +97,10 @@ export const validateAllFields = (
     }
     dispatch(setSelectedBankError(bankError));
     dispatch(setCardNumberError(cardNumberError));
+    dispatch(setPhoneNumberError(phoneNumberError));
     // // console.log('amountError, bankError, cardNumberError',amountError, bankError, cardNumberError, banks);
 
-    hasErrors = hasErrors || !!(amountError || bankError || cardNumberError);
+    hasErrors = hasErrors || !!(amountError || bankError || cardNumberError || phoneNumberError);
   }
 
   // Validate cash fields

@@ -17,5 +17,5 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          cd /home/devops/tg-mini-app-frontends
-          bash pull.sh  
+          cd /home/devops/tg-mini-app-frontends/secret_2025
+          bash restart.sh  

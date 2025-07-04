@@ -23,6 +23,8 @@ export const selectExchangeDetails = createSelector(
   (state: RootState) => state.exchange.walletAddress,
   selectBankValue,
   (state: RootState) => state.exchange.cardNumber,
+  (state: RootState) => state.exchange.phoneNumber,
+  (state: RootState) => state.exchange.isPhoneNumberUsed,
   (state: RootState) => state.exchange.selectedCity,
   selectNetValue,
   (
@@ -36,6 +38,8 @@ export const selectExchangeDetails = createSelector(
     walletAddress,
     selectedBank,
     cardNumber,
+    phoneNumber,
+    isPhoneNumberUsed,
     selectedCity,
     selectedNetwork
   ): RequestDetailsProps[] => {
@@ -62,6 +66,10 @@ export const selectExchangeDetails = createSelector(
         },
       };
     } else if (selectedCurrencySellType === "BANK") {
+      const wayDetails = isPhoneNumberUsed 
+        ? (phoneNumber?.value ? { title: "Номер телефона", value: phoneNumber.value } : undefined)
+        : (cardNumber?.value ? { title: "Карта отправления", value: cardNumber.value } : undefined);
+        
       give = {
         title: "Я отдаю",
         rate: calculateRate({
@@ -78,9 +86,7 @@ export const selectExchangeDetails = createSelector(
             ? valueMask(roundTo8(currencySellAmount.value))
             : "",
           position: "given",
-          wayDetails: cardNumber.value
-            ? { title: "Карта отправления", value: cardNumber.value }
-            : undefined,
+          wayDetails: wayDetails,
         },
       };
     } else if (selectedCurrencySellType === "CASH") {
@@ -127,6 +133,10 @@ export const selectExchangeDetails = createSelector(
         },
       };
     } else if (selectedCurrencyBuyType === "BANK") {
+      const wayDetails = isPhoneNumberUsed 
+        ? (phoneNumber?.value ? { title: "Номер телефона", value: phoneNumber.value } : undefined)
+        : (cardNumber?.value ? { title: "Карта получения", value: cardNumber.value } : undefined);
+        
       receive = {
         title: "Я получаю",
         currency: {
@@ -138,9 +148,7 @@ export const selectExchangeDetails = createSelector(
             ? valueMask(roundTo8(currencyBuyAmount.value))
             : "",
           position: "received",
-          wayDetails: cardNumber.value
-            ? { title: "Карта получения", value: cardNumber.value }
-            : undefined,
+          wayDetails: wayDetails,
         },
       };
     } else if (selectedCurrencyBuyType === "CASH") {
@@ -171,6 +179,8 @@ export const selectExchangeCreateData = createSelector(
   (state: RootState) => state.exchange.currencyBuyAmount,
   (state: RootState) => state.exchange.walletAddress,
   (state: RootState) => state.exchange.cardNumber,
+  (state: RootState) => state.exchange.phoneNumber,
+  (state: RootState) => state.exchange.isPhoneNumberUsed,
   (state: RootState) => state.user.id,
   (state: RootState) => state.exchange.exchangeRate?.id,
   (state: RootState) => state.exchange.exchangeRate?.course,
@@ -179,16 +189,22 @@ export const selectExchangeCreateData = createSelector(
     currencyBuyAmount,
     walletAddress,
     cardNumber,
+    phoneNumber,
+    isPhoneNumberUsed,
     userId,
     exchangeRateId,
     course
   ): ExchangesCreateApiArg => {
+    const cardValue = isPhoneNumberUsed 
+      ? (phoneNumber?.value || "") 
+      : (cardNumber?.value || "");
+      
     return {
       user_id: userId || -1,
       direction_id: exchangeRateId || -1,
       currency_give_amount: currencySellAmount.value || -1,
       currency_get_amount: currencyBuyAmount.value || -1,
-      card: cardNumber.value || "",
+      card: cardValue,
       wallet: walletAddress.value || "",
       course: course || 0
     };

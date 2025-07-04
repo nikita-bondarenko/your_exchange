@@ -6,9 +6,10 @@ export type ValidateExchangeInput = (props: {
   inputType: ValidatedField;
   position: CurrencyPosition;
   minValue: number;
+  isPhoneNumberUsed?: boolean;
 }) => string | null;
 
-export const validateExchangeInput: ValidateExchangeInput = ({ value, inputType, position, minValue }) => {
+export const validateExchangeInput: ValidateExchangeInput = ({ value, inputType, position, minValue, isPhoneNumberUsed = false }) => {
   const validator = validators[inputType];
 
   if (!validator) {
@@ -20,6 +21,13 @@ export const validateExchangeInput: ValidateExchangeInput = ({ value, inputType,
     return (validator as any)({
       value: value === null ? null : Number(value),
       options: { minValue, position }
+    });
+  }
+
+  if (inputType === 'phoneNumber') {
+    return (validator as any)({
+      phoneNumber: value === null ? null : String(value),
+      isPhoneNumberUsed
     });
   }
 

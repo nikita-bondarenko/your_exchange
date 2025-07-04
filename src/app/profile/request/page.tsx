@@ -57,6 +57,8 @@ const Page: React.FC = () => {
       address: request.wallet,
       cardNumber: request.card,
       city: request.city,
+      phoneNumber: request.card,
+      isPhoneNumberUsed: request.currency_get?.bank?.includes("СБП"),
     });
 
     const calculateTypeLabel = (

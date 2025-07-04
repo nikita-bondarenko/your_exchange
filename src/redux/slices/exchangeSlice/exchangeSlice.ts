@@ -36,6 +36,8 @@ export type ExchangeState = {
   banks: Bank[] | null;
   selectedBank: ExchangeInput<Bank | null>;
   cardNumber: ExchangeInput<string | null>;
+  phoneNumber: ExchangeInput<string | null>;
+  isPhoneNumberUsed: boolean;
   walletAddress: ExchangeInput<string | null>;
   areErrorsVisible: boolean;
   areErrors: boolean;
@@ -73,6 +75,11 @@ export const initialState: ExchangeState = {
     value: null,
     error: null,
   },
+  phoneNumber: {
+    value: null,
+    error: null,
+  },
+  isPhoneNumberUsed: false,
   walletAddress: {
     value: null,
     error: null,
@@ -154,6 +161,19 @@ export const exchangeSlice = createSlice({
       state.selectedNetwork.value = networks[0] || null;
       state.selectedBank.value = banks[0] || null;
       state.selectedCity.value = null;
+      
+      // Reset phone number fields
+      if (!state.phoneNumber) {
+        state.phoneNumber = { value: null, error: null };
+      } else {
+        state.phoneNumber.value = null;
+        state.phoneNumber.error = null;
+      }
+      if (state.isPhoneNumberUsed === undefined) {
+        state.isPhoneNumberUsed = false;
+      } else {
+        state.isPhoneNumberUsed = false;
+      }
     },
     setCurrenciesSell: (state, action: PayloadAction<Currency[]>) => {
       state.currenciesSell = action.payload;
@@ -224,6 +244,24 @@ export const exchangeSlice = createSlice({
     },
     setCardNumberError: (state, action: PayloadAction<string | null>) => {
       state.cardNumber.error = action.payload;
+    },
+    setPhoneNumberValue: (state, action: PayloadAction<string | null>) => {
+      if (!state.phoneNumber) {
+        state.phoneNumber = { value: null, error: null };
+      }
+      state.phoneNumber.value = action.payload;
+    },
+    setPhoneNumberError: (state, action: PayloadAction<string | null>) => {
+      if (!state.phoneNumber) {
+        state.phoneNumber = { value: null, error: null };
+      }
+      state.phoneNumber.error = action.payload;
+    },
+    setIsPhoneNumberUsed: (state, action: PayloadAction<boolean>) => {
+      if (state.isPhoneNumberUsed === undefined) {
+        state.isPhoneNumberUsed = false;
+      }
+      state.isPhoneNumberUsed = action.payload;
     },
     setWalletAddressValue: (state, action: PayloadAction<string | null>) => {
       state.walletAddress.value = action.payload;
@@ -308,6 +346,9 @@ export const {
   setSelectedBankError,
   setCardNumberValue,
   setCardNumberError,
+  setPhoneNumberValue,
+  setPhoneNumberError,
+  setIsPhoneNumberUsed,
   setWalletAddressValue,
   setWalletAddressError,
   setAreErrorsVisible,

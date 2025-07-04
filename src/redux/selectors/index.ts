@@ -85,6 +85,16 @@ export const selectCityValue = (state: RootState) =>
 export const selectCardNumberValue = (state: RootState) =>
   state.exchange.cardNumber.value;
 
+// Phone Number Value Selector
+export const selectPhoneNumberValue = (state: RootState) =>
+  state.exchange.phoneNumber?.value;
+
+// Is Phone Number Used Selector
+export const selectIsPhoneNumberUsed = (state: RootState) => {
+  console.log('selectIsPhoneNumberUsed:', state.exchange.isPhoneNumberUsed);
+  return state.exchange.isPhoneNumberUsed;
+};
+
 // Net Value Selector
 export const selectNetValue = (state: RootState) =>
   state.exchange.selectedNetwork.value;
@@ -131,6 +141,9 @@ export const selectBankError = (state: RootState) =>
 export const selectCardNumberError = (state: RootState) =>
   state.exchange.cardNumber.error;
 
+export const selectPhoneNumberError = (state: RootState) =>
+  state.exchange.phoneNumber?.error;
+
 export const selectCityError = (state: RootState) =>
   state.exchange.selectedCity ? state.exchange.selectedCity.error : null;
 
@@ -140,3 +153,15 @@ export const selectWalletAddressError = (state: RootState) =>
 // Errors Visibility Selector
 export const selectAreErrorsVisible = (state: RootState) =>
   state.exchange.areErrorsVisible;
+
+// Currency Type Selection Selectors
+export const selectIsSelectedCurrencyType = (position: "given" | "received", type: string) =>
+  createSelector(
+    (state: RootState) => position === "received" 
+      ? state.exchange.selectedCurrencyBuyType 
+      : state.exchange.selectedCurrencySellType,
+    (selectedType) => selectedType === type
+  );
+
+// Profile picture selector - простая функция без createSelector
+export const profilePictureSelector = (state: RootState) => state.user?.data?.user_data?.profile_picture;
