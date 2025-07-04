@@ -29,7 +29,9 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
 
     useEffect(() => {
       if (isMessageOpen) {
-        timeout.current && clearTimeout(timeout.current);
+        if (timeout.current )
+clearTimeout(timeout.current);
+         
         timeout.current = setTimeout(() => {
           setIsMessageOpen(false);
         }, 3000);
@@ -38,7 +40,9 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
 
     useEffect(() => {
       return () => {
-        timeout.current && clearTimeout(timeout.current);
+        if (timeout.current )
+clearTimeout(timeout.current);
+         
       };
     }, []);
 
