@@ -239,10 +239,14 @@ exchangeSliceListener.startListening({
       selectedCurrencyBuy,
     } = state.exchange;
 
-    // Check if bank name contains "СБП" to set phone number usage
-    if (selectedBankValue) {
+    // Check if bank name contains СБП and set phone number usage accordingly
+    if (selectedBankValue?.name) {
       const isSpbBank = selectedBankValue.name.includes('СБП');
+      console.log('Selected bank:', selectedBankValue.name, 'Is SPB bank:', isSpbBank);
       dispatch(setIsPhoneNumberUsed(isSpbBank));
+    } else {
+      console.log('No bank selected, setting phone usage to false');
+      dispatch(setIsPhoneNumberUsed(false));
     }
 
     if (

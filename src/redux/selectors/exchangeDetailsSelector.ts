@@ -175,6 +175,8 @@ export const selectExchangeDetails = createSelector(
 );
 
 export const selectExchangeCreateData = createSelector(
+  (state: RootState) => state.exchange.selectedCurrencySellType,
+  (state: RootState) => state.exchange.selectedCurrencyBuyType,
   (state: RootState) => state.exchange.currencySellAmount,
   (state: RootState) => state.exchange.currencyBuyAmount,
   (state: RootState) => state.exchange.walletAddress,
@@ -185,6 +187,8 @@ export const selectExchangeCreateData = createSelector(
   (state: RootState) => state.exchange.exchangeRate?.id,
   (state: RootState) => state.exchange.exchangeRate?.course,
   (
+    selectedCurrencySellType,
+    selectedCurrencyBuyType,
     currencySellAmount,
     currencyBuyAmount,
     walletAddress,
@@ -195,19 +199,34 @@ export const selectExchangeCreateData = createSelector(
     exchangeRateId,
     course
   ): ExchangesCreateApiArg => {
-    const cardValue = isPhoneNumberUsed 
-      ? (phoneNumber?.value || "") 
-      : (cardNumber?.value || "");
-      
-    return {
+    const baseData = {
       user_id: userId || -1,
       direction_id: exchangeRateId || -1,
       currency_give_amount: currencySellAmount.value || -1,
       currency_get_amount: currencyBuyAmount.value || -1,
-      card: cardValue,
-      wallet: walletAddress.value || "",
       course: course || 0
     };
+
+    // Determine what to send based on direction type
+    if (selectedCurrencySellType === "BANK" && selectedCurrencyBuyType === "COIN") {
+      // bank → coin: send wallet address for receiving crypto
+      return {
+        ...baseData,
+        wallet: walletAddress.value || ""
+      };
+    } else if (selectedCurrencySellType === "COIN" && selectedCurrencyBuyType === "BANK") {
+      // coin → bank: send card/phone for receiving fiat
+      const cardValue = isPhoneNumberUsed 
+        ? (phoneNumber?.value || "") 
+        : (cardNumber?.value || "");
+      return {
+        ...baseData,
+        card: cardValue
+      };
+    }
+
+    // Fallback (shouldn't happen in normal flow)
+    return baseData;
   }
 );
 
