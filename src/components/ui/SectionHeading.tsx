@@ -36,8 +36,9 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(({title,rate, minValu
           )}
           {minValue && (
               <span className='relative block pl-17 max-w-200'>
-                <Icon src='alert.svg' className={clsx('w-12 h-12 center-y left-0 opacity-0 transition-opacity duration-500', {"opacity-100": error})}></Icon>
-                 <span
+                 <Icon src='alert.svg' className={clsx('w-12 h-12 center-y left-0 opacity-0 transition-opacity duration-500', {"opacity-100": error})}></Icon>
+                <Icon src='question.svg' className={clsx('w-15 h-15 center-y left-0 opacity-0 transition-opacity duration-500', {"opacity-100": !error})}></Icon>
+                          <span
               className={clsx("block text-13 leading-normal text-[#999999]  [&_span]:transition-all [&_span]:duration-500", {
                 "[&]:text-primary-red [&_span]:text-primary-red-strong": error
               })}

@@ -1,27 +1,24 @@
-export interface ValidatePhoneNumberProps {
-  phoneNumber: string | null;
-  isPhoneNumberUsed: boolean;
-}
+import { ValidationOptions } from "../types";
 
-export const validatePhoneNumber = ({ phoneNumber, isPhoneNumberUsed }: ValidatePhoneNumberProps): string | null => {
-  if (!isPhoneNumberUsed) {
+export type ValidatePhoneNumberProps = {
+  value: string | null;
+  options?: ValidationOptions;
+};
+
+export const validatePhoneNumber = ({ value, options }: ValidatePhoneNumberProps): string | null => {
+  if (options?.position === "given") {
     return null;
   }
-
-  if (!phoneNumber) {
-    return "Номер телефона обязателен";
+  
+  if (!value || value.length === 0) {
+    return "Введите номер телефона";
   }
 
-  // Remove all non-digit characters
-  const digitsOnly = phoneNumber.replace(/\D/g, '');
+  // Remove all non-digit characters for validation
+  const cleanNumber = value.replace(/\D/g, "");
 
-  // Check if it's 11 digits and starts with 8
-  if (digitsOnly.length !== 11) {
+  if (cleanNumber.length !== 11) {
     return "Номер телефона должен содержать 11 цифр";
-  }
-
-  if (!digitsOnly.startsWith('8')) {
-    return "Номер телефона должен начинаться с 8";
   }
 
   return null;
