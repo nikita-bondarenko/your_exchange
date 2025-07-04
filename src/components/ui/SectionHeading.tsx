@@ -67,7 +67,7 @@ clearTimeout(timeout.current);
           ></span>
         )}
         {minValue && (
-          <button onClick={handleMinValueClick} className=" block pl-17 max-w-200">
+          <button onClick={handleMinValueClick} className=" relative block pl-17 max-w-200">
             <Icon
               src="alert.svg"
               className={clsx(
