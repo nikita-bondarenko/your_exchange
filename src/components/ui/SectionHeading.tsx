@@ -47,10 +47,19 @@ clearTimeout(timeout.current);
       };
     }, []);
 
+ 
     const handleMinValueClick: React.MouseEventHandler = () => {
       setIsMessageOpen(true);
     };
-     const {callSupport} = useCallSupport()
+
+    const { callSupport } = useCallSupport()
+
+
+    const handleMinValueDescriptionClick: React.MouseEventHandler = () => {
+      callSupport()
+      setIsMessageOpen(false)
+    }
+
     return (
       <div className="flex items-end justify-between mb-10 pl-6  gap-10">
         <h2 className="text-16 font-medium leading-normal  shrink-0 min-w-100">
@@ -119,7 +128,7 @@ clearTimeout(timeout.current);
           <p className="text-black mb-[5px] text-[14px]">
             Минимальная сумма обмена может быть ниже
           </p>
-          <button onClick={callSupport} className="text-[#999999] text-[13px]">
+          <button onClick={handleMinValueDescriptionClick} className="text-[#999999] text-[13px]">
             Уточните подробности у оператора
           </button>
         </div>
