@@ -134,6 +134,7 @@ export type Rate = {
   direction_type: DirectionType;
   currency_give: Currency;
   currency_get: Currency;
+course_title: string
 };
 export type GetJivoMessagesApiResponse = unknown;
 export type GetJivoMessagesApiArg = void;
