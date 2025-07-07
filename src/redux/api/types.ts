@@ -53,6 +53,7 @@ export type GetDirectionInitialDataByDirectionTypeApiResponse =
       direction_type: DirectionType;
       currency_give: Currency;
       currency_get: Currency;
+course_title: string
     };
     currencies_give?: Currency[];
     currencies_get?: Currency[];
@@ -83,7 +84,7 @@ export type ExchangesCreateApiArg = {
     currency_get_amount: number
     card?: string
     wallet?: string
-    course: number
+    course_title: string
 };
 
 export type Faq = {

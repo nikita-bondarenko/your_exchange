@@ -185,7 +185,7 @@ export const selectExchangeCreateData = createSelector(
   (state: RootState) => state.exchange.isPhoneNumberUsed,
   (state: RootState) => state.user.id,
   (state: RootState) => state.exchange.exchangeRate?.id,
-  (state: RootState) => state.exchange.exchangeRate?.course,
+  (state: RootState) => state.exchange.exchangeRate?.course_title,
   (
     selectedCurrencySellType,
     selectedCurrencyBuyType,
@@ -197,14 +197,14 @@ export const selectExchangeCreateData = createSelector(
     isPhoneNumberUsed,
     userId,
     exchangeRateId,
-    course
+    course_title
   ): ExchangesCreateApiArg => {
     const baseData = {
       user_id: userId || -1,
       direction_id: exchangeRateId || -1,
       currency_give_amount: currencySellAmount.value || -1,
       currency_get_amount: currencyBuyAmount.value || -1,
-      course: course || 0
+      course_title: course_title || ""
     };
 
     // Determine what to send based on direction type
