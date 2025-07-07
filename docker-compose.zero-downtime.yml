@@ -1,0 +1,72 @@
+services:
+  # Main service for Traefik (nginx load balancer)
+  secret:
+    image: nginx:alpine
+    container_name: secret
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - coex-tma
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/nginx-health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Blue instance for zero-downtime deployment
+  secret-blue:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: secret-blue
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - INSTANCE_COLOR=blue
+    volumes:
+      - secret_logs:/app/logs
+    networks:
+      - coex-tma
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    profiles:
+      - blue-green
+
+  # Green instance for zero-downtime deployment
+  secret-green:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: secret-green
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - INSTANCE_COLOR=green
+    volumes:
+      - secret_logs:/app/logs
+    networks:
+      - coex-tma
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    profiles:
+      - blue-green
+
+volumes:
+  secret_logs:
+    driver: local
+
+networks:
+  coex-tma:
+    external: true 
