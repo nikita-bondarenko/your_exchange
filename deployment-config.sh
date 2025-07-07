@@ -33,7 +33,7 @@ ZDT_NGINX_PORT="80"
 # Health check configuration
 ZDT_HEALTH_ENDPOINT="/api/health"
 ZDT_NGINX_HEALTH_ENDPOINT="/nginx-health"
-ZDT_EXTERNAL_HEALTH_URL="https://secret-front-2025.partners-bot.ru/api/health"
+ZDT_EXTERNAL_HEALTH_URL="https://secret-front-preview.partners-bot.ru/api/health"
 
 # Nginx configuration
 ZDT_NGINX_CONFIG_DIR="./nginx"
@@ -136,11 +136,12 @@ cryptus_switch_traffic() {
         return 1
     fi
     
-    if ! docker exec "$ZDT_MAIN_CONTAINER" nginx -s reload; then
-        zdt_log_error "Failed to reload nginx configuration"
+    # Instead of nginx reload, restart the container for more reliable config update
+    if ! docker restart "$ZDT_MAIN_CONTAINER"; then
+        zdt_log_error "Failed to restart nginx container"
         # Restore backup
         cp "${ZDT_NGINX_MAIN_CONFIG}.backup" "$ZDT_NGINX_MAIN_CONFIG"
-        docker exec "$ZDT_MAIN_CONTAINER" nginx -s reload
+        docker restart "$ZDT_MAIN_CONTAINER"
         return 1
     fi
     
