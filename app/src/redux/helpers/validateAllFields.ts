@@ -79,7 +79,6 @@ export const validateAllFields = (
         inputType: "phoneNumber",
         position,
         minValue: 0,
-        isPhoneNumberUsed: true,
       });
     } else {
       cardNumberError = validateExchangeInput({
