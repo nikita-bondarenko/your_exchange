@@ -84,6 +84,7 @@ export type ExchangesCreateApiArg = {
     currency_get_amount: number
     card?: string
     wallet?: string
+    phone?: string
     course_title: string
 };
 

@@ -216,13 +216,17 @@ export const selectExchangeCreateData = createSelector(
       };
     } else if (selectedCurrencySellType === "COIN" && selectedCurrencyBuyType === "BANK") {
       // coin → bank: send card/phone for receiving fiat
-      const cardValue = isPhoneNumberUsed 
-        ? (phoneNumber?.value || "") 
-        : (cardNumber?.value || "");
-      return {
-        ...baseData,
-        card: cardValue
-      };
+     if (isPhoneNumberUsed) {
+        return {
+          ...baseData,
+          phone: phoneNumber?.value || ""
+        };
+      } else {
+        return {
+          ...baseData,
+          card: cardNumber?.value || ""
+        };
+      }
     }
 
     // Fallback (shouldn't happen in normal flow)
