@@ -72,8 +72,9 @@ export default function Home() {
   ]);
 
   const descriptionItems = useRef([
-    { icon: "rocket.svg", text: "Быстрый обмен" },
-    { icon: "shield.svg", text: "Безопасность" },
+    { icon: "home.svg", text: "Наличные в офисе", className: "w-[15px] h-[15px]" },
+    { icon: "car.svg", text: "Курьерские доставки", className: "w-[20px] h-[12px]"  },
+    { icon: "planet.svg", text: "ВЭД", className: "w-[16px] h-[16px]"  },
   ]);
 
   return (
@@ -103,7 +104,7 @@ export default function Home() {
 
             <ul className="flex flex-col gap-11 mb-16">
               {descriptionItems.current.map((item, index) => (
-                <DescriptionItem icon={item.icon} key={index}>
+                <DescriptionItem icon={item.icon} key={index} className={item.className}>
                   {item.text}
                 </DescriptionItem>
               ))}
