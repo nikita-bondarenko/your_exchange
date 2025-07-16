@@ -8,11 +8,11 @@ const DescriptionItem: React.FunctionComponent<{
 }> = memo(({ icon, children, className }) => {
 
   return (
-    <li className={`rounded-full h-[31px] w-fit flex items-center justify-center px-17 gap-7 bg-[#EBEBEB] `}>
+    <li className={`rounded-full h-[31px] w-fit flex items-center justify-center px-14 gap-7 bg-[#EBEBEB] `}>
       <div className={className}>
         <Icon src={icon} className="w-full h-full"></Icon>
       </div>
-      <span className="font-medium text-13 text-[#404040]">{children}</span>
+      <span className="font-medium text-12 text-[#404040]">{children}</span>
     </li>
   );
 });
