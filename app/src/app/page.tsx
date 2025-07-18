@@ -54,7 +54,7 @@ export default function Home() {
 
   const additionallySectionListItems = useRef([
     {
-      text: "FAQ",
+      text: "Нас часто спрашивают",
       onClick: toFaqPage,
     },
       // {
