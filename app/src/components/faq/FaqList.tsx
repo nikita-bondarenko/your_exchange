@@ -25,7 +25,7 @@ export default function FaqList({ faqs }: Props) {
           key={index}
           triggerRender={({ onClick, isOpen }) => (
             <DropdownTrigger
-              className="[&]:justify-between px-[20px] [&]:text-left"
+              className="[&]:justify-between px-[20px] [&]:text-left [&]:py-[15px]"
               onClick={onClick}
               arrowPosition={isOpen ? "bottom" : "top"}
               arrow
