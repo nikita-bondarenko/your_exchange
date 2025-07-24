@@ -15,7 +15,7 @@ export default function FaqList({ faqs }: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setPageName("FAQ"));
+    dispatch(setPageName("Нас часто спрашивают"));
   }, []);
 
   return (
