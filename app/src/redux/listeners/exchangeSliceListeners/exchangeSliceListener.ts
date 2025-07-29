@@ -67,7 +67,7 @@ exchangeSliceListener.startListening({
     const { data } = await listenerApi.dispatch(
       cryptusApi.endpoints.getDirectionInitialDataByDirectionType.initiate({
         directionType,
-      })
+      }, { forceRefetch: true })
     );
     if (!data) return;
     dispatch(setInitialData(data));
@@ -110,7 +110,7 @@ exchangeSliceListener.startListening({
       cryptusApi.endpoints.getCurrenciesGet.initiate({
         giveCurrencyId: selectedCurrencySell?.id,
         currencyType: selectedCurrencyBuyType,
-      })
+      }, { forceRefetch: true })
     );
     if (!data) return;
   
@@ -172,7 +172,7 @@ exchangeSliceListener.startListening({
         network_id: selectedCurrencyBuyNetwork?.id || selectedNetwork?.value?.id,
         bank_id: selectedCurrencyBuyBank?.id || selectedBank?.value?.id,
         city_id: selectedCurrencyBuyCity?.id || selectedCity?.value?.id,
-      })
+      }, { forceRefetch: true })
     );
     if (!data) return;
     dispatch(setExchangeRate(data?.rate || null));
@@ -214,7 +214,7 @@ exchangeSliceListener.startListening({
         network_id: selectedNetworkValue?.id,
         bank_id: selectedBank?.value?.id,
         city_id: selectedCity?.value?.id,
-      })
+      }, { forceRefetch: true })
     );
     if (!data) return;
     dispatch(setExchangeRate(data?.rate || null));
@@ -266,7 +266,7 @@ exchangeSliceListener.startListening({
         network_id: selectedNetwork?.value?.id,
         bank_id: selectedBankValue?.id,
         city_id: selectedCity?.value?.id,
-      })
+      }, { forceRefetch: true })
     );
     if (!data) return;
     dispatch(setExchangeRate(data?.rate || null));
@@ -309,7 +309,7 @@ exchangeSliceListener.startListening({
         network_id: selectedNetwork?.value?.id,
         bank_id: selectedBank?.value?.id,
         city_id: selectedCityValue?.id,
-      })
+      }, { forceRefetch: true })
     );
     if (!data) return;
     dispatch(setExchangeRate(data?.rate || null));
@@ -484,7 +484,7 @@ exchangeSliceListener.startListening({
               network_id: currentSelectedNetwork?.value?.id,
               bank_id: currentSelectedBank?.value?.id,
               city_id: currentSelectedCity.value?.id,
-            })
+            }, { forceRefetch: true })
           );
           
           if (!data?.rate) {
@@ -544,9 +544,9 @@ exchangeSliceListener.startListening({
       console.log('[Rate Pulling] Performing initial rate update');
       await updateRate();
       
-      // Set up interval for automatic updates every 10 seconds
+      // Set up interval for automatic updates every 30 seconds
       console.log('[Rate Pulling] Setting up interval for automatic updates every 10 seconds');
-      rateUpdateInterval = setInterval(updateRate, 10000);
+      rateUpdateInterval = setInterval(updateRate, 30000);
     }
   }
 })
