@@ -79,6 +79,26 @@ input::placeholder {
   @apply text-[#BFBFBF]
 }
 
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+textarea {
+  font-size: 16px !important;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+/* Убираем синий фон при фокусе на iOS */
+input:focus,
+textarea:focus {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .simplebar-scrollbar::before {
   @apply bg-neutral-gray-700 rounded-6
 

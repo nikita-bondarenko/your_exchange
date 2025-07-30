@@ -86,6 +86,7 @@ export type ExchangesCreateApiArg = {
     wallet?: string
     phone?: string
     course_title: string
+    promo_code?: string
 };
 
 export type Faq = {
@@ -212,4 +213,13 @@ export type UsersRequisites = {
   user: number;
   type_req?: ("BANK" | "COIN") | null;
   get_to?: string | null;
+};
+
+
+export type CheckPromocodeApiArg = {
+  code: string
+};
+
+export type CheckPromocodeApiResponse= {
+  detail: string
 };

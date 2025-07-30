@@ -1,6 +1,6 @@
 import { API_URL } from '@/config'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { PostCallingOperatorApiResponse, PostCallingOperatorApiArg, GetCurrenciesGetApiResponse, GetCurrenciesGetApiArg, GetDirectionInitialDataByDirectionTypeApiResponse, GetDirectionInitialDataByDirectionTypeApiArg, PostExchangesOtherApiResponse, PostExchangesOtherApiArg, ExchangesCreateApiResponse, ExchangesCreateApiArg, FaqsListApiResponse, FaqsListApiArg, GetGetRequisitesApiResponse, GetGetRequisitesApiArg, GetJivoMessagesApiResponse, GetJivoMessagesApiArg, PostJivoMessagesApiResponse, PostJivoMessagesApiArg, RateListApiResponse, RateListApiArg, UserListApiResponse, UserListApiArg, UserUpdateCreateApiResponse, UserUpdateCreateApiArg } from './types';
+import { PostCallingOperatorApiResponse, PostCallingOperatorApiArg, GetCurrenciesGetApiResponse, GetCurrenciesGetApiArg, GetDirectionInitialDataByDirectionTypeApiResponse, GetDirectionInitialDataByDirectionTypeApiArg, PostExchangesOtherApiResponse, PostExchangesOtherApiArg, ExchangesCreateApiResponse, ExchangesCreateApiArg, FaqsListApiResponse, FaqsListApiArg, GetGetRequisitesApiResponse, GetGetRequisitesApiArg, GetJivoMessagesApiResponse, GetJivoMessagesApiArg, PostJivoMessagesApiResponse, PostJivoMessagesApiArg, RateListApiResponse, RateListApiArg, UserListApiResponse, UserListApiArg, UserUpdateCreateApiResponse, UserUpdateCreateApiArg, CheckPromocodeApiResponse, CheckPromocodeApiArg } from './types';
 
 export const api = createApi({
   reducerPath: 'api',
@@ -109,6 +109,15 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.body,
       }),
     }),
+    checkPromocode:build.mutation<
+    CheckPromocodeApiResponse,
+    CheckPromocodeApiArg
+  >({
+    query: (queryArg) => ({
+      url: `/check-promo-code/?code=${queryArg.code}`,
+      method: "GET",
+    }),
+  }),
   }),
   overrideExisting: false,
 });
@@ -126,6 +135,7 @@ export const {
   useRateListQuery,
   useUserListQuery,
   useUserUpdateCreateMutation,
+  useCheckPromocodeMutation
 } = injectedRtkApi;
 
 export {injectedRtkApi as cryptusApi}

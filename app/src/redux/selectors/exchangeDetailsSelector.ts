@@ -186,6 +186,9 @@ export const selectExchangeCreateData = createSelector(
   (state: RootState) => state.user.id,
   (state: RootState) => state.exchange.exchangeRate?.id,
   (state: RootState) => state.exchange.exchangeRate?.course_title,
+  (state: RootState) => state.exchange.promocode,
+  (state: RootState) => state.exchange.isPromocodeValid,
+
   (
     selectedCurrencySellType,
     selectedCurrencyBuyType,
@@ -197,15 +200,22 @@ export const selectExchangeCreateData = createSelector(
     isPhoneNumberUsed,
     userId,
     exchangeRateId,
-    course_title
+    course_title,
+    promocode,
+    isPromocodeValid
   ): ExchangesCreateApiArg => {
-    const baseData = {
+    let baseData: ExchangesCreateApiArg = {
       user_id: userId || -1,
       direction_id: exchangeRateId || -1,
       currency_give_amount: currencySellAmount.value || -1,
       currency_get_amount: currencyBuyAmount.value || -1,
       course_title: course_title || ""
     };
+
+    if (isPromocodeValid) {
+
+      baseData = {...baseData, promo_code: promocode}
+    }
 
     // Determine what to send based on direction type
     if (selectedCurrencySellType === "BANK" && selectedCurrencyBuyType === "COIN") {

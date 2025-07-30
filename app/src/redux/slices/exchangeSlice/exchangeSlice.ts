@@ -13,6 +13,7 @@ import {
   Rate,
 } from "@/redux/api/types";
 import { calculateCurrencyTypeFromDirection } from "@/helpers/calculateCurrencyTypeFromDirection";
+import { string } from "zod";
 
 export type ExchangeInput<T> = {
   value: T | null;
@@ -46,6 +47,8 @@ export type ExchangeState = {
   currencySellAmount: ExchangeInput<number | null>;
   currencyBuyAmount: ExchangeInput<number | null>;
   isRateBeingPulled: boolean;
+  promocode: string;
+  isPromocodeValid: boolean
 };
 
 export const initialState: ExchangeState = {
@@ -97,6 +100,8 @@ export const initialState: ExchangeState = {
     error: null,
   },
   isRateBeingPulled: false,
+  promocode: '',
+  isPromocodeValid: false
 };
 
 export const calculateSecondaryProperties = (
@@ -161,6 +166,8 @@ export const exchangeSlice = createSlice({
       state.selectedNetwork.value = networks[0] || null;
       state.selectedBank.value = banks[0] || null;
       state.selectedCity.value = null;
+      state.promocode = ''
+      state.isPromocodeValid = false
       
       // Reset phone number fields
       if (!state.phoneNumber) {
@@ -174,6 +181,9 @@ export const exchangeSlice = createSlice({
       } else {
         state.isPhoneNumberUsed = false;
       }
+    },
+    setPromocode: (state, action: PayloadAction<string>) => {
+      state.promocode = action.payload;
     },
     setCurrenciesSell: (state, action: PayloadAction<Currency[]>) => {
       state.currenciesSell = action.payload;
@@ -324,6 +334,9 @@ export const exchangeSlice = createSlice({
     setIsRateBeingPulled: (state, action: PayloadAction<boolean>) => {
       state.isRateBeingPulled = action.payload;
     },
+    setIsPromocodeValid:  (state, action: PayloadAction<boolean>) => {
+      state.isPromocodeValid = action.payload;
+    },
   },
 });
 
@@ -362,7 +375,9 @@ export const {
   clearCurrencies,
   clearAll,
   setInitialData,
-  setIsRateBeingPulled
+  setIsRateBeingPulled,
+  setPromocode,
+  setIsPromocodeValid
 } = exchangeSlice.actions;
 
 export default exchangeSlice.reducer;
