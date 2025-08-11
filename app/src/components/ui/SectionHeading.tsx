@@ -89,7 +89,7 @@ clearTimeout(timeout.current);
             <Icon
               src="question.svg"
               className={clsx(
-                "w-15 h-15 center-y left-0 opacity-0 transition-opacity duration-500",
+                "w-18 h-18 center-y left-[-8px] opacity-0 transition-opacity duration-500 animate-pulse",
                 { "opacity-100": !error }
               )}
             ></Icon>
