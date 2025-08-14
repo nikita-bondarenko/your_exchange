@@ -64,6 +64,8 @@ export default function ExchangeResultPage() {
           Наш оператор свяжется <br />с вами в течение 15 минут <br /> <br />
             Курс обмена может меняться в&nbsp;зависимости от&nbsp;волатильности
             рынка. Итоговый курс сделки озвучит оператор.
+            <br /> <br />
+            Заранее информируем вас о&nbsp;том, что среднее время обмена сейчас составляет до&nbsp;180 минут, в&nbsp;связи с&nbsp;волатильностью рынка и&nbsp;техническими сложностями в&nbsp;переводах
           </div>
           <div className="w-full h-1 bg-[#BFBFBF] mt-5 mb-13"></div>
           <div className="flex flex-col items-center gap-2">
