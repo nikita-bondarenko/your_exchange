@@ -1,13 +1,14 @@
 "use client";
 import ExchangePageLayout from "@/components/exchange/ExchangePageLayout";
 import ExchangeTypeBlock from "@/components/exchange/ExchangeTypeBlock";
+import NoteModal from "@/components/exchange/NoteModal";
 import { exchangeTypesButtons } from "@/data/exchangeTypesButtons";
 import { useCallSupport } from "@/hooks/useCallSupport";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setIsLoading, setPageName } from "@/redux/slices/uiSlice";
 import { store, RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
-import React, { memo, useCallback, useEffect, useRef } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 
 export default memo(function Page() {
   const recieveOptions = useAppSelector(
@@ -30,6 +31,7 @@ export default memo(function Page() {
   }, [dispatch]);
 
   const giveOptions = useRef(exchangeTypesButtons);
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(true);
   return (
     <ExchangePageLayout onMainButtonClick={onSubmit} buttonText="Подтвердить выбор">
       <div className="flex flex-col gap-12 justify-between mb-50">
@@ -55,6 +57,11 @@ export default memo(function Page() {
           </button>
         </div>
       </div>
+      <NoteModal mode="light" isOpen={isNoteModalOpen} handleClose={() => setIsNoteModalOpen(false)}>
+        Напоминаем вам о&nbsp;том, что курс зависит как от&nbsp;<strong className="font-semibold">волатильности рынка</strong>, так и&nbsp;от&nbsp;<strong className="font-semibold">общей суммы обмена</strong>.
+        <br /> <br />
+        Чем сумма обмена больше, тем&nbsp;<strong className="font-semibold">более выгодный курс</strong> относительно рынкамы сможем вам предложить.
+      </NoteModal>
     </ExchangePageLayout>
   );
 });
