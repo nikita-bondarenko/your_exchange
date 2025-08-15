@@ -13,7 +13,7 @@ export default function QuestionIconAnimation({ error, className, wavesColor }: 
             <Icon
                 src="question.svg"
                 className={clsx(
-                    "w-18 h-18  "
+                    "w-18 h-18  translate-x-[0.3px] translate-y-[0.5px]"
                 )}
             ></Icon>
             <span style={{ borderColor: wavesColor }} className="absolute inset-[2px] rounded-full animation-wave-2 border   wave1"></span>
