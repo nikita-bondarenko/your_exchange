@@ -3,8 +3,7 @@ import React, { memo, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import Icon from "../helpers/Icon";
 import { useCallSupport } from "@/hooks/useCallSupport";
-
-export type HeadingRate = {
+import QuestionIconAnimation from "./QuestionIconAnimation";export type HeadingRate = {
   from: {
     value: number;
     name: string;
@@ -86,13 +85,8 @@ clearTimeout(timeout.current);
                 { "opacity-100": error }
               )}
             ></Icon>
-            <Icon
-              src="question.svg"
-              className={clsx(
-                "w-18 h-18 center-y left-[-8px] opacity-0 transition-opacity duration-500 animate-pulse",
-                { "opacity-100": !error }
-              )}
-            ></Icon>
+                       <QuestionIconAnimation error={error} wavesColor="#323232" className="center-y left-[-8px] z-20"></QuestionIconAnimation>
+
             <span
               className={clsx(
                 "block text-13 leading-normal text-neutral-gray-1600  [&_span]:transition-all [&_span]:duration-500",

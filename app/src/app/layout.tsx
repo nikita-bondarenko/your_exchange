@@ -32,7 +32,7 @@ export default function RootLayout({
           <TelegramWebAppProvider>
             <Header></Header>
             <LoadingProvider>
-              <main className="pb-35 flex-grow overflow-x-hidden h-full">
+              <main className="pb-35 flex-grow h-full">
                 {children}
               </main>
             </LoadingProvider>

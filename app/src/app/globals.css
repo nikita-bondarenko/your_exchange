@@ -34,6 +34,10 @@ button {
   animation: pingWave 2.4s ease-out infinite
 }
 
+.animation-wave-2 {
+  animation: pingWaveSmall 2.4s ease-out infinite
+}
+
 .wave1 {}
 
 .wave2 {
@@ -128,6 +132,23 @@ textarea:focus {
 
   100% {
     transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes pingWaveSmall {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(2);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(2);
     opacity: 0;
   }
 }
