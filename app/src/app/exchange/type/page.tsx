@@ -31,7 +31,14 @@ export default memo(function Page() {
   }, [dispatch]);
 
   const giveOptions = useRef(exchangeTypesButtons);
-  const [isNoteModalOpen, setIsNoteModalOpen] = useState(true);
+    const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+ useEffect(() => {
+setTimeout(() => {
+setIsNoteModalOpen(true)
+},1000)
+
+  }, []);
+
   return (
     <ExchangePageLayout onMainButtonClick={onSubmit} buttonText="Подтвердить выбор">
       <div className="flex flex-col gap-12 justify-between mb-50">
@@ -60,7 +67,7 @@ export default memo(function Page() {
       <NoteModal mode="light" isOpen={isNoteModalOpen} handleClose={() => setIsNoteModalOpen(false)}>
         Напоминаем вам о&nbsp;том, что курс зависит как от&nbsp;<strong className="font-semibold">волатильности рынка</strong>, так и&nbsp;от&nbsp;<strong className="font-semibold">общей суммы обмена</strong>.
         <br /> <br />
-        Чем сумма обмена больше, тем&nbsp;<strong className="font-semibold">более выгодный курс</strong> относительно рынкамы сможем вам предложить.
+        Чем сумма обмена больше, тем&nbsp;<strong className="font-semibold">более выгодный курс</strong> относительно рынка мы сможем вам предложить.
       </NoteModal>
     </ExchangePageLayout>
   );
