@@ -25,7 +25,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="theme-color" content="#ffffff" />
         <title>Секретный Обменник</title>
-        <meta name="description" content="Секретный Обменник - Telegram Mini App" />
+        <meta name="description" content="Test Change - Telegram Mini App" />
       </head>
       <body className={`${inter.variable} antialiased flex flex-col h-screen`}>
         <StoreProvider>

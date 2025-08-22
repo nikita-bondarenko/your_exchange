@@ -84,12 +84,12 @@ export default function Home() {
           className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col bg-white relative overflow-hidden"
 
         >
-            <div className="absolute bottom-[70px] translate-y-[10%] right-[3%] translate-x-1/2 w-[217%] aspect-square bg-[url(/images/bot.png)] bg-contain"></div>
+            <div className="absolute bottom-[70px] translate-y-[10%] right-[3%] translate-x-1/2 w-[217%] aspect-square  bg-contain"></div>
           <div className="flex-grow flex flex-col justify-center relative z-10">
             <div className="flex justify-between">
               <div className="max-w-205">
                 <h1 className="font-bold text-black text-32 mb-15 leading-normal">
-                  Секретный Обменник
+                  Test Change
                 </h1>
                 <p className="text-16 font-medium mb-30 text-[#505050] ">
                   Покупка и&nbsp;продажа <br/>криптовалюты <br/>по&nbsp;выгодному курсу
