@@ -1,8 +1,8 @@
 services:
   # Main service for Traefik (nginx load balancer)
-  secret:
+  test-change:
     image: nginx:alpine
-    container_name: secret
+    container_name: test-change
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
@@ -16,17 +16,17 @@ services:
       start_period: 10s
 
   # Blue instance for zero-downtime deployment
-  secret-blue:
+  test-change-blue:
     build:
       context: ./app
       dockerfile: Dockerfile
-    container_name: secret-blue
+    container_name: test-change-blue
     environment:
       - NODE_ENV=production
       - PORT=3000
       - INSTANCE_COLOR=blue
     volumes:
-      - secret_logs:/app/logs
+      - test-change_logs:/app/logs
     networks:
       - coex-tma
     restart: unless-stopped
@@ -40,17 +40,17 @@ services:
       - blue-green
 
   # Green instance for zero-downtime deployment
-  secret-green:
+  test-change-green:
     build:
       context: ./app
       dockerfile: Dockerfile
-    container_name: secret-green
+    container_name: test-change-green
     environment:
       - NODE_ENV=production
       - PORT=3000
       - INSTANCE_COLOR=green
     volumes:
-      - secret_logs:/app/logs
+      - test-change_logs:/app/logs
     networks:
       - coex-tma
     restart: unless-stopped
@@ -64,7 +64,7 @@ services:
       - blue-green
 
 volumes:
-  secret_logs:
+  test-change_logs:
     driver: local
 
 networks:

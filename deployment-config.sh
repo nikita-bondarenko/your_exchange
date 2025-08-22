@@ -16,14 +16,14 @@ ZDT_COMPOSE_FILE="docker-compose.zero-downtime.yml"
 ZDT_COMPOSE_PROFILE="blue-green"
 
 # Container names
-ZDT_BLUE_CONTAINER="secret-blue"
-ZDT_GREEN_CONTAINER="secret-green"
-ZDT_MAIN_CONTAINER="secret"
+ZDT_BLUE_CONTAINER="test-change-blue"
+ZDT_GREEN_CONTAINER="test-change-green"
+ZDT_MAIN_CONTAINER="test-change"
 
 # Service names
-ZDT_BLUE_SERVICE="secret-blue"
-ZDT_GREEN_SERVICE="secret-green"
-ZDT_MAIN_SERVICE="secret"
+ZDT_BLUE_SERVICE="test-change-blue"
+ZDT_GREEN_SERVICE="test-change-green"
+ZDT_MAIN_SERVICE="test-change"
 
 # Network configuration
 ZDT_NETWORK_NAME="coex-tma"
@@ -33,7 +33,7 @@ ZDT_NGINX_PORT="80"
 # Health check configuration
 ZDT_HEALTH_ENDPOINT="/api/health"
 ZDT_NGINX_HEALTH_ENDPOINT="/nginx-health"
-ZDT_EXTERNAL_HEALTH_URL="https://secret-front-2025.partners-bot.ru/api/health"
+ZDT_EXTERNAL_HEALTH_URL="https://test-change-front-2025.partners-bot.ru/api/health"
 
 # Nginx configuration
 ZDT_NGINX_CONFIG_DIR="./nginx"

@@ -106,8 +106,8 @@ cmd_logs() {
     if [ -z "$service" ]; then
         echo "Available services:"
         echo "  - main (cryptus nginx)"
-        echo "  - blue (secret-blue)"
-        echo "  - green (secret-green)"
+        echo "  - blue (test-change-blue)"
+        echo "  - green (test-change-green)"
         echo ""
         echo "Usage: $0 logs <service> [follow]"
         return 1
