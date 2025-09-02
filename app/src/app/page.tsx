@@ -12,6 +12,7 @@ import { POLICY_URL, TEST_USER_ID } from "@/config";
 import { useCallSupport } from "@/hooks/useCallSupport";
 import { TERMS_URL } from "@/config";
 import dynamic from "next/dynamic";
+import EmailModal from "@/components/home/EmailModal";
 const RequestStatus = dynamic(() => import("@/components/home/RequestStatus"), {
   ssr: false,
 });
@@ -138,6 +139,7 @@ export default function Home() {
           title="Дополнительно"
         />
       </div>
+      <EmailModal></EmailModal>
     </>
   );
 }

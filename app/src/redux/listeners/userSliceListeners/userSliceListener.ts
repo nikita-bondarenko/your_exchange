@@ -18,6 +18,7 @@ userSliceListener.startListening({
     );
     // console.log("userSliceListener", data);
     if (data) {
+      console.log(data)
       listenerApi.dispatch(setUserData(data));
     }
   },

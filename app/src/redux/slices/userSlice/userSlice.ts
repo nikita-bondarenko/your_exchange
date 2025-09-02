@@ -5,7 +5,7 @@ import { number } from "zod";
 export type UserState = {
   id: number | null;
   data: UserListApiResponse | null;
-}
+};
 
 const initialState: UserState = {
   data: null,
@@ -19,10 +19,15 @@ export const userSlice = createSlice({
     setUserId(state, action: PayloadAction<number>) {
       state.id = action.payload;
     },
-    setUserData (state, action: PayloadAction<UserListApiResponse>) {
+    setUserData(state, action: PayloadAction<UserListApiResponse>) {
       state.data = action.payload;
+    },
+
+    setUserEmail(state, action: PayloadAction<string>) {
+      if (state.data)
+        if (state.data.user_data) state.data.user_data.email = action.payload;
     },
   },
 });
-export const { setUserId, setUserData } = userSlice.actions;
+export const { setUserId, setUserData, setUserEmail } = userSlice.actions;
 export default userSlice.reducer;

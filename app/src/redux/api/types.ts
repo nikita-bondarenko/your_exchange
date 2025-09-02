@@ -180,6 +180,7 @@ export type UserListApiResponse =
       name?: string;
       email?: string;
       phone?: string;
+      mail_request?: boolean
     };
     requests_in_process?: Request[];
     requests_all?: Request[];
@@ -207,6 +208,8 @@ export type UserUpdateCreateApiArg = {
     phone?: string;
     /** Электронная почта */
     email?: string;
+
+
   };
 };
 export type UsersRequisites = {

@@ -1,10 +1,12 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
+import { Input } from "./ui/Input";
+import { InputWrapper } from "./ui/InputWrapper";
 
 const InputField: React.FC<{
   value: string;
   onChange: (value: string) => void;
-  onBlur: () => void;
+  onBlur?: () => void;
   error?: string;
   placeholder?: string;
   disabled?: boolean;
@@ -14,38 +16,20 @@ const InputField: React.FC<{
   };
 
   const handleBlur = () => {
-    onBlur();
+    if (onBlur) onBlur();
   };
 
   return (
-    <div className="relative">
-      <input
-        type="text"
-        value={value}
+    <InputWrapper error={error}>
+      <Input
         onChange={handleChange}
-        onBlur={handleBlur}
+        value={value}
+        type="text"
+        className=" border border-transparent rounded-6  placeholder:text-[#7B7B7B] text-16 leading-normal px-18 py-15 w-full"
         placeholder={placeholder}
-        disabled={disabled}
-        className={clsx(
-          "w-full rounded-6 border bg-black px-19 py-26 text-16 leading-normal placeholder:text-neutral-gray-400",
-          "focus:outline-none focus:border-neutral-blue-100",
-          "disabled:bg-neutral-gray-100 disabled:cursor-not-allowed",
-          {
-            "border-neutral-gray-200": !error,
-            "border-primary-red": error,
-          }
-        )}
       />
-      {error && (
-        <span className={clsx(
-          "absolute right-19 top-1/2 -translate-y-1/2 text-neutral-gray-400",
-          "peer-focus:text-neutral-blue-100"
-        )}>
-          {error}
-        </span>
-      )}
-    </div>
+    </InputWrapper>
   );
 };
 
-export default InputField; 
+export default InputField;

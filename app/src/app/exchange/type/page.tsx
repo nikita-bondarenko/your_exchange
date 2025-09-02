@@ -14,7 +14,7 @@ export default memo(function Page() {
   const recieveOptions = useAppSelector(
     (state) => state.exchange.currencyBuyTypeOptions
   );
-  
+
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -22,25 +22,21 @@ export default memo(function Page() {
     router.push("/exchange/input");
   }, [router]);
 
-  const {callSupport} = useCallSupport()
+  const { callSupport } = useCallSupport();
 
   useEffect(() => {
     dispatch(setPageName("выбор типа обмена"));
-    dispatch(setIsLoading(false))
-
+    dispatch(setIsLoading(false));
   }, [dispatch]);
 
   const giveOptions = useRef(exchangeTypesButtons);
-    const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
- useEffect(() => {
-setTimeout(() => {
-setIsNoteModalOpen(true)
-},1000)
-
-  }, []);
+  
 
   return (
-    <ExchangePageLayout onMainButtonClick={onSubmit} buttonText="Подтвердить выбор">
+    <ExchangePageLayout
+      onMainButtonClick={onSubmit}
+      buttonText="Подтвердить выбор"
+    >
       <div className="flex flex-col gap-12 justify-between mb-50">
         <ExchangeTypeBlock
           position="given"
@@ -64,11 +60,7 @@ setIsNoteModalOpen(true)
           </button>
         </div>
       </div>
-      <NoteModal mode="light" isOpen={isNoteModalOpen} handleClose={() => setIsNoteModalOpen(false)}>
-        Напоминаем вам о&nbsp;том, что курс зависит как от&nbsp;<strong className="font-semibold">волатильности рынка</strong>, так и&nbsp;от&nbsp;<strong className="font-semibold">общей суммы обмена</strong>.
-        <br /> <br />
-        Чем сумма обмена больше, тем&nbsp;<strong className="font-semibold">более выгодный курс</strong> относительно рынка мы сможем вам предложить.
-      </NoteModal>
+      <NoteModal></NoteModal>
     </ExchangePageLayout>
   );
 });
