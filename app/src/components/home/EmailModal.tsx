@@ -34,7 +34,6 @@ export default function EmailModal () {
   const isMailRequired = useAppSelector((state) => state.user.mailRequired);
 
   useEffect(() => {
-    console.log('isMailRequired', isMailRequired)
     if (isMailRequired)
       setTimeout(() => {
         setIsEmailModalOpen(true);
