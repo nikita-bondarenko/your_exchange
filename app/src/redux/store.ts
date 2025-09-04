@@ -46,7 +46,7 @@ store.subscribe(() => {
   saveState({
     exchange: state.exchange,
     requestDetails: state.requestDetails,
-    user: state.user,
+    // user: state.user,  
   });
 });
 

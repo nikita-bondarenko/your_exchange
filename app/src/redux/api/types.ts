@@ -226,3 +226,14 @@ export type CheckPromocodeApiArg = {
 export type CheckPromocodeApiResponse= {
   detail: string
 };
+
+
+export type CheckMailApiArg = {
+  user_id: number
+};
+
+export type CheckMailApiResponse= {
+  mail_request: boolean
+};
+
+

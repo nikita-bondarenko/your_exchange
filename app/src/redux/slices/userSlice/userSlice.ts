@@ -5,11 +5,13 @@ import { number } from "zod";
 export type UserState = {
   id: number | null;
   data: UserListApiResponse | null;
+  mailRequired: boolean;
 };
 
 const initialState: UserState = {
   data: null,
   id: null,
+  mailRequired: false,
 };
 
 export const userSlice = createSlice({
@@ -27,7 +29,10 @@ export const userSlice = createSlice({
       if (state.data)
         if (state.data.user_data) state.data.user_data.email = action.payload;
     },
+    setMailRequired(state, action: PayloadAction<boolean>) {
+      state.mailRequired = action.payload;
+    },
   },
 });
-export const { setUserId, setUserData, setUserEmail } = userSlice.actions;
+export const { setUserId, setUserData, setUserEmail, setMailRequired } = userSlice.actions;
 export default userSlice.reducer;

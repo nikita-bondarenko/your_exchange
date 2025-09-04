@@ -6,6 +6,7 @@ import { LoadingProvider } from "@/components/LoadingProvider";
 import { TelegramWebAppProvider } from "@/components/TelegramWebAppProvider";
 import StoreProvider from "@/redux/StoreProvider";
 import { useEffect } from "react";
+import EmailRequirementChecking from "@/components/EmailRequirementChecking";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,6 +37,7 @@ export default function RootLayout({
                 {children}
               </main>
             </LoadingProvider>
+            <EmailRequirementChecking></EmailRequirementChecking>
           </TelegramWebAppProvider>
         </StoreProvider>
       </body>

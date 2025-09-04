@@ -4,7 +4,7 @@ import InputField from "../InputField";
 import { formSchema } from "@/schemas/formSchema";
 import z from "zod";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useUserUpdateCreateMutation } from "@/redux/api/cryptusApi";
+import {  useUserUpdateCreateMutation } from "@/redux/api/cryptusApi";
 import { setUserEmail } from "@/redux/slices/userSlice/userSlice";
 
 export const validateEmail = (email: string): { error: string } => {
@@ -31,14 +31,14 @@ export default function EmailModal () {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.data?.user_data);
   const userId = useAppSelector((state) => state.user.id);
-
-  const isMailRequired = userData?.mail_request;
+  const isMailRequired = useAppSelector((state) => state.user.mailRequired);
 
   useEffect(() => {
+    console.log('isMailRequired', isMailRequired)
     if (isMailRequired)
       setTimeout(() => {
         setIsEmailModalOpen(true);
-      }, 2000);
+      }, 1000);
   }, [isMailRequired]);
 
   useEffect(() => {
@@ -47,7 +47,6 @@ export default function EmailModal () {
   }, [value]);
 
   const [updateUser] = useUserUpdateCreateMutation();
-
   const handleSubmit = async () => {
     console.log("submit", !error && userId);
     setIsErrorShowing(true);

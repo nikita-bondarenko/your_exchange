@@ -1,6 +1,6 @@
 import { API_URL } from '@/config'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { PostCallingOperatorApiResponse, PostCallingOperatorApiArg, GetCurrenciesGetApiResponse, GetCurrenciesGetApiArg, GetDirectionInitialDataByDirectionTypeApiResponse, GetDirectionInitialDataByDirectionTypeApiArg, PostExchangesOtherApiResponse, PostExchangesOtherApiArg, ExchangesCreateApiResponse, ExchangesCreateApiArg, FaqsListApiResponse, FaqsListApiArg, GetGetRequisitesApiResponse, GetGetRequisitesApiArg, GetJivoMessagesApiResponse, GetJivoMessagesApiArg, PostJivoMessagesApiResponse, PostJivoMessagesApiArg, RateListApiResponse, RateListApiArg, UserListApiResponse, UserListApiArg, UserUpdateCreateApiResponse, UserUpdateCreateApiArg, CheckPromocodeApiResponse, CheckPromocodeApiArg } from './types';
+import { PostCallingOperatorApiResponse, PostCallingOperatorApiArg, GetCurrenciesGetApiResponse, GetCurrenciesGetApiArg, GetDirectionInitialDataByDirectionTypeApiResponse, GetDirectionInitialDataByDirectionTypeApiArg, PostExchangesOtherApiResponse, PostExchangesOtherApiArg, ExchangesCreateApiResponse, ExchangesCreateApiArg, FaqsListApiResponse, FaqsListApiArg, GetGetRequisitesApiResponse, GetGetRequisitesApiArg, GetJivoMessagesApiResponse, GetJivoMessagesApiArg, PostJivoMessagesApiResponse, PostJivoMessagesApiArg, RateListApiResponse, RateListApiArg, UserListApiResponse, UserListApiArg, UserUpdateCreateApiResponse, UserUpdateCreateApiArg, CheckPromocodeApiResponse, CheckPromocodeApiArg, CheckMailApiArg, CheckMailApiResponse } from './types';
 
 export const api = createApi({
   reducerPath: 'api',
@@ -118,6 +118,14 @@ const injectedRtkApi = api.injectEndpoints({
       method: "GET",
     }),
   }),
+   checkMail: build.mutation<
+      CheckMailApiResponse,
+      CheckMailApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/user/check-mail/?user_id=${queryArg.user_id}`,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -135,7 +143,8 @@ export const {
   useRateListQuery,
   useUserListQuery,
   useUserUpdateCreateMutation,
-  useCheckPromocodeMutation
+  useCheckPromocodeMutation,
+  useCheckMailMutation
 } = injectedRtkApi;
 
 export {injectedRtkApi as cryptusApi}
