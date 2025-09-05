@@ -233,7 +233,7 @@ export type CheckMailApiArg = {
 };
 
 export type CheckMailApiResponse= {
-  mail_request: boolean
+  mail_required: boolean
 };
 
 

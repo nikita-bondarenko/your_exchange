@@ -11,7 +11,7 @@ export default function EmailRequirementChecking() {
   useEffect(() => {
     if (userId) {
       checkMail({ user_id: userId || 0 }).then((res) => {
-        if (res.data?.mail_request)
+        if (res.data?.mail_required)
         dispatch(setMailRequired(true));
       });
     }
