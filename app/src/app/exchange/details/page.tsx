@@ -80,6 +80,10 @@ const timeoutId = useRef<NodeJS.Timeout>(null)
               </div>
           }
         </div>
+       <p className="text-center text-12 max-w-[400px] mx-auto">
+            Курс обмена может меняться в&nbsp;зависимости от&nbsp;волатильности
+            рынка. Итоговый курс сделки озвучит оператор.
+        </p>
       </div>
     </ExchangePageLayout>
     <PromoModal handleCloseEvent={handlePromoModalCloseEvent} isErrorMessageShowing={isPromocodeErrorShowing} isOpen={isPromoModalOpen} onSubmit={handlePromocodeSubmit} value={promocode} setValue={setPromoCode}></PromoModal>
