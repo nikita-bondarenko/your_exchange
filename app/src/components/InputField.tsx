@@ -10,7 +10,8 @@ const InputField: React.FC<{
   error?: string;
   placeholder?: string;
   disabled?: boolean;
-}> = ({ value, onChange, onBlur, error, placeholder, disabled }) => {
+  className?: string;
+}> = ({ value, onChange, onBlur, error, placeholder, disabled, className }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
@@ -25,7 +26,7 @@ const InputField: React.FC<{
         onChange={handleChange}
         value={value}
         type="text"
-        className=" border border-transparent rounded-6  placeholder:text-[#7B7B7B] text-16 leading-normal px-18 py-15 w-full"
+        className={clsx(" border border-transparent rounded-6  placeholder:text-[#7B7B7B] text-16 leading-normal px-18 py-15 w-full", className)}
         placeholder={placeholder}
       />
     </InputWrapper>

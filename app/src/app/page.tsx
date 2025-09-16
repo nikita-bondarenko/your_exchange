@@ -8,7 +8,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-import { POLICY_URL, TEST_USER_ID } from "@/config";
+import { POLICY_URL } from "@/config";
 import { useCallSupport } from "@/hooks/useCallSupport";
 import { TERMS_URL } from "@/config";
 import dynamic from "next/dynamic";
@@ -134,7 +134,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <ExpandableList
+         <ExpandableList
           items={additionallySectionListItems.current}
           title="Дополнительно"
         />

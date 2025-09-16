@@ -5,7 +5,7 @@ import { formSchema } from "@/schemas/formSchema";
 import z from "zod";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {  useUserUpdateCreateMutation } from "@/redux/api/cryptusApi";
-import { setUserEmail } from "@/redux/slices/userSlice/userSlice";
+import { setMailRequired, setUserEmail } from "@/redux/slices/userSlice/userSlice";
 
 export const validateEmail = (email: string): { error: string } => {
   try {
@@ -37,6 +37,7 @@ export default function EmailModal () {
     if (isMailRequired)
       setTimeout(() => {
         setIsEmailModalOpen(true);
+        dispatch(setMailRequired(false))
       }, 1000);
   }, [isMailRequired]);
 
