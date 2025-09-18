@@ -70,7 +70,7 @@ const timeoutId = useRef<NodeJS.Timeout>(null)
         {details.map((item, idx) => (
           <RequestDetails {...item} key={idx} />
         ))}
-        <div className="bg-white rounded-6 px-20 py-15 flex items-center justify-center text-13 leading-[107%]" >
+        <div className="bg-white rounded-6 px-20 py-15 flex items-center justify-center " >
           {
             !isPromoApplied ? <button className=" underline underline-offset-2" onClick={handlePromoButton}>У меня есть промокод</button>
               :
@@ -80,10 +80,13 @@ const timeoutId = useRef<NodeJS.Timeout>(null)
               </div>
           }
         </div>
-       <p className="text-center text-12 max-w-[400px] mx-auto">
-            Курс обмена может меняться в&nbsp;зависимости от&nbsp;волатильности
-            рынка. Итоговый курс сделки озвучит оператор.
-        </p>
+     <div className="bg-white rounded-6 px-20 py-15 flex items-center justify-center ">
+            <p className="text-center mx-auto">
+              Курс обмена может меняться в&nbsp;зависимости
+              от&nbsp;волатильности рынка. Итоговый курс сделки озвучит
+              оператор.
+            </p>
+          </div>
       </div>
     </ExchangePageLayout>
     <PromoModal handleCloseEvent={handlePromoModalCloseEvent} isErrorMessageShowing={isPromocodeErrorShowing} isOpen={isPromoModalOpen} onSubmit={handlePromocodeSubmit} value={promocode} setValue={setPromoCode}></PromoModal>

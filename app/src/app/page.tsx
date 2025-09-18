@@ -22,7 +22,7 @@ export default function Home() {
   const { callSupport } = useCallSupport();
 
   const requestsInProcess = useAppSelector(
-    (state) => state.user.data?.requests_in_process || []
+    (state) => state.user.data?.requests_in_process
   );
   const profilePicture = useAppSelector(
     (state) => state.user.data?.user_data?.profile_picture
@@ -53,7 +53,11 @@ export default function Home() {
     window.open(TERMS_URL, "_blank");
   }, []);
 
-  const additionallySectionListItems = useRef([
+   const additionallySectionListItems = useRef([
+      {
+      text: "Профиль",
+      onClick: toProfilePage,
+    },
     {
       text: "Нас часто спрашивают",
       onClick: toFaqPage,
@@ -66,10 +70,7 @@ export default function Home() {
       text: "Политика AML",
       onClick: openPolicy,
     },
-    {
-      text: "Профиль",
-      onClick: toProfilePage,
-    },
+
   ]);
 
   const descriptionItems = useRef([
@@ -111,7 +112,7 @@ export default function Home() {
               ))}
             </ul>
             <div className="min-h-60 flex flex-col gap-11  mb-20">
-              {requestsInProcess.map((request) => (
+              {requestsInProcess?.map((request) => (
                 <RequestStatus
                   isInProcess={true}
                   id={request.id || ""}
