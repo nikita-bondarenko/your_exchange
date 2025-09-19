@@ -3,7 +3,7 @@ import Modal from "../ui/BaseModal";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setAgreementAccepted } from "@/redux/slices/userSlice/userSlice";
 import Checkbox from "../ui/Checkbox";
-import { TERMS_URL } from "@/config";
+import { POLICY_URL, TERMS_URL } from "@/config";
 import { typograf } from "@/helpers/typograf";
 import { useUserUpdateCreateMutation } from "@/redux/api/cryptusApi";
 
@@ -74,7 +74,7 @@ export default function AgreementModal() {
           <a
             target="_blank"
             className="underline underline-offset-2"
-            href={TERMS_URL}
+            href={POLICY_URL}
           >
             персональных данных
           </a>
