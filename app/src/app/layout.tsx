@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -7,6 +7,7 @@ import { TelegramWebAppProvider } from "@/components/TelegramWebAppProvider";
 import StoreProvider from "@/redux/StoreProvider";
 import { useEffect } from "react";
 import EmailRequirementChecking from "@/components/EmailRequirementChecking";
+import AgreementAcceptedChecking from "@/components/AgreementAcceptedChecking";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,12 +19,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
   return (
     <html>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
         <meta name="theme-color" content="#ffffff" />
         <title>Секретный Обменник</title>
         <meta name="description" content="Test Change - Telegram Mini App" />
@@ -38,6 +40,7 @@ export default function RootLayout({
               </main>
             </LoadingProvider>
             <EmailRequirementChecking></EmailRequirementChecking>
+            <AgreementAcceptedChecking></AgreementAcceptedChecking>
           </TelegramWebAppProvider>
         </StoreProvider>
       </body>

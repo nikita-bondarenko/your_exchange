@@ -13,6 +13,7 @@ import { useCallSupport } from "@/hooks/useCallSupport";
 import { TERMS_URL } from "@/config";
 import dynamic from "next/dynamic";
 import EmailModal from "@/components/home/EmailModal";
+import AgreementModal from "@/components/home/AgreementModal";
 const RequestStatus = dynamic(() => import("@/components/home/RequestStatus"), {
   ssr: false,
 });
@@ -53,8 +54,8 @@ export default function Home() {
     window.open(TERMS_URL, "_blank");
   }, []);
 
-   const additionallySectionListItems = useRef([
-      {
+  const additionallySectionListItems = useRef([
+    {
       text: "Профиль",
       onClick: toProfilePage,
     },
@@ -62,7 +63,7 @@ export default function Home() {
       text: "Нас часто спрашивают",
       onClick: toFaqPage,
     },
-        {
+    {
       text: "Соглашение",
       onClick: openTerms,
     },
@@ -70,23 +71,27 @@ export default function Home() {
       text: "Политика AML",
       onClick: openPolicy,
     },
-
   ]);
 
   const descriptionItems = useRef([
-    { icon: "home.svg", text: "Наличные в офисе", className: "w-[15px] h-[15px]" },
-    { icon: "car.svg", text: "Курьерские доставки", className: "w-[20px] h-[12px]"  },
-    { icon: "planet.svg", text: "ВЭД", className: "w-[16px] h-[16px]"  },
+    {
+      icon: "home.svg",
+      text: "Наличные в офисе",
+      className: "w-[15px] h-[15px]",
+    },
+    {
+      icon: "car.svg",
+      text: "Курьерские доставки",
+      className: "w-[20px] h-[12px]",
+    },
+    { icon: "planet.svg", text: "ВЭД", className: "w-[16px] h-[16px]" },
   ]);
 
   return (
     <>
       <div className="container h-full flex flex-col">
-        <div
-          className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col bg-white relative overflow-hidden"
-
-        >
-            <div className="absolute bottom-[70px] translate-y-[10%] right-[3%] translate-x-1/2 w-[217%] aspect-square  bg-contain"></div>
+        <div className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col bg-white relative overflow-hidden">
+          <div className="absolute bottom-[70px] translate-y-[10%] right-[3%] translate-x-1/2 w-[217%] aspect-square  bg-contain"></div>
           <div className="flex-grow flex flex-col justify-center relative z-10">
             <div className="flex justify-between">
               <div className="max-w-205">
@@ -94,7 +99,9 @@ export default function Home() {
                   Test Change
                 </h1>
                 <p className="text-16 font-medium mb-30 text-[#505050] ">
-                  Покупка и&nbsp;продажа <br/>криптовалюты <br/>по&nbsp;выгодному курсу
+                  Покупка и&nbsp;продажа <br />
+                  криптовалюты <br />
+                  по&nbsp;выгодному курсу
                 </p>
               </div>
               <ProfileButton
@@ -106,7 +113,11 @@ export default function Home() {
 
             <ul className="flex flex-col gap-11 mb-16">
               {descriptionItems.current.map((item, index) => (
-                <DescriptionItem icon={item.icon} key={index} className={item.className}>
+                <DescriptionItem
+                  icon={item.icon}
+                  key={index}
+                  className={item.className}
+                >
                   {item.text}
                 </DescriptionItem>
               ))}
@@ -123,7 +134,11 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 gap-6 z-10">
-            <Button onClick={toExchangePage} className="home-btn" type={"primary"}>
+            <Button
+              onClick={toExchangePage}
+              className="home-btn"
+              type={"primary"}
+            >
               Начать обмен
             </Button>
             <Button
@@ -135,12 +150,13 @@ export default function Home() {
             </Button>
           </div>
         </div>
-         <ExpandableList
+        <ExpandableList
           items={additionallySectionListItems.current}
           title="Дополнительно"
         />
       </div>
       <EmailModal></EmailModal>
+      <AgreementModal></AgreementModal>
     </>
   );
 }

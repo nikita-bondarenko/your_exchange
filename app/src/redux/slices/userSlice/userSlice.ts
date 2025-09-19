@@ -6,12 +6,14 @@ export type UserState = {
   id: number | null;
   data: UserListApiResponse | null;
   mailRequired: boolean;
+  agreementAccepted: boolean;
 };
 
 const initialState: UserState = {
   data: null,
   id: null,
   mailRequired: false,
+  agreementAccepted: true
 };
 
 export const userSlice = createSlice({
@@ -32,7 +34,10 @@ export const userSlice = createSlice({
     setMailRequired(state, action: PayloadAction<boolean>) {
       state.mailRequired = action.payload;
     },
+     setAgreementAccepted(state, action: PayloadAction<boolean>) {
+      state.agreementAccepted = action.payload;
+    },
   },
 });
-export const { setUserId, setUserData, setUserEmail, setMailRequired } = userSlice.actions;
+export const { setUserId, setUserData, setUserEmail, setMailRequired, setAgreementAccepted } = userSlice.actions;
 export default userSlice.reducer;

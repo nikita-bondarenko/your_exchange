@@ -1,6 +1,6 @@
 import { API_URL } from '@/config'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { PostCallingOperatorApiResponse, PostCallingOperatorApiArg, GetCurrenciesGetApiResponse, GetCurrenciesGetApiArg, GetDirectionInitialDataByDirectionTypeApiResponse, GetDirectionInitialDataByDirectionTypeApiArg, PostExchangesOtherApiResponse, PostExchangesOtherApiArg, ExchangesCreateApiResponse, ExchangesCreateApiArg, FaqsListApiResponse, FaqsListApiArg, GetGetRequisitesApiResponse, GetGetRequisitesApiArg, GetJivoMessagesApiResponse, GetJivoMessagesApiArg, PostJivoMessagesApiResponse, PostJivoMessagesApiArg, RateListApiResponse, RateListApiArg, UserListApiResponse, UserListApiArg, UserUpdateCreateApiResponse, UserUpdateCreateApiArg, CheckPromocodeApiResponse, CheckPromocodeApiArg, CheckMailApiArg, CheckMailApiResponse } from './types';
+import { PostCallingOperatorApiResponse, PostCallingOperatorApiArg, GetCurrenciesGetApiResponse, GetCurrenciesGetApiArg, GetDirectionInitialDataByDirectionTypeApiResponse, GetDirectionInitialDataByDirectionTypeApiArg, PostExchangesOtherApiResponse, PostExchangesOtherApiArg, ExchangesCreateApiResponse, ExchangesCreateApiArg, FaqsListApiResponse, FaqsListApiArg, GetGetRequisitesApiResponse, GetGetRequisitesApiArg, GetJivoMessagesApiResponse, GetJivoMessagesApiArg, PostJivoMessagesApiResponse, PostJivoMessagesApiArg, RateListApiResponse, RateListApiArg, UserListApiResponse, UserListApiArg, UserUpdateCreateApiResponse, UserUpdateCreateApiArg, CheckPromocodeApiResponse, CheckPromocodeApiArg, CheckMailApiArg, CheckMailApiResponse, CheckConsentApiArg, CheckConsentApiResponse } from './types';
 
 export const api = createApi({
   reducerPath: 'api',
@@ -125,7 +125,15 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/user/check-mail/?user_id=${queryArg.user_id}`,
       }),
-    }),
+    }), 
+    checkConsent: build.mutation<
+      CheckConsentApiResponse,
+      CheckConsentApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/user/check-consent/?user_id=${queryArg.user_id}`,
+      }),
+    }), 
   }),
   overrideExisting: false,
 });
@@ -144,7 +152,8 @@ export const {
   useUserListQuery,
   useUserUpdateCreateMutation,
   useCheckPromocodeMutation,
-  useCheckMailMutation
+  useCheckMailMutation,
+  useCheckConsentMutation
 } = injectedRtkApi;
 
 export {injectedRtkApi as cryptusApi}

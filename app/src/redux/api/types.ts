@@ -53,7 +53,7 @@ export type GetDirectionInitialDataByDirectionTypeApiResponse =
       direction_type: DirectionType;
       currency_give: Currency;
       currency_get: Currency;
-course_title: string
+      course_title: string;
     };
     currencies_give?: Currency[];
     currencies_get?: Currency[];
@@ -78,15 +78,15 @@ export type ExchangesCreateApiResponse = /** status 201 Успешное соз�
   exchange_id?: number;
 };
 export type ExchangesCreateApiArg = {
-    user_id: number;
-    direction_id: number
-    currency_give_amount: number
-    currency_get_amount: number
-    card?: string
-    wallet?: string
-    phone?: string
-    course_title: string
-    promo_code?: string
+  user_id: number;
+  direction_id: number;
+  currency_give_amount: number;
+  currency_get_amount: number;
+  card?: string;
+  wallet?: string;
+  phone?: string;
+  course_title: string;
+  promo_code?: string;
 };
 
 export type Faq = {
@@ -96,7 +96,7 @@ export type Faq = {
   title: string;
   /** Ответ */
   description: string;
-}
+};
 export type FaqsListApiResponse = /** status 200 Успешный ответ */ {
   /** Сортировка */
   weight: number;
@@ -118,7 +118,7 @@ export type DirectionType =
   | "COIN - BANK"
   | "COIN - CASH"
   | "BANK - COIN"
-  | "CASH - COIN"
+  | "CASH - COIN";
 
 export type Rate = {
   /** ID направления обмена */
@@ -136,7 +136,7 @@ export type Rate = {
   direction_type: DirectionType;
   currency_give: Currency;
   currency_get: Currency;
-course_title: string
+  course_title: string;
 };
 export type GetJivoMessagesApiResponse = unknown;
 export type GetJivoMessagesApiArg = void;
@@ -155,24 +155,24 @@ export type RateListApiArg = {
 };
 
 export type RequestCurrency = {
-    amount?: number;
-    name?: string;
-    icon?: string;
-    network?: string;
-    bank?: string
-  };
+  amount?: number;
+  name?: string;
+  icon?: string;
+  network?: string;
+  bank?: string;
+};
 
 export type Request = {
-    id?: string;
-    date?: string;
-    course?: number;
-    wallet?: string
-    direction_type: DirectionType
-    card?: string
-    city?: string
-    currency_give?: RequestCurrency;
-    currency_get?: RequestCurrency;
-  };
+  id?: string;
+  date?: string;
+  course?: number;
+  wallet?: string;
+  direction_type: DirectionType;
+  card?: string;
+  city?: string;
+  currency_give?: RequestCurrency;
+  currency_get?: RequestCurrency;
+};
 export type UserListApiResponse =
   /** status 200 Информация о пользователе и его транзакциях */ {
     user_data?: {
@@ -180,7 +180,7 @@ export type UserListApiResponse =
       name?: string;
       email?: string;
       phone?: string;
-      mail_request?: boolean
+      mail_request?: boolean;
     };
     requests_in_process?: Request[];
     requests_all?: Request[];
@@ -209,7 +209,7 @@ export type UserUpdateCreateApiArg = {
     /** Электронная почта */
     email?: string;
 
-
+    has_consented?: boolean;
   };
 };
 export type UsersRequisites = {
@@ -218,22 +218,26 @@ export type UsersRequisites = {
   get_to?: string | null;
 };
 
-
 export type CheckPromocodeApiArg = {
-  code: string
+  code: string;
 };
 
-export type CheckPromocodeApiResponse= {
-  detail: string
+export type CheckPromocodeApiResponse = {
+  detail: string;
 };
-
 
 export type CheckMailApiArg = {
-  user_id: number
+  user_id: number;
 };
 
-export type CheckMailApiResponse= {
-  mail_required: boolean
+export type CheckMailApiResponse = {
+  mail_required: boolean;
 };
 
+export type CheckConsentApiArg = {
+  user_id: number;
+};
 
+export type CheckConsentApiResponse = {
+  consent_required: boolean;
+};
