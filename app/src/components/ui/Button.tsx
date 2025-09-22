@@ -4,10 +4,10 @@ import React, { memo, ReactNode } from "react";
 type ButtonProps = {
   className?: string;
   type: "primary" | "secondary" | "bordary";
-  children: ReactNode;
+ children: ReactNode;
   onClick?: () => void;
   submit?: boolean;
-  disabled?: boolean
+  disabled?: boolean;
 };
 
 const Button: React.FC<ButtonProps> = memo(

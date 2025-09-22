@@ -154,7 +154,7 @@ export default function Home() {
           items={additionallySectionListItems.current}
           title="Дополнительно"
         />
-      </div>
+        </div>
       <EmailModal></EmailModal>
       <AgreementModal></AgreementModal>
     </>
