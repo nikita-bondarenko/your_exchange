@@ -1,7 +1,7 @@
 export const API_URL = 'https://test-exchange-backend.partners-bot.ru'; 
 export const TEST_USER_ID = 464552386;
-export const POLICY_URL = "/policy.pdf";
-export const TERMS_URL = "/terms.pdf";
+export const POLICY_URL = "https://drive.google.com/file/d/1kqS3k6ykV82Jcbh7cSw7URyxuKR6bqFi/preview";
+export const TERMS_URL = "https://drive.google.com/file/d/1CDv9U5B9EaDOUv_MsrGW3TkpyWmS7cmf/preview";
 
 export const SUCCESS_REQUEST_STATUS = "Выполнено";
 export const IN_PROCESS_REQUEST_STATUS = "Передана оператору";
