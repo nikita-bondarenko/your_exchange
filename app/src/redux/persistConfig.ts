@@ -1,3 +1,4 @@
+import { getAuthState } from "@/helpers/getAuthState";
 import { RootState } from "./store";
 
 const PERSIST_KEY = 'cryptus_store';
@@ -10,20 +11,22 @@ const isLocalStorageAvailable = () => {
   }
 };
 
-export const loadState = (): Partial<RootState> | undefined => {
+export const loadState = async (): Promise<Partial<RootState> | undefined> => {
+
+  const stateWithAuthSlice = {auth: await getAuthState()}
   if (!isLocalStorageAvailable()) {
-    return undefined;
+    return stateWithAuthSlice;
   }
 
   try {
     const serializedState = localStorage.getItem(PERSIST_KEY);
     if (serializedState === null) {
-      return undefined;
+      return stateWithAuthSlice;
     }
-    return JSON.parse(serializedState);
+    return {...JSON.parse(serializedState), ...stateWithAuthSlice};
   } catch (err) {
     console.error('Error loading state from localStorage:', err);
-    return undefined;
+    return stateWithAuthSlice;
   }
 };
 

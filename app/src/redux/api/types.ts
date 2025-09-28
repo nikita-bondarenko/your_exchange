@@ -241,3 +241,4 @@ export type CheckConsentApiArg = {
 export type CheckConsentApiResponse = {
   consent_required: boolean;
 };
+

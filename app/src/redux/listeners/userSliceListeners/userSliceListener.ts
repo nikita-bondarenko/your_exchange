@@ -8,6 +8,7 @@ export const userSliceListener = createListenerMiddleware();
 userSliceListener.startListening({
   actionCreator: setUserId,
   effect: async (action, listenerApi) => {
+
     const { data } = await listenerApi.dispatch(
       cryptusApi.endpoints.userList.initiate(
         {
@@ -16,7 +17,6 @@ userSliceListener.startListening({
         { forceRefetch: true }
       )
     );
-    // console.log("userSliceListener", data);
     if (data) {
       console.log(data)
       listenerApi.dispatch(setUserData(data));

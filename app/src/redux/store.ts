@@ -1,6 +1,7 @@
 // src/lib/store.ts
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import uiReducer from "./slices/uiSlice";
+import authReducer from "./slices/authSlice";
 
 import userReducer from "./slices/userSlice/userSlice";
 import requestDetailsReducer from "./slices/requestDetailsSlice";
@@ -17,11 +18,12 @@ const rootReducer = combineReducers({
   requestDetails: requestDetailsReducer,
   exchange: exchangeReducer,
   [api.reducerPath]: api.reducer,
+  auth: authReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const persistedState = loadState() as Partial<RootState> | undefined;
+const persistedState = await loadState();
 
 export const store = configureStore({
   reducer: rootReducer,

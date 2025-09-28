@@ -1,13 +1,53 @@
-import { API_URL } from '@/config'
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { PostCallingOperatorApiResponse, PostCallingOperatorApiArg, GetCurrenciesGetApiResponse, GetCurrenciesGetApiArg, GetDirectionInitialDataByDirectionTypeApiResponse, GetDirectionInitialDataByDirectionTypeApiArg, PostExchangesOtherApiResponse, PostExchangesOtherApiArg, ExchangesCreateApiResponse, ExchangesCreateApiArg, FaqsListApiResponse, FaqsListApiArg, GetGetRequisitesApiResponse, GetGetRequisitesApiArg, GetJivoMessagesApiResponse, GetJivoMessagesApiArg, PostJivoMessagesApiResponse, PostJivoMessagesApiArg, RateListApiResponse, RateListApiArg, UserListApiResponse, UserListApiArg, UserUpdateCreateApiResponse, UserUpdateCreateApiArg, CheckPromocodeApiResponse, CheckPromocodeApiArg, CheckMailApiArg, CheckMailApiResponse, CheckConsentApiArg, CheckConsentApiResponse } from './types';
+import { API_URL } from "@/config";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  PostCallingOperatorApiResponse,
+  PostCallingOperatorApiArg,
+  GetCurrenciesGetApiResponse,
+  GetCurrenciesGetApiArg,
+  GetDirectionInitialDataByDirectionTypeApiResponse,
+  GetDirectionInitialDataByDirectionTypeApiArg,
+  PostExchangesOtherApiResponse,
+  PostExchangesOtherApiArg,
+  ExchangesCreateApiResponse,
+  ExchangesCreateApiArg,
+  FaqsListApiResponse,
+  FaqsListApiArg,
+  GetGetRequisitesApiResponse,
+  GetGetRequisitesApiArg,
+  GetJivoMessagesApiResponse,
+  GetJivoMessagesApiArg,
+  PostJivoMessagesApiResponse,
+  PostJivoMessagesApiArg,
+  RateListApiResponse,
+  RateListApiArg,
+  UserListApiResponse,
+  UserListApiArg,
+  UserUpdateCreateApiResponse,
+  UserUpdateCreateApiArg,
+  CheckPromocodeApiResponse,
+  CheckPromocodeApiArg,
+  CheckMailApiArg,
+  CheckMailApiResponse,
+  CheckConsentApiArg,
+  CheckConsentApiResponse,
+} from "./types";
+import { RootState } from "../store";
 
 export const api = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+  reducerPath: "api",
+  baseQuery: fetchBaseQuery({
+    baseUrl: API_URL,
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.token;
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   endpoints: () => ({}),
-})
-
+});
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -109,31 +149,25 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.body,
       }),
     }),
-    checkPromocode:build.mutation<
-    CheckPromocodeApiResponse,
-    CheckPromocodeApiArg
-  >({
-    query: (queryArg) => ({
-      url: `/check-promo-code/?code=${queryArg.code}`,
-      method: "GET",
-    }),
-  }),
-   checkMail: build.mutation<
-      CheckMailApiResponse,
-      CheckMailApiArg
+    checkPromocode: build.mutation<
+      CheckPromocodeApiResponse,
+      CheckPromocodeApiArg
     >({
+      query: (queryArg) => ({
+        url: `/check-promo-code/?code=${queryArg.code}`,
+        method: "GET",
+      }),
+    }),
+    checkMail: build.mutation<CheckMailApiResponse, CheckMailApiArg>({
       query: (queryArg) => ({
         url: `/user/check-mail/?user_id=${queryArg.user_id}`,
       }),
-    }), 
-    checkConsent: build.mutation<
-      CheckConsentApiResponse,
-      CheckConsentApiArg
-    >({
+    }),
+    checkConsent: build.mutation<CheckConsentApiResponse, CheckConsentApiArg>({
       query: (queryArg) => ({
         url: `/user/check-consent/?user_id=${queryArg.user_id}`,
       }),
-    }), 
+    }),
   }),
   overrideExisting: false,
 });
@@ -153,7 +187,7 @@ export const {
   useUserUpdateCreateMutation,
   useCheckPromocodeMutation,
   useCheckMailMutation,
-  useCheckConsentMutation
+  useCheckConsentMutation,
 } = injectedRtkApi;
 
-export {injectedRtkApi as cryptusApi}
+export { injectedRtkApi as cryptusApi };

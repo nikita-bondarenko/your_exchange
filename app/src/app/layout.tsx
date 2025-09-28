@@ -8,13 +8,14 @@ import StoreProvider from "@/redux/StoreProvider";
 import { useEffect } from "react";
 import EmailRequirementChecking from "@/components/EmailRequirementChecking";
 import AgreementAcceptedChecking from "@/components/AgreementAcceptedChecking";
+import { getToken } from "@/helpers/getAuthState";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["cyrillic", "latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -35,9 +36,7 @@ export default function RootLayout({
           <TelegramWebAppProvider>
             <Header></Header>
             <LoadingProvider>
-              <main className="pb-35 flex-grow h-full">
-                {children}
-              </main>
+              <main className="pb-35 flex-grow h-full">{children}</main>
             </LoadingProvider>
             <EmailRequirementChecking></EmailRequirementChecking>
             <AgreementAcceptedChecking></AgreementAcceptedChecking>

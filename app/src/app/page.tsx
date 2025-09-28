@@ -8,12 +8,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
-import { POLICY_URL } from "@/config";
+import { PASSWORD, POLICY_URL, USERNAME } from "@/config";
 import { useCallSupport } from "@/hooks/useCallSupport";
 import { TERMS_URL } from "@/config";
 import dynamic from "next/dynamic";
 import EmailModal from "@/components/home/EmailModal";
 import AgreementModal from "@/components/home/AgreementModal";
+import { useGetTokenQuery } from "@/redux/api/cryptusApi";
 const RequestStatus = dynamic(() => import("@/components/home/RequestStatus"), {
   ssr: false,
 });
@@ -154,7 +155,7 @@ export default function Home() {
           items={additionallySectionListItems.current}
           title="Дополнительно"
         />
-        </div>
+      </div>
       <EmailModal></EmailModal>
       <AgreementModal></AgreementModal>
     </>

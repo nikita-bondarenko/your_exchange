@@ -53,9 +53,9 @@ const [updateUser] = useUserUpdateCreateMutation()
   useEffect(() => {
     if (data) {
       methods.reset({
-        name: data?.user_data?.name,
-        phone: data?.user_data?.phone,
-        email: data?.user_data?.email,
+        name: data?.user_data?.name ?? '',
+        phone: data?.user_data?.phone ?? '',
+        email: data?.user_data?.email ?? '',
       });
     }
   }, [data, methods]);
