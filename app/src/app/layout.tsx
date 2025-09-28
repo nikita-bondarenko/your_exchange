@@ -8,7 +8,6 @@ import StoreProvider from "@/redux/StoreProvider";
 import { useEffect } from "react";
 import EmailRequirementChecking from "@/components/EmailRequirementChecking";
 import AgreementAcceptedChecking from "@/components/AgreementAcceptedChecking";
-import { getToken } from "@/helpers/getAuthState";
 
 const inter = Inter({
   variable: "--font-inter",

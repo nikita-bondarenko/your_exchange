@@ -14,7 +14,6 @@ import { TERMS_URL } from "@/config";
 import dynamic from "next/dynamic";
 import EmailModal from "@/components/home/EmailModal";
 import AgreementModal from "@/components/home/AgreementModal";
-import { useGetTokenQuery } from "@/redux/api/cryptusApi";
 const RequestStatus = dynamic(() => import("@/components/home/RequestStatus"), {
   ssr: false,
 });
