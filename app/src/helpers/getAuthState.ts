@@ -23,12 +23,19 @@ export const getAuthState = async () => {
     },
   };
 
-  const result = await fetch(`${API_URL}/api/token/`, requestOptions);
+  try {
+    const result = await fetch(`${API_URL}/api/token/`, requestOptions);
 
-  const token:GetTokenApiResponse  = await result.json();
+    const token: GetTokenApiResponse = await result.json();
 
-  return {
-    token: token.access
-  } as AuthSlice
+    return {
+      token: token.access,
+    } as AuthSlice;
+  } catch (e) {
+    console.error(e);
+    return {
+      token: "",
+    } as AuthSlice;
+  }
 
 };
