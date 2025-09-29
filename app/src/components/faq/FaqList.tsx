@@ -18,8 +18,6 @@ export default function FaqList() {
     dispatch(setPageName("Нас часто спрашивают"));
   }, []);
 
-  useEffect(() => {console.log(data)}, [data])
-
   return (
     <div className="flex flex-col gap-[20px] mt-20">
       {data && data[0]?.faqs?.map((question, index) => (

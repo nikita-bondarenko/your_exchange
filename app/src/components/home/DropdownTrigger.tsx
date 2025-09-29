@@ -28,7 +28,7 @@ const DropdownTrigger: FC<{
         <Icon
           src="arrow-top.svg"
           className={clsx(
-            "w-11 h-11 transition-transform duration-500 translate-y-3",
+            "w-11 h-11 transition-transform duration-500 translate-y-3 shrink-0",
             {
               "rotate-180 [&]:translate-y-0": arrowPosition !== "bottom",
             }
