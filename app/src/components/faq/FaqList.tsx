@@ -6,21 +6,23 @@ import ExpandableElement from "../home/ExpandableElement";
 import { typograf } from "@/helpers/typograf";
 import { useAppDispatch } from "@/redux/hooks";
 import { setPageName } from "@/redux/slices/uiSlice";
+import { useFaqsListQuery } from "@/redux/api/cryptusApi";
 
-type Props = {
-  faqs: Faq[];
-};
 
-export default function FaqList({ faqs }: Props) {
+export default function FaqList() {
   const dispatch = useAppDispatch();
+
+  const {data} = useFaqsListQuery()
 
   useEffect(() => {
     dispatch(setPageName("Нас часто спрашивают"));
   }, []);
 
+  useEffect(() => {console.log(data)}, [data])
+
   return (
     <div className="flex flex-col gap-[20px] mt-20">
-      {faqs.map((question, index) => (
+      {data && data[0]?.faqs?.map((question, index) => (
         <ExpandableElement
           key={index}
           triggerRender={({ onClick, isOpen }) => (

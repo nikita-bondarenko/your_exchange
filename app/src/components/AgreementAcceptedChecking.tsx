@@ -1,3 +1,4 @@
+"use client"
 import { useCheckConsentMutation } from "@/redux/api/cryptusApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setAgreementAccepted } from "@/redux/slices/userSlice/userSlice";

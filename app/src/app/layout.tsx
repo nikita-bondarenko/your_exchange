@@ -1,11 +1,9 @@
-"use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { LoadingProvider } from "@/components/LoadingProvider";
 import { TelegramWebAppProvider } from "@/components/TelegramWebAppProvider";
 import StoreProvider from "@/redux/StoreProvider";
-import { useEffect } from "react";
 import EmailRequirementChecking from "@/components/EmailRequirementChecking";
 import AgreementAcceptedChecking from "@/components/AgreementAcceptedChecking";
 

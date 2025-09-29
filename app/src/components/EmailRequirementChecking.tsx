@@ -1,3 +1,4 @@
+"use client"
 import { useCheckMailMutation } from "@/redux/api/cryptusApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setMailRequired } from "@/redux/slices/userSlice/userSlice";
