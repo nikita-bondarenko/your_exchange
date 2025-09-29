@@ -6,7 +6,6 @@ import { exchangeTypesButtons } from "@/data/exchangeTypesButtons";
 import { useCallSupport } from "@/hooks/useCallSupport";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setIsLoading, setPageName } from "@/redux/slices/uiSlice";
-import { store, RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 
