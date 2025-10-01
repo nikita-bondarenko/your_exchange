@@ -32,19 +32,11 @@ import {
   CheckConsentApiArg,
   CheckConsentApiResponse,
 } from "./types";
-import { RootState } from "../store";
 
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.token;
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
+    baseUrl: '/api',
   }),
   endpoints: () => ({}),
 });
