@@ -28,7 +28,7 @@ services:
       - INSTANCE_COLOR=blue
     volumes:
       - test-change_logs:/app/logs
-      - app:/usr/src/app
+      - ./app:/usr/src/app
     networks:
       - coex-tma
     restart: unless-stopped
@@ -54,7 +54,7 @@ services:
       - INSTANCE_COLOR=green
     volumes:
       - test-change_logs:/app/logs
-      - app:/usr/src/app
+      - ./app:/usr/src/app
     networks:
       - coex-tma
     restart: unless-stopped
