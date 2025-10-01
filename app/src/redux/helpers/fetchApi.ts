@@ -11,8 +11,8 @@ export interface FetchError {
 export type FetchApiProps = {
   path: string;
   method?: string;
-  params?: Object;
-  body?: Object | null;
+  params?: object;
+  body?: object | null;
   headers?: HeadersInit;
 };
 

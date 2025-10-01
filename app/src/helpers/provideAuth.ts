@@ -60,7 +60,7 @@ export const provideFetchWithAuth = async <Result>(request: NextRequest) => {
       "Content-Type": "application/json",
     };
     result = await fetchApi<Result>(fetchProps);
-    //@ts-ignore
+    //@ts-expect-error "exeptional scenary"
     if (result.code === "token_not_valid") {
       result = await fetchWithoutToken(fetchProps);
     }
