@@ -1,41 +1,29 @@
 #!/bin/bash
 
-# Simplified Zero Downtime Deployment Script for Cryptus
+# Simplified Zero Downtime Deployment Script for alex
 # Uses the zero-downtime-lib for all deployment logic
-
-bash#!/bin/bash
 
 set -e
 
+# Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Source the alex configuration (which includes the library)
 source "$SCRIPT_DIR/deployment-config.sh"
 
+# ========================================
+# COMMAND FUNCTIONS
+# ========================================
+
 cmd_deploy() {
-    echo "🚀 Starting Cryptus Zero Downtime Deployment..."
+    echo "🚀 Starting alex Zero Downtime Deployment..."
     echo ""
-    
-    # Graceful stop старого green, если он рестартится
-    if docker ps -a | grep -q "test-change-green.*Exited (127)"; then
-        echo "🛑 Stopping restarting green instance..."
-        docker-compose -f docker-compose.zero-downtime.yml stop test-change-green
-        docker rm test-change-green || true
-    fi
     
     # Use the library's main deployment function
     if zdt_deploy "$@"; then
         echo ""
         echo "🎉 Deployment completed successfully!"
         echo "🔗 Service available at: $ZDT_EXTERNAL_HEALTH_URL"
-        
-        # Проверяем health нового контейнера
-        sleep 10
-        if zdt_check_container_health "$ZDT_GREEN_CONTAINER" "$ZDT_HEALTH_ENDPOINT" 3 5; then
-            echo "✅ New instance healthy!"
-        else
-            echo "⚠️  New instance unhealthy - switching back"
-            zdt_switch_traffic "blue"
-            exit 1
-        fi
     else
         echo ""
         echo "❌ Deployment failed!"
@@ -44,7 +32,7 @@ cmd_deploy() {
 }
 
 cmd_status() {
-    echo "📊 Cryptus Deployment Status"
+    echo "📊 alex Deployment Status"
     echo "=================================="
     
     # Use the library's status function
@@ -52,7 +40,7 @@ cmd_status() {
 }
 
 cmd_rollback() {
-    echo "🔄 Starting Cryptus Rollback..."
+    echo "🔄 Starting alex Rollback..."
     echo ""
     
     if zdt_rollback; then
@@ -66,10 +54,10 @@ cmd_rollback() {
 }
 
 cmd_start() {
-    echo "▶️  Starting Cryptus Services..."
+    echo "▶️  Starting alex Services..."
     echo ""
     
-    if cryptus_start_services; then
+    if alex_start_services; then
         echo ""
         echo "✅ Services started successfully!"
         echo "🔗 Available at: $ZDT_EXTERNAL_HEALTH_URL"
@@ -81,10 +69,10 @@ cmd_start() {
 }
 
 cmd_stop() {
-    echo "⏹️  Stopping Cryptus Services..."
+    echo "⏹️  Stopping alex Services..."
     echo ""
     
-    if cryptus_stop_services; then
+    if alex_stop_services; then
         echo ""
         echo "✅ Services stopped successfully!"
     else
@@ -95,11 +83,11 @@ cmd_stop() {
 }
 
 cmd_cleanup() {
-    echo "🧹 Cleaning up Cryptus Resources..."
+    echo "🧹 Cleaning up alex Resources..."
     echo ""
     
     # Stop all services
-    cryptus_stop_services
+    alex_stop_services
     
     # Clean up both instances
     zdt_cleanup_instance "blue" true
@@ -117,9 +105,9 @@ cmd_logs() {
     
     if [ -z "$service" ]; then
         echo "Available services:"
-        echo "  - main (cryptus nginx)"
-        echo "  - blue (test-change-blue)"
-        echo "  - green (test-change-green)"
+        echo "  - main (alex nginx)"
+        echo "  - blue (alex-blue)"
+        echo "  - green (alex-green)"
         echo ""
         echo "Usage: $0 logs <service> [follow]"
         return 1
@@ -206,11 +194,11 @@ cmd_health() {
     done
     
     echo ""
-    echo "Active instance: $(cryptus_get_active_instance)"
+    echo "Active instance: $(alex_get_active_instance)"
 }
 
 cmd_version() {
-    echo "Cryptus Zero Downtime Deployment"
+    echo "alex Zero Downtime Deployment"
     echo "================================="
     zdt_version
     echo "Configuration: deployment-config.sh"
@@ -219,15 +207,15 @@ cmd_version() {
 
 cmd_help() {
     cat << EOF
-Cryptus Zero Downtime Deployment Tool
+alex Zero Downtime Deployment Tool
 
 USAGE:
     $0 [COMMAND] [OPTIONS]
 
 COMMANDS:
     deploy              Perform zero downtime deployment (default)
-    start               Start all Cryptus services
-    stop                Stop all Cryptus services
+    start               Start all alex services
+    stop                Stop all alex services
     status              Show deployment status
     rollback            Rollback to previous version
     switch <instance>   Manually switch traffic to blue/green
@@ -264,6 +252,7 @@ main() {
     local command=${1:-deploy}
     shift || true
     
+    # Check Docker availability
     if ! docker info >/dev/null 2>&1; then
         zdt_log_error "Docker is not running. Please start Docker first."
         exit 1
@@ -273,7 +262,36 @@ main() {
         "deploy")
             cmd_deploy "$@"
             ;;
-        # ... (остальные cases без изменений)
+        "start")
+            cmd_start "$@"
+            ;;
+        "stop")
+            cmd_stop "$@"
+            ;;
+        "status")
+            cmd_status "$@"
+            ;;
+        "rollback")
+            cmd_rollback "$@"
+            ;;
+        "switch")
+            cmd_switch "$@"
+            ;;
+        "cleanup")
+            cmd_cleanup "$@"
+            ;;
+        "logs")
+            cmd_logs "$@"
+            ;;
+        "health")
+            cmd_health "$@"
+            ;;
+        "version")
+            cmd_version "$@"
+            ;;
+        "help"|"--help"|"-h")
+            cmd_help "$@"
+            ;;
         *)
             zdt_log_error "Unknown command: $command"
             echo "Use '$0 help' for usage information"
@@ -282,4 +300,5 @@ main() {
     esac
 }
 
-main "$@"
+# Run main function with all arguments
+main "$@" 
