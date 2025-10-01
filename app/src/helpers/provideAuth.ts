@@ -38,7 +38,7 @@ export const provideFetchWithAuth = async <Result>(request: NextRequest) => {
   const params = Object.fromEntries(request.nextUrl.searchParams);
 
   const body = request.method === "GET" ? null : await request.json();
-  const tokenFilePath = path.join(cwd(), "token.txt");
+  const tokenFilePath = path.join(cwd(), "data", "token.txt");
 
   const isTokenFile = await isFileExist(tokenFilePath);
 

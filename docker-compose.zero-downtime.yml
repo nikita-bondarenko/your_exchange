@@ -28,7 +28,7 @@ services:
       - INSTANCE_COLOR=blue
     volumes:
       - test-change_logs:/app/logs
-      - ./app:/usr/src/app
+      - ./app/data:/usr/src/app/data  # Только для token.txt и логов
     networks:
       - coex-tma
     restart: unless-stopped
@@ -54,7 +54,7 @@ services:
       - INSTANCE_COLOR=green
     volumes:
       - test-change_logs:/app/logs
-      - ./app:/usr/src/app
+      - ./app/data:/usr/src/app/data  # Только для token.txt и логов
     networks:
       - coex-tma
     restart: unless-stopped
@@ -70,7 +70,9 @@ services:
 volumes:
   test-change_logs:
     driver: local
+  test-change_data:  # Для data
+    driver: local
 
 networks:
   coex-tma:
-    external: true 
+    external: true

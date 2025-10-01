@@ -1,21 +1,21 @@
-# Используем официальный Node.js образ как базовый
+# app/Dockerfile
 FROM node:18
 
 WORKDIR /usr/src/app
-
 
 RUN npm i -g pnpm
 
 COPY package.json ./
 
-RUN  pnpm install
+RUN pnpm install
 
 COPY . .
 
-RUN  pnpm build
+RUN pnpm build
 
-# Экспонируем порт
+# Создаём data с правами
+RUN mkdir -p /usr/src/app/data && chmod 777 /usr/src/app/data
+
 EXPOSE 3000
 
-# Команда запуска
 CMD ["npm", "run", "start"]
