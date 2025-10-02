@@ -3,21 +3,9 @@ import { provideFetchWithAuth } from "@/helpers/provideAuth";
 import { isAllowedOrigin } from "@/helpers/isAllowedOrigin";
 
 export async function POST(request: NextRequest) {
-  if (isAllowedOrigin(request)) {
-    try {
+  try {
       return NextResponse.json(await provideFetchWithAuth(request));
     } catch (error) {
       return NextResponse.json(error);
     }
-  } else {
-    return NextResponse.json(
-      {
-        error: {
-          message: `Not Allowed`,
-          type: "cors",
-        },
-      },
-      { status: 403 }
-    );
-  }
 }
