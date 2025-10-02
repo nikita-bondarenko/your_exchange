@@ -1,11 +1,14 @@
+import { PRODUCTION_ORIGIN } from "@/config";
 import { NextRequest } from "next/server";
 
 export const isAllowedOrigin = (request: NextRequest) => {
   const origin = request.headers.get("origin");
   const host = request.headers.get("host");
   const protocol = request.nextUrl.protocol;
-  const allowedOrigin = `${protocol}://${host}`; // Разрешаем только тот же домен
+  const devOrigin = `${protocol}://${host}`;
+  const productionOrigin = PRODUCTION_ORIGIN;
 
-  console.log(origin, allowedOrigin)
-  return origin === allowedOrigin;
+const isAllowed = origin === productionOrigin || origin === devOrigin
+
+  return isAllowed;
 };
