@@ -23,7 +23,7 @@ const fetchWithoutToken = async <Result>(fetchProps: FetchApiProps) => {
 
   const token = await fetchApi<GetTokenApiResponse>(tokenFetchProps);
 
-  await fs.writeFile(path.join(cwd(), "token.txt"), token?.access || "");
+  await fs.writeFile(path.join(cwd(), "data", "token.txt"), token?.access || "");
 
   fetchProps.headers = {
     Authorization: `Bearer ${token.access}`,
