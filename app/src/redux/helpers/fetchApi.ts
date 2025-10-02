@@ -28,11 +28,11 @@ export async function fetchApi<T>({
         (str, [key, value], index) =>
           str + `${index === 0 ? "?" : "&"}${key}=${value}`,
         ""
-      )
-    : "";
+      ).split(' ').join('%20')
+    : "/";
 
   const finalBody: string = JSON.stringify(body);
-
+console.log('fetching url', `${API_URL}${path}${queryString}`)
   const result = await fetch(`${API_URL}${path}${queryString}`, {
     method,
     ...(method !== "GET" ? { body: finalBody } : {}),

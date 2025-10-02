@@ -34,7 +34,7 @@ const fetchWithoutToken = async <Result>(fetchProps: FetchApiProps) => {
 };
 
 export const provideFetchWithAuth = async <Result>(request: NextRequest) => {
-  const urlPath = request.nextUrl.pathname.slice(4) + "/";
+  const urlPath = request.nextUrl.pathname.slice(4);
   const params = Object.fromEntries(request.nextUrl.searchParams);
 
   const body = request.method === "GET" ? null : await request.json();
