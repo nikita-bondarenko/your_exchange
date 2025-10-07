@@ -7,11 +7,6 @@ export const isAllowedOrigin = (request: NextRequest) => {
   const protocol = request.nextUrl.protocol;
   const devOrigin = `${protocol}://${host}`;
   const productionOrigin = PRODUCTION_ORIGIN;
-
-  console.log("productionOrigin", productionOrigin);
-  console.log("devOrigin", devOrigin);
-  console.log("origin", origin);
-
   const isAllowed = origin === productionOrigin || origin === devOrigin;
 
   return isAllowed;

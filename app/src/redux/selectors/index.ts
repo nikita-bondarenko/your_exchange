@@ -91,7 +91,6 @@ export const selectPhoneNumberValue = (state: RootState) =>
 
 // Is Phone Number Used Selector
 export const selectIsPhoneNumberUsed = (state: RootState) => {
-  console.log('selectIsPhoneNumberUsed:', state.exchange.isPhoneNumberUsed);
   return state.exchange.isPhoneNumberUsed;
 };
 

@@ -19,7 +19,7 @@ import { InputWrapper } from "../ui/InputWrapper";
 import { Input } from "../ui/Input";
 import CryptoNetSelect, { CryptoNetOption } from "./CryptoNetSelect";
 import { useExchangeInput } from "@/hooks/useExchangeInput";
-import { setSelectedCurrencySell, setSelectedCurrencyBuy, setActiveInputType, setSelectedNetworkValue, setWalletAddressValue } from "@/redux/slices/exchangeSlice/exchangeSlice";
+import {setSelectedNetworkValue, setWalletAddressValue } from "@/redux/slices/exchangeSlice/exchangeSlice";
 import clsx from "clsx";
 import { Currency } from "@/redux/api/types";
 
@@ -45,7 +45,6 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(({ position
   );
 
   const currencyOptions = useAppSelector(selectCurrencyOptions(position));
-  // console.log(currencyOptions)
   const netsOptions = useAppSelector(selectNetsOptions);
   const networks = useAppSelector(state => state.exchange.networks);
   const netValue = useAppSelector(selectNetValue);
@@ -70,6 +69,8 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(({ position
   const handleNetChange = (net: CryptoNetOption) => {
     const network = networks?.find((network) => network.id === net.id);
     if (network) {
+          console.log('setSelectedNetworkValue ExchangeCryptoInput', networks)
+
       dispatch(setSelectedNetworkValue(network));
     }
   };

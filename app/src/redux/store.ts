@@ -23,11 +23,11 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const persistedState = await loadState();
+// const persistedState = await loadState();
 
 export const store = configureStore({
   reducer: rootReducer,
-  preloadedState: persistedState,
+  // preloadedState: persistedState,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

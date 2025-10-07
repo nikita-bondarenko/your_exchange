@@ -7,10 +7,11 @@ import { FetchApiProps, fetchApi } from "@/redux/helpers/fetchApi";
 import { GetTokenApiArg, GetTokenApiResponse } from "./getAuthState";
 import { NextRequest } from "next/server";
 import { isFileExist } from "./checkTokenFile";
+import { ensureDirectoryExist } from "./ensureDIrectoryExist";
 
-const fetchWithoutToken = async <Result>(fetchProps: FetchApiProps) => {
+const fetchAndSaveToken = async (filePath: string) => {
   const tokenFetchProps: FetchApiProps = {
-    path: "/api/token/",
+    path: "/api/token",
     headers: {
       "Content-Type": "application/json",
     },
@@ -22,49 +23,63 @@ const fetchWithoutToken = async <Result>(fetchProps: FetchApiProps) => {
   };
 
   const token = await fetchApi<GetTokenApiResponse>(tokenFetchProps);
-
-  await fs.writeFile(path.join(cwd(), "data", "token.txt"), token?.access || "");
-
-  fetchProps.headers = {
-    Authorization: `Bearer ${token.access}`,
-    "Content-Type": "application/json",
-  };
-
-  return fetchApi<Result>(fetchProps);
+  await fs.writeFile(path.join(filePath), token?.access || "");
 };
 
-export const provideFetchWithAuth = async <Result>(request: NextRequest) => {
+const maxTryTimes = 5;
+
+const TOKEN_FILE_NAME = "token.txt";
+const TOKEN_FILE_DIR = path.join(cwd(), "data");
+
+export const provideFetchWithAuth = async <Result>(
+  request: NextRequest,
+  executionTime: number = 1
+): Promise<any> => {
+  if (executionTime > maxTryTimes) {
+    throw { detail: `Fetching failed after ${maxTryTimes}`, code: "attempts_failed", status: 500 };
+  }
   const urlPath = request.nextUrl.pathname.slice(4);
+
   const params = Object.fromEntries(request.nextUrl.searchParams);
-
   const body = request.method === "GET" ? null : await request.json();
-  const tokenFilePath = path.join(cwd(), "data", "token.txt");
 
+  const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
+  await ensureDirectoryExist(TOKEN_FILE_DIR);
   const isTokenFile = await isFileExist(tokenFilePath);
-
   const fetchProps: FetchApiProps = {
     method: request.method,
     params,
     path: urlPath,
     body,
   };
-
   let result: Result;
 
   if (!isTokenFile) {
-    result = await fetchWithoutToken(fetchProps);
+    await fetchAndSaveToken(tokenFilePath);
+    return provideFetchWithAuth<Result>(request, executionTime + 1);
   } else {
     const token = await fs.readFile(tokenFilePath);
+    if (token.length === 0) {
+      await fetchAndSaveToken(tokenFilePath);
+      return provideFetchWithAuth<Result>(request, executionTime + 1);
+    }
     fetchProps.headers = {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
-    result = await fetchApi<Result>(fetchProps);
-    //@ts-expect-error "exeptional scenary"
+
+    try {
+      result = await fetchApi<Result>(fetchProps);
+    } catch (e) {
+      throw e;
+    }
+
+    //@ts-expect-error "exeptional scenary - responsive object has no fixed type"
     if (result.code === "token_not_valid") {
-      result = await fetchWithoutToken(fetchProps);
+            await fetchAndSaveToken(tokenFilePath);
+      return provideFetchWithAuth<Result>(request, executionTime + 1);
+      
     }
   }
-
   return result;
 };

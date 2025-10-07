@@ -24,9 +24,9 @@ export type Currency = {
 export type GetCurrenciesGetApiResponse = Currency[];
 export type GetCurrenciesGetApiArg = {
   /** Идентификатор отдаваемой валюты */
-  giveCurrencyId: number;
+  giveCurrencyId?: number | null;
   /** Тип валюты ('BANK' — банковская валюта, 'COIN' — криптовалюта, 'CASH' — наличная) */
-  currencyType: string;
+  currencyType?: string | null;
 };
 
 type SecondaryPropertiesOption = {

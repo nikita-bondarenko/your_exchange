@@ -14,6 +14,7 @@ import { TERMS_URL } from "@/config";
 import dynamic from "next/dynamic";
 import EmailModal from "@/components/home/EmailModal";
 import AgreementModal from "@/components/home/AgreementModal";
+import { useGetCurrenciesGetQuery } from "@/redux/api/cryptusApi";
 const RequestStatus = dynamic(() => import("@/components/home/RequestStatus"), {
   ssr: false,
 });
@@ -29,6 +30,12 @@ export default function Home() {
     (state) => state.user.data?.user_data?.profile_picture
   );
   const [forceRender, setForceRender] = useState(0);
+
+  const { data } = useGetCurrenciesGetQuery({
+    currencyType: "BANK",
+    giveCurrencyId: 4,
+  });
+
 
   useEffect(() => {
     setForceRender((prev) => prev + 1);

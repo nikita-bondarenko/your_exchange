@@ -57,7 +57,6 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(({ position }) 
   const isPhoneNumberUsed = useAppSelector(selectIsPhoneNumberUsed);
   const bankError = useAppSelector(selectBankError);
   
-  console.log('ExchangeCardInput - isPhoneNumberUsed:', isPhoneNumberUsed, 'position:', position);
   const cardNumberError = useAppSelector(selectCardNumberError);
   const phoneNumberError = useAppSelector(selectPhoneNumberError);
 

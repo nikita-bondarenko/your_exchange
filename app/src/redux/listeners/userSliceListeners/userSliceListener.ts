@@ -17,10 +17,7 @@ userSliceListener.startListening({
         { forceRefetch: true }
       )
     );
-    // const { data: newQuery } = await userListQuery({
-    //   userId: action.payload,
-    // });
-    // console.log("newQuery", newQuery);
+
     if (data) {
       listenerApi.dispatch(setUserData(data));
     }
