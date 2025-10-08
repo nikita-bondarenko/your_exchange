@@ -53,12 +53,12 @@ export default function EmailModal () {
     if (!error && userId) {
       try {
         await updateUser({
-          body: {
+       
             user_id: userId,
             full_name: userData?.name,
             phone: userData?.phone,
             email: value,
-          },
+         
         });
         dispatch(setUserEmail(value));
         setIsEmailModalOpen(false);

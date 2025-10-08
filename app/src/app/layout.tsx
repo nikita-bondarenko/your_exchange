@@ -39,6 +39,7 @@ export default async function  RootLayout({
             <AgreementAcceptedChecking></AgreementAcceptedChecking>
           </TelegramWebAppProvider>
         </StoreProvider>
+        <div id="portal-target"></div>
       </body>
     </html>
   );

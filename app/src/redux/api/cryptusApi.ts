@@ -138,7 +138,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/user/update/`,
         method: "POST",
-        body: queryArg.body,
+        body: queryArg,
       }),
     }),
     checkPromocode: build.mutation<

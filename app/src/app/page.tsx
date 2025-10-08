@@ -113,7 +113,7 @@ export default function Home() {
               </div>
               <ProfileButton
                 key={forceRender}
-                avatar={profilePicture || ""}
+                avatar={profilePicture}
                 onClick={toProfilePage}
               />
             </div>

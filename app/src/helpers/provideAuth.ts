@@ -35,51 +35,76 @@ export const provideFetchWithAuth = async <Result>(
   request: NextRequest,
   executionTime: number = 1
 ): Promise<any> => {
-  if (executionTime > maxTryTimes) {
-    throw { detail: `Fetching failed after ${maxTryTimes}`, code: "attempts_failed", status: 500 };
-  }
-  const urlPath = request.nextUrl.pathname.slice(4);
+  console.log('hi2')
+  try {
+    if (executionTime > maxTryTimes) {
+        console.log('hi3')
 
-  const params = Object.fromEntries(request.nextUrl.searchParams);
-  const body = request.method === "GET" ? null : await request.json();
+      throw {
+        detail: `Fetching failed after ${maxTryTimes}`,
+        code: "attempts_failed",
+        status: 500,
+      };
+    }
 
-  const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
-  await ensureDirectoryExist(TOKEN_FILE_DIR);
-  const isTokenFile = await isFileExist(tokenFilePath);
-  const fetchProps: FetchApiProps = {
-    method: request.method,
-    params,
-    path: urlPath,
-    body,
-  };
-  let result: Result;
+      console.log('hi4')
 
-  if (!isTokenFile) {
-    await fetchAndSaveToken(tokenFilePath);
-    return provideFetchWithAuth<Result>(request, executionTime + 1);
-  } else {
-    const token = await fs.readFile(tokenFilePath);
-    if (token.length === 0) {
+    const urlPath = request.nextUrl.pathname.slice(4);
+
+    const params = Object.fromEntries(request.nextUrl.searchParams);
+    const body = request.method === "GET" ? null : await request.json();
+    console.log(body);
+          console.log('hi5')
+
+    const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
+
+              console.log('hi6')
+
+    await ensureDirectoryExist(TOKEN_FILE_DIR);
+    const isTokenFile = await isFileExist(tokenFilePath);
+    const fetchProps: FetchApiProps = {
+      method: request.method,
+      params,
+      path: urlPath,
+      body,
+    };
+          console.log('hi7')
+
+    console.log(fetchProps);
+
+    console.log("isTokenFile", isTokenFile);
+
+    let result: Result;
+
+    if (!isTokenFile) {
       await fetchAndSaveToken(tokenFilePath);
       return provideFetchWithAuth<Result>(request, executionTime + 1);
-    }
-    fetchProps.headers = {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    };
+    } else {
+      const token = await fs.readFile(tokenFilePath);
+      if (token.length === 0) {
+        await fetchAndSaveToken(tokenFilePath);
+        return provideFetchWithAuth<Result>(request, executionTime + 1);
+      }
+      fetchProps.headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
 
-    try {
-      result = await fetchApi<Result>(fetchProps);
-    } catch (e) {
-      throw e;
-    }
+      try {
+        result = await fetchApi<Result>(fetchProps);
+      } catch (e) {
+        throw e;
+      }
 
-    //@ts-expect-error "exeptional scenary - responsive object has no fixed type"
-    if (result.code === "token_not_valid") {
-            await fetchAndSaveToken(tokenFilePath);
-      return provideFetchWithAuth<Result>(request, executionTime + 1);
-      
+      //@ts-expect-error "exeptional scenary - responsive object has no fixed type"
+      if (result.code === "token_not_valid") {
+        await fetchAndSaveToken(tokenFilePath);
+        return provideFetchWithAuth<Result>(request, executionTime + 1);
+      }
     }
+    return result;
+  } catch (e) {
+    console.log(e)
+    throw e;
   }
-  return result;
 };

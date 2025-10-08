@@ -14,7 +14,7 @@ const ProfileButton: FC<{ onClick?: () => void, avatar?: string }> = memo(({ onC
       <span className="absolute inset-0 rounded-full border border-[#262626] z-20"></span>
       <Icon src="person.svg" className={clsx("w-15 h-17", {"opacity-100": avatar})}></Icon>
         <img
-          src={avatar}
+          src={avatar || '/images/icons/person.svg'}
           alt="user avatar"
           className={clsx(
             "w-full h-full object-cover rounded-full",{"opacity-0":!avatar}

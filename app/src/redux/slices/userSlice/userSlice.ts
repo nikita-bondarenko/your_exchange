@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserListApiResponse } from "../../api/types";
+import { UserListApiResponse, UserUpdateCreateApiArg } from "../../api/types";
 import { number } from "zod";
 
 export type UserState = {
@@ -13,7 +13,7 @@ const initialState: UserState = {
   data: null,
   id: null,
   mailRequired: false,
-  agreementAccepted: true
+  agreementAccepted: true,
 };
 
 export const userSlice = createSlice({
@@ -34,10 +34,30 @@ export const userSlice = createSlice({
     setMailRequired(state, action: PayloadAction<boolean>) {
       state.mailRequired = action.payload;
     },
-     setAgreementAccepted(state, action: PayloadAction<boolean>) {
+    setAgreementAccepted(state, action: PayloadAction<boolean>) {
       state.agreementAccepted = action.payload;
+    },
+    updateUserProfileData(
+      state,
+      action: PayloadAction<UserUpdateCreateApiArg>
+    ) {
+      const {
+       full_name, phone, email ,
+      } = action.payload;
+      if (state.data?.user_data) {
+        state.data.user_data.email = email;
+        state.data.user_data.name = full_name;
+        state.data.user_data.phone = phone;
+      }
     },
   },
 });
-export const { setUserId, setUserData, setUserEmail, setMailRequired, setAgreementAccepted } = userSlice.actions;
+export const {
+  setUserId,
+  setUserData,
+  setUserEmail,
+  setMailRequired,
+  setAgreementAccepted,
+  updateUserProfileData
+} = userSlice.actions;
 export default userSlice.reducer;

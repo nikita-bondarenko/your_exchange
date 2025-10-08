@@ -23,23 +23,49 @@ export async function fetchApi<T>({
   body,
   headers,
 }: FetchApiProps): Promise<T> {
-  const queryString = params
-    ? Object.entries(params)
-        .reduce(
-          (str, [key, value], index) =>
-            str + `${index === 0 ? "?" : "&"}${key}=${value}`,
-          ""
-        )
-        .split(" ")
-        .join("%20")
-    : "/";
+  try {
+    const queryString = params
+      ? Object.entries(params)
+          .reduce(
+            (str, [key, value], index) =>
+              str + `${index === 0 ? "?" : "&"}${key}=${value}`,
+            ""
+          )
+          .split(" ")
+          .join("%20")
+      : "/";
+    console.log(1);
+    const finalBody: string = JSON.stringify(body);
+    console.log(2, {
+      method,
+      ...(method !== "GET" ? { body: finalBody } : {}),
+      headers: headers,
+    });
 
-  const finalBody: string = JSON.stringify(body);
-  const result = await fetch(`${API_URL}${path}${queryString}`, {
-    method,
-    ...(method !== "GET" ? { body: finalBody } : {}),
-    headers: headers,
-  });
-  
-  return await result.json();
+    const result = await fetch(`${API_URL}${path}${queryString}`, {
+      method,
+      ...(method !== "GET" ? { body: finalBody } : {}),
+      headers: headers,
+    });
+    console.log(3, result);
+    const contentType = result.headers.get("Content-Type");
+    if (!contentType?.includes("application/json")) {
+      const text = await result.text();
+      throw {
+        error: result.statusText,
+        message: `Expected JSON, but received ${contentType}`,
+        details: text.slice(0, 100) + "...",
+        status: result.status,
+        headers: { "Content-Type": "application/json" },
+      } as T;
+    }
+
+    // Check if response is OK
+
+    return await result.json();
+  } catch (e) {
+    console.log(4, e);
+
+    throw e;
+  }
 }

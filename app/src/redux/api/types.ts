@@ -199,7 +199,7 @@ export type UserUpdateCreateApiResponse =
     email?: string;
   };
 export type UserUpdateCreateApiArg = {
-  body: {
+  // body: {
     /** ID пользователя */
     user_id: number;
     /** ФИО пользователя */
@@ -210,7 +210,7 @@ export type UserUpdateCreateApiArg = {
     email?: string;
 
     has_consented?: boolean;
-  };
+  // };
 };
 export type UsersRequisites = {
   user: number;

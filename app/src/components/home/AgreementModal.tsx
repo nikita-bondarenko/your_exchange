@@ -20,13 +20,15 @@ export default function AgreementModal() {
 
   useEffect(() => {
     setIsAgreementModalOpen(!agreementAccepted);
+    // setIsAgreementModalOpen(true)
   }, [agreementAccepted]);
+  
 
   const [updateUser] = useUserUpdateCreateMutation();
 
   const handleSubmit = () => {
     dispatch(setAgreementAccepted(true));
-    if (userId) updateUser({ body: { user_id: userId, has_consented: true } });
+    if (userId) updateUser({   user_id: userId, has_consented: true  });
   };
 
   const isSubmitButtonDisabled = useMemo(() => {
