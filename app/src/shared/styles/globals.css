@@ -1,0 +1,210 @@
+@config "../../../tailwind.config.ts";
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Variable.woff2") format("woff2");
+}
+
+:root {
+  --font-main: "Inter"
+}
+
+body {
+  @apply font-main bg-global-background
+}
+
+.container {
+  @apply mx-auto max-w-[600px] px-18
+}
+
+.header__text {
+  @apply text-16 font-medium 
+}
+
+button {
+  @apply cursor-pointer hover:opacity-70 transition-all duration-500 select-none
+}
+
+.home-btn {
+  @apply h-38
+}
+
+.animation-wave {
+  animation: pingWave 2.4s ease-out infinite
+}
+
+.animation-wave-2 {
+  animation: pingWaveSmall 2.4s ease-out infinite
+}
+
+.wave1 {}
+
+.wave2 {
+  animation-delay: 0.4s;
+}
+
+.wave3 {
+  animation-delay: 0.8s;
+}
+
+
+.center {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+}
+
+.center-x {
+@apply absolute left-1/2 -translate-x-1/2
+}
+
+.center-y { 
+  @apply absolute top-1/2 -translate-y-1/2
+}
+
+
+
+.border-top {
+  @apply border-t border-[#CFCFCF]
+}
+
+.heading {
+  @apply font-medium text-16 leading-normal mb-20 text-black
+}
+
+.story-info {
+  @apply text-13 leading-normal text-[#BFBFBF]
+}
+
+*:focus, *:focus-visible {
+  @apply outline-none
+}
+
+input::placeholder {
+  @apply text-[#BFBFBF]
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+textarea {
+  font-size: 16px !important;
+  -webkit-appearance: none;
+}
+
+/* Убираем синий фон при фокусе на iOS */
+input:focus,
+textarea:focus {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.simplebar-scrollbar::before {
+  @apply bg-neutral-gray-700 rounded-6
+
+}
+.simplebar-track.simplebar-vertical {
+  width: 9px !important;
+}
+
+.simplebar-scrollbar::before {
+  background: #999999 !important;
+}
+
+.simplebar-scrollbar.simplebar-visible::before {
+  opacity: 1 !important;
+}
+
+@keyframes pingWave {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes pingWaveSmall {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(2);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.shimmer-on-loading {
+  @apply transition-all duration-500
+}
+
+.loading.shimmer-on-loading {
+  position: relative;
+  overflow: hidden;
+  color: transparent;
+  filter: blur(2px) brightness(0.9);
+}
+
+.loading.shimmer-on-loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  height: 100%;
+  width: 150%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+
+ .answer {
+  @apply p-20 text-12 leading-[110%] text-[#979797] bg-[#FFFFFF];
+}
+
+.answer p, .answer ul {
+  @apply py-6 mb-0;
+}
+.answer li {
+    @apply mb-0 p-0  list-item
+
+}
+
+.answer ul {
+    @apply pl-18 list-disc list-outside
+}
+
+.answer ul, .answer li {
+  @apply list-disc ;
+}

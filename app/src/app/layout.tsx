@@ -1,18 +1,21 @@
 import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/Header";
-import { LoadingProvider } from "@/components/LoadingProvider";
-import { TelegramWebAppProvider } from "@/components/TelegramWebAppProvider";
-import StoreProvider from "@/redux/StoreProvider";
-import EmailRequirementChecking from "@/components/EmailRequirementChecking";
-import AgreementAcceptedChecking from "@/components/AgreementAcceptedChecking";
+import "@/shared/styles/globals.css";
+import {
+  LoadingProvider,
+  StoreProvider,
+  TelegramWebAppProvider,
+} from "@/app/providers";
+import Header from "@/c__widgets/header/ui";
+import { EmailRequirementChecking } from "@/d__features/email-requirement/model";
+import { AgreementsRequirementChecking } from "@/d__features/agreements-requirement/model";
+import { METADATA_DESCRIPTION, METADATA_TITLE, PORTAL_TARGET_ID } from "@/shared/config";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["cyrillic", "latin"],
 });
 
-export default async function  RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -24,9 +27,8 @@ export default async function  RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
-        <meta name="theme-color" content="#ffffff" />
-        <title>Секретный Обменник</title>
-        <meta name="description" content="Test Change - Telegram Mini App" />
+        <title>{METADATA_TITLE}</title>
+        <meta name="description" content={METADATA_DESCRIPTION} />
       </head>
       <body className={`${inter.variable} antialiased flex flex-col h-screen`}>
         <StoreProvider>
@@ -35,11 +37,11 @@ export default async function  RootLayout({
             <LoadingProvider>
               <main className="pb-35 flex-grow h-full">{children}</main>
             </LoadingProvider>
-            <EmailRequirementChecking></EmailRequirementChecking>
-            <AgreementAcceptedChecking></AgreementAcceptedChecking>
+            <EmailRequirementChecking />
+            <AgreementsRequirementChecking />
           </TelegramWebAppProvider>
         </StoreProvider>
-        <div id="portal-target"></div>
+        <div id={PORTAL_TARGET_ID}></div>
       </body>
     </html>
   );
