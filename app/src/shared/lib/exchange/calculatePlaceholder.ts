@@ -1,7 +1,6 @@
 import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
-import { HeadingRate } from "@/shared/ui/SectionHeading";
-import { Rate } from "@/shared/api/types";
-import { roundTo8 } from "@/redux/helpers";
+import { HeadingRate } from "@/shared/ui";
+
 import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
 
 type calculatePlaceholderProps = {

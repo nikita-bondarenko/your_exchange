@@ -1,5 +1,8 @@
-import FaqPage from "@/b__pages/faq/ui";
+"use client"
+import dynamic from 'next/dynamic';
 
-export default async function Faq() {
+const FaqPage = dynamic(() => import('@/b__pages/faq/ui').then(mod => mod.default), { ssr: false });
+
+export default function Faq() {
   return <FaqPage></FaqPage>
 }

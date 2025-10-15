@@ -1,21 +1,24 @@
+"use client"
 import { Inter } from "next/font/google";
 import "@/shared/styles/globals.css";
 import {
   LoadingProvider,
   StoreProvider,
   TelegramWebAppProvider,
-} from "@/app/providers";
-import Header from "@/c__widgets/header/ui";
+} from "@/providers";
 import { EmailRequirementChecking } from "@/d__features/email-requirement/model";
 import { AgreementsRequirementChecking } from "@/d__features/agreements-requirement/model";
 import { METADATA_DESCRIPTION, METADATA_TITLE, PORTAL_TARGET_ID } from "@/shared/config";
+import dynamic from "next/dynamic";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["cyrillic", "latin"],
 });
 
-export default async function RootLayout({
+const Header = dynamic(() => import('@/c__widgets/header/ui').then(mod => mod.Header), { ssr: false });
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

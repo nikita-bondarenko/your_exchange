@@ -1,5 +1,8 @@
-import ProfilePage from "@/b__pages/profile/ui";
+"use client"
+import dynamic from 'next/dynamic';
 
-export default async function Profile() {
+const ProfilePage = dynamic(() => import('@/b__pages/profile/ui').then(mod => mod.default), { ssr: false });
+
+export default  function Profile() {
   return <ProfilePage></ProfilePage>
 }

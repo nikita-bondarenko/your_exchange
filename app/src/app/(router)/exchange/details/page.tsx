@@ -1,5 +1,8 @@
-import ExchangeDetailsPage from "@/b__pages/exchangeDetails/ui";
+"use client"
+import dynamic from 'next/dynamic';
 
-export default async function ExchangeDetails() {
+const ExchangeDetailsPage = dynamic(() => import('@/b__pages/exchangeDetails/ui').then(mod => mod.default), { ssr: false });
+
+export default function ExchangeDetails() {
   return <ExchangeDetailsPage></ExchangeDetailsPage>
 }

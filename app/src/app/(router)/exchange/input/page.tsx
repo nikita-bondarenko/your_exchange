@@ -1,5 +1,8 @@
-import ExchangeInputPage from "@/b__pages/exchangeInput/ui";
+"use client"
+import dynamic from 'next/dynamic';
 
-export default async function ExchangeInput() {
+const ExchangeInputPage = dynamic(() => import('@/b__pages/exchangeInput/ui').then(mod => mod.default), { ssr: false });
+
+export default function ExchangeInput() {
   return <ExchangeInputPage></ExchangeInputPage>
 }

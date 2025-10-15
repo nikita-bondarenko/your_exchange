@@ -35,20 +35,14 @@ export async function fetchApi<T>({
           .split(" ")
           .join("%20")
       : "/";
-    console.log(1);
     const finalBody: string = JSON.stringify(body);
-    console.log(2, {
-      method,
-      ...(method !== "GET" ? { body: finalBody } : {}),
-      headers: headers,
-    });
 
     const result = await fetch(`${API_URL}${path}${queryString}`, {
       method,
       ...(method !== "GET" ? { body: finalBody } : {}),
       headers: headers,
     });
-    console.log(3, result);
+
     const contentType = result.headers.get("Content-Type");
     if (!contentType?.includes("application/json")) {
       const text = await result.text();
@@ -61,11 +55,9 @@ export async function fetchApi<T>({
       } as T;
     }
 
-    // Check if response is OK
 
     return await result.json();
   } catch (e) {
-    console.log(4, e);
 
     throw e;
   }

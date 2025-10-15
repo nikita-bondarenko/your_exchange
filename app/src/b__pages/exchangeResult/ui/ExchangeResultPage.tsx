@@ -1,19 +1,17 @@
 "use client";
-import Icon from "@/shared/ui/media/Icon";
-import Button from "@/shared/ui/button/Button";
-import clsx from "clsx";
+import { Icon } from "@/shared/ui/media";
+import Button from "@/shared/ui/button";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Notification } from "@/shared/ui/form/Notification";
-import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
-import { setIsLoading } from "@/shared/model/store/slices/uiSlice";
 import {
+  useAppDispatch,
+  useAppSelector,
+  setUserId,
   clearAll,
   setSelectedCurrencyBuyType,
   setSelectedCurrencySellType,
-} from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
-import { useCallSupport } from "@/features/support/lib/useCallSupport";
-import { setUserId } from "@/shared/model/store/slices/userSlice/userSlice";
+} from "@/shared/model/store";
 
 export default function ExchangeResultPage() {
   const [copied, setCopied] = useState(false);
@@ -34,7 +32,7 @@ export default function ExchangeResultPage() {
   };
 
   const handleGoChat = () => {
-  window.Telegram.WebApp.close();
+    window.Telegram?.WebApp.close();
   };
 
   const updateUserData = () => {
@@ -61,9 +59,11 @@ export default function ExchangeResultPage() {
             принята в работу
           </div>
           <div className="text-16 text-[#BFBFBF] mb-18 text-center leading-[120%]">
-          Наш оператор свяжется <br />с вами в течение 15 минут 
+            Наш оператор свяжется <br />с вами в течение 15 минут
             <br /> <br />
-            Заранее информируем вас о&nbsp;том, что среднее время обмена сейчас составляет до&nbsp;180 минут, в&nbsp;связи с&nbsp;волатильностью рынка и&nbsp;техническими сложностями в&nbsp;переводах
+            Заранее информируем вас о&nbsp;том, что среднее время обмена сейчас
+            составляет до&nbsp;180 минут, в&nbsp;связи с&nbsp;волатильностью
+            рынка и&nbsp;техническими сложностями в&nbsp;переводах
           </div>
           <div className="w-full h-1 bg-[#BFBFBF] mt-5 mb-13"></div>
           <div className="flex flex-col items-center gap-2">

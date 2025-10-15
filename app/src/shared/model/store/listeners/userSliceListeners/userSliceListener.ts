@@ -2,7 +2,6 @@ import { createListenerMiddleware } from "@reduxjs/toolkit";
 
 import { setUserData, setUserId } from "@/shared/model/store/slices/userSlice/userSlice";
 import { cryptusApi } from "@/shared/api/cryptusApi";
-import { userListQuery } from "@/redux/api/hooks";
 
 export const userSliceListener = createListenerMiddleware();
 

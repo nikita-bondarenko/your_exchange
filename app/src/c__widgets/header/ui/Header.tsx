@@ -1,20 +1,25 @@
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 import clsx from "clsx";
 import { useClickOutside } from "@/shared/lib/browser";
 import {
   setUserId,
   setSelectedCurrencyBuyType,
   setSelectedCurrencySellType,
+  useAppDispatch,
+  useAppSelector,
 } from "@/shared/model/store";
-import { BACK_BUTTON_ROUTES, EXCHANGE_STEPS, TEST_USER_ID } from "@/shared/config";
+import {
+  BACK_BUTTON_ROUTES,
+  EXCHANGE_STEPS,
+  TEST_USER_ID,
+} from "@/shared/config";
 import { useCallSupport } from "@/d__features/support/lib";
-import {Icon} from "@/shared/ui/media";
+import { Icon } from "@/shared/ui/media";
 import { ProgressBar } from "./ProgressBar";
 
-export default function Header() {
+export function Header() {
   const pathname = usePathname();
   const pageName = useAppSelector((state) => state.ui.pageName);
   const isHome = useMemo(() => pathname === "/", [pathname]);
@@ -44,7 +49,7 @@ export default function Header() {
     if (!isAppReady) return;
     const backButtonPath = BACK_BUTTON_ROUTES[pathname as string];
     if (isHome) {
-      window.Telegram.WebApp.close();
+      window.Telegram?.WebApp.close();
     } else {
       setIsBackward(true);
       router.push(backButtonPath);
@@ -103,6 +108,14 @@ export default function Header() {
     [pathname]
   );
 
+  const reloadButtonHandler = () => {
+    try {
+      window.location.reload();
+    } catch (e) {
+      console.error(e)
+    }
+  };
+
   return (
     <div
       className={clsx(
@@ -113,18 +126,16 @@ export default function Header() {
         }
       )}
     >
-      {/* Back button */}{" "}
       <div>
-    
-          <button
-            ref={backButton}
-            onClick={onBackButtonClick}
-            className={clsx("flex gap-2 items-center", {
-              "opacity-0 pointer-events-none": isExchangeResult
-            })}
-          >
-            <Icon src="header-arrow.svg" className="w-17 h-17" />
-          </button>
+        <button
+          ref={backButton}
+          onClick={onBackButtonClick}
+          className={clsx("flex gap-2 items-center", {
+            "opacity-0 pointer-events-none": isExchangeResult,
+          })}
+        >
+          <Icon src="header-arrow.svg" className="w-17 h-17" />
+        </button>
       </div>
       {isPageNameVisible && (
         <span className="header__text  text-black">{pageName}</span>
@@ -184,7 +195,7 @@ export default function Header() {
               <div className="border-b border-[#E9E9E9]"></div>
               <button
                 className="flex items-center gap-6 px-11 py-13  rounded"
-                onClick={() => window.location.reload()}
+                onClick={reloadButtonHandler}
               >
                 <Icon src="reload.svg" className="w-15 h-15" />
                 <span className="text-13 leading-normal">

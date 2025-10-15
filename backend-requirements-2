@@ -1,0 +1,104 @@
+GET /transfer-abroad/options
+
+Response {
+    individual: TransferOption[]
+    legal_entity: TransferOption[]
+}
+
+TransferOption: {
+    id
+    icon
+    name
+    description
+}
+
+
+
+GET /transfer-abroad/currencies/:transfer_option_id
+
+Response {
+    currencies: Currency[]
+}
+
+Currency: {
+        id
+        name
+        icon
+        limit: number | null
+    }
+
+
+GET /transfer-abroad/currencies/transfer-details?currency_id=Number&transfer_option_id=NUmber
+
+Response {
+    ?banks: CurrencySubOptioin[]
+    ?platforms: CurrencySubOptioin[]
+    ?countries: CurrencySubOptioin[]
+}
+
+CurrencySubOptioin: {
+    name
+    id
+}
+
+
+
+
+POST /transfer-abroad/order/invoice
+
+
+body {
+    *transfer_type: 'individual' | 'legal_entity'
+    *currency_name: String
+    *amount: Number
+    *country_name: String
+    *task_description: String
+}
+
+
+POST /transfer-abroad/order/fta
+
+body {
+    *currency_name: String
+    *amount: Number
+    *task_description: String
+    ?russian_company_requisites: String
+    ?abroad_company_requisites: String
+    ?file_1: File
+    ?file_2: File
+}
+
+
+POST /transfer-abroad/order/chinese-platforms
+
+body {
+    *currency_name: String
+    *amount: Number
+    *platform_name: String
+}
+
+
+POST /transfer-abroad/order/abroad_cards
+
+body {
+    *currency_name: String
+    *amount: Number
+    *bank_name: String
+    *card_number: String
+}
+
+
+Response {
+    order_id: String
+}
+
+
+
+
+
+
+
+
+
+
+

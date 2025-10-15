@@ -1,14 +1,11 @@
 "use client";
-import RequestDetails, {
-  RequestDetailsProps,
-} from "@/entities/requestDetails/ui/RequestDetails";
+
 import {
   calculateCurrencyTypeFromDirection,
   Direction,
 } from "@/shared/lib/currency/calculateCurrencyTypeFromDirection";
 import { calculateRate } from "@/shared/lib/exchange/calculateRate";
 import { calculateWayDetails } from "@/shared/lib/exchange/calculateWayDetails";
-import { findIcon } from "@/shared/lib/media/findIcon";
 import { valueMask } from "@/shared/lib/string/valueMask";
 import { roundTo8 } from "@/shared/lib/number/roundTo8";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
@@ -19,6 +16,7 @@ import React, { useEffect, useMemo } from "react";
 import { createSelector } from "@reduxjs/toolkit";
 import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
 import { RequestCurrency } from "@/shared/api/types";
+import { RequestDetails, RequestDetailsProps } from "@/entities/requestDetails/ui";
 
 
 const Page: React.FC = () => {

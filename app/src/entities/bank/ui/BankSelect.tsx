@@ -7,7 +7,7 @@ import { Bank } from "@/shared/api/types";
 export type BankOption = Bank;
 
 export type BankSelectProps = {
-  options: BankOption[];e
+  options: BankOption[];
   onChange: (value: BankOption | null) => void;
   value: BankOption | null;
   placeholder: string;

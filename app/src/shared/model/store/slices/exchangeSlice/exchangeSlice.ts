@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ExchangeTypeItemProps } from "@/1_pages/exchangeType/ui/exchangeTypeSelect/ExchangeTypeItem";
+import { ExchangeTypeItemProps } from "@/b__pages/exchangeType/ui/exchangeTypeSelect/ExchangeTypeItem";
 import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
-import { exchangeTypesButtons } from "@/1_pages/exchangeType/model/exchangeTypesButtons";
-import { ExchangeInputType } from "@/shared/lib/exchange/useExchangeInput";
+
 import {
   Bank,
   City,

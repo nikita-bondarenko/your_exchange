@@ -35,32 +35,22 @@ export const provideFetchWithAuth = async <Result>(
   request: NextRequest,
   executionTime: number = 1
 ): Promise<any> => {
-  console.log('hi2')
   try {
     if (executionTime > maxTryTimes) {
-        console.log('hi3')
-
       throw {
         detail: `Fetching failed after ${maxTryTimes}`,
         code: "attempts_failed",
         status: 500,
       };
     }
-
-      console.log('hi4')
-
   
 
     const urlPath = request.nextUrl.pathname.replace(/^\/api/, '') + (!request.nextUrl.pathname.endsWith('/') ? '/' : '') || '/';
 
     const params = Object.fromEntries(request.nextUrl.searchParams);
     const body = request.method === "GET" ? null : await request.json();
-    console.log(body);
-          console.log('hi5')
 
     const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
-
-              console.log('hi6')
 
     await ensureDirectoryExist(TOKEN_FILE_DIR);
     const isTokenFile = await isFileExist(tokenFilePath);
@@ -70,11 +60,6 @@ export const provideFetchWithAuth = async <Result>(
       path: urlPath,
       body,
     };
-          console.log('hi7')
-
-    console.log(fetchProps);
-
-    console.log("isTokenFile", isTokenFile);
 
     let result: Result;
 
