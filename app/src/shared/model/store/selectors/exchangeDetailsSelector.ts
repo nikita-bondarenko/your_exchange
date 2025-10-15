@@ -4,12 +4,12 @@ import { calculateRate } from "@/shared/lib/exchange/calculateRate";
 import { valueMask } from "@/shared/lib/string/valueMask";
 import { createSelector } from "@reduxjs/toolkit";
 
-import { selectBankValue, selectNetValue } from ".";
 import {
 
   ExchangesCreateApiArg,
 } from "../../../api/types";
 import { roundTo8 } from "@/shared/lib/number/roundTo8";
+import { selectBankValue, selectNetValue } from "./exchangeSelector";
 
 export const selectExchangeDetails = createSelector(
   (state: RootState) => state.exchange.selectedCurrencySellType,

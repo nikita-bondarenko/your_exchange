@@ -2,7 +2,6 @@
 
 import { API_URL } from "@/shared/config";
 
-
 export interface FetchError {
   message: string;
   status?: number; // HTTP-статус (например, 400, 401, 500)
@@ -55,10 +54,14 @@ export async function fetchApi<T>({
       } as T;
     }
 
+    const responseBody= await result.json()
 
-    return await result.json();
+    console.log("fetchApi result", responseBody);
+
+
+    return responseBody;
   } catch (e) {
-
+    console.log("fetchApi error", e);
     throw e;
   }
 }

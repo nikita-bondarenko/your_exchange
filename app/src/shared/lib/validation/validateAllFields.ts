@@ -10,7 +10,7 @@ import {
   setWalletAddressError,
   setAreErrors,
 } from "../../model/store/slices/exchangeSlice/exchangeSlice";
-import { validateExchangeInput } from ".";
+import { validateExchangeInput } from "./validateExchangeInput";
 
 export const validateAllFields = (
   state: RootState,

@@ -18,7 +18,6 @@ const RequestStatus = dynamic(() => import("@/entities/requestStatus/ui/RequestS
 });
 export default function HomePage() {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const { callSupport } = useCallSupport();
 
   const requestsInProcess = useAppSelector(
@@ -28,12 +27,6 @@ export default function HomePage() {
     (state) => state.user.data?.user_data?.profile_picture
   );
   const [forceRender, setForceRender] = useState(0);
-
-  const { data } = useGetCurrenciesGetQuery({
-    currencyType: "BANK",
-    giveCurrencyId: 4,
-  });
-
 
   useEffect(() => {
     setForceRender((prev) => prev + 1);

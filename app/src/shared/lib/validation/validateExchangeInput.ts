@@ -1,5 +1,6 @@
 import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
-import { ValidatedField, validators } from ".";
+import { ValidatedField } from "./types";
+import { validators } from "./validators";
 
 export type ValidateExchangeInput = (props: {
   value: unknown;

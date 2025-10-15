@@ -4,10 +4,11 @@ import { promises as fs } from "fs";
 import { cwd } from "process";
 import { GetTokenApiArg, GetTokenApiResponse } from "@/shared/api";
 import { USERNAME, PASSWORD } from "@/shared/config";
-import { ensureDirectoryExist, isFileExist } from "@/shared/lib";
-import { FetchApiProps, fetchApi } from "@/shared/lib/fetching";
-import { NextRequest } from "next/server";
 
+import { NextRequest } from "next/server";
+import { isFileExist } from "./checkTokenFile";
+import { ensureDirectoryExist } from "./ensureDIrectoryExist";
+import { FetchApiProps, fetchApi } from "./fetchApi";
 
 const fetchAndSaveToken = async (filePath: string) => {
   const tokenFetchProps: FetchApiProps = {
@@ -43,10 +44,11 @@ export const provideFetchWithAuth = async <Result>(
         status: 500,
       };
     }
-  
 
-    const urlPath = request.nextUrl.pathname.replace(/^\/api/, '') + (!request.nextUrl.pathname.endsWith('/') ? '/' : '') || '/';
-
+    const urlPath =
+      request.nextUrl.pathname.replace(/^\/api/, "") +
+        (!request.nextUrl.pathname.endsWith("/") ? "/" : "") || "/";
+    console.log("urlPath", urlPath);
     const params = Object.fromEntries(request.nextUrl.searchParams);
     const body = request.method === "GET" ? null : await request.json();
 
@@ -80,6 +82,7 @@ export const provideFetchWithAuth = async <Result>(
       try {
         result = await fetchApi<Result>(fetchProps);
       } catch (e) {
+        
         throw e;
       }
 
@@ -91,7 +94,7 @@ export const provideFetchWithAuth = async <Result>(
     }
     return result;
   } catch (e) {
-    console.log(e)
+    console.log('provideFetchWithAuth error',e);
     throw e;
   }
 };
