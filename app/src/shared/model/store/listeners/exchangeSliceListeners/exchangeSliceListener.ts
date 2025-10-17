@@ -6,7 +6,7 @@ import {
   setIsRateBeingPulled,
   setSelectedBankValueWithoutListening,
   setSelectedCurrencyBuyWithoutListening,
-} from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+} from "@/shared/model/store/reducers/exchangeReducer";
 import { createListenerMiddleware, PayloadAction } from "@reduxjs/toolkit";
 import {
   setBanks,
@@ -24,7 +24,7 @@ import {
   setSelectedCurrencySellType,
   setSelectedNetworkValue,
   setIsPhoneNumberUsed,
-} from "../../slices/exchangeSlice/exchangeSlice";
+} from "../../reducers/exchangeReducer";
 import { AppDispatch, RootState } from "@/shared/model/store/store";
 import { EXCHANGE_TYPES_BUTTONS } from "@/b__pages/exchangeType/config";
 import { cryptusApi } from "@/shared/api/cryptusApi";

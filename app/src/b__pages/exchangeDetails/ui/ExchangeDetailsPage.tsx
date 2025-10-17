@@ -69,17 +69,17 @@ const timeoutId = useRef<NodeJS.Timeout>(null)
         {details.map((item, idx) => (
           <RequestDetails {...item} key={idx} />
         ))}
-        <div className="bg-white rounded-6 px-20 py-15 flex items-center justify-center " >
+        <div className="bg-[] rounded-6 px-20 py-15 flex items-center justify-center " >
           {
             !isPromoApplied ? <button className=" underline underline-offset-2" onClick={handlePromoButton}>У меня есть промокод</button>
               :
               <div className="flex items-center justify-center gap-[6px]">
-                <p className="text-[#323232]">Промокод будет успешно применен</p>
+                <p className="text-[var(--main-color)]">Промокод будет успешно применен</p>
                 <Icon src="sign.svg" className="w-[16px] h-[16px] translate-y-[2px]"></Icon>
               </div>
           }
         </div>
-     <div className="bg-white rounded-6 px-20 py-15 flex items-center justify-center ">
+     <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-15 flex items-center justify-center ">
             <p className="text-center mx-auto">
               Курс обмена может меняться в&nbsp;зависимости
               от&nbsp;волатильности рынка. Итоговый курс сделки озвучит

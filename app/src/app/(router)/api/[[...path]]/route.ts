@@ -1,5 +1,5 @@
 
-import { provideFetchWithAuth } from "@/d__features/api-proxy/lib";
+import { provideFetchWithAuth } from "@/d__features/apiProxy/lib";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

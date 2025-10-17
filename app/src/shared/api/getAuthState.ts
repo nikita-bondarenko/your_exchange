@@ -1,5 +1,5 @@
-import { USERNAME, PASSWORD, API_URL } from "@/shared/config";
-import { AuthSlice } from "@/shared/model/store/slices/authSlice";
+import { PROJECT_DATA } from "@/shared/config";
+import { AuthSlice } from "@/shared/model/store/reducers/authReducer";
 
 export type GetTokenApiArg = {
   username: string;
@@ -15,8 +15,8 @@ export const getAuthState = async () => {
   const requestOptions = {
     method: "POST",
     body: JSON.stringify({
-      username: USERNAME,
-      password: PASSWORD,
+      username: PROJECT_DATA.credentials.username,
+      password: PROJECT_DATA.credentials.password,
     } as GetTokenApiArg),
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const getAuthState = async () => {
   };
 
   try {
-    const result = await fetch(`${API_URL}/api/token/`, requestOptions);
+    const result = await fetch(`${PROJECT_DATA.apiUrl}/api/token/`, requestOptions);
 
     const token: GetTokenApiResponse = await result.json();
 

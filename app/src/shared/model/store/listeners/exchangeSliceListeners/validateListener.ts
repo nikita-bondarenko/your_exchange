@@ -11,7 +11,7 @@ import {
   setPhoneNumberValue,
   setPromocode,
   setIsPromocodeValid,
-} from "../../slices/exchangeSlice/exchangeSlice";
+} from "../../reducers/exchangeReducer";
 import { validateAllFields } from "../../../../lib/validation/validateAllFields";
 import { AppDispatch, RootState } from "../../store";
 import { PayloadAction } from "@reduxjs/toolkit";

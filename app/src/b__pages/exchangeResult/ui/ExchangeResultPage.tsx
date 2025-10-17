@@ -52,9 +52,9 @@ export default function ExchangeResultPage() {
   return (
     <div className="container h-full  ">
       <div className="w-full mx-auto flex flex-col h-full justify-between">
-        <div className="bg-[#FFFFFF] rounded-6 border-1 border-[#FFFFFF] px-26 pt-32 pb-25 flex flex-col items-center mb-30">
+        <div className="bg-[var(--background-secondary)] rounded-6 border-1 border-[#FFFFFF] px-26 pt-32 pb-25 flex flex-col items-center mb-30">
           <Icon src="clock.svg" className="w-40 h-40 mb-18" />
-          <div className="text-17 font-medium mb-8 text-center text-black">
+          <div className="text-17 font-medium mb-8 text-center text-[var(--text-main)]">
             Ваша заявка <br />
             принята в работу
           </div>

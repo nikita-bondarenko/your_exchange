@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "../../../shared/ui/media/Icon";
+import Icon from "../../../shared/ui/icon";
 import clsx from "clsx";
 
 export type StoryCryptoDataProps = {

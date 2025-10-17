@@ -22,7 +22,7 @@ export const Input: React.FC<InputProps> = ({
     <input
       type={type}
       className={clsx(
-        "w-full bg-[#FFFFFF] outline-none text-16 text-black  px-16 py-8 ",
+        "w-full bg-[var(--background-secondary)] outline-none text-16 text-[var(--text-main)]  px-16 py-8 ",
         className
       )}
       value={value}

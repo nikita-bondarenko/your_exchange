@@ -1,8 +1,10 @@
+"use client"
 import { valueMask } from "@/shared/lib/string/valueMask";
 import React, { memo, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import QuestionIconAnimation from "./QuestionIconAnimation";import Icon from "../media/Icon";
+import QuestionIconAnimation from "./QuestionIconAnimation";
 import { useCallSupport } from "@/d__features/support/lib";
+import { AlertIcon } from "../icon";
 export type HeadingRate = {
   from: {
     value: number;
@@ -29,9 +31,8 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
 
     useEffect(() => {
       if (isMessageOpen) {
-        if (timeout.current )
-clearTimeout(timeout.current);
-         
+        if (timeout.current) clearTimeout(timeout.current);
+
         timeout.current = setTimeout(() => {
           setIsMessageOpen(false);
         }, 3000);
@@ -40,24 +41,20 @@ clearTimeout(timeout.current);
 
     useEffect(() => {
       return () => {
-        if (timeout.current )
-clearTimeout(timeout.current);
-         
+        if (timeout.current) clearTimeout(timeout.current);
       };
     }, []);
 
- 
     const handleMinValueClick: React.MouseEventHandler = () => {
       setIsMessageOpen(true);
     };
 
-    const { callSupport } = useCallSupport()
-
+    const { callSupport } = useCallSupport();
 
     const handleMinValueDescriptionClick: React.MouseEventHandler = () => {
-      callSupport()
-      setIsMessageOpen(false)
-    }
+      callSupport();
+      setIsMessageOpen(false);
+    };
 
     return (
       <div className="flex items-end justify-between mb-10 pl-6  gap-10">
@@ -66,32 +63,38 @@ clearTimeout(timeout.current);
         </h2>
         {rate && (
           <span
-            className="text-13  leading-normal text-neutral-gray-1600 text-right"
+            className="text-13  leading-normal text-[var(--text-secondary)] text-right"
             dangerouslySetInnerHTML={{
               __html: `${valueMask(rate?.from.value)} ${
                 rate?.from.name
-              } = <span class="text-black">${valueMask(
+              } = <span class="text-[var(--text-main)]">${valueMask(
                 rate?.to.value
               )}</span> ${rate?.to.name}`,
             }}
           ></span>
         )}
         {minValue && (
-          <button onClick={handleMinValueClick} className=" relative block pl-17 max-w-200">
-            <Icon
-              src="alert.svg"
+          <button
+            onClick={handleMinValueClick}
+            className=" relative block pl-17 max-w-200"
+          >
+            <AlertIcon
+              color="var(--text-error-bright)"
               className={clsx(
                 "w-12 h-12 center-y left-0 opacity-0 transition-opacity duration-500",
                 { "opacity-100": error }
               )}
-            ></Icon>
-                       <QuestionIconAnimation error={error} wavesColor="#323232" className="center-y left-[-8px] z-20"></QuestionIconAnimation>
+            />
+            <QuestionIconAnimation
+              error={error}
+              className="center-y left-[-8px] z-20"
+            ></QuestionIconAnimation>
 
             <span
               className={clsx(
-                "block text-13 leading-normal text-neutral-gray-1600  [&_span]:transition-all [&_span]:duration-500",
+                "block text-13 leading-normal text-[var(--text-secondary)]  [&_span]:transition-all [&_span]:duration-500",
                 {
-                  "[&]:text-primary-red [&_span]:text-primary-red-strong":
+                  "[&]:text-[var(--text-error-light)] [&_span]:text-[var(--text-error-bright)]":
                     error,
                 }
               )}
@@ -99,9 +102,9 @@ clearTimeout(timeout.current);
               <span className=" mr-6 ">минимально</span>
               <span
                 className={clsx(
-                  "text-black transition-all duration-500 whitespace-nowrap",
+                  "text-[var(--text-main)] transition-all duration-500 whitespace-nowrap",
                   {
-                    "text-primary-red-strong": error,
+                    "text-[var(--text-error-bright)]": error,
                   }
                 )}
               >
@@ -112,17 +115,20 @@ clearTimeout(timeout.current);
         )}
         <div
           className={clsx(
-            "fixed z-50 top-[121px] right-1/2 translate-x-1/2 w-[280px] px-[21px] py-[14px]  leading-[120%] border border-[#E9E9E9] bg-white rounded-[8px] transition-opacity duration-500",
+            "fixed z-50 top-[121px] right-1/2 translate-x-1/2 w-[280px] px-[21px] py-[14px]  leading-[120%] border border-[var(--border-main)] bg-[var(--background-secondary)] rounded-[8px] transition-opacity duration-500",
             {
               "opacity-100 pointer-events-auto": isMessageOpen,
               "opacity-0 pointer-events-none": !isMessageOpen,
             }
           )}
         >
-          <p className="text-black mb-[5px] text-[14px]">
+          <p className="text-[var(--text-main)] mb-[5px] text-[14px]">
             Минимальная сумма обмена может быть ниже
           </p>
-          <button onClick={handleMinValueDescriptionClick} className="text-[#999999] text-[13px]">
+          <button
+            onClick={handleMinValueDescriptionClick}
+            className="text-[var(--text-secondary)] text-[13px]"
+          >
             Уточните подробности у оператора
           </button>
         </div>

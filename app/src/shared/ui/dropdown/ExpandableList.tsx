@@ -1,5 +1,5 @@
 
-import AdditionallySectionButton from "./DropdownTrigger";
+import Button from "./DropdownTrigger";
 import ExpandableElement from "./ExpandableElement";
 
 type ExpandableListProps = {
@@ -15,21 +15,21 @@ export default function ExpandableList({ items, title }: ExpandableListProps) {
     <>
       <ExpandableElement
         triggerRender={({ onClick, isOpen }) => (
-          <AdditionallySectionButton
+          <Button
             onClick={onClick}
             arrowPosition={isOpen ? "bottom" : "top"}
             arrow
           >
             {title}
-          </AdditionallySectionButton>
+          </Button>
         )}
       >
         <ul className="w-full">
           {items.map((item, index) => (
             <li key={index}>
-              <AdditionallySectionButton border onClick={item.onClick}>
+              <Button border onClick={item.onClick}>
                 {item.text}
-              </AdditionallySectionButton>
+              </Button>
             </li>
           ))}
         </ul>

@@ -1,8 +1,9 @@
+"use client"
 import clsx from "clsx";
 import Button from "../button/Button";
-import Icon from "../media/Icon";
 import { createPortal } from "react-dom";
 import { ForwardedRef, forwardRef, useEffect, useRef } from "react";
+import { CrossIcon } from "../icon";
 
 type BaseModalProps = {
   mode: "dark" | "light";
@@ -27,7 +28,7 @@ const BaseModal = forwardRef(
       handleClose,
       handleButton,
       buttonText = "Понятно!",
-      lightBackgroundClass = "bg-white",
+      lightBackgroundClass = "bg-[var(--background-secondary)]",
       isCloseButtonHidden = false,
       className,
       isSubmitButtonDisabled,
@@ -64,7 +65,7 @@ const BaseModal = forwardRef(
           <div
             className={clsx(
               " text-[16px] ",
-              mode === "dark" ? "text-white" : "text-black"
+              mode === "dark" ? "text-white" : "text-[var(--text-main)]"
             )}
           >
             {children}
@@ -82,7 +83,7 @@ const BaseModal = forwardRef(
               onClick={handleClose}
             >
               {" "}
-              <Icon src="close.svg" className={clsx("w-13 h-13")} />
+              <CrossIcon className={clsx("w-13 h-13")} />
             </button>
           )}
         </div>

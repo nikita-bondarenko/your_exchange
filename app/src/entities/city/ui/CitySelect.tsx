@@ -82,7 +82,7 @@ if (value !== searchValue) {
           <InputWrapper error={error} errorIcon={false}>
             <div
               className={clsx(
-                "relative w-full flex items-center justify-between px-16 py-15 rounded-6 border border-[#FFFFFF] bg-[#FFFFFF] text-13 transition-all duration-500",
+                "relative w-full flex items-center justify-between px-16 py-15 rounded-6 border border-[#FFFFFF] bg-[var(--background-secondary)] text-13 transition-all duration-500",
                 { "[&]:border-primary-red": !!error }
               )}
             >
@@ -90,7 +90,7 @@ if (value !== searchValue) {
                 <div
                   className={clsx(
                     "absolute left-16 pointer-events-none text-16 transition-colors",
-                    focused ? "text-[#BFBFBF]" : "text-black"
+                    focused ? "text-[#BFBFBF]" : "text-[var(--text-main)]"
                   )}
                 >
                   {focused ? placeholderFocused : placeholder}
@@ -99,7 +99,7 @@ if (value !== searchValue) {
 
               <input
                 type="text"
-                className="w-full outline-none bg-transparent text-16 text-black placeholder:opacity-0"
+                className="w-full outline-none bg-transparent text-16 text-[var(--text-main)] placeholder:opacity-0"
                 value={searchValue}
                 onChange={handleInputChange}
                 onFocus={handleFocus}
@@ -130,7 +130,7 @@ if (value !== searchValue) {
         )}
         renderOption={({ option, onClick }) => (
           <button
-            className="shrink-0 px-18 py-9 text-left w-full not-last:border-b not-last:border-[#B5B5B5] text-black"
+            className="shrink-0 px-18 py-9 text-left w-full not-last:border-b not-last:border-[#B5B5B5] text-[var(--text-main)]"
             key={option.id}
             onClick={onClick}
           >

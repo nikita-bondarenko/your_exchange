@@ -3,7 +3,7 @@ import { createListenerMiddleware } from "@reduxjs/toolkit";
 import {
   setUserData,
   setUserId,
-} from "@/shared/model/store/slices/userSlice/userSlice";
+} from "@/shared/model/store/reducers/userReducer";
 import { cryptusApi } from "@/shared/api/cryptusApi";
 
 export const userSliceListener = createListenerMiddleware();

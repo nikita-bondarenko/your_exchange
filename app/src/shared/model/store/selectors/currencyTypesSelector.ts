@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 
 
 export type CurrencyTypes = {

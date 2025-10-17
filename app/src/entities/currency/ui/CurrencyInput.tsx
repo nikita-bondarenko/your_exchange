@@ -120,7 +120,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = memo(
           errorIcon={false}
           className="pb-0"
         >
-          <div className="py-9 rounded-6 border transition-all duration-500 border-[#FFFFFF] bg-[#FFFFFF]">
+          <div className="py-9 rounded-6 border transition-all duration-500 border-[#FFFFFF] bg-[var(--background-secondary)]">
             <div className="relative w-full flex items-center justify-between text-13">
               <Input
                 value={inputValue || ""}

@@ -1,4 +1,4 @@
-import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 
 export type Direction = "COIN - BANK" | "COIN - CASH" | "BANK - COIN" | "CASH - COIN";
 type Position = "given" | "received";

@@ -4,7 +4,7 @@ import { calculatePlaceholder } from "@/shared/lib/exchange/calculatePlaceholder
 import { valueMask } from "@/shared/lib/string/valueMask";
 import { useAppSelector } from "@/shared/model/store/hooks";
 import { selectRate } from "@/shared/model/store/selectors";
-import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 import { useMemo } from "react";
 
 export const usePlaceholder = (position: CurrencyPosition, currencyType:CurrencyType) => {

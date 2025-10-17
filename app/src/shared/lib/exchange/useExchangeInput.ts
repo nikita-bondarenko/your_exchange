@@ -10,7 +10,7 @@ import {
   selectCurrency
 } from "@/shared/model/store/selectors";
 import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
-import { setActiveInputType, setCurrencyBuyAmountValue, setCurrencySellAmountValue, setSelectedCurrencyBuy, setSelectedCurrencySell } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { setActiveInputType, setCurrencyBuyAmountValue, setCurrencySellAmountValue, setSelectedCurrencyBuy, setSelectedCurrencySell } from "@/shared/model/store/reducers/exchangeReducer";
 import { Currency } from "@/shared/api/types";
 
 export type ExchangeInputType = "BANK" | "CASH" | "COIN";

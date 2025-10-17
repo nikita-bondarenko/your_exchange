@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import Icon from "../media/Icon";
+import { AlertIcon } from "../icon";
 
 type InputWrapperProps = {
   children: React.ReactElement<{ className?: string }>;
@@ -35,8 +35,7 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
           </p>}
           {errorIcon && (
             <div className={clsx("absolute right-0 top-0 h-full flex items-center pr-12 transition-all duration-500", {"opacity-0": !error})}>
-              <Icon
-                src="alert.svg"
+              <AlertIcon
                 className={errorIconClassName}
               />
             </div>

@@ -16,7 +16,7 @@ import {
   setCities,
   setNetworks,
   setSelectedNetworkValueWithoutListening,
-} from "../../model/store/slices/exchangeSlice/exchangeSlice";
+} from "../../model/store/reducers/exchangeReducer";
 import {
   ListenerEffectAPI,
   ThunkDispatch,

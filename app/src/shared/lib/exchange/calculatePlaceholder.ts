@@ -1,7 +1,7 @@
 import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
 import { HeadingRate } from "@/shared/ui";
 
-import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 
 type calculatePlaceholderProps = {
   position: CurrencyPosition;

@@ -1,7 +1,7 @@
 "use client"
 import { useEffect } from 'react';
 import { useAppDispatch } from '@/shared/model/store/hooks';
-import { setIsLoading } from '@/shared/model/store/slices/uiSlice';
+import { setIsLoading } from '@/shared/model/store/reducers/uiReducer';
 
 type QueryHookResult<T> = {
   isLoading: boolean;

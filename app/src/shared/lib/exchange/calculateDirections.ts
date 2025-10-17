@@ -1,5 +1,5 @@
 import { DirectionType } from "@/shared/api/types";
-import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 
 export const calculateDirections = (giveType: CurrencyType, getType: CurrencyType) : DirectionType => {
     if (giveType === "COIN" && getType === "BANK") {

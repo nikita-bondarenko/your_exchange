@@ -7,7 +7,7 @@ import {
   GetCurrenciesGetApiResponse,
   GetDirectionInitialDataByDirectionTypeApiResponse,
 } from "@/shared/api/types";
-import { calculateSecondaryProperties } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { calculateSecondaryProperties } from "@/shared/model/store/reducers/exchangeReducer";
 import {
   calculateCurrencyTypeFromDirection,
   Direction,

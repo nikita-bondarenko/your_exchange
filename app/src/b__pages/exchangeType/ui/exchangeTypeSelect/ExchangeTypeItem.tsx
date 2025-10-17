@@ -2,8 +2,8 @@ import React, { memo } from "react";
 import { CurrencyPosition } from "../../../../entities/requestDetails/ui/RequestDetails";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import clsx from "clsx";
-import Icon from "../../../../shared/ui/media/Icon";
-import { CurrencyType, setSelectedCurrencyBuyType, setSelectedCurrencySellType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import Icon from "../../../../shared/ui/icon";
+import { CurrencyType, setSelectedCurrencyBuyType, setSelectedCurrencySellType } from "@/shared/model/store/reducers/exchangeReducer";
 
 export type ExchangeTypeItemProps = {
   icon: string;
@@ -28,7 +28,7 @@ const ExchangeTypeItem: React.FC<ExchangeTypeItemProps> = memo(
     return (
       <button
         className={clsx(
-          "h-46 flex items-center justify-between w-[101%] duration-500 transition-all bg-[#FFFFFF] px-18 relative",
+          "h-46 flex items-center justify-between w-[101%] duration-500 transition-all bg-[var(--background-secondary)] px-18 relative",
           {
             "[&]:bg-[#EBEBEB] pointer-events-none z-20": isSelected,
           }

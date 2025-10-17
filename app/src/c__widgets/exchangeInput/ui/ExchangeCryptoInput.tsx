@@ -18,7 +18,7 @@ import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
 import { Input } from "../../../shared/ui/form/Input";
 import CryptoNetSelect, { CryptoNetOption } from "../../../entities/network/ui/CryptoNetSelect";
 import { useExchangeInput } from "@/shared/lib/exchange/useExchangeInput";
-import {setSelectedNetworkValue, setWalletAddressValue } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import {setSelectedNetworkValue, setWalletAddressValue } from "@/shared/model/store/reducers/exchangeReducer";
 import clsx from "clsx";
 import { Currency } from "@/shared/api/types";
 import SectionHeading from "@/shared/ui/exchange/SectionHeading";
@@ -114,7 +114,7 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(({ position
         })}>
           <InputWrapper error={walletAddressError && areErrorsVisible ? walletAddressError : null}>
             <Input
-              className="border border-[#FFFFFF] rounded-6 bg-[#FFFFFF] text-16 leading-normal px-18 py-15 pr-30 w-full"
+              className="border border-[#FFFFFF] rounded-6 bg-[var(--background-secondary)] text-16 leading-normal px-18 py-15 pr-30 w-full"
               type="text"
               onChange={handleWalletAddressChange}
               value={walletAddressValue ?? ""}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
-import { setIsLoading, setPageName } from "@/shared/model/store/slices/uiSlice";
+import { setIsLoading, setPageName } from "@/shared/model/store/reducers/uiReducer";
 import { useRouter } from "next/navigation";
 import React, { memo, useCallback, useEffect, useRef } from "react";
 import { EXCHANGE_TYPES_BUTTONS } from "../config";
@@ -48,13 +48,13 @@ export default memo(function Page() {
           title="Я получаю"
           buttons={recieveOptions || []}
         ></ExchangeTypeBlock>
-        <div className="border-[1px] rounded-6 border-[#E9E9E9] bg-[#FFFFFF] w-full h-70 flex flex-col items-center justify-center">
+        <div className="border-[1px] rounded-6 border-[#E9E9E9] bg-[var(--background-secondary)] w-full h-70 flex flex-col items-center justify-center">
           <p className="text-13 text-[#979797]">
             Не нашли интересующий тип обмена?
           </p>
           <button
             onClick={callSupport}
-            className="text-13 font-medium text-black underline underline-offset-2"
+            className="text-13 font-medium text-[var(--text-main)] underline underline-offset-2"
           >
             связаться с поддержкой
           </button>

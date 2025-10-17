@@ -1,19 +1,10 @@
-// export const SUCCESS_REQUEST_STATUS = "Выполнено";
-// export const IN_PROCESS_REQUEST_STATUS = "Передана оператору";
-// export const CANCELLED_REQUEST_STATUS = "Отмена";
-// export const NEW_REQUEST_STATUS = "Новый";
+import { ProjectName } from '../model/project';
+import { TEST_PROJECT_DATA } from './project';
 
-export const API_URL = "https://test-exchange-backend.partners-bot.ru";
-
-export const POLICY_URL =
-  "https://drive.google.com/file/d/1kqS3k6ykV82Jcbh7cSw7URyxuKR6bqFi/preview";
-
-export const TERMS_URL =
-  "https://drive.google.com/file/d/1CDv9U5B9EaDOUv_MsrGW3TkpyWmS7cmf/preview";
+export const PROJECT_DATA = TEST_PROJECT_DATA 
 
 
-export const PRODUCTION_ORIGIN =
-  "https://test-change-front-2025.partners-bot.ru";
+export const PROJECT_NAME: ProjectName = 'test'
 
 export const TEST_USER_ID = 464552386;
 

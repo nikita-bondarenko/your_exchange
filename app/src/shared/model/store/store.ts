@@ -1,16 +1,10 @@
 // src/lib/store.ts
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import uiReducer from "./slices/uiSlice";
-import authReducer from "./slices/authSlice";
 
-import userReducer from "./slices/userSlice/userSlice";
-import requestDetailsReducer from "./slices/requestDetailsSlice";
-import { loadState, saveState } from "./persistConfig";
-import exchangeReducer from "./slices/exchangeSlice/exchangeSlice";
-import { exchangeSliceListener } from "./listeners/exchangeSliceListeners/exchangeSliceListener";
-import { validateListener } from "./listeners/exchangeSliceListeners/validateListener";
-import { api } from "../../api/cryptusApi";
-import { userSliceListener } from "./listeners/userSliceListeners/userSliceListener";
+import {uiReducer, authReducer, userReducer, requestDetailsReducer, exchangeReducer, exchangeSliceListener, validateListener, userSliceListener} from "@/shared/model/store"
+import { api } from "@/shared/api";
+import { saveState, loadState } from "@/shared/lib/store";
+import { pageDataReducer } from "./reducers/pageDataReducer";
 
 const rootReducer = combineReducers({
   ui: uiReducer,
@@ -18,7 +12,8 @@ const rootReducer = combineReducers({
   requestDetails: requestDetailsReducer,
   exchange: exchangeReducer,
   [api.reducerPath]: api.reducer,
-  auth: authReducer
+  auth: authReducer,
+  pageData: pageDataReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -44,7 +39,6 @@ export const store = configureStore({
 
 store.subscribe(() => {
   const state = store.getState();
-  // Only persist specific parts of the state that we want to keep
   saveState({
     exchange: state.exchange,
     requestDetails: state.requestDetails,

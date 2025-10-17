@@ -5,7 +5,7 @@ import DropdownTrigger from "../../../shared/ui/dropdown/DropdownTrigger";
 import ExpandableElement from "../../../shared/ui/dropdown/ExpandableElement";
 import { typograf } from "@/shared/lib/string/typograf";
 import { useAppDispatch } from "@/shared/model/store/hooks";
-import { setPageName } from "@/shared/model/store/slices/uiSlice";
+import { setPageName } from "@/shared/model/store/reducers/uiReducer";
 import { useFaqsListQuery } from "@/shared/api/cryptusApi";
 
 

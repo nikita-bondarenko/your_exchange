@@ -1,10 +1,10 @@
+import { ClockIcon } from "@/shared/ui";
 import clsx from "clsx";
 import { memo } from "react";
-import Icon from "../../../shared/ui/media/Icon";
 
 const RequestStatus: React.FunctionComponent<{
   isInProcess: boolean;
-  id: string;
+  id: string | undefined;
 }> = memo(({ isInProcess, id }) => {
   return (
     <div
@@ -12,11 +12,11 @@ const RequestStatus: React.FunctionComponent<{
         " opacity-100 ": isInProcess,
       })}
     >
-      <div className="px-17 pt-14 pb-16 rounded-8 flex items-center gap-11 w-full bg-[#EBEBEB]">
-        <Icon src="clock.svg" className="w-30 h-30"></Icon>
+      <div className="px-17 pt-14 pb-16 rounded-8 flex items-center gap-11 w-full bg-[var(--background-request-status)]">
+        <ClockIcon className="w-30 h-30"></ClockIcon>
         <div>
-          <p className="text-13 mb-4 text-[#404040]">Заявка {id} в работе</p>
-          <span className="text-10 text-[#BFBFBF] leading-[120%] block">
+          <p className="text-13 mb-4 text-[var(--text-main)]">Заявка {id} в работе</p>
+          <span className="text-10 text-[var(--text-secondary)] leading-[120%] block">
             Наш оператор скоро с вами свяжется
           </span>
         </div>

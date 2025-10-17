@@ -116,13 +116,13 @@ const PromoModal: React.FC<PromoModalProps> = ({ isOpen, handleCloseEvent, value
                         className="py-[8px] w-full flex justify-center cursor-grab active:cursor-grabbing select-none touch-none"
                         style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
                     >
-                        <div className="h-[7px] rounded-full w-[60px] bg-white">
+                        <div className="h-[7px] rounded-full w-[60px] bg-[var(--background-secondary)]">
                         </div>
                     </div>
-                    <div className="container w-screen rounded-t-[22px] bg-white pb-[12px] pt-[18px] flex flex-col gap-[13px] ">
+                    <div className="container w-screen rounded-t-[22px] bg-[var(--background-secondary)] pb-[12px] pt-[18px] flex flex-col gap-[13px] ">
                         <div className="flex items-center justify-between leading-[107%] text-[16px]">
                             <div className={clsx("text-[#FF6769] transition-opacity", { 'opacity-0': !isErrorMessageShowing, 'opacity-100': isErrorMessageShowing })}>Недействительный промокод</div>
-                            <button onClick={handleCloseEvent} className="text-[#323232]">Отмена</button>
+                            <button onClick={handleCloseEvent} className="text-[var(--main-color)]">Отмена</button>
                         </div>
                         <div className="relative">
                             <input
@@ -137,11 +137,11 @@ const PromoModal: React.FC<PromoModalProps> = ({ isOpen, handleCloseEvent, value
                                 autoCapitalize="off"
                                 spellCheck="false"
                             />
-                            <div className="w-full h-2 rounded-2 bg-[#323232]"></div>
+                            <div className="w-full h-2 rounded-2 bg-[var(--main-color)]"></div>
                         </div>
                         <Button type="primary" onClick={onSubmit}>Применить</Button>
                     </div>
-                    <div className="absolute left-0 top-full h-screen bg-white w-full"></div>
+                    <div className="absolute left-0 top-full h-screen bg-[var(--background-secondary)] w-full"></div>
 
                 </div>
             </div>

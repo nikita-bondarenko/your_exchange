@@ -1,0 +1,11 @@
+export type CurrentProjectThemeVariable =
+  | "--main-color"
+  | "--text-button-main"
+  | "--text-button-secondary"
+  | "--text-button-first-screen-left"
+  | "--text-button-first-screen-right"
+  | "--background-button-first-screen-left"
+  | "--background-button-first-screen-right"
+  | "--background-button-secondary"
+  | "--background-first-screen"
+  | "--background-request-status"

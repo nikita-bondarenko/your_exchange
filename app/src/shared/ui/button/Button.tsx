@@ -3,8 +3,8 @@ import React, { memo, ReactNode } from "react";
 
 type ButtonProps = {
   className?: string;
-  type: "primary" | "secondary" | "bordary";
- children: ReactNode;
+  type: "primary" | "secondary" | "main-screen-left" | "main-screen-right";
+  children: ReactNode;
   onClick?: () => void;
   submit?: boolean;
   disabled?: boolean;
@@ -12,19 +12,19 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = memo(
   ({ className, type, children, onClick, submit, disabled }) => {
-
     return (
       <button
         onClick={onClick}
-        type={submit ? "submit" : 'button'}
+        type={submit ? "submit" : "button"}
         className={clsx(
           className,
-          "flex items-center justify-center w-full text-16 rounded-6 h-47 transition-all",
+          "flex items-center justify-center w-full text-16 rounded-6 transition-all",
           {
-            "bg-[#323232] text-white": type === "primary",
-            "bg-[#C0C0C0] text-[#323232]": type === "secondary",
-            "bg-[#FFFFFF] text-[#434343] border-[1px] border-[#323232]": type === "bordary",
-            "[&]:bg-[#C4C4C4] [&]:text-white [&]:pointer-events-none": disabled
+            "bg-[var(--main-color)] text-[var(--text-button-main)] h-47": type === "primary",
+            "bg-[var(--main-color)] text-[var(--text-button-secondary)] border border-[var(--border-button-secondary)] h-47": type === "secondary",
+            "bg-[var(--background-button-first-screen-left)] text-[var(--text-button-first-screen-left)] h-38": type === "main-screen-left",
+            "bg-[var(--background-button-first-screen-right)] text-[var(--text-button-first-screen-right)] h-38": type === "main-screen-right",
+            "[&]:bg-[var(--background-button-disabled)] [&]:text-[var(--text-button-disabled)] [&]:pointer-events-none": disabled,
           }
         )}
       >
@@ -33,5 +33,5 @@ const Button: React.FC<ButtonProps> = memo(
     );
   }
 );
-Button.displayName = "Button"
+Button.displayName = "Button";
 export default Button;

@@ -1,4 +1,4 @@
-import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 import { ServerCurrencyType } from "./calculateCurrencyTypeForFetching";
 
 export const calculateCurrencyTypeForFrontend = (currencyType: ServerCurrencyType): CurrencyType => {

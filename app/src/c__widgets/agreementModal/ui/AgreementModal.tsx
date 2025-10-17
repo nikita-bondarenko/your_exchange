@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "../../../shared/ui/modal/BaseModal";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
-import { setAgreementAccepted } from "@/shared/model/store/slices/userSlice/userSlice";
+import { setAgreementAccepted } from "@/shared/model/store/reducers/userReducer";
 import Checkbox from "../../../shared/ui/form/Checkbox";
-import { POLICY_URL, TERMS_URL } from "@/shared/config";
 import { typograf } from "@/shared/lib/string/typograf";
 import { useUserUpdateCreateMutation } from "@/shared/api/cryptusApi";
 
 export default function AgreementModal() {
+
   const [isAgreementModalOpen, setIsAgreementModalOpen] = useState(false);
   const [isMature, setIsMature] = useState(false);
   const [isIdPossessor, setIsIdPossessor] = useState(false);
@@ -16,6 +16,7 @@ export default function AgreementModal() {
   const agreementAccepted = useAppSelector(
     (state) => state.user.agreementAccepted
   );
+  const policyUrl = useAppSelector(state => state.pageData.home.policyUrl)
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -76,7 +77,7 @@ export default function AgreementModal() {
           <a
             target="_blank"
             className="underline underline-offset-2"
-            href={POLICY_URL}
+            href={policyUrl}
           >
             персональных данных
           </a>

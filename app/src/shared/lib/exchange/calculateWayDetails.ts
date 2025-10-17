@@ -1,4 +1,4 @@
-import { CurrencyType } from "@/shared/model/store/slices/exchangeSlice/exchangeSlice";
+import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 import { Direction } from "../currency/calculateCurrencyTypeFromDirection";
 
 type WayDetails = {

@@ -1,7 +1,7 @@
 "use client"
 import clsx from "clsx";
 import { FC, ReactNode } from "react";
-import Icon from "../media/Icon";
+import { ArrowTopIcon } from "../icon";
 
 const DropdownTrigger: FC<{
   onClick?: () => void;
@@ -13,11 +13,12 @@ const DropdownTrigger: FC<{
 }> = ({ onClick, children, arrowPosition, arrow, border,className }) => {
   return (
     <button
+   
       className={clsx(
-        "flex items-center justify-center gap-5 w-full h-50 bg-[#FFFFFF] text-black",
+        "flex items-center justify-center gap-5 w-full h-50 bg-[var(--background-secondary)] text-[var(--text-main)]",
         className,
         {
-          "border-top": border,
+          "border-t border-[var(--divider-secondary)]": border,
           
         }
       )}
@@ -25,15 +26,14 @@ const DropdownTrigger: FC<{
     >
       <span className="text-16 ">{children}</span>
       {arrow && (
-        <Icon
-          src="arrow-top.svg"
+        <ArrowTopIcon
           className={clsx(
             "w-11 h-11 transition-transform duration-500 translate-y-3 shrink-0",
             {
               "rotate-180 [&]:translate-y-0": arrowPosition !== "bottom",
             }
           )}
-        ></Icon>
+        />
       )}
     </button>
   );

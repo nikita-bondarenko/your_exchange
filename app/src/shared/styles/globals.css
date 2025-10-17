@@ -11,7 +11,7 @@
 }
 
 body {
-  @apply font-main bg-global-background
+  @apply font-main 
 }
 
 .container {
@@ -26,9 +26,6 @@ button {
   @apply cursor-pointer hover:opacity-70 transition-all duration-500 select-none
 }
 
-.home-btn {
-  @apply h-38
-}
 
 .animation-wave {
   animation: pingWave 2.4s ease-out infinite
@@ -61,19 +58,6 @@ button {
   @apply absolute top-1/2 -translate-y-1/2
 }
 
-
-
-.border-top {
-  @apply border-t border-[#CFCFCF]
-}
-
-.heading {
-  @apply font-medium text-16 leading-normal mb-20 text-black
-}
-
-.story-info {
-  @apply text-13 leading-normal text-[#BFBFBF]
-}
 
 *:focus, *:focus-visible {
   @apply outline-none
@@ -190,7 +174,7 @@ textarea:focus {
 
 
  .answer {
-  @apply p-20 text-12 leading-[110%] text-[#979797] bg-[#FFFFFF];
+  @apply p-20 text-12 leading-[110%] text-[#979797] bg-[var(--background-secondary)];
 }
 
 .answer p, .answer ul {

@@ -9,7 +9,7 @@ import {
   setCurrencyBuyAmountError,
   setWalletAddressError,
   setAreErrors,
-} from "../../model/store/slices/exchangeSlice/exchangeSlice";
+} from "../../model/store/reducers/exchangeReducer";
 import { validateExchangeInput } from "./validateExchangeInput";
 
 export const validateAllFields = (

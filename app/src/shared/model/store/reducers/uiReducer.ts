@@ -1,0 +1,47 @@
+// src/lib/features/uiSlice.ts
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ProjectName } from "../../project";
+import { PROJECT_NAME } from "@/shared/config";
+
+export type uiState = {
+  projectName: ProjectName;
+  pageName: string | null;
+  isLoading: boolean;
+  exchangeId: number | null;
+  isAppReady: boolean;
+};
+
+const initialState: uiState = {
+  projectName: PROJECT_NAME,
+  pageName: "",
+  isLoading: true,
+  exchangeId: null,
+  isAppReady: false,
+};
+
+export const uiSlice = createSlice({
+  name: "ui",
+  initialState,
+  reducers: {
+    setProjectName(state, action: PayloadAction<ProjectName>) {
+      state.projectName = action.payload;
+    },
+    setPageName(state, action: PayloadAction<string | null>) {
+      state.pageName = action.payload;
+    },
+    setIsLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
+    },
+    setExchangeId(state, action: PayloadAction<number | null | undefined>) {
+      if (!action.payload) return;
+      state.exchangeId = action.payload;
+    },
+    setIsAppReady(state, action: PayloadAction<boolean>) {
+      state.isAppReady = action.payload;
+    },
+  },
+});
+
+export const { setPageName, setIsLoading, setExchangeId, setIsAppReady } =
+  uiSlice.actions;
+export const uiReducer = uiSlice.reducer;
