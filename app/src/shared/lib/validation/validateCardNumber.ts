@@ -16,7 +16,7 @@ export const validateCardNumber = ({ value, options }: ValidateCardNumberProps):
 
   // Remove spaces and dashes
   const cleanNumber = value.replace(/[\s-]/g, "");
-// // // console.log(cleanNumber)
+// // // // console.log(cleanNumber)
   // Check if the number is between 16 and 19 digits
   if (cleanNumber.length < 16 || cleanNumber.length > 19) {
     return "Номер карты должен содержать от 16 до 19 цифр";

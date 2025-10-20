@@ -58,12 +58,12 @@ export const useMenuButtons = ({ closeMenu }: Props) => {
         ? TOTAL_PROJECTS_DATA.map((project) => ({
             icon: (
               <CryptoIcon
-                className="w-15 h-15"
+                className="w-15 h-15 shrink-0"
                 color={project.theme["--main-color"]}
               />
             ),
             text: `${project.meta.title} Theme`,
-            className: "[&]:text-[var(--main-color)] [&]:gap-6",
+            className: "[&]:text-[var(--text-main)] [&]:gap-9",
             onClick: () => themeButtonHandler(project.name),
           }))
         : []),

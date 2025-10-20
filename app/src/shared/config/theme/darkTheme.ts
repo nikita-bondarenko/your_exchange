@@ -1,11 +1,6 @@
 import { BaseTheme } from "@/shared/model/theme";
 
 export const DARK_THEME: BaseTheme = {
-  "--background-global": "#131313",
-  "--background-secondary": "#303030",
-  "--background-light": "#626262",
-  "--background-first-screen-description": "#383838",
-
   "--text-main": "#FFFFFF",
   "--text-secondary": "#6A6A6A",
   "--text-light": "#7B7B7B",
@@ -30,8 +25,16 @@ export const DARK_THEME: BaseTheme = {
   "--divider-thirdary": "#6A6A6A",
 
   "--progress-bar-default": "#4A4A4A",
+  "--progress-bar-sign": "#000000",
+
   "--text-tabs": "#B5B5B5",
   "--background-profile-icon": "#282828",
   "--background-button-profile": "#979797",
-  "--background-button-disabled": "#C4C4C4"
+  "--background-button-disabled": "#C4C4C4",
+  "--background-exchange-type-selected": "#3A3A3A",
+  "--background-modal": "#4e4e4e",
+  "--background-global": "#131313",
+  "--background-secondary": "#303030",
+  "--background-light": "#626262",
+  "--background-first-screen-description": "#383838",
 };

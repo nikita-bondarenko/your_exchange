@@ -52,11 +52,15 @@ export const getAvailableCurrenciesBuyDetails = ({
         )
       ) || [];
 
-  console.log(
-    currenciesBuy,
-    availableCurrenciesGet,
-    initialData?.currencies_get
-  );
+  if (currenciesBuy.length === 0) {
+    currenciesBuy = availableCurrenciesGet;
+  }
+
+  // // console.log(
+  //   currenciesBuy,
+  //   availableCurrenciesGet,
+  //   initialData?.currencies_get
+  // );
 
   const isCurrencyBuyValid = currenciesBuy.some(
     (cur) => cur.id === selectedCurrencyBuyId
@@ -69,6 +73,8 @@ export const getAvailableCurrenciesBuyDetails = ({
   const isNetworkValid = currenciesBuy.some((cur) =>
     cur.networks.some((n) => n.id === selectedNetworkId)
   );
+
+  // console.log(currenciesBuy);
 
   const selectedCurrencyBuy: Currency = JSON.parse(
     JSON.stringify(
@@ -103,6 +109,9 @@ export const getAvailableCurrenciesBuyDetails = ({
         cur.banks.some((b) => b.id === bank.id)
       )
     );
+    if (banks.length === 0) {
+      banks = selectedCurrencyBuy.banks;
+    }
     selectedCurrencyBuy.banks = banks;
   }
 
@@ -115,7 +124,7 @@ export const getAvailableCurrenciesBuyDetails = ({
     selectedCurrencyBuy.networks = networks;
   }
 
-  console.log(banks);
+  // console.log(banks);
 
   return {
     selectedNetwork: networks[0] || null,

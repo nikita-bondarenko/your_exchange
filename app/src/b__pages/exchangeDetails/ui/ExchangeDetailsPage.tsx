@@ -5,7 +5,7 @@ import PromoModal from "@/c__widgets/promocodeModal/ui";
 import { RequestDetails } from "@/entities/requestDetails/ui";
 import { useExchangesCreateMutation, useCheckPromocodeMutation } from "@/shared/api";
 import { useAppDispatch, useAppSelector, selectExchangeDetails, setPageName, selectExchangeCreateData, setExchangeId, setPromocode, setIsPromocodeValid } from "@/shared/model/store";
-import { Icon } from "@/shared/ui";
+import { SignIcon } from "@/shared/ui";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
 
@@ -69,13 +69,13 @@ const timeoutId = useRef<NodeJS.Timeout>(null)
         {details.map((item, idx) => (
           <RequestDetails {...item} key={idx} />
         ))}
-        <div className="bg-[] rounded-6 px-20 py-15 flex items-center justify-center " >
+        <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-15 flex items-center justify-center " >
           {
             !isPromoApplied ? <button className=" underline underline-offset-2" onClick={handlePromoButton}>У меня есть промокод</button>
               :
               <div className="flex items-center justify-center gap-[6px]">
                 <p className="text-[var(--main-color)]">Промокод будет успешно применен</p>
-                <Icon src="sign.svg" className="w-[16px] h-[16px] translate-y-[2px]"></Icon>
+                <SignIcon className="w-[16px] h-[16px] translate-y-[2px]"/>
               </div>
           }
         </div>

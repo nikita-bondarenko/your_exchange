@@ -42,14 +42,12 @@ export default function HomePage() {
   return (
     <>
       <div className="container h-full flex flex-col">
-        <div className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col bg-[var(--background-secondary)] relative overflow-hidden">
+        <div className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col background-first-screen relative overflow-hidden">
           {homePageData.firstScreenBackgroundImage && homePageData.firstScreenBackgroundImage()}
           <div className="flex-grow flex flex-col justify-center relative z-10">
             <div className="flex justify-between">
               <div className="max-w-205">
-                <h1 className="font-bold text-[var(--text-main-screen-title)] text-32 mb-15 leading-normal">
-                  {homePageData.title}
-                </h1>
+                <h1 className="font-bold text-[var(--text-main-screen-title)] text-32 mb-15 leading-normal" dangerouslySetInnerHTML={{__html: homePageData.title}}></h1>
                 <p
                   className="text-16 font-medium mb-30 text-[var(--text-main-screen-subtitle)]"
                   dangerouslySetInnerHTML={{ __html: homePageData.subtitle }}
@@ -60,7 +58,7 @@ export default function HomePage() {
 
             <ul className="flex flex-col gap-11 mb-16">
               {homePageData.descriptionList.map((item, index) => (
-                <DescriptionItem icon={item.icon({color: 'var(--text-main-screen-description)'})} key={index}>
+                <DescriptionItem icon={item.icon({color: 'var(--text-main-screen-description)', className: item.iconClassName})} key={index}>
                   {item.text}
                 </DescriptionItem>
               ))}

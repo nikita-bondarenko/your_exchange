@@ -45,7 +45,7 @@ export const validateAllFields = (
     }
     dispatch(setWalletAddressError(walletAddressError));
 
-    // // console.log('amountError, walletAddressError',amountError, walletAddressError);
+    // // // console.log('amountError, walletAddressError',amountError, walletAddressError);
 
     hasErrors = !!(amountError || walletAddressError);
   }
@@ -97,7 +97,7 @@ export const validateAllFields = (
     dispatch(setSelectedBankError(bankError));
     dispatch(setCardNumberError(cardNumberError));
     dispatch(setPhoneNumberError(phoneNumberError));
-    // // console.log('amountError, bankError, cardNumberError',amountError, bankError, cardNumberError, banks);
+    // // // console.log('amountError, bankError, cardNumberError',amountError, bankError, cardNumberError, banks);
 
     hasErrors = hasErrors || !!(amountError || bankError || cardNumberError || phoneNumberError);
   }
@@ -129,7 +129,7 @@ export const validateAllFields = (
       dispatch(setCurrencyBuyAmountError(amountError));
     }
     dispatch(setSelectedCityError(cityError));
-    // // console.log('amountError, cityError',amountError, cityError);
+    // // // console.log('amountError, cityError',amountError, cityError);
 
     hasErrors = hasErrors || !!(amountError || cityError);
   }

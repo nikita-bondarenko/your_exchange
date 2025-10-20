@@ -69,7 +69,7 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(({ position
   const handleNetChange = (net: CryptoNetOption) => {
     const network = networks?.find((network) => network.id === net.id);
     if (network) {
-          console.log('setSelectedNetworkValue ExchangeCryptoInput', networks)
+          // console.log('setSelectedNetworkValue ExchangeCryptoInput', networks)
 
       dispatch(setSelectedNetworkValue(network));
     }

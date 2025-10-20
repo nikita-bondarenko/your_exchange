@@ -9,6 +9,7 @@ export type PageData = {
             subtitle: string;
             descriptionList: {
                 icon: ({ className, color, }: SvgIcon) => JSX.Element;
+                iconClassName?: string;
                 text: string;
             }[];
             firstScreenBackgroundImage: undefined | FirstScreenBackgroundImage;

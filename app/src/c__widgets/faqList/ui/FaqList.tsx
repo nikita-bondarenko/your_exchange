@@ -25,7 +25,7 @@ export default function FaqList() {
           key={index}
           triggerRender={({ onClick, isOpen }) => (
             <DropdownTrigger
-              className="[&]:justify-between px-[20px] [&]:text-left [&]:py-[15px] [&]:h-auto [&]:min-h-[50px]"
+              className="[&]:justify-between px-[20px] [&]:text-left [&]:py-[15px] [&]:h-auto [&]:min-h-[50px] [&]:gap-30"
               onClick={onClick}
               arrowPosition={isOpen ? "bottom" : "top"}
               arrow

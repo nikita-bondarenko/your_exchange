@@ -3,6 +3,7 @@ import { clsx } from "clsx";
 import { memo, useRef, useState } from "react";
 import BurgerIcon from "./BurgerIcon";
 import { useMenuButtons } from "../lib/useMenuButtons";
+import React from "react";
 
 type Props = {};
 
@@ -29,6 +30,8 @@ export const Menu = memo(({}: Props) => {
 
   const { menuButtons } = useMenuButtons({ closeMenu });
 
+  // console.log(menuButtons)
+
   return (
     <div className="flex justify-end relative">
       <button
@@ -51,7 +54,7 @@ export const Menu = memo(({}: Props) => {
         )}
       >
         {menuButtons.map((button, index) => (
-          <>
+          <React.Fragment key={index}>
             <button
               className={clsx(
                 "flex items-center gap-8 px-11 py-13  rounded-6",
@@ -60,10 +63,12 @@ export const Menu = memo(({}: Props) => {
               onClick={button.onClick}
             >
               {button.icon}
-              <span className="text-13 leading-normal">{button.text}</span>
+              <span className="text-13 leading-normal text-left">
+                {button.text}
+              </span>
             </button>
             {index !== menuButtons.length - 1 && <MenuDivider />}
-          </>
+          </React.Fragment>
         ))}
         {/* <button
           className="flex items-center gap-8 px-11 py-13  rounded-6"

@@ -42,6 +42,6 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { setPageName, setIsLoading, setExchangeId, setIsAppReady } =
+export const { setPageName, setIsLoading, setExchangeId, setIsAppReady, setProjectName } =
   uiSlice.actions;
 export const uiReducer = uiSlice.reducer;

@@ -1,6 +1,7 @@
 import { CarIcon, HomeIcon, PlanetIcon } from "@/shared/ui";
 import { MAX_SECRET_THEME } from "../theme";
 import { ProjectData } from "@/shared/model/project";
+import { FirstScreenBackground } from "@/shared/ui/background";
 
 export const MAX_SECRET_PROJECT_DATA: ProjectData = {
     name: "max-secret",
@@ -28,7 +29,7 @@ export const MAX_SECRET_PROJECT_DATA: ProjectData = {
         },
         { icon: PlanetIcon, text: "ВЭД" },
       ],
-      firstScreenBackgroundImage: undefined,
+      firstScreenBackgroundImage: FirstScreenBackground,
       policyUrl:
         "https://drive.google.com/file/d/11R9HxvSLxu2x-k967SvTBz22MiVQnC6X/preview",
       termsUrl:

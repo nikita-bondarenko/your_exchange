@@ -88,7 +88,7 @@ export function Header() {
             "opacity-0 pointer-events-none": isExchangeResultPage,
           })}
         >
-          <HeaderArrowIcon className="w-17 h-17" />
+          <HeaderArrowIcon color="var(--text-main)" className="w-17 h-17" />
         </button>
       </div>
       {isPageNameVisible && (
@@ -110,7 +110,7 @@ export function Header() {
           <CrossIcon className="w-12 h-12 transition-all duration-500 center"></CrossIcon>
         </button>
       )}
-      {isExchangeResultPage && <Menu />}
+      {!isExchangeResultPage && <Menu />}
     </div>
   );
 }

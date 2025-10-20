@@ -49,7 +49,7 @@ export const provideFetchWithAuth = async <Result>(
     const urlPath =
       request.nextUrl.pathname.replace(/^\/api/, "") +
         (!request.nextUrl.pathname.endsWith("/") ? "/" : "") || "/";
-    console.log("urlPath", urlPath);
+    // console.log("urlPath", urlPath);
     const params = Object.fromEntries(request.nextUrl.searchParams);
     const body = request.method === "GET" ? null : await request.json();
 
@@ -94,7 +94,7 @@ export const provideFetchWithAuth = async <Result>(
     }
     return result;
   } catch (e) {
-    console.log("provideFetchWithAuth error", e);
+    // console.log("provideFetchWithAuth error", e);
     throw e;
   }
 };

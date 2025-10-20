@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import Icon from "../../../shared/ui/icon";
 import clsx from "clsx";
 import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 import { SectionHeadingProps } from "@/shared/ui";
@@ -34,18 +33,16 @@ export const RequestDetails: React.FC<RequestDetailsProps> = memo(
           <div>
             <div className="mb-15 flex  items-center justify-between">
               <div className="flex  items-center gap-6">
-                <Icon
+                <img
                   src={currency.icon}
-                  server
                   className={clsx("w-24 h-24", {
-                 
                   })}
-                ></Icon>
+                ></img>
                 <span className="text-16 leading-normal text-[var(--text-main)]">
                   {currency.name}
                 </span>
               </div>
-              <span className="text-16 leading-normal text-[#BFBFBF]">
+              <span className="text-16 leading-normal text-[var(--text-light)]">
                 {currency.typeLabel}
               </span>
             </div>
@@ -53,7 +50,7 @@ export const RequestDetails: React.FC<RequestDetailsProps> = memo(
           </div>
           {currency.wayDetails && (
             <div>
-              <h3 className="text-[#BFBFBF] text-13 leading-normal mb-10">
+              <h3 className="text-[var(--text-light)] text-13 leading-normal mb-10">
                 {currency.wayDetails.title}
               </h3>
               <span

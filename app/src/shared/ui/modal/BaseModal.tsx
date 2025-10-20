@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import clsx from "clsx";
 import Button from "../button/Button";
 import { createPortal } from "react-dom";
@@ -6,13 +6,11 @@ import { ForwardedRef, forwardRef, useEffect, useRef } from "react";
 import { CrossIcon } from "../icon";
 
 type BaseModalProps = {
-  mode: "dark" | "light";
   children: React.ReactNode;
   isOpen: boolean;
   handleClose: () => void;
   handleButton?: () => void;
   buttonText?: string;
-  lightBackgroundClass?: string;
   isCloseButtonHidden?: boolean;
   className?: string;
   isSubmitButtonDisabled?: boolean;
@@ -22,13 +20,11 @@ type BaseModalProps = {
 const BaseModal = forwardRef(
   (
     {
-      mode,
       children,
       isOpen,
       handleClose,
       handleButton,
       buttonText = "Понятно!",
-      lightBackgroundClass = "bg-[var(--background-secondary)]",
       isCloseButtonHidden = false,
       className,
       isSubmitButtonDisabled,
@@ -47,7 +43,7 @@ const BaseModal = forwardRef(
         ref={ref}
         onClick={handleClose}
         className={clsx(
-          "fixed top-0 left-0 w-full h-full bg-[#4e4e4e]/60 flex justify-center items-center transition-all duration-500 z-[200] p-[21px]",
+          "fixed top-0 left-0 w-full h-full bg-[var(--background-modal)]/60 flex justify-center items-center transition-all duration-500 z-[200] p-[21px]",
           {
             "pointer-events-none opacity-0": !isOpen,
             "pointer-events-auto opacity-100": isOpen,
@@ -58,14 +54,12 @@ const BaseModal = forwardRef(
         <div
           onClick={(e) => e.stopPropagation()}
           className={clsx(
-            " relative w-full max-w-[400px] rounded-[16px] p-[28px] pt-[36px] flex flex-col gap-[30px]",
-            mode === "dark" ? "bg-[#303030]" : lightBackgroundClass
+            " relative w-full max-w-[400px] rounded-[16px] p-[28px] pt-[36px] flex flex-col gap-[30px] bg-[var(--background-secondary)]"
           )}
         >
           <div
             className={clsx(
-              " text-[16px] ",
-              mode === "dark" ? "text-white" : "text-[var(--text-main)]"
+              " text-[16px] text-[var(--text-main)]",
             )}
           >
             {children}
@@ -95,6 +89,6 @@ const BaseModal = forwardRef(
   }
 );
 
-BaseModal.displayName = "BaseModal"
+BaseModal.displayName = "BaseModal";
 
-export default BaseModal;;
+export default BaseModal;

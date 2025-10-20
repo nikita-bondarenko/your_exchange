@@ -63,12 +63,10 @@ export default function EmailModal () {
   return (
     <>
       <Modal
-        mode="light"
         isOpen={isEmailModalOpen}
         handleClose={() => setIsEmailModalOpen(false)}
         handleButton={handleSubmit}
         buttonText="Отправить"
-        lightBackgroundClass="bg-[#F1F1F1]"
       >
         <div className="mb-[-25px]">
           <p className="mb-[30px]">
@@ -84,14 +82,12 @@ export default function EmailModal () {
         </div>
       </Modal>
       <Modal
-        mode="light"
         isOpen={isSuccessModalOpen}
         handleClose={() => setIsSuccessModalOpen(false)}
       >
         <p className="text-center">Email успешно сохранен!</p>
       </Modal>
       <Modal
-        mode="light"
         isOpen={isErrorModalOpen}
         handleClose={() => setIsErrorModalOpen(false)}
       >

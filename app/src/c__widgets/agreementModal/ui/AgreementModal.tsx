@@ -8,7 +8,7 @@ import { useUserUpdateCreateMutation } from "@/shared/api/cryptusApi";
 
 export default function AgreementModal() {
 
-  const [isAgreementModalOpen, setIsAgreementModalOpen] = useState(false);
+  const [isAgreementModalOpen, setIsAgreementModalOpen] = useState(true);
   const [isMature, setIsMature] = useState(false);
   const [isIdPossessor, setIsIdPossessor] = useState(false);
   const [hasAgreedWithTerms, setHasAgreedWithTerms] = useState(false);
@@ -21,7 +21,6 @@ export default function AgreementModal() {
 
   useEffect(() => {
     setIsAgreementModalOpen(!agreementAccepted);
-    // setIsAgreementModalOpen(true)
   }, [agreementAccepted]);
   
 
@@ -38,12 +37,10 @@ export default function AgreementModal() {
 
   return (
     <Modal
-      mode="light"
       isOpen={isAgreementModalOpen}
       handleClose={() => {}}
       handleButton={handleSubmit}
       buttonText="Подтвердить"
-      lightBackgroundClass="bg-[#F1F1F1]"
       className="[&]:z-[300]"
       isCloseButtonHidden={true}
       isSubmitButtonDisabled={isSubmitButtonDisabled}

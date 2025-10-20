@@ -27,10 +27,11 @@ const DropdownTrigger: FC<{
       <span className="text-16 ">{children}</span>
       {arrow && (
         <ArrowTopIcon
+        color="var(--text-main)"
           className={clsx(
-            "w-11 h-11 transition-transform duration-500 translate-y-3 shrink-0",
+            "w-11 h-11 transition-transform duration-500 translate-y-1 shrink-0",
             {
-              "rotate-180 [&]:translate-y-0": arrowPosition !== "bottom",
+              "rotate-180 [&]:translate-y-2": arrowPosition !== "bottom",
             }
           )}
         />

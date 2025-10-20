@@ -1,5 +1,4 @@
 "use client";
-import { Icon } from "@/shared/ui/media";
 import Button from "@/shared/ui/button";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -12,6 +11,7 @@ import {
   setSelectedCurrencyBuyType,
   setSelectedCurrencySellType,
 } from "@/shared/model/store";
+import { ClockIcon, CopyIcon, SignIcon } from "@/shared/ui";
 
 export default function ExchangeResultPage() {
   const [copied, setCopied] = useState(false);
@@ -52,29 +52,29 @@ export default function ExchangeResultPage() {
   return (
     <div className="container h-full  ">
       <div className="w-full mx-auto flex flex-col h-full justify-between">
-        <div className="bg-[var(--background-secondary)] rounded-6 border-1 border-[#FFFFFF] px-26 pt-32 pb-25 flex flex-col items-center mb-30">
-          <Icon src="clock.svg" className="w-40 h-40 mb-18" />
+        <div className="bg-[var(--background-secondary)] rounded-6 text-[var(--text-light)] px-26 pt-32 pb-25 flex flex-col items-center mb-30">
+          <ClockIcon className="w-40 h-40 mb-18" />
           <div className="text-17 font-medium mb-8 text-center text-[var(--text-main)]">
             Ваша заявка <br />
             принята в работу
           </div>
-          <div className="text-16 text-[#BFBFBF] mb-18 text-center leading-[120%]">
+          <div className="text-16  mb-18 text-center leading-[120%]">
             Наш оператор свяжется <br />с вами в течение 15 минут
             <br /> <br />
             Заранее информируем вас о&nbsp;том, что среднее время обмена сейчас
             составляет до&nbsp;180 минут, в&nbsp;связи с&nbsp;волатильностью
             рынка и&nbsp;техническими сложностями в&nbsp;переводах
           </div>
-          <div className="w-full h-1 bg-[#BFBFBF] mt-5 mb-13"></div>
+          <div className="w-full h-1 bg-[var(--divider-thirdary)] mt-5 mb-13"></div>
           <div className="flex flex-col items-center gap-2">
-            <div className="text-16 text-[#BFBFBF]">номер заявки</div>
+            <div className="text-16 ">номер заявки</div>
             <div className="flex items-center gap-7">
               <button
                 onClick={handleCopy}
                 className="p-1 flex items-center gap-7"
               >
-                <Icon src={"copy.svg"} className="w-15 h-15 translate-y-1" />
-                <span className="text-16 font-medium text-[#BFBFBF] select-all">
+                <CopyIcon className="w-15 h-15 translate-y-1" />
+                <span className="text-16 font-medium  select-all">
                   {exchangeId?.toString() || ""}
                 </span>
               </button>
@@ -85,7 +85,7 @@ export default function ExchangeResultPage() {
           <Notification
             isVisible={copied}
             message="номер заявки скопирован"
-            iconSrc="sign.svg"
+            icon={<SignIcon className="w-12 h-12 translate-y-2"/>}
           />
           <div className="flex flex-col gap-12">
             <Button
@@ -97,7 +97,7 @@ export default function ExchangeResultPage() {
             </Button>
             <Button
               onClick={handleGoHome}
-              type="bordary"
+              type="secondary"
               className="w-full text-15 py-15"
             >
               В главное меню

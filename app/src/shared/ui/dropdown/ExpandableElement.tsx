@@ -1,5 +1,4 @@
 "use client";
-import { PROJECT_THEME } from "@/shared/config";
 import clsx from "clsx";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 

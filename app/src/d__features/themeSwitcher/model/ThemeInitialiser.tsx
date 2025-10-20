@@ -3,7 +3,7 @@ import { memo, useEffect } from "react";
 import { switchTheme } from "../lib";
 
 export const ThemeInitialiser = memo(() => {
-    console.log('ThemeInitialiser')
+    // console.log('ThemeInitialiser')
     useEffect(()=> {
     switchTheme(PROJECT_DATA.theme)
     },[])

@@ -1,10 +1,11 @@
 
+import { ReactNode } from "react";
 import Button from "./DropdownTrigger";
 import ExpandableElement from "./ExpandableElement";
 
 type ExpandableListProps = {
   items: Array<{
-    text: string;
+    children: ReactNode;
     onClick: () => void;
   }>;
   title: string;
@@ -28,7 +29,7 @@ export default function ExpandableList({ items, title }: ExpandableListProps) {
           {items.map((item, index) => (
             <li key={index}>
               <Button border onClick={item.onClick}>
-                {item.text}
+                {item.children}
               </Button>
             </li>
           ))}

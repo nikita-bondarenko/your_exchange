@@ -18,7 +18,7 @@ export default function QuestionIconAnimation({
       >
         <QuestionIcon
           color={"var(--main-color)"}
-          className={clsx("w-18 h-18  translate-x-[0.3px] translate-y-[0.5px]")}
+          className={clsx("w-18 h-18 ")}
         ></QuestionIcon>
         <span
           style={{ borderColor: "var(--main-color)" }}

@@ -191,7 +191,7 @@ export const exchangeSlice = createSlice({
 
       state.currenciesSell = initData?.currencies_give || [];
 
-      console.log('initData',availableCurrenciesGet)
+      // console.log('initData',availableCurrenciesGet)
 
       const {
         

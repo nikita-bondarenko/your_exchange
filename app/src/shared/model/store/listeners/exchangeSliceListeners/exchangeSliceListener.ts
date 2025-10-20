@@ -98,13 +98,13 @@ exchangeSliceListener.startListening({
       console.error("fetching initial data is not successfull");
       return;
     }
-    console.log(
-      {
-        currencyType: action.payload,
-        giveCurrencyId: giveCurrencyId,
-      },
-      availableCurrenciesGet
-    );
+    // console.log(
+    //   {
+    //     currencyType: action.payload,
+    //     giveCurrencyId: giveCurrencyId,
+    //   },
+    //   availableCurrenciesGet
+    // );
     dispatch(setInitialData({ initData: data, availableCurrenciesGet }));
     restartRatePullingIfActive(listenerApi, dispatch);
   },
@@ -136,17 +136,24 @@ exchangeSliceListener.startListening({
       !initialData
     )
       return;
-  
 
+    let selectedNetworkValueId = selectedNetwork.value?.id;
     if (selectedCurrencySellType === "COIN") {
       console.log(
         "setSelectedNetworkValue setSelectedCurrencySellListener",
-        selectedCurrencySell?.networks?.[0]
+        selectedCurrencySell
       );
 
       listenerApi?.dispatch(
         setSelectedNetworkValue(selectedCurrencySell?.networks?.[0] || null)
       );
+
+      if (selectedCurrencySell?.networks?.[0]) {
+        selectedNetworkValueId = selectedCurrencySell?.networks?.[0].id;
+      } else {
+        selectedNetworkValueId = selectedCurrencySell.id;
+      }
+
       listenerApi?.dispatch(
         setNetworks(selectedCurrencySell?.networks || null)
       );
@@ -156,12 +163,14 @@ exchangeSliceListener.startListening({
       listenerApi?.dispatch(setSelectedCityValue(null));
     }
     if (selectedCurrencySellType === "BANK") {
-      console.log("setSelectedBankValue setSelectedCurrencySell");
-      listenerApi?.dispatch(setSelectedBankValue(selectedCurrencySell?.banks[0]));
+      // console.log("setSelectedBankValue setSelectedCurrencySell");
+      listenerApi?.dispatch(
+        setSelectedBankValue(selectedCurrencySell?.banks[0])
+      );
       listenerApi?.dispatch(setBanks(selectedCurrencySell?.banks || null));
     }
 
-      console.log("setRateData setSelectedNetworkValue setSelectedCurrencySell", {
+    console.log("setRateData setSelectedNetworkValue setSelectedCurrencySell", {
       initialData,
       listenerApi,
       selectedBankId: selectedBank.value?.id,
@@ -170,7 +179,7 @@ exchangeSliceListener.startListening({
       selectedCurrencyBuyType: selectedCurrencyBuyType,
       selectedCurrencySellId: selectedCurrencySell.id,
       selectedCurrencySellType: selectedCurrencySellType,
-      selectedNetworkValueId: selectedNetwork.value?.id,
+      selectedNetworkValueId: selectedNetworkValueId,
     });
 
     await setRateData({
@@ -182,7 +191,7 @@ exchangeSliceListener.startListening({
       selectedCurrencyBuyType: selectedCurrencyBuyType,
       selectedCurrencySellId: selectedCurrencySell.id,
       selectedCurrencySellType: selectedCurrencySellType,
-      selectedNetworkValueId: selectedNetwork.value?.id,
+      selectedNetworkValueId: selectedNetworkValueId,
     });
 
     // if (
@@ -201,7 +210,7 @@ exchangeSliceListener.startListening({
     //   )
     // );
 
-    // console.log("getCurrenciesGet", data);
+    // // console.log("getCurrenciesGet", data);
 
     // if (!data) return;
     // dispatch(setCurrenciesBuy(data));
@@ -231,16 +240,22 @@ exchangeSliceListener.startListening({
       selectedNetwork,
     } = state.exchange;
 
+    let selectedNetworkValueId = selectedNetwork.value?.id
+
     if (selectedCurrencyBuyType === "COIN") {
-      console.log(
-        "setSelectedNetworkValue setSelectedCurrencyBuyListener",
-        selectedCurrencyBuy?.networks?.[0]
-      );
+      // // console.log(
+      //   "setSelectedNetworkValue setSelectedCurrencyBuyListener",
+      //   selectedCurrencyBuy?.networks?.[0]
+      // );
 
       dispatch(
         setSelectedNetworkValue(selectedCurrencyBuy?.networks?.[0] || null)
       );
       dispatch(setNetworks(selectedCurrencyBuy?.networks || null));
+
+      if (!selectedNetworkValueId) {
+        selectedNetworkValueId = selectedCurrencyBuy?.id
+      }
     }
 
     if (selectedCurrencyBuyType === "CASH") {
@@ -270,7 +285,7 @@ exchangeSliceListener.startListening({
           currency_give_id: selectedCurrencySell?.id,
           currency_get_id: selectedCurrencyBuy?.id,
           network_id:
-            selectedCurrencyBuyNetwork?.id || selectedNetwork?.value?.id,
+            selectedNetworkValueId,
           bank_id: selectedCurrencyBuyBank?.id || selectedBank?.value?.id,
           city_id: selectedCurrencyBuyCity?.id || selectedCity?.value?.id,
         },
@@ -372,7 +387,21 @@ exchangeSliceListener.startListening({
       !initialData
     )
       return;
-    console.log("setRateData setSelectedBankValue", selectedCurrencySell.id);
+
+    let selectedNetworkId = selectedNetwork.value?.id;
+
+    if (selectedCurrencySellType === "COIN" && !selectedNetwork.value?.id) {
+      selectedNetworkId = selectedCurrencySell?.id;
+    }
+
+    if (selectedCurrencyBuyType === "COIN" && !selectedNetwork.value?.id) {
+      selectedNetworkId = selectedCurrencySell?.id;
+    }
+    console.log(
+      "setRateData setSelectedBankValue",
+      selectedCurrencySell.id,
+      selectedNetwork.value?.id
+    );
     await setRateData({
       initialData,
       listenerApi,
@@ -382,7 +411,7 @@ exchangeSliceListener.startListening({
       selectedCurrencyBuyType: selectedCurrencyBuyType,
       selectedCurrencySellId: selectedCurrencySell.id,
       selectedCurrencySellType: selectedCurrencySellType,
-      selectedNetworkValueId: selectedNetwork.value?.id,
+      selectedNetworkValueId: selectedNetworkId,
     });
   },
 });

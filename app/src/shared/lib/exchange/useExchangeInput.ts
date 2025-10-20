@@ -28,7 +28,7 @@ export const useExchangeInput = (position: CurrencyPosition) => {
   const currenciesBuy = useAppSelector(state => state.exchange.currenciesBuy);
   const availableCurrenciesGet = useAppSelector(state => state.exchange.availableCurrenciesGetData)
 
-  useEffect(() => {console.log(availableCurrenciesGet)}, [availableCurrenciesGet ])
+  // useEffect(() => {console.log(availableCurrenciesGet)}, [availableCurrenciesGet ])
 
   const onSelectChange = useCallback((option: Currency) => {
     // // console.log(option);

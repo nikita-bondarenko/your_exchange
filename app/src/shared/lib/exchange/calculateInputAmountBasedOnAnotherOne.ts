@@ -11,7 +11,7 @@ export const calculateInputAmountBasedOnAnotherOne = (
   const { course } = rate;
   const actualRate = course;
 
-  // // console.log(amount, course);
+  // // // console.log(amount, course);
   const res = position === "given" ? amount * actualRate : amount / actualRate;
   return roundTo8(res);
 };

@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import StoryCryptoData, { StoryCryptoDataProps } from "./StoryCryptoData";
-import Icon from "../../../shared/ui/icon";
 import { useRouter } from "next/navigation";
 import { valueMask } from "@/shared/lib/string/valueMask";
 import { formatDate } from "@/shared/lib/string/formatDate";
@@ -8,7 +7,7 @@ import { setRequestDetails } from "@/shared/model/store/reducers/requestDetailsR
 import { useAppDispatch } from "@/shared/model/store/hooks";
 import { Request } from "@/shared/api/types";
 import { roundTo8 } from "@/shared/lib/number/roundTo8";
-import { PROJECT_THEME } from "@/shared/config";
+import { ArrowRightIcon } from "@/shared/ui";
 
 export type RequestStoryItemProps = {
   data: Request;
@@ -19,7 +18,7 @@ const RequestStoryItem: React.FC<RequestStoryItemProps> = memo(({ data }) => {
   const dispatch = useAppDispatch();
   
   const goToRequestDetails = () => {
-    // console.log('goToRequestDetails',data)
+    // // console.log('goToRequestDetails',data)
 
     dispatch(setRequestDetails(data));
 
@@ -31,7 +30,7 @@ const RequestStoryItem: React.FC<RequestStoryItemProps> = memo(({ data }) => {
         <span >{formatDate(data.date)}</span>
         <span >заявка {data.id}</span>
       </div>
-      <div className="bg-[var(--background-secondary)] border border-[#FFFFFF] rounded-6 px-19 py-14 grid grid-cols-2 relative">
+      <div className="bg-[var(--background-secondary)] border border-[var(--border-main)] rounded-6 px-19 py-14 grid grid-cols-2 relative">
         <StoryCryptoData
           name={data.currency_give?.name || ''}
           value={valueMask(roundTo8(data.currency_give?.amount || 0))}
@@ -43,10 +42,10 @@ const RequestStoryItem: React.FC<RequestStoryItemProps> = memo(({ data }) => {
           value={valueMask(roundTo8(data.currency_get?.amount || 0))}
           icon={data.currency_get?.icon || ''}
         ></StoryCryptoData>
-        <Icon
-          src="arrow-right.svg"
+        <ArrowRightIcon
+        color="var(--background-light)"
           className="w-7 h-10 center-y right-26"
-        ></Icon>
+        ></ArrowRightIcon>
       </div>
    
     </button>

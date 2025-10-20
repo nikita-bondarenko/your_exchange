@@ -24,6 +24,7 @@ const Step: React.FC<StepProps> = ({ isActive, isCompleted, delay }) => (
     )}
   >
     <HeaderSignIcon
+    color="var(--progress-bar-sign)"
       className={clsx(" opacity-0 top-5 center-x", {
         "[&]:opacity-100": isCompleted,
         "delay-500": delay,
@@ -74,7 +75,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   return (
     <div className="flex items-center gap-5 [&_*]:transition-all [&_*]:duration-500">
       <div className="w-20 h-20 rounded-full relative shrink-0 bg-[var(--main-color)]">
-        <HeaderSignIcon className=" top-6 center-x" />
+        <HeaderSignIcon color="var(--progress-bar-sign)" className=" top-6 center-x" />
       </div>
       <ProgressLine
         currentStep={currentStep}

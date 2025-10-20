@@ -45,6 +45,10 @@ button {
   animation-delay: 0.8s;
 }
 
+.background-first-screen {
+  background: var(--background-first-screen)
+}
+
 
 .center {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
@@ -174,7 +178,7 @@ textarea:focus {
 
 
  .answer {
-  @apply p-20 text-12 leading-[110%] text-[#979797] bg-[var(--background-secondary)];
+  @apply p-20 text-12 leading-[110%] text-[var(--text-secondary)] bg-[var(--background-secondary)];
 }
 
 .answer p, .answer ul {

@@ -6,7 +6,7 @@ export type ValidateWalletAddressProps = {
 };
 
 export const validateWalletAddress = ({ value, options }: ValidateWalletAddressProps): string | null => {
-  // // // console.log(options)
+  // // // // console.log(options)
   
   if (options?.position === "given") {
     return null;

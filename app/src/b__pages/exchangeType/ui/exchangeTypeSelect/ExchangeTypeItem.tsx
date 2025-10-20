@@ -1,12 +1,12 @@
-import React, { memo } from "react";
-import { CurrencyPosition } from "../../../../entities/requestDetails/ui/RequestDetails";
+import React, { memo, ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import clsx from "clsx";
-import Icon from "../../../../shared/ui/icon";
 import { CurrencyType, setSelectedCurrencyBuyType, setSelectedCurrencySellType } from "@/shared/model/store/reducers/exchangeReducer";
+import { CurrencyPosition } from "@/entities/requestDetails/ui";
+import { SignIcon } from "@/shared/ui";
 
 export type ExchangeTypeItemProps = {
-  icon: string;
+  icon: ReactNode;
   name: string;
   type: CurrencyType;
   position?: CurrencyPosition;
@@ -30,24 +30,21 @@ const ExchangeTypeItem: React.FC<ExchangeTypeItemProps> = memo(
         className={clsx(
           "h-46 flex items-center justify-between w-[101%] duration-500 transition-all bg-[var(--background-secondary)] px-18 relative",
           {
-            "[&]:bg-[#EBEBEB] pointer-events-none z-20": isSelected,
+            "[&]:bg-[var(--background-exchange-type-selected)] pointer-events-none z-20": isSelected,
           }
         )}
         onClick={onClick}
       >
         <div className="flex items-center gap-11">
-          <Icon src={icon} className={clsx("w-19 h-19", {
-            "[&]:w-21 [&]:h-21 [&]:mr-[-2px]": icon === 'cash.svg',
-          })}></Icon>
+          {icon}
           <span className="text-16 leading-normal">{name}</span>
         </div>
-        <Icon
-          src="sign.svg"
+        <SignIcon
           className={clsx(
             "w-16 h-16 opacity-0 duration-500 transition-opacity",
             { "[&]:opacity-100": isSelected }
           )}
-        ></Icon>
+        ></SignIcon>
       </button>
     );
   }

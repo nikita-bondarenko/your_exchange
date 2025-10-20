@@ -3,7 +3,7 @@ import { provideFetchWithAuth } from "@/d__features/apiProxy/lib";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  console.log(request)
+  // // console.log(request)
   try {
       return NextResponse.json(await provideFetchWithAuth(request));
     } catch (error) {
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  console.log(request)
+  // // console.log(request)
 
   try {
       return NextResponse.json(await provideFetchWithAuth(request));

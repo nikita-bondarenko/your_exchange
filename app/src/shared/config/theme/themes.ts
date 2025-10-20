@@ -3,7 +3,7 @@ import {  BaseTheme, CurrentProjectTheme, Theme } from "../../model/theme";
 import { DARK_THEME } from "./darkTheme";
 import { LIGHT_THEME } from "./lightTheme";
 import { ALEX_THEME } from "./alexTheme";
-import { BIP_THEME } from "./bipThem";
+import { BIP_THEME } from "./bipTheme";
 import { COINMETRIKA_THEME } from "./coinmetrikaTheme";
 import { CRYPTO_WEB_THEME } from "./cryptoWebTheme";
 import { CRYPTON_THEME } from "./cryptonTheme";
@@ -12,6 +12,7 @@ import { CRYPTUS_THEME } from "./cryptusTheme";
 import { MAX_SECRET_THEME } from "./maxSecretTheme";
 import { SUNSCRYPT_THEME } from "./sunscryptTheme";
 import { TOP_THEME } from "./topTheme";
+import { TEST_THEME } from "./testTheme";
 
 export const BASE_THEMES: {[key in Theme]: BaseTheme}  = {
     'dark': DARK_THEME,
@@ -28,7 +29,8 @@ export const PROJECT_THEMES: {[key in ProjectName]: CurrentProjectTheme} ={
     'cryptus': CRYPTUS_THEME,
     'max-secret': MAX_SECRET_THEME,
     'sunscrypt': SUNSCRYPT_THEME,
-    'top': TOP_THEME
+    'top': TOP_THEME,
+    "test": TEST_THEME
 }
 
 

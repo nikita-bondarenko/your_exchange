@@ -24,8 +24,8 @@ export const ALEX_PROJECT_DATA: ProjectData = {
       title: "ALEX <br/>CHANGE",
       subtitle: `Покупка и продажа <br />криптовалюты по <br />выгодному курсу`,
       descriptionList: [
-        { icon: CashIcon, text: "Наличный обмен" },
-        { icon: CardIcon, text: "Обмен по карте" },
+        { icon: CashIcon, iconClassName: "w-20", text: "Наличный обмен" },
+        { icon: CardIcon, iconClassName: "w-20 h-19", text: "Обмен по карте" },
       ],
       firstScreenBackgroundImage: undefined,
       policyUrl:

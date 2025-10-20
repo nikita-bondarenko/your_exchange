@@ -1,5 +1,5 @@
 export * from './alexTheme'
-export * from './bipThem'
+export * from './bipTheme'
 export * from './coinmetrikaTheme'
 export * from './coinmetrikaTheme'
 export * from './cryptoWebTheme'

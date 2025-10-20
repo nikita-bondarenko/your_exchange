@@ -58,12 +58,12 @@ export async function fetchApi<T>({
 
     const responseBody= await result.json()
 
-    console.log("fetchApi result", responseBody);
+    // console.log("fetchApi result", responseBody);
 
 
     return responseBody;
   } catch (e) {
-    console.log("fetchApi error", e);
+    // console.log("fetchApi error", e);
     throw e;
   }
 }

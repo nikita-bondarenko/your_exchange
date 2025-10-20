@@ -65,44 +65,48 @@ export const setRateData = async ({
   let giveCurrencyId: number = selectedCurrencySellId;
 
   if (selectedCurrencySellType === "COIN") {
-     console.log("COIN", selectedNetworkValueId);
+    console.log("COIN", selectedNetworkValueId);
 
-     const isSelectedNetworkValueIdValid = !!initialData.currencies_give?.find(cur => cur.id === selectedCurrencySellId)?.networks.find(net => net.id === selectedNetworkValueId)
+    const isSelectedNetworkValueIdValid = !!initialData.currencies_give
+      ?.find((cur) => cur.id === selectedCurrencySellId)
+      ?.networks.find((net) => net.id === selectedNetworkValueId) ||  !!initialData.currencies_give
+      ?.find((cur) => cur.id === selectedNetworkValueId);
 
-
-
-      if (selectedNetworkValueId && isSelectedNetworkValueIdValid) giveCurrencyId = selectedNetworkValueId;
-      else {
-        console.error("selectedNetworkValueId undefined or invalid");
-      }
+    if (selectedNetworkValueId && isSelectedNetworkValueIdValid)
+      giveCurrencyId = selectedNetworkValueId;
+    else {
+      console.error("selectedNetworkValueId undefined or invalid");
+      return;
+    }
   }
 
-   if (selectedCurrencySellType === "BANK") {
-      console.log("BANK", selectedBankId);
-      if (selectedBankId) giveCurrencyId = selectedBankId;
-      else {
-        console.error("selectedBankId undefined");
-      }
+  if (selectedCurrencySellType === "BANK") {
+    // console.log("BANK", selectedBankId);
+    if (selectedBankId) giveCurrencyId = selectedBankId;
+    else {
+      console.error("selectedBankId undefined");
+      return;
     }
-  
-    console.log('availableCurrenciesGet ARGS', {
-      giveCurrencyId,
-      currencyType: selectedCurrencyBuyType,
-    })
+  }
 
-
+  // // console.log('availableCurrenciesGet ARGS', {
+  //   giveCurrencyId,
+  //   currencyType: selectedCurrencyBuyType,
+  // })
 
   const { data: availableCurrenciesGet } = await dispatch(
-    cryptusApi.endpoints.getCurrenciesGet.initiate({
-      giveCurrencyId,
-      currencyType: selectedCurrencyBuyType,
-    }, {
-      forceRefetch: true,
-    })
+    cryptusApi.endpoints.getCurrenciesGet.initiate(
+      {
+        giveCurrencyId,
+        currencyType: selectedCurrencyBuyType,
+      },
+      {
+        forceRefetch: true,
+      }
+    )
   );
 
-  console.log("availableCurrenciesGet", availableCurrenciesGet);
-
+  // console.log("availableCurrenciesGet", availableCurrenciesGet);
 
   const {
     currenciesBuy,
@@ -143,7 +147,7 @@ export const setRateData = async ({
     dispatch(setSelectedNetworkValueWithoutListening(selectedNetwork));
   }
 
-  console.log(rateFetchingArgs);
+  // console.log(rateFetchingArgs);
 
   const { data } = await dispatch(
     cryptusApi.endpoints.rateList.initiate(rateFetchingArgs, {

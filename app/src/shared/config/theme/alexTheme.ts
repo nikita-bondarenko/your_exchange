@@ -1,5 +1,4 @@
 import { CurrentProjectTheme } from "@/shared/model/theme";
-import { DARK_THEME } from "./darkTheme";
 import { LIGHT_THEME } from "./lightTheme";
 
 export const ALEX_THEME: CurrentProjectTheme = {
@@ -12,6 +11,7 @@ export const ALEX_THEME: CurrentProjectTheme = {
   "--text-button-first-screen-left": "#FFFFFF",
   "--text-button-first-screen-right": "#262626",
   "--text-main-screen-description": "#515151",
+  "--text-main-screen-subtitle": "#000",
 
   "--background-first-screen-description": "#D7FFDF",
   "--background-button-first-screen-left": "#262626",
@@ -21,6 +21,7 @@ export const ALEX_THEME: CurrentProjectTheme = {
     "linear-gradient(149.32deg, #CCFC44 5.59%, #5DF192 57.98%, #00CAFF 105.56%)",
   "--background-button-profile": "#262626",
   "--background-request-status": "#D7FFDF",
+  "--profile-button-wave": "#d2f0ff",
 
   "--border-button-secondary": "#262626",
 };

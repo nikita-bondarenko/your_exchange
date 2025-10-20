@@ -13,7 +13,6 @@ import { RootState } from "@/shared/model/store/store";
 import { setIsLoading, setPageName } from "@/shared/model/store/reducers/uiReducer";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
-import { createSelector } from "@reduxjs/toolkit";
 import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 import { RequestCurrency } from "@/shared/api/types";
 import { RequestDetails, RequestDetailsProps } from "@/entities/requestDetails/ui";

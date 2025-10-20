@@ -1,12 +1,20 @@
 import { useThemeSwitcherClickHandler } from "@/d__features/themeSwitcher/lib";
+import { ThemeButton } from "@/d__features/themeSwitcher/ui";
 import { PROJECT_NAME, TOTAL_PROJECTS_DATA } from "@/shared/config";
+import { CryptoIcon } from "@/shared/ui";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useRef } from "react";
+import { ReactNode, useCallback, useMemo, useRef } from "react";
 
 type Props = {
   policyUrl: string | undefined;
   termsUrl: string | undefined;
 };
+
+export type AdditionalButton = {
+  children: ReactNode;
+  onClick: () => void;
+};
+
 
 export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
   const router = useRouter();
@@ -23,27 +31,29 @@ export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
 
   const [themeSwitcherClickHandler] = useThemeSwitcherClickHandler();
 
-  const additionalSectionListItems = useMemo(
+  const additionalSectionListItems = useMemo<AdditionalButton[]>(
     () => [
       {
-        text: "Профиль",
+        children: "Профиль",
         onClick: toProfilePage,
       },
       {
-        text: "Нас часто спрашивают",
+        children: "Нас часто спрашивают",
         onClick: toFaqPage,
       },
       {
-        text: "Соглашение",
+        children: "Соглашение",
         onClick: () => openUrl(termsUrl),
       },
       {
-        text: "Политика AML",
+        children: "Политика AML",
         onClick: () => openUrl(policyUrl),
       },
       ...(PROJECT_NAME === "test"
         ? TOTAL_PROJECTS_DATA.map((project) => ({
-            text: `${project.meta.title} Theme`,
+            children: (
+              <ThemeButton project={project}></ThemeButton>
+            ),
             onClick: () => themeSwitcherClickHandler(project.name),
           }))
         : []),

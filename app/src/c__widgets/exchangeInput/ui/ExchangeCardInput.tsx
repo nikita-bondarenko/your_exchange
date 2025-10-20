@@ -86,7 +86,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(({ position }) 
     if (!option) return;
     if (isInitialLoad) return;
     const bank = banks?.find(bank => bank.id === option.id);
-    // console.log(option, bank)
+    // // console.log(option, bank)
     if (bank) {
       dispatch(setSelectedBankValue(bank));
     }
