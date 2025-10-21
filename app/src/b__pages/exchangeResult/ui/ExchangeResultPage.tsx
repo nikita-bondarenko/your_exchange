@@ -12,6 +12,7 @@ import {
   setSelectedCurrencySellType,
 } from "@/shared/model/store";
 import { ClockIcon, CopyIcon, SignIcon } from "@/shared/ui";
+import { VideoModal } from "@/c__widgets/videoModal/ui";
 
 export default function ExchangeResultPage() {
   const [copied, setCopied] = useState(false);
@@ -20,6 +21,7 @@ export default function ExchangeResultPage() {
 
   const exchangeId = useAppSelector((state) => state.ui.exchangeId);
   const userId = useAppSelector((state) => state.user.id);
+  const videoData = useAppSelector((state) => state.pageData.result.video);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(exchangeId?.toString() || "");
@@ -85,7 +87,7 @@ export default function ExchangeResultPage() {
           <Notification
             isVisible={copied}
             message="номер заявки скопирован"
-            icon={<SignIcon className="w-12 h-12 translate-y-2"/>}
+            icon={<SignIcon className="w-12 h-12 translate-y-2" />}
           />
           <div className="flex flex-col gap-12">
             <Button
@@ -105,6 +107,7 @@ export default function ExchangeResultPage() {
           </div>
         </div>
       </div>
+      {videoData.active && <VideoModal src={videoData.src}></VideoModal>}
     </div>
   );
 }

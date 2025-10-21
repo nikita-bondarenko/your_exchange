@@ -17,8 +17,8 @@ export const BIP_THEME: CurrentProjectTheme = {
   "--background-button-first-screen-left": "#F09810",
   "--background-button-first-screen-right": "#F5F5F5",
   "--background-button-secondary": "#F5F5F5",
-  "--background-first-screen":
-    "linear-gradient(149.32deg, #F09810 5.59%, #FF902F 105.56%)",
+  "--background-first-screen": 
+    "linear-gradient(149.32deg, #222222 5.59%, #363636 105.56%)",
   "--background-request-status": "#383838",
   "--background-button-profile": "#F09810",
   "--background-profile-icon": "#282828",

@@ -7,9 +7,7 @@ export const useThemeSwitcherClickHandler = () => {
   const dispatch = useAppDispatch();
 
   const clickHandler = (projectName: ProjectName) => {
-    const projectData = TOTAL_PROJECTS_DATA.find(
-      (project) => project.name === projectName
-    );
+    const projectData = TOTAL_PROJECTS_DATA[projectName]
 
     if (projectData) {
       switchTheme(projectData.theme);

@@ -18,7 +18,6 @@ const RequestStoryItem: React.FC<RequestStoryItemProps> = memo(({ data }) => {
   const dispatch = useAppDispatch();
   
   const goToRequestDetails = () => {
-    // // console.log('goToRequestDetails',data)
 
     dispatch(setRequestDetails(data));
 
@@ -30,7 +29,7 @@ const RequestStoryItem: React.FC<RequestStoryItemProps> = memo(({ data }) => {
         <span >{formatDate(data.date)}</span>
         <span >заявка {data.id}</span>
       </div>
-      <div className="bg-[var(--background-secondary)] border border-[var(--border-main)] rounded-6 px-19 py-14 grid grid-cols-2 relative">
+      <div className="bg-[var(--background-secondary)] border border-[var(--border-placeholder)] rounded-6 px-19 py-14 grid grid-cols-2 relative">
         <StoryCryptoData
           name={data.currency_give?.name || ''}
           value={valueMask(roundTo8(data.currency_give?.amount || 0))}

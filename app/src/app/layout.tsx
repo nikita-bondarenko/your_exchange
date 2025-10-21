@@ -6,9 +6,8 @@ import { LoadingProvider, StoreProvider } from "@/app/providers";
 import { EmailRequirementChecking } from "@/d__features/emailRequirement/model";
 import { AgreementsRequirementChecking } from "@/d__features/agreementsRequirement/model";
 import {
-  METADATA_DESCRIPTION,
-  METADATA_TITLE,
   PORTAL_TARGET_ID,
+  PROJECT_DATA,
 } from "@/shared/config";
 import { TelegramWebAppInitializer } from "@/d__features/telegram/model";
 import { ThemeInitialiser } from "@/d__features/themeSwitcher/model";
@@ -23,8 +22,6 @@ const inter = Inter({
   subsets: ["cyrillic", "latin"],
 });
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,8 +34,8 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
-        <title>{METADATA_TITLE}</title>
-        <meta name="description" content={METADATA_DESCRIPTION} />
+        <title>{PROJECT_DATA.meta.title}</title>
+        <meta name="description" content={PROJECT_DATA.meta.description} />
       </head>
       <body  className={`${inter.variable} antialiased flex flex-col h-screen bg-[var(--background-global)]`}>
         <StoreProvider>

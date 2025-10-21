@@ -18,7 +18,7 @@ export const CRYPTO_WEB_THEME: CurrentProjectTheme = {
   "--background-button-first-screen-right": "#F5F5F5",
   "--background-button-secondary": "#F5F5F5",
   "--background-first-screen":
-    "linear-gradient(149.32deg, #F09810 5.59%, #FF902F 105.56%)",
+    "linear-gradient(149.32deg, #222222 5.59%, #363636 105.56%)",
   "--background-request-status": "#383838",
   "--background-button-profile": "#14F513",
   "--background-profile-icon": "#282828",

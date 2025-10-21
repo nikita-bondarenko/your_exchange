@@ -1,11 +1,7 @@
 import {
   CardIcon,
-  CarIcon,
   CashIcon,
-  HomeIcon,
-  PlanetIcon,
-  RocketIcon,
-  ShieldIcon,
+
 } from "@/shared/ui";
 import { ALEX_THEME } from "../theme";
 import { ProjectData } from "@/shared/model/project";
@@ -21,7 +17,9 @@ export const ALEX_PROJECT_DATA: ProjectData = {
 
   page: {
     home: {
-      title: "ALEX <br/>CHANGE",
+      title: {
+        text: "ALEX <br/>CHANGE"
+      },
       subtitle: `Покупка и продажа <br />криптовалюты по <br />выгодному курсу`,
       descriptionList: [
         { icon: CashIcon, iconClassName: "w-20", text: "Наличный обмен" },

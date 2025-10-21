@@ -13,7 +13,9 @@ export const TEST_PROJECT_DATA: ProjectData = {
 
   page: {
     home: {
-      title: "Test Change",
+      title: {
+        text: "Test Change"
+      },
       subtitle: `Покупка и&nbsp;продажа <br />
                   криптовалюты <br />
                   по&nbsp;выгодному курсу`,

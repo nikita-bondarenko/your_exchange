@@ -11,7 +11,7 @@ type Props = SvgIconProps & {
 };
 
 const stickClass =
-  "w-[20px] h-[3px] rounded-[5px] bg-[var(--burger-color)] absolute left-0 top-0 transition-all duration-500 ";
+  "w-[20px] h-[2px] rounded-[5px] bg-[var(--burger-color)] absolute left-0 top-0 transition-all duration-500 ";
 
 export default function BurgerIcon({
   className,

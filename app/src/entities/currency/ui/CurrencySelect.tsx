@@ -2,6 +2,7 @@ import React, { memo, useState } from "react";
 import BaseSelect from "../../../shared/ui/form/BaseSelect";
 import { Currency } from "@/shared/api/types";
 import { CashIcon } from "@/shared/ui";
+import clsx from "clsx";
 
 
 
@@ -12,7 +13,7 @@ export type CurrencySelectProps = {
 };
 
 const ButtonDisplay = memo(({ icon, name }: Currency) => (
-  <span className="button-display flex items-start gap-6 overflow-hidden text-ellipsis text-16 text-[var(--text-main)]">
+  <span className={clsx("button-display flex items-start gap-6 overflow-hidden text-ellipsis text-16 text-[var(--text-main)]")}>
     {icon ? <img src={icon} className="w-24 h-24 shrink-0" /> : <CashIcon className="w-24 h-24 shrink-0"/>}
     <span dangerouslySetInnerHTML={{__html:name}}></span>
   </span>

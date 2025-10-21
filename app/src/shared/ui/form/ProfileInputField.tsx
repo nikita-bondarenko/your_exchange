@@ -24,26 +24,25 @@ export const InputField: React.FC<Props> = ({
     formState: { errors },
   } = useFormContext();
 
-  // Если передан value и onChange, используем контролируемый input
-  if (value !== undefined ) {
-    return (
-      <InputWrapper error={errors[name]?.message as string}>
-        <input
-          id={name}
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          disabled={disabled}
-          className={clsx(
-            "w-full bg-[var(--background-secondary)] text-[var(--text-main)] text-16 leading-normal rounded-6 px-18 py-14 placeholder:text-[#BFBFBF] border border-[#FFFFFF]",
-            {
-              "opacity-50 cursor-not-allowed": disabled,
-            }
-          )}
-        />
-      </InputWrapper>
-    );
-  }
+  // if (value !== undefined ) {
+  //   return (
+  //     <InputWrapper error={errors[name]?.message as string}>
+  //       <input
+  //         id={name}
+  //         type={type}
+  //         placeholder={placeholder}
+  //         value={value}
+  //         disabled={disabled}
+  //         className={clsx(
+  //           "w-full bg-[var(--background-secondary)] text-[var(--text-main)] text-16 leading-normal rounded-6 px-18 py-14 placeholder:text-[var(--text-light)] border border-[var(--border-placeholder)]",
+  //           {
+  //             "opacity-50 cursor-not-allowed": disabled,
+  //           }
+  //         )}
+  //       />
+  //     </InputWrapper>
+  //   );
+  // }
 
   // Иначе используем неконтролируемый input с react-hook-form
   return (
@@ -55,7 +54,7 @@ export const InputField: React.FC<Props> = ({
         disabled={disabled}
         {...register(name)}
         className={clsx(
-          "w-full text-[var(--text-main)] bg-[var(--background-secondary)] text-16 leading-normal rounded-6 px-18 py-14 placeholder:text-[#BFBFBF] border border-[#FFFFFF]",
+          "w-full text-[var(--text-main)] bg-[var(--background-secondary)] text-16 leading-normal rounded-6 px-18 py-14 placeholder:text-[var(--text-light)] border border-[var(--border-placeholder)]",
           {
             "opacity-50 cursor-not-allowed": disabled,
           }

@@ -2,13 +2,22 @@
 import path from "path";
 import { promises as fs } from "fs";
 import { cwd } from "process";
-import { GetTokenApiArg, GetTokenApiResponse } from "@/shared/api";
-import { USERNAME, PASSWORD } from "@/shared/config/server";
+import { PROJECT_SERVER_DATA } from "@/shared/config/server";
 
 import { NextRequest } from "next/server";
 import { isFileExist } from "./checkTokenFile";
 import { ensureDirectoryExist } from "./ensureDIrectoryExist";
 import { FetchApiProps, fetchApi } from "./fetchApi";
+
+ type GetTokenApiArg = {
+  username: string;
+  password: string;
+};
+
+ type GetTokenApiResponse = {
+  refresh: string;
+  access: string;
+};
 
 const fetchAndSaveToken = async (filePath: string) => {
 
@@ -18,8 +27,8 @@ const fetchAndSaveToken = async (filePath: string) => {
       "Content-Type": "application/json",
     },
     body: {
-      username: USERNAME,
-      password: PASSWORD,
+      username: PROJECT_SERVER_DATA.username,
+      password: PROJECT_SERVER_DATA.password,
     } as GetTokenApiArg,
     method: "POST",
   };

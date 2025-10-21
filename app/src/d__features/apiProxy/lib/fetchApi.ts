@@ -1,7 +1,6 @@
 "use server";
 
-import { API_URL} from "@/shared/config/server";
-
+import { PROJECT_SERVER_DATA } from "@/shared/config/server";
 
 export interface FetchError {
   message: string;
@@ -38,7 +37,7 @@ export async function fetchApi<T>({
       : "/";
     const finalBody: string = JSON.stringify(body);
 
-    const result = await fetch(`${API_URL}${path}${queryString}`, {
+    const result = await fetch(`${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`, {
       method,
       ...(method !== "GET" ? { body: finalBody } : {}),
       headers: headers,

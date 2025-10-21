@@ -3,7 +3,7 @@
 import ProfileButton from "@/entities/profileButton/ui/ProfileButton";
 import ExpandableList from "@/shared/ui/dropdown/ExpandableList";
 import Button from "@/shared/ui/button";
-import { useEffect,  useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/shared/model/store";
 import { useCallSupport } from "@/d__features/support/lib";
@@ -43,11 +43,27 @@ export default function HomePage() {
     <>
       <div className="container h-full flex flex-col">
         <div className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col background-first-screen relative overflow-hidden">
-          {homePageData.firstScreenBackgroundImage && homePageData.firstScreenBackgroundImage()}
+          {homePageData.firstScreenBackgroundImage &&
+            homePageData.firstScreenBackgroundImage()}
           <div className="flex-grow flex flex-col justify-center relative z-10">
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-[20px]">
               <div className="max-w-205">
-                <h1 className="font-bold text-[var(--text-main-screen-title)] text-32 mb-15 leading-normal" dangerouslySetInnerHTML={{__html: homePageData.title}}></h1>
+                {homePageData.title.text && (
+                  <h1
+                    className="font-bold text-[var(--text-main-screen-title)] text-32 mb-15 leading-normal"
+                    dangerouslySetInnerHTML={{
+                      __html: homePageData.title.text,
+                    }}
+                  ></h1>
+                )}
+                {homePageData.title.image && (
+                  <img
+                    src={homePageData.title.image.src}
+                    alt="logo"
+                    className={homePageData.title.image.className}
+                  />
+                )}
+
                 <p
                   className="text-16 font-medium mb-30 text-[var(--text-main-screen-subtitle)]"
                   dangerouslySetInnerHTML={{ __html: homePageData.subtitle }}
@@ -58,7 +74,13 @@ export default function HomePage() {
 
             <ul className="flex flex-col gap-11 mb-16">
               {homePageData.descriptionList.map((item, index) => (
-                <DescriptionItem icon={item.icon({color: 'var(--text-main-screen-description)', className: item.iconClassName})} key={index}>
+                <DescriptionItem
+                  icon={item.icon({
+                    color: "var(--text-main-screen-description)",
+                    className: item.iconClassName,
+                  })}
+                  key={index}
+                >
                   {item.text}
                 </DescriptionItem>
               ))}
@@ -75,16 +97,10 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 gap-6 z-10">
-            <Button
-              onClick={toExchangePage}
-              type={'main-screen-left'}
-            >
+            <Button onClick={toExchangePage} type={"main-screen-left"}>
               Начать обмен
             </Button>
-            <Button
-              onClick={callSupport}
-              type={'main-screen-right'}
-            >
+            <Button onClick={callSupport} type={"main-screen-right"}>
               Поддержка
             </Button>
           </div>

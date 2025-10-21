@@ -8,10 +8,12 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
-import { BACK_BUTTON_ROUTES, EXCHANGE_STEPS } from "@/shared/config";
-import { ProgressBar } from "./ProgressBar";
+import { BACK_BUTTON_ROUTES } from "@/shared/config";
+import { ProgressBar } from "../../../d__features/progressBar/ui/ProgressBar";
 import { Menu } from "./Menu";
 import { CrossIcon, HeaderArrowIcon } from "@/shared/ui";
+
+
 
 export function Header() {
   const pathname = usePathname();
@@ -49,13 +51,6 @@ export function Header() {
       router.push(backButtonPath);
     }
   };
-
-  const currentStep = useMemo(() => {
-    const idx = EXCHANGE_STEPS.findIndex((step) =>
-      pathname.startsWith(step.path)
-    );
-    return idx === -1 ? null : idx;
-  }, [pathname]);
 
   const dispatch = useAppDispatch();
 
@@ -98,7 +93,7 @@ export function Header() {
       )}
       {isProgressBarActive && (
         <div className="flex items-center gap-5 [&_*]:transition-all [&_*]:duration-500">
-          <ProgressBar currentStep={currentStep ?? 0} isBackward={isBackward} />
+          <ProgressBar isBackward={isBackward} />
         </div>
       )}
       {isExchangeResultPage && (
@@ -107,7 +102,7 @@ export function Header() {
           onClick={onBackButtonClick}
           className="flex items-center justify-center relative w-16 h-16"
         >
-          <CrossIcon className="w-12 h-12 transition-all duration-500 center"></CrossIcon>
+          <CrossIcon color="var(--text-main)" className="w-12 h-12 transition-all duration-500 center"></CrossIcon>
         </button>
       )}
       {!isExchangeResultPage && <Menu />}

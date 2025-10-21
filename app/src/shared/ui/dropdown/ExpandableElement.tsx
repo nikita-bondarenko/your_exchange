@@ -43,7 +43,7 @@ export default function ExpandableElement({ triggerRender, children }: Props) {
           { "border-t border-[var(--divider-secondary)]": isOpen }
         )}
       >
-        <div className="absolute w-full bottom-0 left-0" ref={ref}>
+        <div onClick={() => setIsOpen(false)} className="absolute w-full bottom-0 left-0" ref={ref}>
           {children}
         </div>
       </div>

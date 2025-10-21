@@ -4,13 +4,13 @@ import { memo, useRef, useState } from "react";
 import BurgerIcon from "./BurgerIcon";
 import { useMenuButtons } from "../lib/useMenuButtons";
 import React from "react";
+import SimpleBar from "simplebar-react";
 
-type Props = {};
 
 const MenuDivider = () => (
   <div className="border-b border-[var(--divider-secondary)]"></div>
 );
-export const Menu = memo(({}: Props) => {
+export const Menu = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleMenuToggle = () => {
     setIsMenuOpen((v) => !v);
@@ -30,7 +30,6 @@ export const Menu = memo(({}: Props) => {
 
   const { menuButtons } = useMenuButtons({ closeMenu });
 
-  // console.log(menuButtons)
 
   return (
     <div className="flex justify-end relative">
@@ -49,10 +48,11 @@ export const Menu = memo(({}: Props) => {
       <div
         ref={menuRef}
         className={clsx(
-          "absolute right-0 top-[120%] z-50 min-w-180 bg-[var(--background-secondary)] rounded-10 shadow-lg border border-[var(--border-main)]  flex flex-col animate-fade-in rounded-6 text-[var(--text-main)] transition-opacity duration-500",
+          "absolute right-0 top-[30px] z-50 min-w-180 bg-[var(--background-secondary)] rounded-10 shadow-lg border border-[var(--border-main)]  flex flex-col animate-fade-in rounded-6 text-[var(--text-main)] transition-opacity duration-500",
           { "opacity-0 pointer-events-none": !isMenuOpen }
         )}
       >
+        <SimpleBar style={{ maxHeight: 300 }} className="custom-scrollbar">
         {menuButtons.map((button, index) => (
           <React.Fragment key={index}>
             <button
@@ -70,22 +70,10 @@ export const Menu = memo(({}: Props) => {
             {index !== menuButtons.length - 1 && <MenuDivider />}
           </React.Fragment>
         ))}
-        {/* <button
-          className="flex items-center gap-8 px-11 py-13  rounded-6"
-          onClick={supportButtonHandler}
-        >
-          <SupportIcon />
-          <span className="text-13 leading-normal">Задать вопрос</span>
-        </button>
-        <MenuDivider></MenuDivider>
-        <button
-          className="flex items-center gap-6 px-11 py-13  rounded"
-          onClick={reloadButtonHandler}
-        >
-          <ReloadIcon />
-          <span className="text-13 leading-normal">Обновить страницу</span>
-        </button> */}
+        </SimpleBar>
       </div>
     </div>
   );
 });
+
+Menu.displayName = "Menu"

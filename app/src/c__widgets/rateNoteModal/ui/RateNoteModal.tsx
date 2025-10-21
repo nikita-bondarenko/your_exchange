@@ -29,7 +29,6 @@ const RateNoteModal = () => {
     <BaseModal
       ref={modalElement}
       renderTrigger={renderTrigger}
-      mode="light"
       isOpen={isNoteModalOpen}
       handleClose={() => setIsNoteModalOpen(false)}
     >

@@ -11,8 +11,9 @@ export const CRYPTUS_THEME: CurrentProjectTheme = {
   "--text-button-main": "#FFFFFF",
   "--text-button-secondary": "#FFFFFF",
   "--text-button-first-screen-left": "#FFFFFF",
-  "--text-button-first-screen-right": "#323232",
+  "--text-button-first-screen-right": "#FFFFFF",
   "--text-main-screen-description": "#759EB2",
+  "--text-main-screen-subtitle": "#000000",
 
   "--background-first-screen-description": "#E4F5FF",
   "--background-request-status": "#fff",
@@ -25,6 +26,7 @@ export const CRYPTUS_THEME: CurrentProjectTheme = {
 
   "--border-button-secondary": "#262626",
   "--border-placeholder": "#E9E9E9",
+  "--profile-button-wave": "#6CCEFF",
 
   "--divider-main": "#C0C0C0",
   "--divider-secondary": "#C3C3C3",

@@ -14,6 +14,7 @@ export type BaseSelectProps<T> = {
     value: T | null;
   }) => React.ReactNode;
   renderOption: (props: {
+    index: number
     option: T;
     onClick: () => void;
   }) => React.ReactNode;
@@ -68,17 +69,18 @@ const BaseSelect = <T,>({
       })}
 
       {isOpen && (
-        <div  className={`absolute left-0 ${dropdownTop} mt-1 w-full z-50 bg-[var(--background-secondary)] border border-[#E9E9E9] rounded-6  overflow-hidden ${dropdownClassName}`}>
+        <div  className={`absolute left-0 ${dropdownTop} mt-1 w-full z-50 bg-[var(--background-secondary)] border border-[var(--border-placeholder)] rounded-6  overflow-hidden ${dropdownClassName}`}>
           <SimpleBar style={{ maxHeight }} className="custom-scrollbar">
             <div className="flex flex-col py-6 gap-0">
               {filteredOptions.length === 0 ? (
-                <div className="px-18 py-9 text-16 text-neutral-gray-700">
+                <div className="px-18 py-9 text-16 text-[var(--text-light)]">
                   ничего не нашлось
                 </div>
               ) : (
                 filteredOptions.map((option, index) => (
                   <React.Fragment key={index}>
                     {renderOption({
+                      index,
                       option,
                       onClick: () => {
                         onChange(option);

@@ -14,6 +14,7 @@ type BaseModalProps = {
   isCloseButtonHidden?: boolean;
   className?: string;
   isSubmitButtonDisabled?: boolean;
+  isSubmitButtonHidden?: boolean;
   renderTrigger?: number;
 };
 
@@ -28,6 +29,7 @@ const BaseModal = forwardRef(
       isCloseButtonHidden = false,
       className,
       isSubmitButtonDisabled,
+      isSubmitButtonHidden,
       renderTrigger,
     }: BaseModalProps,
     ref: ForwardedRef<HTMLDivElement>
@@ -64,13 +66,13 @@ const BaseModal = forwardRef(
           >
             {children}
           </div>
-          <Button
+         {!isSubmitButtonHidden && <Button
             disabled={isSubmitButtonDisabled}
             type="primary"
             onClick={handleButton || handleClose}
           >
             {buttonText}
-          </Button>
+          </Button>}
           {!isCloseButtonHidden && (
             <button
               className="absolute top-[19px] right-[17px]"

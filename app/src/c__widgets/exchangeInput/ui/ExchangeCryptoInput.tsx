@@ -59,18 +59,12 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(({ position
       setIsInitialLoad(false);
       return;
     }
-
- 
   }, []);
-
-  // Синхронизация с глобальным состоянием валюты
 
 
   const handleNetChange = (net: CryptoNetOption) => {
     const network = networks?.find((network) => network.id === net.id);
     if (network) {
-          // console.log('setSelectedNetworkValue ExchangeCryptoInput', networks)
-
       dispatch(setSelectedNetworkValue(network));
     }
   };
@@ -114,7 +108,7 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(({ position
         })}>
           <InputWrapper error={walletAddressError && areErrorsVisible ? walletAddressError : null}>
             <Input
-              className="border border-[#FFFFFF] rounded-6 bg-[var(--background-secondary)] text-16 leading-normal px-18 py-15 pr-30 w-full"
+              className="border border-[var(--border-placeholder)] rounded-6 bg-[var(--background-secondary)] text-16 leading-normal px-18 py-15 pr-30 w-full"
               type="text"
               onChange={handleWalletAddressChange}
               value={walletAddressValue ?? ""}

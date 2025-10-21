@@ -2,7 +2,7 @@ import { useCallSupport } from "@/d__features/support/lib";
 import { ProjectData, ProjectName } from "@/shared/model/project";
 import { ReactElement, useMemo, useRef } from "react";
 import { CryptoIcon, ReloadIcon, SupportIcon } from "@/shared/ui";
-import { PROJECT_NAME, TOTAL_PROJECTS_DATA } from "@/shared/config";
+import { PROJECT_NAME, TOTAL_PROJECTS_DATA_ARR } from "@/shared/config";
 import {
   switchTheme,
   useThemeSwitcherClickHandler,
@@ -55,7 +55,7 @@ export const useMenuButtons = ({ closeMenu }: Props) => {
         className: "[&]:gap-6",
       },
       ...(PROJECT_NAME === "test"
-        ? TOTAL_PROJECTS_DATA.map((project) => ({
+        ? TOTAL_PROJECTS_DATA_ARR.map((project) => ({
             icon: (
               <CryptoIcon
                 className="w-15 h-15 shrink-0"

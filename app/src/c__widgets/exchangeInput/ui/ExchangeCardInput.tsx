@@ -127,7 +127,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(({ position }) 
                 onKeyDown={handlePhoneKeyDown}
                 value={phoneNumberValue ?? ""}
                 type="text"
-                className=" border border-transparent rounded-6 bg-[#303030] placeholder:text-[#7B7B7B] text-16 leading-normal px-18 py-15 w-full"
+                className=" border border-transparent rounded-6 bg-[var(--background-secondary)] placeholder:text-[var(--text-light)] text-16 leading-normal px-18 py-15 w-full"
                 placeholder="Введите номер телефона"
               />
             </InputWrapper>
@@ -138,7 +138,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(({ position }) 
                 onKeyDown={handleKeyDown}
                 value={cardNumberValue ?? ""}
                 type="text"
-                className=" border border-transparent rounded-6 bg-[#303030] placeholder:text-[#7B7B7B] text-16 leading-normal px-18 py-15 w-full"
+                className=" border border-transparent rounded-6 bg-[var(--background-secondary)] placeholder:text-[var(--text-light)] text-16 leading-normal px-18 py-15 w-full"
                 placeholder="Номер карты"
               />
             </InputWrapper>

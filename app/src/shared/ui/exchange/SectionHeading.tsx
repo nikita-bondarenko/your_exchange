@@ -58,7 +58,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
 
     return (
       <div className="flex items-end justify-between mb-10 pl-6  gap-10">
-        <h2 className="text-16 font-medium leading-normal  shrink-0 min-w-100">
+        <h2 className="text-16 text-[var(--text-main)] font-medium leading-normal  shrink-0 min-w-100">
           {title}
         </h2>
         {rate && (

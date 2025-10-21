@@ -17,7 +17,7 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
   children,
   error,
   className,
-  errorClassName = "text-primary-red text-13",
+  errorClassName = "text-[var(--text-error-light)] text-13",
   errorIconClassName = "w-16 h-16 absolute right-12 top-14",
   errorTextClassName = "absolute left-0 -bottom-1",
   errorIcon = true,
@@ -27,7 +27,7 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
     <div className={clsx("w-full pb-16 relative", className)}>
       {React.cloneElement(children, {
         className: clsx(children.props.className, {
-          "[&]:border-primary-red": error ,
+          "[&]:border-[var(--border-error)]": error ,
         }),
       })}
            {showErrorText && <p className={clsx(errorTextClassName, errorClassName, 'transition-all duration-500', {"opacity-0": !error})}>

@@ -18,9 +18,10 @@ import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { formValidationSchema } from "@/shared/lib/validation";
 import RequestStoryItem from "@/entities/shortRequestDetails/ui";
-import { PROJECT_THEME } from "@/shared/config";
+import { SignIcon } from "@/shared/ui";
 
-const headingClassNames = 'font-medium text-16 leading-normal mb-20 text-[var(--text-main)]'
+const headingClassNames =
+  "font-medium text-16 leading-normal mb-20 text-[var(--text-main)]";
 
 export default function ProfilePage() {
   const dispatch = useAppDispatch();
@@ -71,7 +72,7 @@ export default function ProfilePage() {
       <div className="mb-35">
         <FormProvider {...methods}>
           <form className="relative" onSubmit={onSubmit}>
-            <h2  className={headingClassNames}>Контактная информация</h2>
+            <h2 className={headingClassNames}>Контактная информация</h2>
             <div className="relative">
               <div
                 className={clsx("flex flex-col mb-7 relative transition-all", {
@@ -91,6 +92,7 @@ export default function ProfilePage() {
                 />
               </div>
               <Notification
+                icon={<SignIcon />}
                 className="center w-full mt-20"
                 isVisible={showSuccess}
                 message="данные успешно сохранены"
@@ -104,7 +106,7 @@ export default function ProfilePage() {
       </div>
       {data?.requests_all && data?.requests_all.length > 0 && (
         <div>
-          <h2  className={headingClassNames}>История обращений</h2>
+          <h2 className={headingClassNames}>История обращений</h2>
           {data?.requests_all?.map((exchange, index) => (
             <RequestStoryItem data={exchange} key={index} />
           ))}

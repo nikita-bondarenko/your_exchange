@@ -34,8 +34,8 @@ export const BankSelect: React.FC<BankSelectProps> = memo(
               onClick={() => setIsOpen((prev) => !prev)}
               tabIndex={-1}
               className={clsx(
-                "relative w-full flex items-center justify-between px-16 py-15 rounded-6 border border-[#FFFFFF] bg-[var(--background-secondary)] text-13 transition-all duration-500",
-                { "[&]:border-primary-red": !!error }
+                "relative w-full flex items-center justify-between px-16 py-15 rounded-6 border border-[var(--border-placeholder)] bg-[var(--background-secondary)] text-13 transition-all duration-500",
+                { "[&]:border-[var(--border-error)]": !!error }
               )}
             >
               <div className="text-16 text-[var(--text-main)]">
@@ -47,7 +47,7 @@ export const BankSelect: React.FC<BankSelectProps> = memo(
                     isOpen ? "rotate-180" : ""
                   }`}
                   fill="none"
-                  stroke="#999999"
+                  stroke="var(--text-secondary)"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -63,7 +63,7 @@ export const BankSelect: React.FC<BankSelectProps> = memo(
         )}
         renderOption={({ option, onClick }) => (
           <button
-            className="shrink-0 px-18 py-9 text-left text-[var(--text-main)] w-full not-last:border-b not-last:border-[#B5B5B5]"
+            className="shrink-0 px-18 py-9 text-left text-[var(--text-main)] w-full not-last:border-b not-last:border-[var(--divider-secondary)]"
             key={option.id}
             onClick={onClick}
           >

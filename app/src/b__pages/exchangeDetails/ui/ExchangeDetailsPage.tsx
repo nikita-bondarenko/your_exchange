@@ -71,15 +71,15 @@ const timeoutId = useRef<NodeJS.Timeout>(null)
         ))}
         <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-15 flex items-center justify-center " >
           {
-            !isPromoApplied ? <button className=" underline underline-offset-2" onClick={handlePromoButton}>У меня есть промокод</button>
+            !isPromoApplied ? <button className=" underline underline-offset-2 text-[var(--text-main)]" onClick={handlePromoButton}>У меня есть промокод</button>
               :
-              <div className="flex items-center justify-center gap-[6px]">
+              <div className="flex items-center justify-center gap-[15px]">
                 <p className="text-[var(--main-color)]">Промокод будет успешно применен</p>
                 <SignIcon className="w-[16px] h-[16px] translate-y-[2px]"/>
               </div>
           }
         </div>
-     <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-15 flex items-center justify-center ">
+     <div className="bg-[var(--background-secondary)] text-[var(--text-main)] rounded-6 px-20 py-15 flex items-center justify-center ">
             <p className="text-center mx-auto">
               Курс обмена может меняться в&nbsp;зависимости
               от&nbsp;волатильности рынка. Итоговый курс сделки озвучит

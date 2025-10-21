@@ -26,7 +26,7 @@ const InputField: React.FC<{
         onChange={handleChange}
         value={value}
         type="text"
-        className={clsx(" border border-transparent rounded-6  placeholder:text-[#7B7B7B] text-16 leading-normal px-18 py-15 w-full", className)}
+        className={clsx(" border border-transparent rounded-6  placeholder:text-[var(--text-light)] text-16 leading-normal px-18 py-15 w-full", className)}
         placeholder={placeholder}
       />
     </InputWrapper>

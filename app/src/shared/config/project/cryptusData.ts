@@ -19,7 +19,9 @@ export const CRYPTUS_PROJECT_DATA: ProjectData = {
 
   page: {
     home: {
-      title: "CRYPTUS EXCHANGE",
+      title: {
+        text: "CRYPTUS EXCHANGE"
+      },
       subtitle: `Сервис, которым ты&nbsp;всегда хотел пользоваться.`,
       descriptionList: [
         {

@@ -14,7 +14,7 @@ export const DARK_THEME: BaseTheme = {
 
   "--border-main": "#4C4C4C",
   "--border-error": "#FF6769",
-  "--border-placeholder": "#303030",
+  "--border-placeholder": "transparent",
   "--border-button-secondary": "transparent",
   "--border-profile-icon": "#000000",
 
