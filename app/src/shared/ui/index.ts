@@ -4,3 +4,4 @@ export * from './icon';
 export * from './button';
 export * from './modal';
 export * from './dropdown'
+export * from './toggle'
