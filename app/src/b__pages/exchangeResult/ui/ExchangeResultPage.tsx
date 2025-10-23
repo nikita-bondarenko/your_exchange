@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/shared/ui/button";
+import {Button} from "@/shared/ui/button";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Notification } from "@/shared/ui/form/Notification";

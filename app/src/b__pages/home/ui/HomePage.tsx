@@ -2,7 +2,7 @@
 
 import ProfileButton from "@/entities/profileButton/ui/ProfileButton";
 import ExpandableList from "@/shared/ui/dropdown/ExpandableList";
-import Button from "@/shared/ui/button";
+import {Button} from "@/shared/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/shared/model/store";

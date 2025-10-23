@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/shared/ui/button";
+import {Button} from "@/shared/ui/button";
 import { Notification, InputField } from "@/shared/ui/form";
 import {
   useUserUpdateCreateMutation,

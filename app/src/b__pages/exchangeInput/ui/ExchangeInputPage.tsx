@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/shared/ui/button";
+import {Button} from "@/shared/ui/button";
 import { useAppDispatch, useAppSelector, setIsLoading, setAreErrorsVisible, setIsRateBeingPulled, store, selectCurrencyTypes } from "@/shared/model/store";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";

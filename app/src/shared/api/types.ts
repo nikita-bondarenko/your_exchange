@@ -16,9 +16,9 @@ export type Currency = {
   id: number;
   icon: string;
   name: string;
-  cities: City[];
-  banks: Bank[];
-  networks: Network[];
+  cities?: City[];
+  banks?: Bank[];
+  networks?: Network[];
 };
 
 export type GetCurrenciesGetApiResponse = Currency[];

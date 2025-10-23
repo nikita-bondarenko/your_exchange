@@ -1,6 +1,6 @@
 "use client"
 import { valueMask } from "@/shared/lib/string/valueMask";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, ReactNode, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import QuestionIconAnimation from "./QuestionIconAnimation";
 import { useCallSupport } from "@/d__features/support/lib";
@@ -21,10 +21,12 @@ export type SectionHeadingProps = {
   rate?: HeadingRate | undefined | null;
   minValue?: number | undefined;
   error?: boolean;
+  note?: ReactNode
+  conditionText?: string
 };
 
-const SectionHeading: React.FC<SectionHeadingProps> = memo(
-  ({ title, rate, minValue, error }) => {
+export const SectionHeading: React.FC<SectionHeadingProps> = memo(
+  ({ title, rate, minValue, error, note, conditionText = 'минимально' }) => {
     const [isMessageOpen, setIsMessageOpen] = useState(false);
 
     const timeout = useRef<NodeJS.Timeout>(null);
@@ -49,18 +51,9 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
       setIsMessageOpen(true);
     };
 
-    const { callSupport } = useCallSupport();
-
-    const handleMinValueDescriptionClick: React.MouseEventHandler = () => {
-      callSupport();
-      setIsMessageOpen(false);
-    };
-
     return (
       <div className="flex items-end justify-between mb-10 pl-6  gap-10">
-        <h2 className="text-16 text-[var(--text-main)] font-medium leading-normal  shrink-0 min-w-100">
-          {title}
-        </h2>
+        <h2 dangerouslySetInnerHTML={{__html:title}} className="text-16 text-[var(--text-main)] font-medium leading-normal  shrink-0 min-w-100"></h2>
         {rate && (
           <span
             className="text-13  leading-normal text-[var(--text-secondary)] text-right"
@@ -99,7 +92,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
                 }
               )}
             >
-              <span className=" mr-6 ">минимально</span>
+              <span className=" mr-6 ">{conditionText}</span>
               <span
                 className={clsx(
                   "text-[var(--text-main)] transition-all duration-500 whitespace-nowrap",
@@ -113,7 +106,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
             </span>
           </button>
         )}
-        <div
+      {note &&  <div
           className={clsx(
             "fixed z-50 top-[121px] right-1/2 translate-x-1/2 w-[280px] px-[21px] py-[14px]  leading-[120%] border border-[var(--border-main)] bg-[var(--background-secondary)] rounded-[8px] transition-opacity duration-500",
             {
@@ -122,16 +115,8 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
             }
           )}
         >
-          <p className="text-[var(--text-main)] mb-[5px] text-[14px]">
-            Минимальная сумма обмена может быть ниже
-          </p>
-          <button
-            onClick={handleMinValueDescriptionClick}
-            className="text-[var(--text-secondary)] text-[13px]"
-          >
-            Уточните подробности у оператора
-          </button>
-        </div>
+         {note}
+        </div>}
       </div>
     );
   }
@@ -139,4 +124,3 @@ const SectionHeading: React.FC<SectionHeadingProps> = memo(
 
 SectionHeading.displayName = "SectionHeading";
 
-export default SectionHeading;

@@ -10,7 +10,7 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = memo(
+export const Button: React.FC<ButtonProps> = memo(
   ({ className, type, children, onClick, submit, disabled }) => {
     return (
       <button
@@ -34,4 +34,3 @@ const Button: React.FC<ButtonProps> = memo(
   }
 );
 Button.displayName = "Button";
-export default Button;

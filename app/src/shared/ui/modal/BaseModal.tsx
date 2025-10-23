@@ -1,6 +1,6 @@
 "use client";
 import clsx from "clsx";
-import Button from "../button/Button";
+import {Button} from "../button/Button";
 import { createPortal } from "react-dom";
 import { ForwardedRef, forwardRef, useEffect, useRef } from "react";
 import { CrossIcon } from "../icon";

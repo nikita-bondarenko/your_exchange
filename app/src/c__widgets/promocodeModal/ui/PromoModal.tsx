@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-import Button from "../../../shared/ui/button/Button";
+import {Button} from "../../../shared/ui/button/Button";
 
 type PromoModalProps = {
   isOpen: boolean;

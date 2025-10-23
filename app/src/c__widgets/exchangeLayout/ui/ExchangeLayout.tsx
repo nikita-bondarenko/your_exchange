@@ -1,5 +1,5 @@
 import React, { memo, ReactNode } from "react";
-import Button from "../../../shared/ui/button/Button";
+import {Button} from "../../../shared/ui/button/Button";
 
 export type ExchangeLayoutProps = {
   onMainButtonClick: () => void;
