@@ -4,6 +4,8 @@ import { RootState } from "@/shared/model/store";
 export const loadState = async (): Promise<Partial<RootState> | undefined> => {
   const pageData = PROJECT_DATA.page;
 
+  console.log('PROJECT_DATA', PROJECT_DATA)
+
   const rootState = { pageData };
   try {
     const serializedState = localStorage.getItem(REDUX_LOCAL_STORE_KEY);
