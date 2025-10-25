@@ -69,7 +69,7 @@ export const setRateData = async ({
 
     const isSelectedNetworkValueIdValid = !!initialData.currencies_give
       ?.find((cur) => cur.id === selectedCurrencySellId)
-      ?.networks.find((net) => net.id === selectedNetworkValueId) ||  !!initialData.currencies_give
+      ?.networks?.find((net) => net.id === selectedNetworkValueId) ||  !!initialData.currencies_give
       ?.find((cur) => cur.id === selectedNetworkValueId);
 
     if (selectedNetworkValueId && isSelectedNetworkValueIdValid)

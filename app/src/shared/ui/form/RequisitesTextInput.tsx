@@ -41,3 +41,5 @@ export const RequisitesTextInput = memo(
     );
   }
 );
+
+RequisitesTextInput.displayName = "RequisitesTextInput"

@@ -63,7 +63,7 @@ export const TransferDetails = memo(
           {filePreviews && filePreviews.length > 0 && (
             <div className="flex gap-6">
               {filePreviews.map((file) => (
-                <FilePreview
+                <FilePreview key={file.url}
                   fileType={file.type}
                   fileUrl={file.url}
                   className="rounded-6 w-48 h-48 border border-[var(--border-placeholder)]"

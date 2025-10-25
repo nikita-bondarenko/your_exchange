@@ -162,7 +162,7 @@ exchangeSliceListener.startListening({
     if (selectedCurrencySellType === "CASH") {
       listenerApi?.dispatch(setSelectedCityValue(null));
     }
-    if (selectedCurrencySellType === "BANK") {
+    if (selectedCurrencySellType === "BANK" && selectedCurrencySell?.banks) {
       // console.log("setSelectedBankValue setSelectedCurrencySell");
       listenerApi?.dispatch(
         setSelectedBankValue(selectedCurrencySell?.banks[0])
@@ -227,9 +227,9 @@ exchangeSliceListener.startListening({
 
     const state = listenerApi.getState() as RootState;
     const selectedCurrencyBuy = action.payload;
-    const selectedCurrencyBuyNetwork = selectedCurrencyBuy?.networks[0];
-    const selectedCurrencyBuyCity = selectedCurrencyBuy?.cities[0];
-    const selectedCurrencyBuyBank = selectedCurrencyBuy?.banks[0];
+    const selectedCurrencyBuyNetwork = selectedCurrencyBuy?.networks && selectedCurrencyBuy?.networks[0];
+    const selectedCurrencyBuyCity = selectedCurrencyBuy?.cities && selectedCurrencyBuy?.cities[0];
+    const selectedCurrencyBuyBank = selectedCurrencyBuy?.banks && selectedCurrencyBuy?.banks[0];
 
     const {
       selectedCurrencySell,
@@ -263,7 +263,7 @@ exchangeSliceListener.startListening({
     }
 
     if (selectedCurrencyBuyType === "BANK") {
-      const bank = selectedCurrencyBuy?.banks[0];
+      const bank = selectedCurrencyBuy?.banks &&  selectedCurrencyBuy?.banks[0];
       if (selectedCurrencyBuy?.banks && bank) {
         dispatch(setSelectedBankValue(bank));
         dispatch(setBanks(selectedCurrencyBuy?.banks));

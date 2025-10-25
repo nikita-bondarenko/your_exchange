@@ -30,3 +30,5 @@ export const InputCopiedIcon = memo(({ className, color }: SvgIcon) => {
     </svg>
   );
 });
+
+InputCopiedIcon.displayName = 'InputCopiedIcon'
