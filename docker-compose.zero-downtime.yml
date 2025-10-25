@@ -23,6 +23,7 @@ services:
     container_name: test-change-blue
     user: "1000:1000"
     environment:
+      - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
       - NODE_ENV=production
       - PORT=3000
       - INSTANCE_COLOR=blue
@@ -49,6 +50,7 @@ services:
     container_name: test-change-green
     user: "1000:1000"
     environment:
+      - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
       - NODE_ENV=production
       - PORT=3000
       - INSTANCE_COLOR=green
