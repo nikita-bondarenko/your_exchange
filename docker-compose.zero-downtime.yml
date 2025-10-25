@@ -22,6 +22,8 @@ services:
       dockerfile: Dockerfile
     container_name: test-change-blue
     user: "1000:1000"
+    args:
+      - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
     environment:
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
       - NODE_ENV=production
@@ -49,6 +51,8 @@ services:
       dockerfile: Dockerfile
     container_name: test-change-green
     user: "1000:1000"
+    args:
+      - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
     environment:
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
       - NODE_ENV=production
