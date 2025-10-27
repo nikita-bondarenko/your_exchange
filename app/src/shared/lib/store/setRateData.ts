@@ -67,10 +67,13 @@ export const setRateData = async ({
   if (selectedCurrencySellType === "COIN") {
     console.log("COIN", selectedNetworkValueId);
 
-    const isSelectedNetworkValueIdValid = !!initialData.currencies_give
-      ?.find((cur) => cur.id === selectedCurrencySellId)
-      ?.networks?.find((net) => net.id === selectedNetworkValueId) ||  !!initialData.currencies_give
-      ?.find((cur) => cur.id === selectedNetworkValueId);
+    const isSelectedNetworkValueIdValid =
+      !!initialData.currencies_give
+        ?.find((cur) => cur.id === selectedCurrencySellId)
+        ?.networks?.find((net) => net.id === selectedNetworkValueId) ||
+      !!initialData.currencies_give?.find(
+        (cur) => cur.id === selectedNetworkValueId
+      );
 
     if (selectedNetworkValueId && isSelectedNetworkValueIdValid)
       giveCurrencyId = selectedNetworkValueId;
@@ -126,6 +129,8 @@ export const setRateData = async ({
     selectedCurrencyBuyId: rateFetchingArgs.currency_get_id,
     selectedCurrencySellId: rateFetchingArgs.currency_give_id,
   });
+  if (selectedCurrencyBuyType === "COIN" && selectedCurrencySellType === "CASH")
+    console.log("getAvailableCurrenciesBuyDetails", networks, isNetworkValid);
 
   dispatch(setCurrenciesBuy(currenciesBuy));
 
@@ -141,11 +146,15 @@ export const setRateData = async ({
     dispatch(setSelectedBankValueWithoutListening(selectedBank));
   }
 
-  if (!isNetworkValid && selectedCurrencyBuyType === "COIN") {
-    rateFetchingArgs.network_id = selectedNetwork.id;
+  if (selectedCurrencyBuyType === "COIN") {
     dispatch(setNetworks(networks));
-    dispatch(setSelectedNetworkValueWithoutListening(selectedNetwork));
+    if (!isNetworkValid) {
+      rateFetchingArgs.network_id = selectedNetwork.id;
+      dispatch(setSelectedNetworkValueWithoutListening(selectedNetwork));
+    }
   }
+
+  // if ()
 
   // console.log(rateFetchingArgs);
 

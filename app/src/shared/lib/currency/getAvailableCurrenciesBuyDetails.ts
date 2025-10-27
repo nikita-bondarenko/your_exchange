@@ -42,15 +42,21 @@ export const getAvailableCurrenciesBuyDetails = ({
       initialData?.currencies_get?.filter((currency) =>
         availableCurrenciesGet.some((cur) => cur.id === currency.id)
       ) || [];
-  } else
+  } else {
+    const propertyName = currencyBuyType === "BANK" ? "banks" : "networks"
     currenciesBuy =
       initialData?.currencies_get?.filter((currency) =>
         availableCurrenciesGet.some((item) =>
-          currency[currencyBuyType === "BANK" ? "banks" : "networks"]?.some(
+          currency[propertyName]?.some(
             (option) => option.id === item.id
           )
         )
-      ) || [];
+      ).map(cur => ({...cur, [propertyName]:cur[propertyName]?.filter(item => {
+        const availableCurrency = availableCurrenciesGet.find(c => c.id === cur.id)
+        if (!availableCurrency) return false
+        return availableCurrency[propertyName]?.some(i => i.id === item.id)
+      })})) || [];
+  }
 
   if (currenciesBuy.length === 0) {
     currenciesBuy = availableCurrenciesGet;
@@ -69,6 +75,8 @@ export const getAvailableCurrenciesBuyDetails = ({
   const isBankValid = currenciesBuy.some((cur) =>
     cur.banks?.some((b) => b.id === selectedBankId)
   );
+  if (currencyBuyType === "COIN")
+    console.log("selectedNetworkId", selectedNetworkId, currenciesBuy);
 
   const isNetworkValid = currenciesBuy.some((cur) =>
     cur.networks?.some((n) => n.id === selectedNetworkId)
