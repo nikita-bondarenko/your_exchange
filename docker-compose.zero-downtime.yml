@@ -24,7 +24,6 @@ services:
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
     container_name: test-change-blue
     user: "1000:1000"
-    
     environment:
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
       - NODE_ENV=production

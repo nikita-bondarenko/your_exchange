@@ -32,7 +32,7 @@ export const LIGHT_THEME: BaseTheme = {
   "--background-button-profile": "#262626",
   "--background-button-disabled": "#C4C4C4",
   "--background-exchange-type-selected": "#F8F8F8",
-  "--background-global": "#f1f1f1",
+  "--background-global": "#F4F4F4",
   "--background-secondary": "#fff",
   "--background-light": "#D2D2D2",
   "--background-first-screen-description": "#EBEBEB",

@@ -11,6 +11,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Source the alex configuration (which includes the library)
 source "$SCRIPT_DIR/deployment-config.sh"
 
+chmod -R 777 ./app/data
+
 # ========================================
 # COMMAND FUNCTIONS
 # ========================================

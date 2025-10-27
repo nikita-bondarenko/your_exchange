@@ -16,7 +16,7 @@ COPY . .
 
 RUN pnpm build
 
-RUN mkdir -p /usr/src/app/data && chmod 777 /usr/src/app/data
+RUN mkdir -p /usr/src/app/data 
 
 EXPOSE 3000
 
