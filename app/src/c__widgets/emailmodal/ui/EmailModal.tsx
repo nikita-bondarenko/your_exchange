@@ -11,7 +11,7 @@ export default function EmailModal () {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [isErrorShowing, setIsErrorShowing] = useState(false);
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(true);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const dispatch = useAppDispatch();
@@ -77,6 +77,7 @@ export default function EmailModal () {
             onChange={setValue}
             error={isErrorShowing ? error : ""}
             value={value}
+            className="[&]:bg-[var(--background-global)]"
             placeholder="Электронная почта"
           />
         </div>
