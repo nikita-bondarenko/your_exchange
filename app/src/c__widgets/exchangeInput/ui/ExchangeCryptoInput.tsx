@@ -25,7 +25,7 @@ import {
   setWalletAddressValue,
 } from "@/shared/model/store/reducers/exchangeReducer";
 import clsx from "clsx";
-import { Currency } from "@/shared/api/types";
+import { Currency } from "@/shared/api/exchange/types";
 import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";
 import { MinValueNote } from "./MinValueNote";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import ExchangeLayout from "@/c__widgets/exchangeLayout/ui";
+import ExchangeLayout from "@/c__widgets/processLayout/ui";
 import PromoModal from "@/c__widgets/promocodeModal/ui";
 import { RequestDetails } from "@/entities/requestDetails/ui";
 import { useExchangesCreateMutation, useCheckPromocodeMutation } from "@/shared/api";

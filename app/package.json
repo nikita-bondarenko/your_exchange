@@ -26,6 +26,7 @@
     "reselect": "^5.1.1",
     "simplebar": "^6.3.1",
     "simplebar-react": "^3.3.1",
+    "uuid": "^13.0.0",
     "zod": "^3.25.48"
   },
   "devDependencies": {

@@ -1,4 +1,6 @@
+import { typograf } from "@/shared/lib";
 import { SignIcon } from "@/shared/ui";
+import { SvgFromUrl } from "@/shared/ui/icon/SvgFromUrl";
 import clsx from "clsx";
 import { createRef, memo, useEffect, useState } from "react";
 
@@ -42,11 +44,9 @@ export const TransferSelectItem = memo(
       >
         <div className="pb-[12px] flex items-center justify-between">
           <div className={clsx("flex items-center gap-11", className)}>
-            <img
-              className={clsx("w-21 h-21", iconClassName)}
-              src={icon}
-              alt=""
-            />
+
+            <SvgFromUrl src={icon} className={clsx("w-21 h-21", iconClassName)}></SvgFromUrl>
+          
             <span className="text-16 leading-[107%] text-[var(--text-main)]">
               {name}
             </span>
@@ -64,7 +64,7 @@ export const TransferSelectItem = memo(
           <div
             className="pb-[14px] pt-[2px] absolute button-0 left-0 text-[var(--text-secondary)] text-13 leading-[107%]"
             ref={descriptionElement}
-            dangerouslySetInnerHTML={{ __html: description }}
+            dangerouslySetInnerHTML={{ __html: typograf(description) }}
           ></div>
         </div>
       </div>

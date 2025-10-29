@@ -1,18 +1,20 @@
 import React, { memo, ReactNode } from "react";
-import {Button} from "../../../shared/ui/button/Button";
+import { Button } from "../../../shared/ui/button/Button";
 
-export type ExchangeLayoutProps = {
+export type ProcessLayoutProps = {
   onMainButtonClick: () => void;
   buttonText: string;
   children: ReactNode;
+  buttonDisabled?: boolean;
 };
 
-const ExchangeLayout: React.FC<ExchangeLayoutProps> = memo(
-  ({ onMainButtonClick, buttonText, children }) => {
+const ProcessLayout: React.FC<ProcessLayoutProps> = memo(
+  ({ onMainButtonClick, buttonText, children, buttonDisabled }) => {
     return (
       <div className="container h-full flex flex-col justify-between pb-0 gap-26 ">
         {children}
         <Button
+          disabled={buttonDisabled}
           className="sticky bottom-0 z-30"
           type="primary"
           onClick={onMainButtonClick}
@@ -24,6 +26,6 @@ const ExchangeLayout: React.FC<ExchangeLayoutProps> = memo(
   }
 );
 
-ExchangeLayout.displayName = "ExchangeLayout";
+ProcessLayout.displayName = "ProcessLayout";
 
-export default ExchangeLayout;
+export default ProcessLayout;

@@ -1,5 +1,5 @@
 "use client"
-import { useCheckConsentMutation } from "@/shared/api/cryptusApi";
+import { useCheckConsentMutation } from "@/shared/api";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import { setAgreementAccepted } from "@/shared/model/store/reducers/userReducer";
 import { redirect, usePathname } from "next/navigation";

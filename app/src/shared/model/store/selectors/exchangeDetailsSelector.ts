@@ -7,7 +7,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import {
 
   ExchangesCreateApiArg,
-} from "../../../api/types";
+} from "../../../api/exchange/types";
 import { roundTo8 } from "@/shared/lib/number/roundTo8";
 import { selectBankValue, selectNetValue } from "./exchangeSelector";
 

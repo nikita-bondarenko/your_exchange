@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import { setAgreementAccepted } from "@/shared/model/store/reducers/userReducer";
 import Checkbox from "../../../shared/ui/form/Checkbox";
 import { typograf } from "@/shared/lib/string/typograf";
-import { useUserUpdateCreateMutation } from "@/shared/api/cryptusApi";
+import { useUserUpdateCreateMutation } from "@/shared/api";
 
 export default function AgreementModal() {
 

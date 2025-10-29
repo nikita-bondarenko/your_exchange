@@ -1,0 +1,3 @@
+import TransferAbroadInputChinesePlatforms from "@/b__pages/transferAbroadInputChinesePlatforms/ui";
+
+export default TransferAbroadInputChinesePlatforms

@@ -2,7 +2,7 @@
 
 import ProfileButton from "@/entities/profileButton/ui/ProfileButton";
 import ExpandableList from "@/shared/ui/dropdown/ExpandableList";
-import {Button} from "@/shared/ui/button";
+import { Button } from "@/shared/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/shared/model/store";
@@ -12,6 +12,7 @@ import EmailModal from "@/c__widgets/emailmodal/ui";
 import AgreementModal from "@/c__widgets/agreementModal/ui";
 import { useAdditionalSectionList } from "../lib";
 import RequestStatus from "@/entities/requestStatus/ui";
+import { ModeSwitcher } from "@/d__features/modeSwitcher/ui";
 
 export default function HomePage() {
   const { callSupport } = useCallSupport();
@@ -26,8 +27,19 @@ export default function HomePage() {
   const [forceRender, setForceRender] = useState(0);
 
   const homePageData = useAppSelector((state) => state.pageData.home);
-  const toExchangePage = () => {
-    router.push("/exchange/type");
+  const isExchangeMode = useAppSelector(
+    (state) => state.featuresFlags.isExchangeMode
+  );
+  const isTransferAbroadMode = useAppSelector(
+    (state) => state.featuresFlags.isTransferAbroadMode
+  );
+
+  const handleStartButton = () => {
+    const startButtonHref =
+      isExchangeMode && !isTransferAbroadMode
+        ? "/exchange/type"
+        : "/transfer-abroad/type";
+    router.push(startButtonHref);
   };
 
   useEffect(() => {
@@ -42,6 +54,8 @@ export default function HomePage() {
   return (
     <>
       <div className="container h-full flex flex-col">
+        <ModeSwitcher></ModeSwitcher>
+        <div className="h-13"></div>
         <div className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col background-first-screen relative overflow-hidden">
           {homePageData.firstScreenBackgroundImage &&
             homePageData.firstScreenBackgroundImage()}
@@ -63,7 +77,6 @@ export default function HomePage() {
                     className={homePageData.title.image.className}
                   />
                 )}
-
                 <p
                   className="text-16 font-medium mb-30 text-[var(--text-main-screen-subtitle)]"
                   dangerouslySetInnerHTML={{ __html: homePageData.subtitle }}
@@ -97,7 +110,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 gap-6 z-10">
-            <Button onClick={toExchangePage} type={"main-screen-left"}>
+            <Button onClick={handleStartButton} type={"main-screen-left"}>
               Начать обмен
             </Button>
             <Button onClick={callSupport} type={"main-screen-right"}>

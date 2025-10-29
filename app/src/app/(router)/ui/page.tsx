@@ -19,7 +19,7 @@ export default function Page() {
       <AbroadCompanyRequisitesInput></AbroadCompanyRequisitesInput>
       <RussianCompanyRequisitesInput></RussianCompanyRequisitesInput>
       <LicenseAndInvoiceExampleInput></LicenseAndInvoiceExampleInput>
-      <TransferCurrencyInput/>
+      {/* <TransferCurrencyInput/> */}
     </div>
   );
 }

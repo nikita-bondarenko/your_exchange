@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React, { memo } from "react";
-import { Network } from "@/shared/api/types";
+import { Network } from "@/shared/api/exchange/types";
 
 export type CryptoNetOption = Network;
 

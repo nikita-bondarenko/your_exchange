@@ -1,4 +1,4 @@
-import { DirectionType } from "@/shared/api/types";
+import { DirectionType } from "@/shared/api/exchange/types";
 import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 
 export const calculateDirections = (giveType: CurrencyType, getType: CurrencyType) : DirectionType => {

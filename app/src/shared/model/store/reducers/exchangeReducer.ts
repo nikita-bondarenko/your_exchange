@@ -11,7 +11,7 @@ import {
   GetDirectionInitialDataByDirectionTypeApiResponse,
   Network,
   Rate,
-} from "@/shared/api/types";
+} from "@/shared/api/exchange/types";
 import {
   calculateCurrencyTypeFromDirection,
   Direction,

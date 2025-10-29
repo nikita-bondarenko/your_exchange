@@ -3,7 +3,7 @@ import React, { memo, useState } from "react";
 import clsx from "clsx";
 import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
 import BaseSelect from "../../../shared/ui/form/BaseSelect";
-import { Bank } from "@/shared/api/types";
+import { Bank } from "@/shared/api/exchange/types";
 
 export type BankOption = Bank;
 

@@ -1,0 +1,3 @@
+import TransferAbroadInputFtaRequisitesAndLicense from "@/b__pages/transferAbroadInputFtaRequisitesAndLicense/ui";
+
+export default TransferAbroadInputFtaRequisitesAndLicense

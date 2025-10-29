@@ -1,13 +1,10 @@
 import {
   calculateSecondaryProperties,
   CurrencyType,
-  setAvailableCurrenciesGetData,
   setInitialData,
   setIsRateBeingPulled,
-  setSelectedBankValueWithoutListening,
-  setSelectedCurrencyBuyWithoutListening,
 } from "@/shared/model/store/reducers/exchangeReducer";
-import { createListenerMiddleware, PayloadAction } from "@reduxjs/toolkit";
+import { createListenerMiddleware} from "@reduxjs/toolkit";
 import {
   setBanks,
   setCities,
@@ -27,10 +24,9 @@ import {
 } from "../../reducers/exchangeReducer";
 import { AppDispatch, RootState } from "@/shared/model/store/store";
 import { EXCHANGE_TYPES_BUTTONS } from "@/b__pages/exchangeType/config";
-import { cryptusApi } from "@/shared/api/cryptusApi";
-import { DirectionType } from "@/shared/api/types";
+import { exchangeApi } from "@/shared/api";
+import { DirectionType } from "@/shared/api/exchange/types";
 import { calculateInputAmountBasedOnAnotherOne } from "@/shared/lib/exchange/calculateInputAmountBasedOnAnotherOne";
-import { getAvailableCurrenciesBuyDetails } from "@/shared/lib/currency/getAvailableCurrenciesBuyDetails";
 import { setRateData } from "@/shared/lib/store/setRateData";
 
 export const filterReceiveVariants = (selectedGiveType: CurrencyType) => {
@@ -71,7 +67,7 @@ exchangeSliceListener.startListening({
 
     const directionType = `${selectedCurrencySellType} - ${action.payload}`;
     const { data } = await listenerApi.dispatch(
-      cryptusApi.endpoints.getDirectionInitialDataByDirectionType.initiate(
+      exchangeApi.endpoints.getDirectionInitialDataByDirectionType.initiate(
         {
           directionType,
         },
@@ -86,7 +82,7 @@ exchangeSliceListener.startListening({
       console.error("initial give currency is not found");
     }
     const { data: availableCurrenciesGet } = await listenerApi.dispatch(
-      cryptusApi.endpoints.getCurrenciesGet.initiate(
+      exchangeApi.endpoints.getCurrenciesGet.initiate(
         {
           currencyType: action.payload,
           giveCurrencyId: giveCurrencyId,
@@ -201,7 +197,7 @@ exchangeSliceListener.startListening({
     // )
     //   return;
     // const { data } = await listenerApi.dispatch(
-    //   cryptusApi.endpoints.getCurrenciesGet.initiate(
+    //   exchangeApi.endpoints.getCurrenciesGet.initiate(
     //     {
     //       giveCurrencyId: selectedCurrencySell?.id,
     //       currencyType: selectedCurrencyBuyType,
@@ -278,7 +274,7 @@ exchangeSliceListener.startListening({
     )
       return;
     const { data } = await listenerApi.dispatch(
-      cryptusApi.endpoints.rateList.initiate(
+      exchangeApi.endpoints.rateList.initiate(
         {
           direction_type:
             `${selectedCurrencySellType} - ${selectedCurrencyBuyType}` as DirectionType,
@@ -441,7 +437,7 @@ exchangeSliceListener.startListening({
       return;
 
     const { data } = await listenerApi.dispatch(
-      cryptusApi.endpoints.rateList.initiate(
+      exchangeApi.endpoints.rateList.initiate(
         {
           direction_type:
             `${selectedCurrencySellType} - ${selectedCurrencyBuyType}` as DirectionType,
@@ -649,7 +645,7 @@ exchangeSliceListener.startListening({
 
         try {
           const { data } = await listenerApi.dispatch(
-            cryptusApi.endpoints.rateList.initiate(
+            exchangeApi.endpoints.rateList.initiate(
               {
                 direction_type:
                   `${currentSelectedCurrencySellType} - ${currentSelectedCurrencyBuyType}` as DirectionType,

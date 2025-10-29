@@ -1,8 +1,8 @@
 "use client"
-import { useCheckMailMutation } from "@/shared/api/cryptusApi";
+import { useCheckMailMutation } from "@/shared/api";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import { setMailRequired } from "@/shared/model/store/reducers/userReducer";
-import React, { ReactNode, useEffect } from "react";
+import React, { useEffect } from "react";
 
 
 export default function EmailRequirementChecking() {

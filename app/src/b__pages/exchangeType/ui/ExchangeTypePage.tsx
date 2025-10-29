@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { memo, useCallback, useEffect, useRef } from "react";
 import { EXCHANGE_TYPES_BUTTONS } from "../config";
 import { useCallSupport } from "@/d__features/support/lib";
-import ExchangeLayout from "@/c__widgets/exchangeLayout/ui";
+import ExchangeLayout from "@/c__widgets/processLayout/ui";
 import RateNoteModal from "@/c__widgets/rateNoteModal/ui";
 import ExchangeTypeBlock from "./exchangeTypeSelect/ExchangeTypeBlock";
 

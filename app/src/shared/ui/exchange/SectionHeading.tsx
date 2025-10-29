@@ -3,7 +3,6 @@ import { valueMask } from "@/shared/lib/string/valueMask";
 import React, { memo, ReactNode, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import QuestionIconAnimation from "./QuestionIconAnimation";
-import { useCallSupport } from "@/d__features/support/lib";
 import { AlertIcon } from "../icon";
 export type HeadingRate = {
   from: {
@@ -19,7 +18,7 @@ export type HeadingRate = {
 export type SectionHeadingProps = {
   title: string;
   rate?: HeadingRate | undefined | null;
-  minValue?: number | undefined;
+  minValue?: number | undefined | null;
   error?: boolean;
   note?: ReactNode
   conditionText?: string

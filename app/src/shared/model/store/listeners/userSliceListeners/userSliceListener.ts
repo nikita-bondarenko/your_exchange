@@ -4,7 +4,7 @@ import {
   setUserData,
   setUserId,
 } from "@/shared/model/store/reducers/userReducer";
-import { cryptusApi } from "@/shared/api/cryptusApi";
+import { exchangeApi } from "@/shared/api";
 
 export const userSliceListener = createListenerMiddleware();
 
@@ -13,7 +13,7 @@ userSliceListener.startListening({
   effect: async (action, listenerApi) => {
     try {
       const { data } = await listenerApi.dispatch(
-        cryptusApi.endpoints.userList.initiate(
+        exchangeApi.endpoints.userList.initiate(
           {
             userId: action.payload,
           },

@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState } from "react";
 import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
 import BaseSelect from "../../../shared/ui/form/BaseSelect";
 import clsx from "clsx";
-import { City } from "@/shared/api/types";
+import { City } from "@/shared/api/exchange/types";
 
 export type CityOption = City;
 

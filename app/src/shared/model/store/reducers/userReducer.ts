@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserListApiResponse, UserUpdateCreateApiArg } from "../../../api/types";
+import { UserListApiResponse, UserUpdateCreateApiArg } from "../../../api/exchange/types";
 import { number } from "zod";
 
 export type UserState = {

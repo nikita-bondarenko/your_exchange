@@ -1,10 +1,9 @@
 import { getAvailableCurrenciesBuyDetails } from "@/shared/lib/currency/getAvailableCurrenciesBuyDetails";
-import { cryptusApi } from "../../api/cryptusApi";
+import { exchangeApi } from "@/shared/api";
 import {
   DirectionType,
-  GetCurrenciesGetApiResponse,
   GetDirectionInitialDataByDirectionTypeApiResponse,
-} from "../../api/types";
+} from "../../api/exchange/types";
 import { AppDispatch } from "../../model/store/store";
 import {
   setCurrenciesBuy,
@@ -98,7 +97,7 @@ export const setRateData = async ({
   // })
 
   const { data: availableCurrenciesGet } = await dispatch(
-    cryptusApi.endpoints.getCurrenciesGet.initiate(
+    exchangeApi.endpoints.getCurrenciesGet.initiate(
       {
         giveCurrencyId,
         currencyType: selectedCurrencyBuyType,
@@ -159,7 +158,7 @@ export const setRateData = async ({
   // console.log(rateFetchingArgs);
 
   const { data } = await dispatch(
-    cryptusApi.endpoints.rateList.initiate(rateFetchingArgs, {
+    exchangeApi.endpoints.rateList.initiate(rateFetchingArgs, {
       forceRefetch: true,
     })
   );

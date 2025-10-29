@@ -1,12 +1,12 @@
 "use client";
-import { Faq } from "@/shared/api/types";
+import { Faq } from "@/shared/api/exchange/types";
 import React, { useEffect } from "react";
 import DropdownTrigger from "../../../shared/ui/dropdown/DropdownTrigger";
 import ExpandableElement from "../../../shared/ui/dropdown/ExpandableElement";
 import { typograf } from "@/shared/lib/string/typograf";
 import { useAppDispatch } from "@/shared/model/store/hooks";
 import { setPageName } from "@/shared/model/store/reducers/uiReducer";
-import { useFaqsListQuery } from "@/shared/api/cryptusApi";
+import { useFaqsListQuery } from "@/shared/api";
 
 
 export default function FaqList() {

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Request } from "@/shared/api/types";
+import { Request } from "@/shared/api/exchange/types";
 
 export type RequestDetails = Request;
 

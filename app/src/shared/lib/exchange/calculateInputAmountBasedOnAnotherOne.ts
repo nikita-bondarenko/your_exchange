@@ -1,5 +1,5 @@
 import { roundTo8 } from "../number/roundTo8";
-import { Rate } from "../../api/types";
+import { Rate } from "../../api/exchange/types";
 
 export const calculateInputAmountBasedOnAnotherOne = (
   amount: number | null,

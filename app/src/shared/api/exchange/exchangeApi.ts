@@ -30,7 +30,7 @@ import {
   CheckMailApiResponse,
   CheckConsentApiArg,
   CheckConsentApiResponse,
-} from "./types";
+} from './types';
 
 export const api = createApi({
   reducerPath: "api",
@@ -181,4 +181,4 @@ export const {
   useCheckConsentMutation,
 } = injectedRtkApi;
 
-export { injectedRtkApi as cryptusApi };
+export { injectedRtkApi as exchangeApi };

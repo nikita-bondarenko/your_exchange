@@ -1,8 +1,16 @@
-// src/lib/store.ts
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-
-import {uiReducer, authReducer, userReducer, requestDetailsReducer, exchangeReducer, exchangeSliceListener, validateListener, userSliceListener} from "@/shared/model/store"
-import { api } from "@/shared/api";
+import {
+  uiReducer,
+  userReducer,
+  requestDetailsReducer,
+  exchangeReducer,
+  exchangeSliceListener,
+  validateListener,
+  userSliceListener,
+  featuresFlagsReducer,
+  transferAbroadReducer,
+} from "@/shared/model/store";
+import { exchangeApi, transferAbroadApi } from "@/shared/api";
 import { saveState, loadState } from "@/shared/lib/store";
 import { pageDataReducer } from "./reducers/pageDataReducer";
 
@@ -11,9 +19,11 @@ const rootReducer = combineReducers({
   user: userReducer,
   requestDetails: requestDetailsReducer,
   exchange: exchangeReducer,
-  [api.reducerPath]: api.reducer,
-  auth: authReducer,
-  pageData: pageDataReducer
+  [exchangeApi.reducerPath]: exchangeApi.reducer,
+  [transferAbroadApi.reducerPath]: transferAbroadApi.reducer,
+  pageData: pageDataReducer,
+  featuresFlags: featuresFlagsReducer,
+  transferAbroad: transferAbroadReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -33,7 +43,8 @@ export const store = configureStore({
         validateListener.middleware,
         userSliceListener.middleware
       )
-      .concat(api.middleware),
+      .concat(exchangeApi.middleware)
+      .concat(transferAbroadApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 
@@ -42,11 +53,10 @@ store.subscribe(() => {
   saveState({
     exchange: state.exchange,
     requestDetails: state.requestDetails,
+    featuresFlags: state.featuresFlags,
     // pageData: state.pageData
-    // user: state.user,  
+    // user: state.user,
   });
 });
 
 export type AppDispatch = typeof store.dispatch;
-
-

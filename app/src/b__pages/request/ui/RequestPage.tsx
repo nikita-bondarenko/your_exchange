@@ -14,7 +14,7 @@ import { setIsLoading, setPageName } from "@/shared/model/store/reducers/uiReduc
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
 import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
-import { RequestCurrency } from "@/shared/api/types";
+import { RequestCurrency } from "@/shared/api/exchange/types";
 import { RequestDetails, RequestDetailsProps } from "@/entities/requestDetails/ui";
 
 

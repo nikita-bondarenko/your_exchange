@@ -5,7 +5,7 @@ import { valueMask } from "@/shared/lib/string/valueMask";
 import { formatDate } from "@/shared/lib/string/formatDate";
 import { setRequestDetails } from "@/shared/model/store/reducers/requestDetailsReducer";
 import { useAppDispatch } from "@/shared/model/store/hooks";
-import { Request } from "@/shared/api/types";
+import { Request } from "@/shared/api/exchange/types";
 import { roundTo8 } from "@/shared/lib/number/roundTo8";
 import { ArrowRightIcon } from "@/shared/ui";
 
