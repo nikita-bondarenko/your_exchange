@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../../shared/ui/modal/BaseModal";
 import InputField from "../../../shared/ui/form/InputField";
-import z from "zod";
 import {  useUserUpdateCreateMutation } from "@/shared/api";
 import { setMailRequired, setUserEmail, useAppDispatch, useAppSelector } from "@/shared/model/store";
 import { validateEmail } from "@/shared/lib/validation";
@@ -11,7 +10,7 @@ export default function EmailModal () {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [isErrorShowing, setIsErrorShowing] = useState(false);
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(true);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const dispatch = useAppDispatch();
