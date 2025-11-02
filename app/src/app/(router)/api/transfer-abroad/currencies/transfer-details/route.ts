@@ -34,12 +34,11 @@ export async function GET(request: Request) {
   const optionId = parseInt(transfer_option_id);
   const response: any = {};
 
-  if (optionId === 1) {
+  if (optionId === 3) {
     response.banks = subOptions.banks;
-    response.countries = subOptions.countries;
-  } else if (optionId === 2) {
-    response.platforms = subOptions.platforms;
   } else if (optionId === 4) {
+    response.platforms = subOptions.platforms;
+  } else if (optionId === 5 || optionId === 2) {
     response.countries = subOptions.countries;
   }
 

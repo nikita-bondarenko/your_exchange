@@ -13,5 +13,9 @@ export const validateAmount = ({ value, options }: ValidateAmountProps): string 
     return `Минимальная сумма ${options.minValue}`;
   }
 
+   if (options?.maxValue && value > options.maxValue) {
+    return `Максимальная сумма ${options.minValue}`;
+  }
+
   return null;
 }; 

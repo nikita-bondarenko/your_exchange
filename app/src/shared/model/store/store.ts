@@ -54,6 +54,7 @@ store.subscribe(() => {
     exchange: state.exchange,
     requestDetails: state.requestDetails,
     featuresFlags: state.featuresFlags,
+    transferAbroad: state.transferAbroad
     // pageData: state.pageData
     // user: state.user,
   });

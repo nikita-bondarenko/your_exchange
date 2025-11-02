@@ -42,7 +42,7 @@ export const transferAbroadApi = createApi({
     }),
 
     // GET /transfer-abroad/currencies/transfer-details
-    getTransferDetails: builder.query<
+    getTransferDetails: builder.mutation<
       TransferDetailsResponse,
       { currency_id: number; transfer_option_id: number }
     >({
@@ -107,7 +107,7 @@ export const transferAbroadApi = createApi({
 export const {
   useGetTransferOptionsQuery,
   useGetCurrenciesMutation,
-  useGetTransferDetailsQuery,
+  useGetTransferDetailsMutation,
   useCreateInvoiceOrderMutation,
   useCreateFTAOrderMutation,
   useCreateChinesePlatformOrderMutation,

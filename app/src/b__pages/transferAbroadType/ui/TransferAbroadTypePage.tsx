@@ -2,7 +2,7 @@
 
 import ProcessLayout from "@/c__widgets/processLayout/ui";
 import { TransferTypeSwitcher } from "@/d__features/transferTypeSwitcher/ui";
-import { TransferSelect } from "@/entities/transferSelect/ui";
+import { TransferSelect } from "@/d__features/transferAbroad/ui";
 import { useAppSelector } from "@/shared/model/store";
 import { useRouter } from "next/navigation";
 import { transferIdInputPathReferrencies } from "../config";

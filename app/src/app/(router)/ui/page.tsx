@@ -1,13 +1,13 @@
 "use client";
 
-import { TransferCurrencyInput } from "@/c__widgets/transferCurrencyInput/ui";
+import { TransferCurrencyInput } from "@/d__features/transferAbroad/ui/transferCurrencyInput/ui";
 import { ModeSwitcher } from "@/d__features/modeSwitcher/ui";
 import { TransferTypeSwitcher } from "@/d__features/transferTypeSwitcher/ui";
 import { AbroadCompanyRequisitesInput } from "@/entities/abroadCompanyRequisitesInput/ui";
-import { LicenseAndInvoiceExampleInput } from "@/entities/licenseAndInvoiceExampleInput/ui/LicenseAndInvoiceExampleInput";
+import { LicenseAndInvoiceExampleInput } from "@/d__features/transferAbroad/ui/licenseAndInvoiceExampleInput/LicenseAndInvoiceExampleInput";
 import { RussianCompanyRequisitesInput } from "@/entities/russianCompanyRequisitesInput/ui";
 import { TaskDescriptionInput } from "@/entities/taskDescriptionInput/ui";
-import { TransferSelect } from "@/entities/transferSelect/ui";
+import { TransferSelect } from "@/d__features/transferAbroad/ui/transferSelect/ui";
 
 export default function Page() {
   return (

@@ -4,4 +4,4 @@ export * from './uiReducer';
 export * from './requestDetailsReducer'
 export * from './pageDataReducer'
 export * from './featuresFlagsReducer'
-export * from './transferAbroadReduser'
+export * from './transferAbroadReducer'

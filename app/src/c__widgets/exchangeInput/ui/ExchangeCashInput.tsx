@@ -1,4 +1,4 @@
-import CitySelect from "@/entities/city/ui";
+import {PlaceSelect as CitySelect} from "@/entities/place/ui";
 import { CurrencyInput } from "@/entities/currency/ui";
 import { CurrencyPosition } from "@/entities/requestDetails/ui";
 import { Currency } from "@/shared/api";

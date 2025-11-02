@@ -1,5 +1,3 @@
-import { BankOption } from "@/entities/bank/ui/BankSelect";
-import { CryptoNetOption } from "@/entities/network/ui/CryptoNetSelect";
 import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
 import { ValidateBankProps } from "./validateBank";
 import { ValidateCardNumberProps } from "./validateCardNumber";
@@ -10,10 +8,10 @@ import { ValidateWalletAddressProps } from "./validateWalletAddress";
 
 // Validation Types
 export type ValidationOptions = {
-  minValue?: number;
-  maxValue?: number;
-  required?: boolean;
-  pattern?: RegExp;
+  minValue?: number | null;
+  maxValue?: number | null;
+  required?: boolean | null;
+  pattern?: RegExp | null;
   customValidator?: (value: any) => boolean;
   position?: CurrencyPosition;
 };

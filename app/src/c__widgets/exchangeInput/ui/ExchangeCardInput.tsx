@@ -8,6 +8,8 @@ import {
   normalizeInput,
   formatWithSpacesCardNumber,
   formatPhoneNumber,
+  preventKeysOnPhoneInput,
+  preventKeysOnCardNumberInput,
 } from "@/shared/lib";
 import {
   useAppDispatch,
@@ -66,42 +68,6 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
     const phoneNumberError = useAppSelector(selectPhoneNumberError);
 
     const placeholder = usePlaceholder(position, "BANK");
-
-    const handleKeyDown = useCallback(
-      (e: React.KeyboardEvent<HTMLInputElement>) => {
-        const allowed = [
-          "Backspace",
-          "Delete",
-          "ArrowLeft",
-          "ArrowRight",
-          "Tab",
-        ];
-        const isNumber = /^[0-9]$/.test(e.key);
-
-        if (!isNumber && !allowed.includes(e.key)) {
-          e.preventDefault();
-        }
-      },
-      []
-    );
-
-    const handlePhoneKeyDown = useCallback(
-      (e: React.KeyboardEvent<HTMLInputElement>) => {
-        const allowed = [
-          "Backspace",
-          "Delete",
-          "ArrowLeft",
-          "ArrowRight",
-          "Tab",
-        ];
-        const isNumber = /^[0-9]$/.test(e.key);
-
-        if (!isNumber && !allowed.includes(e.key)) {
-          e.preventDefault();
-        }
-      },
-      []
-    );
 
     const handleCardNumberChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,7 +139,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
               >
                 <Input
                   onChange={handlePhoneNumberChange}
-                  onKeyDown={handlePhoneKeyDown}
+                  onKeyDown={preventKeysOnPhoneInput}
                   value={phoneNumberValue ?? ""}
                   type="text"
                   className=" border border-transparent rounded-6 bg-[var(--background-secondary)] placeholder:text-[var(--text-light)] text-16 leading-normal px-18 py-15 w-full"
@@ -188,7 +154,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
               >
                 <Input
                   onChange={handleCardNumberChange}
-                  onKeyDown={handleKeyDown}
+                  onKeyDown={preventKeysOnCardNumberInput}
                   value={cardNumberValue ?? ""}
                   type="text"
                   className=" border border-transparent rounded-6 bg-[var(--background-secondary)] placeholder:text-[var(--text-light)] text-16 leading-normal px-18 py-15 w-full"

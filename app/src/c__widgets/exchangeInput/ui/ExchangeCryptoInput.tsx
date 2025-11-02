@@ -9,23 +9,19 @@ import {
   selectNetValue,
   selectWalletAddressValue,
   selectWalletAddressError,
-  selectAreErrorsVisible,
-  selectCurrency,
 } from "@/shared/model/store/selectors";
 
 import { usePlaceholder } from "@/shared/lib/exchange/usePlaceholder";
 import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
 import { Input } from "../../../shared/ui/form/Input";
-import CryptoNetSelect, {
-  CryptoNetOption,
-} from "../../../entities/network/ui/CryptoNetSelect";
+import {BaseTabs as CryptoNetSelect} from "@/shared/ui";
 import { useExchangeInput } from "@/shared/lib/exchange/useExchangeInput";
 import {
   setSelectedNetworkValue,
   setWalletAddressValue,
 } from "@/shared/model/store/reducers/exchangeReducer";
 import clsx from "clsx";
-import { Currency } from "@/shared/api/exchange/types";
+import { Currency, Network } from "@/shared/api/exchange/types";
 import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";
 import { MinValueNote } from "./MinValueNote";
 
@@ -68,7 +64,7 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(
       }
     }, []);
 
-    const handleNetChange = (net: CryptoNetOption) => {
+    const handleNetChange = (net: Network) => {
       const network = networks?.find((network) => network.id === net.id);
       if (network) {
         dispatch(setSelectedNetworkValue(network));
@@ -105,7 +101,7 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(
             <SectionHeading title="Выберите сеть" />
             <CryptoNetSelect
               onChange={handleNetChange}
-              value={netValue as CryptoNetOption}
+              value={netValue as Network}
               options={netsOptions || []}
             />
           </div>

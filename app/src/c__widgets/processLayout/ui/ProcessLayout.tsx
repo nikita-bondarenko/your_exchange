@@ -12,7 +12,7 @@ const ProcessLayout: React.FC<ProcessLayoutProps> = memo(
   ({ onMainButtonClick, buttonText, children, buttonDisabled }) => {
     return (
       <div className="container h-full flex flex-col justify-between pb-0 gap-26 ">
-        {children}
+        <div className="flex flex-col gap-26 mb-5">{children}</div>
         <Button
           disabled={buttonDisabled}
           className="sticky bottom-0 z-30"

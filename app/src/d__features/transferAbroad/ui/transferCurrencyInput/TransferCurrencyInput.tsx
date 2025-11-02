@@ -1,0 +1,76 @@
+import { SectionHeading } from "@/shared/ui";
+import { memo, useEffect, useState } from "react";
+import { LimitNote } from "./LimitNote";
+import { CurrencyInput } from "@/entities/currency/ui";
+import { TransferAbroadCurrency } from "@/shared/api";
+import {
+  setTransferAbroadCurrencyAmount,
+  setTransferAbroadCurrency,
+  useAppDispatch,
+  useAppSelector,
+  setMaxCurrencyAmount,
+} from "@/shared/model/store";
+import { useTransferCurrenciesOptions } from "../../lib";
+import { useCurrencyAmountError } from "../../lib/useCurrencyAmountError";
+
+type Props = {
+  isLimitInfoActive: boolean;
+};
+
+export const TransferCurrencyInput = memo(({ isLimitInfoActive }: Props) => {
+  const { currencies } = useTransferCurrenciesOptions();
+
+  const [currency, setCurrency] = useState<TransferAbroadCurrency>(
+    currencies[0]
+  );
+
+  useEffect(() => {
+    if (currencies) {
+      setCurrency(currencies[0]);
+    }
+  }, [currencies]);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (currency) {
+      dispatch(setTransferAbroadCurrency(currency));
+    }
+  }, [currency]);
+
+  const currencyAmount = useAppSelector((state) => state.transferAbroad.amount);
+
+  const handleAmountInput = (value: number | null) => {
+    dispatch(setTransferAbroadCurrencyAmount(value));
+  };
+
+  const { isAmountInputError, isLimitError } = useCurrencyAmountError();
+
+  useEffect(() => {
+    if (isLimitInfoActive && currency.limit)
+      dispatch(setMaxCurrencyAmount(currency.limit));
+    else dispatch(setMaxCurrencyAmount(null));
+  }, [isLimitInfoActive, currency]);
+
+  return (
+    <div>
+      <SectionHeading
+        title="Сумма и валюта"
+        minValue={isLimitInfoActive ? currency?.limit : null}
+        conditionText="лимит"
+        note={<LimitNote />}
+        error={isLimitError}
+      ></SectionHeading>
+      <CurrencyInput
+        options={currencies}
+        inputValue={currencyAmount}
+        onInputChange={handleAmountInput}
+        selectValue={currency}
+        onSelectChange={setCurrency}
+        error={isAmountInputError}
+      ></CurrencyInput>
+    </div>
+  );
+});
+
+TransferCurrencyInput.displayName = "TransferCurrencyInput";

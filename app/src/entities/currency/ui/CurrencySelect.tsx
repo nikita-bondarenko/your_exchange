@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import BaseSelect from "../../../shared/ui/form/BaseSelect";
+import {BaseSelect} from "@/shared/ui";
 import { Currency } from "@/shared/api/exchange/types";
 import { CashIcon } from "@/shared/ui";
 import clsx from "clsx";
@@ -24,7 +24,7 @@ ButtonDisplay.displayName = "ButtonDisplay";
 const CurrencySelect = memo(({ options, onChange, value: selected }: CurrencySelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <BaseSelect
+    <BaseSelect<Currency>
       options={options}
       value={selected}
       onChange={onChange}

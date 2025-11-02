@@ -3,22 +3,33 @@ import { DownloadIcon } from "../icon";
 import { FilePreview } from "./FilePreview";
 
 type Props = {
-  onChange: (file: File | undefined) => void;
+  onChange: (file: File) => void;
+  value: File | null;
 };
 
-export const FileInput = ({ onChange }: Props) => {
+export const FileInput = ({ onChange, value }: Props) => {
   const [previewUrl, setPreviewUrl] = useState<string>();
   const [fileType, setFileType] = useState<string>();
   const fileInputElement = createRef<HTMLInputElement>();
 
+  useEffect(() => {
+    console.log(value);
+    if (!value?.type) return;
+    console.log(value.type);
+    const imageUrl = URL?.createObjectURL(value);
+    setPreviewUrl(imageUrl);
+    setFileType(value.type);
+    return () => {
+      if (imageUrl) {
+        URL.revokeObjectURL(imageUrl);
+      }
+    };
+  }, [value]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
     onChange(selectedFile);
-    if (selectedFile) {
-      const imageUrl = URL.createObjectURL(selectedFile);
-      setPreviewUrl(imageUrl);
-      setFileType(selectedFile.type);
-    }
   };
 
   const onClick = () => {
@@ -26,14 +37,6 @@ export const FileInput = ({ onChange }: Props) => {
       fileInputElement.current.click();
     }
   };
-
-  useEffect(() => {
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
 
   return (
     <div

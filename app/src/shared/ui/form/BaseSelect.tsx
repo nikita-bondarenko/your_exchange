@@ -26,7 +26,7 @@ export type BaseSelectProps<T> = {
   dropdownTop?: string;
 };
 
-const BaseSelect = <T,>({
+export const _BaseSelect = memo(<T,>({
   options,
   onChange,
   value,
@@ -96,6 +96,11 @@ const BaseSelect = <T,>({
       )}
     </div>
   );
-};
+});
 
-export default memo(BaseSelect) as typeof BaseSelect; 
+_BaseSelect.displayName = "BaseSelect"
+
+
+export const BaseSelect = _BaseSelect as <T,>(
+  props: BaseSelectProps<T> & { ref?: React.Ref<HTMLDivElement> }
+) => ReturnType<typeof _BaseSelect>

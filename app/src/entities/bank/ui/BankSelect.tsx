@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import React, { memo, useState } from "react";
 import clsx from "clsx";
 import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
-import BaseSelect from "../../../shared/ui/form/BaseSelect";
+import { BaseSelect } from "@/shared/ui";
 import { Bank } from "@/shared/api/exchange/types";
 
 export type BankOption = Bank;
@@ -76,4 +76,3 @@ export const BankSelect: React.FC<BankSelectProps> = memo(
 );
 
 BankSelect.displayName = "BankSelect";
-
