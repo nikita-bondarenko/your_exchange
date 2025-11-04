@@ -35,11 +35,13 @@ export const store = configureStore({
       serializableCheck: false,
       immutableCheck: false,
     })
+      .prepend(
+        exchangeSliceListener.middleware,
+        validateListener.middleware,
+        userSliceListener.middleware
+      )
       .concat(exchangeApi.middleware)
-      .concat(transferAbroadApi.middleware)
-      .prepend(userSliceListener?.middleware)
-      .prepend(exchangeSliceListener?.middleware)
-      .prepend(validateListener?.middleware),
+      .concat(transferAbroadApi.middleware),
 
   devTools: process.env.NODE_ENV !== "production",
 });

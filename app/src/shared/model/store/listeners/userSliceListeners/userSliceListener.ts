@@ -22,6 +22,7 @@ userSliceListener.startListening({
       );
 
       if (data) {
+        console.log(data)
         listenerApi.dispatch(setUserData(data));
       }
     } catch (e) {
