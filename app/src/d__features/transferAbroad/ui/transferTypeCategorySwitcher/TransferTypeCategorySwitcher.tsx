@@ -27,12 +27,16 @@ export const TransferTypeCategorySwitcher = memo(() => {
   const handleToggle = (isLegalEntity: boolean) => {
     setIsLegalEntity(isLegalEntity);
     const transferTypeCategory = isLegalEntity ? "legal_entity" : "individual";
+
+    dispatch(setTransferTypeCategory(transferTypeCategory));
+  };
+
+  useEffect(() => {
     const transferTypeCategorySlug = isLegalEntity
       ? "Юридическое лицо"
       : "Физическое лицо";
-    dispatch(setTransferTypeCategory(transferTypeCategory));
     dispatch(setTransferTypeCategorySlug(transferTypeCategorySlug));
-  };
+  }, [isLegalEntity]);
 
   return (
     <Toggle

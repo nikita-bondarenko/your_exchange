@@ -5,14 +5,11 @@ import { Inter } from "next/font/google";
 import { LoadingProvider, StoreProvider } from "@/app/providers";
 import { EmailRequirementChecking } from "@/d__features/emailRequirement/model";
 import { AgreementsRequirementChecking } from "@/d__features/agreementsRequirement/model";
-import {
-  PORTAL_TARGET_ID,
-  PROJECT_DATA,
-} from "@/shared/config";
+import { PORTAL_TARGET_ID, PROJECT_DATA } from "@/shared/config";
 import { TelegramWebAppInitializer } from "@/d__features/telegram/model";
 import { ThemeInitialiser } from "@/d__features/themeSwitcher/model";
 import { RateUpdatingRequirementChecking } from "@/d__features/rateUpdating/lib";
-
+import { RedirectOnReload } from "@/d__features/redirectOnReload/lib";
 
 const Header = dynamic(
   () => import("@/c__widgets/header/ui").then((mod) => mod.Header),
@@ -29,7 +26,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
- 
   return (
     <html>
       <head>
@@ -44,9 +40,10 @@ export default function RootLayout({
         className={`${inter.variable} antialiased flex flex-col h-screen bg-[var(--background-global)]`}
       >
         <StoreProvider>
-          <ThemeInitialiser></ThemeInitialiser>
+          <RedirectOnReload />
+          <ThemeInitialiser />
           <TelegramWebAppInitializer />
-          <Header></Header>
+          <Header />
           <LoadingProvider>
             <main className="pb-35 grow h-full">{children}</main>
           </LoadingProvider>

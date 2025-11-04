@@ -28,23 +28,19 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const persistedState = await loadState();
-
 export const store = configureStore({
   reducer: rootReducer,
-  preloadedState: persistedState,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
     })
-      .prepend(
-        exchangeSliceListener.middleware,
-        validateListener.middleware,
-        userSliceListener.middleware
-      )
       .concat(exchangeApi.middleware)
-      .concat(transferAbroadApi.middleware),
+      .concat(transferAbroadApi.middleware)
+      .prepend(userSliceListener?.middleware)
+      .prepend(exchangeSliceListener?.middleware)
+      .prepend(validateListener?.middleware),
+
   devTools: process.env.NODE_ENV !== "production",
 });
 
@@ -54,7 +50,7 @@ store.subscribe(() => {
     exchange: state.exchange,
     requestDetails: state.requestDetails,
     featuresFlags: state.featuresFlags,
-    transferAbroad: state.transferAbroad
+    transferAbroad: state.transferAbroad,
     // pageData: state.pageData
     // user: state.user,
   });

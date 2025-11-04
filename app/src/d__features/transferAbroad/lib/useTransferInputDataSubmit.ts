@@ -80,6 +80,13 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
         break;
       }
       case "invoice": {
+        console.log(
+          currency?.name,
+          amount,
+          taskDescription,
+          countryName,
+          transferTypeCategorySlug
+        );
         if (
           currency?.name &&
           amount &&

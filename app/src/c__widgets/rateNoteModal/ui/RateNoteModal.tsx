@@ -1,10 +1,17 @@
 import { useCallSupport } from "@/d__features/support/lib";
+import { setHasRateNoteOpenedOnce, useAppDispatch, useAppSelector } from "@/shared/model/store";
 import BaseModal from "@/shared/ui/modal/BaseModal";
-import {  useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const RateNoteModal = () => {
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [renderTrigger, setRenderTrigger] = useState(0);
+
+  const hasRateNoteOpenedOnce = useAppSelector(
+    (state) => state.ui.hasRateNoteOpenedOnce
+  );
+
+  const dispatch = useAppDispatch();
 
   const { callSupport } = useCallSupport();
 
@@ -16,9 +23,11 @@ const RateNoteModal = () => {
   const modalElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsNoteModalOpen(true);
-    }, 1000);
+    if (!hasRateNoteOpenedOnce)
+      setTimeout(() => {
+        setIsNoteModalOpen(true);
+        dispatch(setHasRateNoteOpenedOnce(true))
+      }, 1000);
   }, [modalElement]);
 
   useEffect(() => {

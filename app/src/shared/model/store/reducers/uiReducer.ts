@@ -9,6 +9,8 @@ export type uiState = {
   isLoading: boolean;
   exchangeId: number | null;
   isAppReady: boolean;
+  isFirstPageLoading: boolean;
+  hasRateNoteOpenedOnce: boolean;
 };
 
 const initialState: uiState = {
@@ -17,6 +19,8 @@ const initialState: uiState = {
   isLoading: true,
   exchangeId: null,
   isAppReady: false,
+  isFirstPageLoading: true,
+  hasRateNoteOpenedOnce: false,
 };
 
 export const uiSlice = createSlice({
@@ -39,9 +43,22 @@ export const uiSlice = createSlice({
     setIsAppReady(state, action: PayloadAction<boolean>) {
       state.isAppReady = action.payload;
     },
+    setIsFirstPageLoading(state, action: PayloadAction<boolean>) {
+      state.isFirstPageLoading = action.payload;
+    },
+    setHasRateNoteOpenedOnce(state, action: PayloadAction<boolean>) {
+      state.hasRateNoteOpenedOnce = action.payload;
+    },
   },
 });
 
-export const { setPageName, setIsLoading, setExchangeId, setIsAppReady, setProjectName } =
-  uiSlice.actions;
+export const {
+  setPageName,
+  setIsLoading,
+  setExchangeId,
+  setIsAppReady,
+  setProjectName,
+  setIsFirstPageLoading,
+  setHasRateNoteOpenedOnce,
+} = uiSlice.actions;
 export const uiReducer = uiSlice.reducer;
