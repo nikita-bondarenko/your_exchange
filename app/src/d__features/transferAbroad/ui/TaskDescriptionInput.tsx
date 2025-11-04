@@ -25,7 +25,7 @@ export const TaskDescriptionInput = memo(() => {
           placeholder="Описание задачи в свободной форме, минимум 10 символов"
           value={description || ''}
           setValue={handleTextInput}
-          className="text-16 leading-[148%]"
+          className="text-16 leading-[148%] transition-all duration-500"  
         ></BaseTextarea>
       </InputWrapper>
     </div>

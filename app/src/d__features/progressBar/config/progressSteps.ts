@@ -1,26 +1,6 @@
-export const PROGRESS_STEPS = [
-  {
-    path: {
-      exchange: "/exchange/type",
-      transfer: "",
-    },
-  },
-  {
-    path: {
-      exchange: "/exchange/input",
-      transfer: "",
-    },
-  },
-  {
-    path: {
-      exchange: "/exchange/details",
-      transfer: "",
-    },
-  },
-  {
-    path: {
-      exchange: "/exchange/result",
-      transfer: "",
-    },
-  },
+export const PROGRESS_STEPS_PATHS_REFERRENCIES = [
+  ["/exchange/type", "/transfer-abroad/type"],
+  ["/exchange/input", "/transfer-abroad/input"],
+  ["/exchange/details", "/transfer-abroad/details"],
+  ["/exchange/result", "/transfer-abroad/result"],
 ];

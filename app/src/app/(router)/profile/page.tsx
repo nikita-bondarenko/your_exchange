@@ -6,3 +6,5 @@ const ProfilePage = dynamic(() => import('@/b__pages/profile/ui').then(mod => mo
 export default  function Profile() {
   return <ProfilePage></ProfilePage>
 }
+
+

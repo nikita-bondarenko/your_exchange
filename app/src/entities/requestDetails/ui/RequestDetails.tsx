@@ -42,53 +42,15 @@ export const RequestDetails: React.FC<RequestDetailsProps> = memo(
                 title={currency.wayDetails.title}
                 description={currency.wayDetails.value}
                 descriptionClassName={clsx({
-                  "max-w-250 [&]:leading-normal": currency.type === "COIN",
-                  "tracking-[4px]": currency.type === "BANK",
+                  "max-w-250 [&]:leading-normal break-all": currency.type === "COIN",
+                  "tracking-[4px] break-all": currency.type === "BANK",
                 })}
               />
-              // <div>
-              //   <h3 className="text-[var(--text-light)] text-13 leading-normal mb-10">
-              //     {currency.wayDetails.title}
-              //   </h3>
-              //   <span
-              //     className={clsx(
-              //       "break-all text-16 leading-normal text-[var(--text-main)]",
-              //       {
-              //         "max-w-250": currency.type === "COIN",
-              //         "tracking-[4px]": currency.type === "BANK",
-              //       }
-              //     )}
-              //   >
-              //     {currency.wayDetails.value}
-              //   </span>
-              // </div>
+   
             )}
           </>
         </Details>
-        {/* <div className="">
-          <SectionHeading title={title} rate={rate}></SectionHeading>
-          <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-24 flex flex-col gap-20">
-            <div>
-              <div className="mb-15 flex  items-center justify-between">
-                <div className="flex  items-center gap-6">
-                  <img
-                    src={currency.icon}
-                    className={clsx("w-24 h-24", {})}
-                  ></img>
-                  <span className="text-16 leading-normal text-[var(--text-main)]">
-                    {currency.name}
-                  </span>
-                </div>
-                <span className="text-16 leading-normal text-[var(--text-light)]">
-                  {currency.typeLabel}
-                </span>
-              </div>
-              <span className="text-21 leading-normal text-[var(--text-main)] font-normal">
-                {currency.value}
-              </span>
-            </div>
-          </div>
-        </div> */}
+  
       </>
     );
   }

@@ -6,6 +6,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
+import { useEffect } from "react";
 
 export const TransferPlatformInput: React.FC = () => {
   const { platforms } = useTransferDetailsOptions();
@@ -16,14 +17,18 @@ export const TransferPlatformInput: React.FC = () => {
     dispatch(setPlatform(value));
   };
 
+  useEffect(() => {
+    if (platforms.length > 0) {
+      dispatch(setPlatform(platforms[0]));
+    }
+  }, [platforms]);
+
   const platform = useAppSelector((state) => state.transferAbroad.platform);
 
   return (
-    platform && (
-      <div className="-mt-20">
-        <SectionHeading title="Выберите платформу" />
-        <BaseTabs value={platform} onChange={handleTabs} options={platforms} />
-      </div>
-    )
+    <div className="-mt-20">
+      <SectionHeading title="Выберите платформу" />
+      <BaseTabs value={platform} onChange={handleTabs} options={platforms} />
+    </div>
   );
 };

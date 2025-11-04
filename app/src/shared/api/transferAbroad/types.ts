@@ -35,7 +35,7 @@ export type TransferDetailsResponse = {
 
 // POST bodies
 export type InvoiceOrderBody = {
-  transfer_type: 'individual' | 'legal_entity';
+  transfer_type: string;
   currency_name: string;
   amount: number;
   country_name: string;
@@ -48,8 +48,8 @@ export type FTAOrderBody = {
   task_description: string;
   russian_company_requisites?: string;
   abroad_company_requisites?: string;
-  file_1?: File;
-  file_2?: File;
+  file_1?: File | null;
+  file_2?: File | null;
 };
 
 export type ChinesePlatformOrderBody = {

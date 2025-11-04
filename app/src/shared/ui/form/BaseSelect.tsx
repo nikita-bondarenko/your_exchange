@@ -69,7 +69,7 @@ export const _BaseSelect = memo(<T,>({
       })}
 
       {isOpen && (
-        <div  className={`absolute left-0 ${dropdownTop} mt-1 w-full z-50 bg-[var(--background-secondary)] border border-[var(--border-placeholder)] rounded-6  overflow-hidden ${dropdownClassName}`}>
+        <div  className={`absolute left-0 ${dropdownTop} mt-1 w-full z-50 bg-[var(--background-secondary)] border border-[var(--background-global)] shadow-xl rounded-6  overflow-hidden ${dropdownClassName}`}>
           <SimpleBar style={{ maxHeight }} className="custom-scrollbar">
             <div className="flex flex-col py-6 gap-0">
               {filteredOptions.length === 0 ? (

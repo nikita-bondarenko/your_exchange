@@ -14,13 +14,13 @@ export const TransferSelect = memo(() => {
     (state) => state.transferAbroad.selectedTranserTypeOptionId
   );
 
-  const transferType = useAppSelector(
-    (state) => state.transferAbroad.transferType
+  const transferTypeCategory = useAppSelector(
+    (state) => state.transferAbroad.transferTypeCategory
   );
 
   const transferTypeOptions = useMemo(() => {
-    return transferType && data ? data[transferType] : [];
-  }, [transferType, data]);
+    return transferTypeCategory && data ? data[transferTypeCategory] : [];
+  }, [transferTypeCategory, data]);
 
   const dispatch = useAppDispatch();
 
@@ -29,11 +29,11 @@ export const TransferSelect = memo(() => {
   };
 
   useEffect(() => {
-    if (data && transferType) {
-      const id = data[transferType][0].id;
+    if (data && transferTypeCategory) {
+      const id = data[transferTypeCategory][0].id;
       dispatch(setSelectedTranserTypeOptionId(id));
     }
-  }, [data, transferType]);
+  }, [data, transferTypeCategory]);
 
   return (
     <div className="overflow-hidden rounded-6 bg-[var(--background-secondary)] border border-[var(--border-placeholder)]">

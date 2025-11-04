@@ -11,6 +11,8 @@ import {
 } from "@/shared/config";
 import { TelegramWebAppInitializer } from "@/d__features/telegram/model";
 import { ThemeInitialiser } from "@/d__features/themeSwitcher/model";
+import { RateUpdatingRequirementChecking } from "@/d__features/rateUpdating/lib";
+
 
 const Header = dynamic(
   () => import("@/c__widgets/header/ui").then((mod) => mod.Header),
@@ -27,6 +29,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+ 
   return (
     <html>
       <head>
@@ -37,16 +40,19 @@ export default function RootLayout({
         <title>{PROJECT_DATA.meta.title}</title>
         <meta name="description" content={PROJECT_DATA.meta.description} />
       </head>
-      <body  className={`${inter.variable} antialiased flex flex-col h-screen bg-[var(--background-global)]`}>
+      <body
+        className={`${inter.variable} antialiased flex flex-col h-screen bg-[var(--background-global)]`}
+      >
         <StoreProvider>
           <ThemeInitialiser></ThemeInitialiser>
           <TelegramWebAppInitializer />
           <Header></Header>
           <LoadingProvider>
-            <main className="pb-35 flex-grow h-full">{children}</main>
+            <main className="pb-35 grow h-full">{children}</main>
           </LoadingProvider>
           <EmailRequirementChecking />
           <AgreementsRequirementChecking />
+          <RateUpdatingRequirementChecking />
         </StoreProvider>
         <div id={PORTAL_TARGET_ID}></div>
       </body>

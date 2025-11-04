@@ -9,11 +9,10 @@ import {
   setSelectedCurrencySell,
   setSelectedCurrencyBuy,
   setPhoneNumberValue,
-  setPromocode,
-  setIsPromocodeValid,
+
 } from "../../reducers/exchangeReducer";
 import { validateAllFields } from "../../../../lib/validation/validateAllFields";
-import { AppDispatch, RootState } from "../../store";
+import type { AppDispatch, RootState } from "../../store";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 

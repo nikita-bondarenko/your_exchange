@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { useEffect } from "react";
 
 type TabOption = {
   name: string;
@@ -7,11 +8,14 @@ type TabOption = {
 
 type Props = {
   options: TabOption[];
-  value: TabOption;
+  value: TabOption | null;
   onChange: (value: TabOption) => void;
 };
 
 export const BaseTabs: React.FC<Props> = ({ onChange, options, value }) => {
+  useEffect(() => {
+    console.log(value)
+  }, [value])
   return (
     <div className="flex gap-x-8 gap-y-11 flex-wrap">
       {options.map((option, index) => (

@@ -8,7 +8,7 @@ export const QuestionIcon = ({
     className={className}
     width="52"
     height="52"
-    viewBox="0 0 52 52"
+    viewBox="0 0 49 49"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >

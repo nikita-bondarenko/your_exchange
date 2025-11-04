@@ -3,6 +3,7 @@ import {
   useAppSelector,
   useAppDispatch,
   setCountryInputError,
+  setCardNumberInputError,
 } from "@/shared/model/store";
 import { useEffect } from "react";
 
@@ -21,7 +22,7 @@ export const useCardNumberInputError = () => {
 
   useEffect(() => {
     const error = validateCardNumber({ value: cardNumber });
-    dispatch(setCountryInputError(error));
+    dispatch(setCardNumberInputError(error));
   }, [cardNumber]);
 
   return { cardNumberInputError: areErrorsVisible ? cardNumberInputError : null };

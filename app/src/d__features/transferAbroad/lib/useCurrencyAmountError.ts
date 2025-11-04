@@ -36,6 +36,6 @@ export const useCurrencyAmountError = () => {
     isLimitError:
       !!currencyAmount &&
       !!maxCurrencyAmount &&
-      currencyAmount > maxCurrencyAmount,
+      currencyAmount > maxCurrencyAmount && areErrorsVisible,
   };
 };

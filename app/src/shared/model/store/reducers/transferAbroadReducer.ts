@@ -1,8 +1,10 @@
+import { number } from "zod";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CurrencySubOption, TransferAbroadCurrency } from "@/shared/api";
 
 type TransferAbroadState = {
-  transferType: "individual" | "legal_entity";
+  transferTypeCategory: "individual" | "legal_entity";
+  transferTypeCategorySlug: string | null;
   selectedTranserTypeOptionId: number | null;
   amount: number | null;
   currency: TransferAbroadCurrency | null;
@@ -24,11 +26,13 @@ type TransferAbroadState = {
   bankInputError: string | null;
   cardNumberInputError: string | null;
   maxCurrencyAmount: number | null;
-  areTransferAbroadErrorsVisible: boolean
+  areTransferAbroadErrorsVisible: boolean;
+  orderId: string | null;
 };
 
 const initialState: TransferAbroadState = {
-  transferType: "individual",
+  transferTypeCategorySlug: null,
+  transferTypeCategory: "individual",
   selectedTranserTypeOptionId: null,
   amount: null,
   currency: null,
@@ -50,7 +54,8 @@ const initialState: TransferAbroadState = {
   bankInputError: null,
   cardNumberInputError: null,
   maxCurrencyAmount: null,
-  areTransferAbroadErrorsVisible: false
+  areTransferAbroadErrorsVisible: false,
+  orderId: null,
 };
 
 export const transferAbroadSlice = createSlice({
@@ -60,7 +65,7 @@ export const transferAbroadSlice = createSlice({
     setSelectedTranserTypeOptionId: (state, action: PayloadAction<number>) => {
       state.selectedTranserTypeOptionId = action.payload;
     },
-    setTransferType: (state, action: PayloadAction<string>) => {
+    setTransferTypeCategory: (state, action: PayloadAction<string>) => {
       if (
         action.payload !== "individual" &&
         action.payload !== "legal_entity"
@@ -68,7 +73,13 @@ export const transferAbroadSlice = createSlice({
         console.error("transfer type is not correct");
         return;
       }
-      state.transferType = action.payload;
+      state.transferTypeCategory = action.payload;
+    },
+    setTransferTypeCategorySlug: (
+      state,
+      action: PayloadAction<string | null>
+    ) => {
+      state.transferTypeCategorySlug = action.payload;
     },
     setTransferAbroadCurrencyAmount: (
       state,
@@ -109,10 +120,10 @@ export const transferAbroadSlice = createSlice({
     setCountryName: (state, action: PayloadAction<string>) => {
       state.countryName = action.payload;
     },
-    setPlatform: (state, action: PayloadAction<CurrencySubOption>) => {
+    setPlatform: (state, action: PayloadAction<CurrencySubOption | null>) => {
       state.platform = action.payload;
     },
-    setBank: (state, action: PayloadAction<CurrencySubOption>) => {
+    setBank: (state, action: PayloadAction<CurrencySubOption | null>) => {
       state.bank = action.payload;
     },
     setCardNumber: (state, action: PayloadAction<string>) => {
@@ -139,16 +150,23 @@ export const transferAbroadSlice = createSlice({
     setMaxCurrencyAmount: (state, action: PayloadAction<number | null>) => {
       state.maxCurrencyAmount = action.payload;
     },
-    setTransferAbroadAreErrorsVisible:(state, action: PayloadAction<boolean>) => {
-      state.areTransferAbroadErrorsVisible = action.payload
-    }
+    setTransferAbroadAreErrorsVisible: (
+      state,
+      action: PayloadAction<boolean>
+    ) => {
+      state.areTransferAbroadErrorsVisible = action.payload;
+    },
+    setOrderId: (state, action: PayloadAction<string>) => {
+      state.orderId = action.payload;
+    },
   },
 });
 
 export const {
+  setTransferTypeCategorySlug,
   setIsNextPageAvailable,
   setSelectedTranserTypeOptionId,
-  setTransferType,
+  setTransferTypeCategory,
   setTransferAbroadCurrencyAmount,
   setTransferAbroadCurrency,
   setTaskDescription,
@@ -168,6 +186,7 @@ export const {
   setCountryInputError,
   setBankInputError,
   setMaxCurrencyAmount,
-  setTransferAbroadAreErrorsVisible
+  setTransferAbroadAreErrorsVisible,
+  setOrderId
 } = transferAbroadSlice.actions;
 export const transferAbroadReducer = transferAbroadSlice.reducer;

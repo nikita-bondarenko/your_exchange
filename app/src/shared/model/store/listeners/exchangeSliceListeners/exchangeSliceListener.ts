@@ -4,7 +4,7 @@ import {
   setInitialData,
   setIsRateBeingPulled,
 } from "@/shared/model/store/reducers/exchangeReducer";
-import { createListenerMiddleware} from "@reduxjs/toolkit";
+import { createListenerMiddleware } from "@reduxjs/toolkit";
 import {
   setBanks,
   setCities,
@@ -22,12 +22,20 @@ import {
   setSelectedNetworkValue,
   setIsPhoneNumberUsed,
 } from "../../reducers/exchangeReducer";
-import { AppDispatch, RootState } from "@/shared/model/store/store";
+import type { AppDispatch, RootState } from "@/shared/model/store/store";
 import { EXCHANGE_TYPES_BUTTONS } from "@/b__pages/exchangeType/config";
 import { exchangeApi } from "@/shared/api";
 import { DirectionType } from "@/shared/api/exchange/types";
 import { calculateInputAmountBasedOnAnotherOne } from "@/shared/lib/exchange/calculateInputAmountBasedOnAnotherOne";
 import { setRateData } from "@/shared/lib/store/setRateData";
+import {
+  clearMyInterval,
+  restartRatePullingIfActive,
+  setMyInterval,
+  updateRate,
+} from "@/shared/lib/store";
+import { RATE_INTERVAL_KEY } from "@/shared/config";
+
 
 export const filterReceiveVariants = (selectedGiveType: CurrencyType) => {
   switch (selectedGiveType) {
@@ -48,7 +56,7 @@ exchangeSliceListener.startListening({
   actionCreator: setSelectedCurrencySellType,
   effect: async (action, listenerApi) => {
     const dispatch = listenerApi.dispatch as AppDispatch;
-    clearRateUpdateInterval(); // Clear auto-update when currency type changes
+    clearMyInterval(RATE_INTERVAL_KEY); // Clear auto-update when currency type changes
     const receiveVariants = filterReceiveVariants(
       action.payload as CurrencyType
     );
@@ -61,7 +69,7 @@ exchangeSliceListener.startListening({
   actionCreator: setSelectedCurrencyBuyType,
   effect: async (action, listenerApi) => {
     const dispatch = listenerApi.dispatch as AppDispatch;
-    clearRateUpdateInterval(); // Clear auto-update when currency type changes
+    clearMyInterval(RATE_INTERVAL_KEY); // Clear auto-update when currency type changes
     const state = listenerApi.getState() as RootState;
     const { selectedCurrencySellType } = state.exchange;
 
@@ -94,22 +102,16 @@ exchangeSliceListener.startListening({
       console.error("fetching initial data is not successfull");
       return;
     }
-    // console.log(
-    //   {
-    //     currencyType: action.payload,
-    //     giveCurrencyId: giveCurrencyId,
-    //   },
-    //   availableCurrenciesGet
-    // );
+
     dispatch(setInitialData({ initData: data, availableCurrenciesGet }));
-    restartRatePullingIfActive(listenerApi, dispatch);
+    restartRatePullingIfActive(listenerApi, dispatch, RATE_INTERVAL_KEY);
   },
 });
 
 exchangeSliceListener.startListening({
   actionCreator: setSelectedCurrencySell,
   effect: async (action, listenerApi) => {
-    clearRateUpdateInterval(); // Clear auto-update when currency changes
+    clearMyInterval(RATE_INTERVAL_KEY); // Clear auto-update when currency changes
 
     const state = listenerApi.getState() as RootState;
     const selectedCurrencySell = action.payload;
@@ -219,13 +221,16 @@ exchangeSliceListener.startListening({
   actionCreator: setSelectedCurrencyBuy,
   effect: async (action, listenerApi) => {
     const dispatch = listenerApi.dispatch as AppDispatch;
-    clearRateUpdateInterval(); // Clear auto-update when currency changes
+    clearMyInterval(RATE_INTERVAL_KEY); // Clear auto-update when currency changes
 
     const state = listenerApi.getState() as RootState;
     const selectedCurrencyBuy = action.payload;
-    const selectedCurrencyBuyNetwork = selectedCurrencyBuy?.networks && selectedCurrencyBuy?.networks[0];
-    const selectedCurrencyBuyCity = selectedCurrencyBuy?.cities && selectedCurrencyBuy?.cities[0];
-    const selectedCurrencyBuyBank = selectedCurrencyBuy?.banks && selectedCurrencyBuy?.banks[0];
+    const selectedCurrencyBuyNetwork =
+      selectedCurrencyBuy?.networks && selectedCurrencyBuy?.networks[0];
+    const selectedCurrencyBuyCity =
+      selectedCurrencyBuy?.cities && selectedCurrencyBuy?.cities[0];
+    const selectedCurrencyBuyBank =
+      selectedCurrencyBuy?.banks && selectedCurrencyBuy?.banks[0];
 
     const {
       selectedCurrencySell,
@@ -236,7 +241,7 @@ exchangeSliceListener.startListening({
       selectedNetwork,
     } = state.exchange;
 
-    let selectedNetworkValueId = selectedNetwork.value?.id
+    let selectedNetworkValueId = selectedNetwork.value?.id;
 
     if (selectedCurrencyBuyType === "COIN") {
       // // console.log(
@@ -250,7 +255,7 @@ exchangeSliceListener.startListening({
       dispatch(setNetworks(selectedCurrencyBuy?.networks || null));
 
       if (!selectedNetworkValueId) {
-        selectedNetworkValueId = selectedCurrencyBuy?.id
+        selectedNetworkValueId = selectedCurrencyBuy?.id;
       }
     }
 
@@ -259,7 +264,7 @@ exchangeSliceListener.startListening({
     }
 
     if (selectedCurrencyBuyType === "BANK") {
-      const bank = selectedCurrencyBuy?.banks &&  selectedCurrencyBuy?.banks[0];
+      const bank = selectedCurrencyBuy?.banks && selectedCurrencyBuy?.banks[0];
       if (selectedCurrencyBuy?.banks && bank) {
         dispatch(setSelectedBankValue(bank));
         dispatch(setBanks(selectedCurrencyBuy?.banks));
@@ -280,8 +285,7 @@ exchangeSliceListener.startListening({
             `${selectedCurrencySellType} - ${selectedCurrencyBuyType}` as DirectionType,
           currency_give_id: selectedCurrencySell?.id,
           currency_get_id: selectedCurrencyBuy?.id,
-          network_id:
-            selectedNetworkValueId,
+          network_id: selectedNetworkValueId,
           bank_id: selectedCurrencyBuyBank?.id || selectedBank?.value?.id,
           city_id: selectedCurrencyBuyCity?.id || selectedCity?.value?.id,
         },
@@ -295,7 +299,7 @@ exchangeSliceListener.startListening({
       propertyKey: "cities",
     });
     dispatch(setCities(cities));
-    restartRatePullingIfActive(listenerApi, dispatch);
+    restartRatePullingIfActive(listenerApi, dispatch, RATE_INTERVAL_KEY);
   },
 });
 
@@ -457,7 +461,7 @@ exchangeSliceListener.startListening({
       propertyKey: "cities",
     });
     dispatch(setCities(cities));
-    restartRatePullingIfActive(listenerApi, dispatch);
+    restartRatePullingIfActive(listenerApi, dispatch, RATE_INTERVAL_KEY);
   },
 });
 
@@ -561,150 +565,17 @@ exchangeSliceListener.startListening({
   },
 });
 
-let rateUpdateInterval: NodeJS.Timeout | null = null;
-
-// Cleanup function to clear rate update interval
-const clearRateUpdateInterval = () => {
-  if (rateUpdateInterval) {
-    clearInterval(rateUpdateInterval);
-    rateUpdateInterval = null;
-  }
-};
-
-// Function to restart rate pulling after rate changes
-export const restartRatePullingIfActive = (
-  listenerApi: any,
-  dispatch: AppDispatch
-) => {
-  const state = listenerApi.getState() as RootState;
-  if (state.exchange.isRateBeingPulled && !rateUpdateInterval) {
-    setTimeout(() => {
-      dispatch(setIsRateBeingPulled(true));
-    }, 100); // Small delay to ensure state is updated
-  }
-};
-
 exchangeSliceListener.startListening({
   actionCreator: setIsRateBeingPulled,
   effect: async (action, listenerApi) => {
-    const dispatch = listenerApi.dispatch as AppDispatch;
-    const state = listenerApi.getState() as RootState;
-    const {
-      selectedCurrencySell,
-      selectedCurrencySellType,
-      selectedCurrencyBuyType,
-      selectedNetwork,
-      selectedBank,
-      selectedCurrencyBuy,
-      selectedCity,
-      activeInputType,
-      currencySellAmount,
-      currencyBuyAmount,
-    } = state.exchange;
 
-    // Clear existing interval if it exists
-    clearRateUpdateInterval();
-
-    // If rate pulling is disabled, just return
     if (action.payload === false) {
-      return;
+      clearMyInterval(RATE_INTERVAL_KEY);
     }
 
-    // If rate pulling is enabled, start automatic updates
     if (action.payload === true) {
-      const updateRate = async () => {
-        const currentState = listenerApi.getState() as RootState;
-        const {
-          selectedCurrencySell: currentSelectedCurrencySell,
-          selectedCurrencySellType: currentSelectedCurrencySellType,
-          selectedCurrencyBuyType: currentSelectedCurrencyBuyType,
-          selectedNetwork: currentSelectedNetwork,
-          selectedBank: currentSelectedBank,
-          selectedCurrencyBuy: currentSelectedCurrencyBuy,
-          selectedCity: currentSelectedCity,
-          activeInputType: currentActiveInputType,
-          currencySellAmount: currentCurrencySellAmount,
-          currencyBuyAmount: currentCurrencyBuyAmount,
-          isRateBeingPulled: currentIsRateBeingPulled,
-        } = currentState.exchange;
-
-        // Stop updating if rate pulling was disabled
-        if (!currentIsRateBeingPulled) {
-          clearRateUpdateInterval();
-          return;
-        }
-
-        if (
-          !currentSelectedCurrencySell?.id ||
-          !currentSelectedCurrencyBuy?.id ||
-          !currentSelectedCurrencySellType ||
-          !currentSelectedCurrencyBuyType
-        ) {
-          return;
-        }
-
-        try {
-          const { data } = await listenerApi.dispatch(
-            exchangeApi.endpoints.rateList.initiate(
-              {
-                direction_type:
-                  `${currentSelectedCurrencySellType} - ${currentSelectedCurrencyBuyType}` as DirectionType,
-                currency_give_id: currentSelectedCurrencySell?.id,
-                currency_get_id: currentSelectedCurrencyBuy?.id,
-                network_id: currentSelectedNetwork?.value?.id,
-                bank_id: currentSelectedBank?.value?.id,
-                city_id: currentSelectedCity.value?.id,
-              },
-              { forceRefetch: true }
-            )
-          );
-
-          if (!data?.rate) {
-            return;
-          }
-
-          // Update the rate
-          dispatch(setExchangeRate(data.rate));
-
-          // Recalculate amounts based on the last edited input
-          if (
-            currentActiveInputType === "given" &&
-            currentCurrencySellAmount.value !== null
-          ) {
-            const newBuyAmount = calculateInputAmountBasedOnAnotherOne(
-              currentCurrencySellAmount.value,
-              data.rate,
-              "given"
-            );
-
-            dispatch(setCurrencyBuyAmountValue(newBuyAmount));
-          } else if (
-            currentActiveInputType === "received" &&
-            currentCurrencyBuyAmount.value !== null
-          ) {
-            const newSellAmount = calculateInputAmountBasedOnAnotherOne(
-              currentCurrencyBuyAmount.value,
-              data.rate,
-              "received"
-            );
-
-            dispatch(setCurrencySellAmountValue(newSellAmount));
-          } else {
-          }
-        } catch (error) {
-          console.error(
-            "[Rate Pulling] Failed to update exchange rate:",
-            error
-          );
-        }
-      };
-
-      // Initial rate update
-      await updateRate();
-
-      // Set up interval for automatic updates every 30 seconds
-
-      rateUpdateInterval = setInterval(updateRate, 30000);
+      clearMyInterval(RATE_INTERVAL_KEY);
+      setMyInterval(() => updateRate(listenerApi), 30000, RATE_INTERVAL_KEY);
     }
   },
 });

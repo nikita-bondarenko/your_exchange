@@ -1,10 +1,15 @@
-import { CrossIcon } from "@/shared/ui";
 import { SectionHeading } from "@/shared/ui/exchange";
 import { FileInput } from "@/shared/ui/form/FileInput";
 import { memo, useState } from "react";
 import { LicenseAndInvoiceExampleNote } from "./LicenseAndInvoiceExampleNote";
-import { setFile1, setFile2, useAppDispatch, useAppSelector } from "@/shared/model/store";
-import { stat } from "fs";
+import {
+  setFile1,
+  setFile1PreviewUrl,
+  setFile2,
+  setFile2PreviewUrl,
+  useAppDispatch,
+  useAppSelector,
+} from "@/shared/model/store";
 
 export const LicenseAndInvoiceExampleInput = memo(() => {
   const file1 = useAppSelector((state) => state.transferAbroad.file1);
@@ -14,10 +19,14 @@ export const LicenseAndInvoiceExampleInput = memo(() => {
 
   const handleFile1Input = (file: File) => {
     dispatch(setFile1(file));
+    const url = URL.createObjectURL(file);
+    if (url) dispatch(setFile1PreviewUrl(url));
   };
 
   const handleFile2Input = (file: File) => {
     dispatch(setFile2(file));
+    const url = URL.createObjectURL(file);
+    if (url) dispatch(setFile2PreviewUrl(url));
   };
 
   return (
@@ -27,7 +36,7 @@ export const LicenseAndInvoiceExampleInput = memo(() => {
         <FileInput value={file1} onChange={handleFile1Input} />
         <FileInput value={file2} onChange={handleFile2Input} />
       </div>
-      <LicenseAndInvoiceExampleNote />
+     {!file1 && !file2 && <LicenseAndInvoiceExampleNote  />}
     </div>
   );
 });

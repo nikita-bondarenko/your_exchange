@@ -1,16 +1,20 @@
 "use client";
 import ProcessLayout from "@/c__widgets/processLayout/ui";
+import { useIsCardsFormValid } from "@/d__features/transferAbroad/lib";
 import {
   TransferCurrencyInput,
   TransferPlatformInput,
 } from "@/d__features/transferAbroad/ui";
-import { useLockNextPage } from "@/d__features/transferAbroad/lib";
+
 import { useRouterPushCallback } from "@/shared/lib";
 
 export default function TransferAbroadInputChinesePlatforms() {
-  const [handleSubmit] = useRouterPushCallback("/transfer-abroad/confirmation");
+  const { isFormValid } = useIsCardsFormValid();
+  const [handleSubmit] = useRouterPushCallback({
+    nextPagePath: "/transfer-abroad/details",
+    isFormValid,
+  });
 
-  useLockNextPage();
   return (
     <ProcessLayout onMainButtonClick={handleSubmit} buttonText="Далее">
       <TransferCurrencyInput isLimitInfoActive={false} />

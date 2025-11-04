@@ -9,5 +9,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
-  return NextResponse.json({ order_id: uuidv4() });
+  return NextResponse.json({ order_id: uuidv4().slice(0,5) });
 }

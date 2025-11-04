@@ -1,6 +1,6 @@
 "use client";
 import ProcessLayout from "@/c__widgets/processLayout/ui";
-import { useLockNextPage } from "@/d__features/transferAbroad/lib";
+import { useIsCardsFormValid } from "@/d__features/transferAbroad/lib";
 import {
   TransferBankSelect,
   TransferCardNumberInput,
@@ -9,9 +9,11 @@ import {
 import { useRouterPushCallback } from "@/shared/lib";
 
 export default function TransferAbroadInputCards() {
-  const [handleSubmit] = useRouterPushCallback("/transfer-abroad/confirmation");
-
-  useLockNextPage();
+  const {isFormValid} = useIsCardsFormValid()
+  const [handleSubmit] = useRouterPushCallback({
+    nextPagePath: "/transfer-abroad/details",
+    isFormValid,
+  });
 
   return (
     <ProcessLayout onMainButtonClick={handleSubmit} buttonText="Далее">

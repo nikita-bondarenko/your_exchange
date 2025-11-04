@@ -1,5 +1,5 @@
 import { CurrencySubOption, useGetTransferDetailsMutation } from "@/shared/api";
-import { useAppSelector } from "@/shared/model/store";
+import { setPlatform, useAppSelector } from "@/shared/model/store";
 import { useState, useEffect } from "react";
 
 export const useTransferDetailsOptions = () => {

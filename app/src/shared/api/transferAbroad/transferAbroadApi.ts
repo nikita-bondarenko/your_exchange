@@ -93,7 +93,7 @@ export const transferAbroadApi = createApi({
     }),
 
     // POST /transfer-abroad/order/abroad_cards
-    createAbroadCardOrder: builder.mutation<OrderResponse, AbroadCardOrderBody>({
+    createAbroadCardTransferOrder: builder.mutation<OrderResponse, AbroadCardOrderBody>({
       query: (body) => ({
         url: '/transfer-abroad/order/abroad_cards',
         method: 'POST',
@@ -111,5 +111,5 @@ export const {
   useCreateInvoiceOrderMutation,
   useCreateFTAOrderMutation,
   useCreateChinesePlatformOrderMutation,
-  useCreateAbroadCardOrderMutation,
+  useCreateAbroadCardTransferOrderMutation,
 } = transferAbroadApi;

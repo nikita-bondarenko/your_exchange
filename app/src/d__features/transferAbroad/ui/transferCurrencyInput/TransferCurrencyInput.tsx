@@ -47,7 +47,7 @@ export const TransferCurrencyInput = memo(({ isLimitInfoActive }: Props) => {
   const { isAmountInputError, isLimitError } = useCurrencyAmountError();
 
   useEffect(() => {
-    if (isLimitInfoActive && currency.limit)
+    if (isLimitInfoActive && currency?.limit)
       dispatch(setMaxCurrencyAmount(currency.limit));
     else dispatch(setMaxCurrencyAmount(null));
   }, [isLimitInfoActive, currency]);
@@ -68,6 +68,7 @@ export const TransferCurrencyInput = memo(({ isLimitInfoActive }: Props) => {
         selectValue={currency}
         onSelectChange={setCurrency}
         error={isAmountInputError}
+        placeholder="50 000"
       ></CurrencyInput>
     </div>
   );

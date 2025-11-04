@@ -1,2 +1,2 @@
-export * from './QuestionIconAnimation';
+export * from './WavesAnimation';
 export * from './SectionHeading';

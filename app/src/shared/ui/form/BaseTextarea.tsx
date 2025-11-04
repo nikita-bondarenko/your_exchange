@@ -13,7 +13,7 @@ export const BaseTextarea = ({
   className
 }: BaseTextarea) => (
   <textarea
-    className={clsx("min-h-158 w-full resize-none px-16 py-12 rounded-6 bg-[var(--background-secondary)] border border-[var(--border-placeholder)] text-[var(--text-main)] placeholder:text-[var(--text-light)]", className)}
+    className={clsx("min-h-158 w-full resize-none px-16 py-12 rounded-6 bg-[var(--background-secondary)] border border-[var(--border-placeholder)] text-[var(--text-main)] placeholder:text-[var(--text-light)] -mb-6", className)}
     placeholder={placeholder}
     value={value}
     onChange={(e) => setValue(e.target.value)}

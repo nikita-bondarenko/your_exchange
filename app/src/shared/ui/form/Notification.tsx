@@ -24,7 +24,6 @@ export const Notification: React.FC<NotificationProps> = ({
         )}
       >
         {icon}
-        {/* <Icon src={iconSrc} className="w-12 h-12 translate-y-2" /> */}
         {message}
       </div>
     </div>

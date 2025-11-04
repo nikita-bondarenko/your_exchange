@@ -21,7 +21,8 @@ import {
   ThunkDispatch,
   UnknownAction,
 } from "@reduxjs/toolkit";
-import { restartRatePullingIfActive } from "../../model/store/listeners/exchangeSliceListeners/exchangeSliceListener";
+import { restartRatePullingIfActive } from "./restartRatePullingIfActive";
+import { RATE_INTERVAL_KEY } from "@/shared/config";
 
 type Props = {
   listenerApi: ListenerEffectAPI<
@@ -170,5 +171,5 @@ export const setRateData = async ({
     propertyKey: "cities",
   });
   dispatch(setCities(cities));
-  restartRatePullingIfActive(listenerApi, dispatch);
+  restartRatePullingIfActive(listenerApi, dispatch, RATE_INTERVAL_KEY);
 };

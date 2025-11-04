@@ -1,3 +1,0 @@
-import TransferAbroadInputFtaCurrencyAndTask from "@/b__pages/transferAbroadInputFtaCurrencyAndTask/ui";
-
-export default TransferAbroadInputFtaCurrencyAndTask

@@ -1,12 +1,13 @@
 "use client";
 
 import ProcessLayout from "@/c__widgets/processLayout/ui";
-import { TransferTypeSwitcher } from "@/d__features/transferTypeSwitcher/ui";
+import { TransferTypeCategorySwitcher } from "@/d__features/transferAbroad/ui";
 import { TransferSelect } from "@/d__features/transferAbroad/ui";
 import { useAppSelector } from "@/shared/model/store";
 import { useRouter } from "next/navigation";
 import { transferIdInputPathReferrencies } from "../config";
 import { useMemo } from "react";
+import { useNullifyTransferAbroadInputs } from "@/d__features/transferAbroad/lib";
 
 export default function TransferAbroadTypePage() {
   const router = useRouter();
@@ -28,7 +29,6 @@ export default function TransferAbroadTypePage() {
       return;
     }
     const inputType =
-      // @ts-ignore this exeption is protected in previos condition
       transferIdInputPathReferrencies[selectedTranserTypeOptionId];
     return `/transfer-abroad/input/${inputType}`;
   }, [selectedTranserTypeOptionId]);
@@ -37,14 +37,16 @@ export default function TransferAbroadTypePage() {
     if (nextPagePath) router.push(nextPagePath);
   };
 
+  useNullifyTransferAbroadInputs();
+
   return (
     <ProcessLayout
       onMainButtonClick={handleSubmit}
       buttonText="Подтвердить выбор"
     >
       <div className="flex flex-col gap-13">
-        <TransferTypeSwitcher></TransferTypeSwitcher>
-        <TransferSelect></TransferSelect>
+        <TransferTypeCategorySwitcher />
+        <TransferSelect />
       </div>
     </ProcessLayout>
   );

@@ -3,7 +3,7 @@ import { ProgressBarSignIcon } from "./ProgressBarSignIcon";
 import { ProgressLine } from "./ProgressLine";
 import { ProgressStep } from "./ProgressStep";
 import { useMemo } from "react";
-import { PROGRESS_STEPS } from "../config";
+import { PROGRESS_STEPS_PATHS_REFERRENCIES } from "../config";
 
 type ProgressBarProps = {
   isBackward?: boolean;
@@ -14,12 +14,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 }) => {
   const pathname = usePathname();
 
-  const currentStep = useMemo(() => {
-    const idx = PROGRESS_STEPS.findIndex((step) =>
-      pathname.startsWith(step.path.exchange || step.path.transfer)
-    );
-    return idx;
-  }, [pathname]);
+  const currentStep = useMemo(
+    () =>
+      PROGRESS_STEPS_PATHS_REFERRENCIES.findIndex((paths) =>
+        paths.some((path) => pathname.startsWith(path))
+      ),
+    [pathname]
+  );
   return (
     <div className="flex items-center gap-5 [&_*]:transition-all [&_*]:duration-500">
       <div className="w-20 h-20 rounded-full relative shrink-0 bg-[var(--main-color)]">

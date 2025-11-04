@@ -27,25 +27,32 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
     <div className={clsx("w-full pb-16 relative", className)}>
       {React.cloneElement(children, {
         className: clsx(children.props.className, {
-          "[&]:border-[var(--border-error)]": error ,
+          "[&]:border-[var(--border-error)]": error,
         }),
       })}
-           {showErrorText && <p className={clsx(errorTextClassName, errorClassName, 'transition-all duration-500', {"opacity-0": !error})}>
-            {error}
-          </p>}
-          {errorIcon && (
-            <div className={clsx("absolute right-0 top-0 h-full flex items-center pr-12 transition-all duration-500", {"opacity-0": !error})}>
-              <AlertIcon
-                className={errorIconClassName}
-              />
-            </div>
+      {showErrorText && (
+        <p
+          className={clsx(
+            errorTextClassName,
+            errorClassName,
+            "transition-all duration-500",
+            { "opacity-0": !error }
           )}
-      {error && (
-        <>
-    
-         
-        </>
+        >
+          {error}
+        </p>
       )}
+      {errorIcon && (
+        <div
+          className={clsx(
+            "absolute right-0 top-0 h-full flex items-center pr-12 transition-all duration-500",
+            { "opacity-0": !error }
+          )}
+        >
+          <AlertIcon color="var(--border-error)" className={errorIconClassName} />
+        </div>
+      )}
+      {error && <></>}
     </div>
   );
-}; 
+};

@@ -13,21 +13,24 @@ import { ProgressBar } from "../../../d__features/progressBar/ui/ProgressBar";
 import { Menu } from "./Menu";
 import { CrossIcon, HeaderArrowIcon } from "@/shared/ui";
 
-
-
 export function Header() {
   const pathname = usePathname();
   const pageName = useAppSelector((state) => state.ui.pageName);
   const isHome = useMemo(() => pathname === "/", [pathname]);
-  const isAppReady = useAppSelector((state) => state.ui.isAppReady);
-
-  const isProgressBarActive = useMemo(
-    () => pathname?.startsWith("/exchange"),
+  const isTransferAbroadDetails = useMemo(
+    () => pathname === "/transfer-abroad/details",
     [pathname]
   );
 
-  const isExchangeResultPage = useMemo(
-    () => pathname?.startsWith("/exchange/result"),
+  const isAppReady = useAppSelector((state) => state.ui.isAppReady);
+
+  const isProgressBarActive = useMemo(
+    () => pathname?.startsWith("/exchange") || pathname?.startsWith("/transfer-abroad"),
+    [pathname]
+  );
+
+  const isResultPage = useMemo(
+    () => pathname?.endsWith("/result") ,
     [pathname]
   );
   const router = useRouter();
@@ -46,6 +49,8 @@ export function Header() {
     const backButtonPath = BACK_BUTTON_ROUTES[pathname as string];
     if (isHome) {
       window.Telegram?.WebApp.close();
+    } else if (isTransferAbroadDetails) {
+      router.back();
     } else {
       setIsBackward(true);
       router.push(backButtonPath);
@@ -80,7 +85,7 @@ export function Header() {
           ref={backButton}
           onClick={onBackButtonClick}
           className={clsx("flex gap-2 items-center", {
-            "opacity-0 pointer-events-none": isExchangeResultPage,
+            "opacity-0 pointer-events-none": isResultPage,
           })}
         >
           <HeaderArrowIcon color="var(--text-main)" className="w-17 h-17" />
@@ -96,16 +101,19 @@ export function Header() {
           <ProgressBar isBackward={isBackward} />
         </div>
       )}
-      {isExchangeResultPage && (
+      {isResultPage && (
         <button
           ref={backButton}
           onClick={onBackButtonClick}
           className="flex items-center justify-center relative w-16 h-16"
         >
-          <CrossIcon color="var(--text-main)" className="w-12 h-12 transition-all duration-500 center"></CrossIcon>
+          <CrossIcon
+            color="var(--text-main)"
+            className="w-12 h-12 transition-all duration-500 center"
+          ></CrossIcon>
         </button>
       )}
-      {!isExchangeResultPage && <Menu />}
+      {!isResultPage && <Menu />}
     </div>
   );
 }

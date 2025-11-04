@@ -21,6 +21,7 @@ export const AbroadCompanyRequisitesInput = memo(() => {
   );
   const dispatch = useAppDispatch();
   const handleInputChange = (value: string) => {
+    console.log(value)
     dispatch(setAbroadCompanyRequisites(value));
   };
   return (

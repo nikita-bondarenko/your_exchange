@@ -9,11 +9,13 @@ import {
 import { useRouterPushCallback } from "@/shared/lib";
 
 export default function TransferAbroadInputFtaRequisitesAndLicense() {
-  const [handleSubmit] = useRouterPushCallback("/transfer-abroad/confirmation");
+  const [handleSubmit] = useRouterPushCallback({
+    nextPagePath: "/transfer-abroad/details",
+  });
   return (
     <ProcessLayout onMainButtonClick={handleSubmit} buttonText="Далее">
-      <AbroadCompanyRequisitesInput></AbroadCompanyRequisitesInput>
       <RussianCompanyRequisitesInput></RussianCompanyRequisitesInput>
+      <AbroadCompanyRequisitesInput></AbroadCompanyRequisitesInput>
       <LicenseAndInvoiceExampleInput></LicenseAndInvoiceExampleInput>
     </ProcessLayout>
   );

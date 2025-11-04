@@ -3,6 +3,7 @@ import {
   useAppSelector,
   useAppDispatch,
   setCountryInputError,
+  setBankInputError,
 } from "@/shared/model/store";
 import { useEffect } from "react";
 
@@ -22,7 +23,7 @@ export const useBankInputError = () => {
   useEffect(() => {
     const error = validateBank({ value: bank?.name || null });
 
-    dispatch(setCountryInputError(error));
+    dispatch(setBankInputError(error));
   }, [bank]);
 
   return { bankInputError: areErrorsVisible ? bankInputError : null };

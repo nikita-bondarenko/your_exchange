@@ -1,5 +1,5 @@
 import { BankSelect } from "@/entities/bank/ui";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useTransferDetailsOptions } from "../lib/useTransferDetailsOptions";
 import { setBank, useAppDispatch, useAppSelector } from "@/shared/model/store";
 import { CurrencySubOption } from "@/shared/api";
@@ -14,6 +14,8 @@ export const TransferBankSelect = memo(() => {
   };
 
   const { bankInputError } = useBankInputError();
+
+  useEffect(() => {console.log(bankInputError)}, [bankInputError])
 
   return (
     <div className="-mt-26">

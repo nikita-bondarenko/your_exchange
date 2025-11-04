@@ -5,8 +5,11 @@ export const loadState = async (): Promise<Partial<RootState> | undefined> => {
   const pageData = PROJECT_DATA.page;
 
   const rootState = { pageData };
+  if (typeof window === 'undefined') {
+    return rootState;
+  }
   try {
-    const serializedState = localStorage.getItem(REDUX_LOCAL_STORE_KEY);
+    const serializedState = localStorage?.getItem(REDUX_LOCAL_STORE_KEY);
 
     if (serializedState === null) {
       return rootState;

@@ -9,8 +9,8 @@ import { RootState } from "@/shared/model/store";
   }
 
   try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem(REDUX_LOCAL_STORE_KEY, serializedState);
+    const serializedState = JSON?.stringify(state);
+    localStorage?.setItem(REDUX_LOCAL_STORE_KEY, serializedState);
   } catch (err) {
     console.error('Error saving state to localStorage:', err);
   }

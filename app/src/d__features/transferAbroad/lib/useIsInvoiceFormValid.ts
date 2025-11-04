@@ -9,10 +9,14 @@ export const useIsInvoiceFormValid = () => {
       const countryInputError = useAppSelector(
         (state) => state.transferAbroad.countryInputError
       );
+
+       const taskInputError = useAppSelector(
+        (state) => state.transferAbroad.taskInputError
+      );
     
       const isFormValid = useMemo(
-        () => !currencyAmountError && !countryInputError,
-        [currencyAmountError, countryInputError]
+        () => !currencyAmountError && !countryInputError && !taskInputError,
+        [currencyAmountError, countryInputError, taskInputError]
       );
     
       return {
