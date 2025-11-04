@@ -1,7 +1,7 @@
 import { PROJECT_DATA, REDUX_LOCAL_STORE_KEY } from "@/shared/config";
 import { RootState } from "@/shared/model/store";
 
-export const loadState = async (): Promise<Partial<RootState> | undefined> => {
+export const loadState = ():Partial<RootState> | undefined => {
   const pageData = PROJECT_DATA.page;
 
   const rootState = { pageData };

@@ -28,6 +28,7 @@ export const useCurrencyAmountError = () => {
       value: currencyAmount,
       options: { maxValue: maxCurrencyAmount },
     });
+    console.log(error)
     dispatch(setCurrencyAmountInputError(error));
   }, [currencyAmount, maxCurrencyAmount]);
 

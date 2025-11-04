@@ -41,6 +41,7 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
   const requiestPromiseCallback = (value: {
     data?: OrderResponse | undefined;
   }) => {
+    console.log(value)
     if (value.data?.order_id) dispatch(setOrderId(value.data?.order_id));
     router.push("/transfer-abroad/result");
   };
@@ -58,6 +59,7 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
         break;
       }
       case "chinese-platforms": {
+        console.log(currency?.name, amount, platform?.name);
         if (currency?.name && amount && platform?.name)
           createChinesePlatform({
             currency_name: currency?.name,

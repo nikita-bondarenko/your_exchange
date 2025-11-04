@@ -3,18 +3,19 @@ import {
   useAppDispatch,
   setIsFirstPageLoading,
 } from "@/shared/model/store";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export const RedirectOnReload = () => {
   const isFirstPageLoading = useAppSelector(
     (state) => state.ui.isFirstPageLoading
   );
+  const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (isFirstPageLoading) {
-      router.push("/");
+      if (pathname !== "/") router.push("/");
       dispatch(setIsFirstPageLoading(false));
     }
   }, []);

@@ -14,7 +14,6 @@ export function TelegramWebAppInitializer() {
         window.Telegram.WebApp.ready();
         window.Telegram.WebApp.expand();
         dispatch(setIsAppReady(true));
-        console.log(window.Telegram?.WebApp?.initDataUnsafe?.user);
         if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
           dispatch(setUserId(window.Telegram.WebApp.initDataUnsafe.user.id));
         }

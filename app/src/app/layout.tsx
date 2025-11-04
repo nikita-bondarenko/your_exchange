@@ -40,7 +40,7 @@ export default function RootLayout({
         className={`${inter.variable} antialiased flex flex-col h-screen bg-[var(--background-global)]`}
       >
         <StoreProvider>
-          <RedirectOnReload />
+          {/* <RedirectOnReload /> */}
           <ThemeInitialiser />
           <TelegramWebAppInitializer />
           <Header />

@@ -15,8 +15,6 @@ export const TransferBankSelect = memo(() => {
 
   const { bankInputError } = useBankInputError();
 
-  useEffect(() => {console.log(bankInputError)}, [bankInputError])
-
   return (
     <div className="-mt-26">
       <BankSelect
