@@ -5,7 +5,7 @@ import { TransferTypeCategorySwitcher } from "@/d__features/transferAbroad/ui";
 import { TransferSelect } from "@/d__features/transferAbroad/ui";
 import { useAppSelector } from "@/shared/model/store";
 import { useRouter } from "next/navigation";
-import { transferIdInputPathReferrencies } from "../config";
+import { transferIdInputPathReferrencies } from "@/d__features/transferAbroad/config";
 import { useMemo } from "react";
 import { useNullifyTransferAbroadInputs } from "@/d__features/transferAbroad/lib";
 

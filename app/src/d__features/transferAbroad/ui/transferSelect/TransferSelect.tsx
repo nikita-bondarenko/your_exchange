@@ -1,14 +1,39 @@
-import { memo, useEffect, useMemo, useState } from "react";
-import { TransferSelectItem, TransferType } from "./TransferSelectItem";
-import { TransferOption, useGetTransferOptionsQuery } from "@/shared/api";
+import { memo, useEffect, useMemo } from "react";
+import { TransferSelectItem } from "./TransferSelectItem";
+import { useGetTransferOptionsQuery } from "@/shared/api";
 import {
   setSelectedTranserTypeOptionId,
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
+import { sortArrayByProperty } from "@/shared/lib";
 
 export const TransferSelect = memo(() => {
   const { data } = useGetTransferOptionsQuery();
+
+  const parsedData = useMemo(() => {
+    const copiedObject = { ...data };
+
+    const categories: ("individual" | "legal_entity")[] = [
+      "individual",
+      "legal_entity",
+    ];
+    categories.forEach((category) => {
+      if (
+        copiedObject &&
+        copiedObject[category] &&
+        Array.isArray(copiedObject[category])
+      )
+        copiedObject[category] = sortArrayByProperty({
+          array: copiedObject[category],
+          propertyName: "weight",
+        });
+    });
+
+    console.log(data, copiedObject)
+
+    return copiedObject;
+  }, [data]);
 
   const selectedTranserTypeOptionId = useAppSelector(
     (state) => state.transferAbroad.selectedTranserTypeOptionId
@@ -19,8 +44,10 @@ export const TransferSelect = memo(() => {
   );
 
   const transferTypeOptions = useMemo(() => {
-    return transferTypeCategory && data ? data[transferTypeCategory] : [];
-  }, [transferTypeCategory, data]);
+    return transferTypeCategory && parsedData
+      ? parsedData[transferTypeCategory]
+      : [];
+  }, [transferTypeCategory, parsedData]);
 
   const dispatch = useAppDispatch();
 
@@ -29,15 +56,19 @@ export const TransferSelect = memo(() => {
   };
 
   useEffect(() => {
-    if (data && transferTypeCategory) {
-      const id = data[transferTypeCategory][0].id;
+    if (
+      parsedData &&
+      transferTypeCategory &&
+      parsedData[transferTypeCategory]
+    ) {
+      const id = parsedData[transferTypeCategory][0].id;
       dispatch(setSelectedTranserTypeOptionId(id));
     }
-  }, [data, transferTypeCategory]);
+  }, [parsedData, transferTypeCategory]);
 
   return (
     <div className="overflow-hidden rounded-6 bg-[var(--background-secondary)] border border-[var(--border-placeholder)]">
-      {transferTypeOptions.map((type) => (
+      {transferTypeOptions?.map((type) => (
         <TransferSelectItem
           key={type.id}
           {...type}

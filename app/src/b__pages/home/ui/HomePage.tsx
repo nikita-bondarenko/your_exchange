@@ -3,7 +3,7 @@
 import ProfileButton from "@/entities/profileButton/ui/ProfileButton";
 import ExpandableList from "@/shared/ui/dropdown/ExpandableList";
 import { Button } from "@/shared/ui/button";
-import { useEffect, useState } from "react";
+import { createRef, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/shared/model/store";
 import { useCallSupport } from "@/d__features/support/lib";
@@ -13,6 +13,7 @@ import AgreementModal from "@/c__widgets/agreementModal/ui";
 import { useAdditionalSectionList } from "../lib";
 import RequestStatus from "@/entities/requestStatus/ui";
 import { ModeSwitcher } from "@/d__features/modeSwitcher/ui";
+import clsx from "clsx";
 
 export default function HomePage() {
   const { callSupport } = useCallSupport();
@@ -41,6 +42,44 @@ export default function HomePage() {
         : "/transfer-abroad/type";
     router.push(startButtonHref);
   };
+
+  const transferDescriptionListElement = createRef<HTMLUListElement>();
+  const exchangeDescriptionListElement = createRef<HTMLUListElement>();
+
+  const [descriptionListElementHeight, setDescriptionListElement] = useState<
+    number | string
+  >("auto");
+  useEffect(() => {
+    if (
+      transferDescriptionListElement.current &&
+      exchangeDescriptionListElement.current
+    ) {
+      const firstElementHeight =
+        transferDescriptionListElement.current.clientHeight;
+      const secondElementHeight =
+        exchangeDescriptionListElement.current.clientHeight;
+      const height = Math.max(firstElementHeight, secondElementHeight);
+      setDescriptionListElement(height);
+    }
+  }, [
+    exchangeDescriptionListElement.current,
+    transferDescriptionListElement.current,
+    homePageData,
+  ]);
+
+  const descriptionListExchange = useMemo(() => {
+    const modeName = "exchange";
+    return homePageData.descriptionList.filter(
+      (item) => item.modeTypeWhenVisible === modeName
+    );
+  }, [homePageData]);
+
+  const descriptionListTransfer = useMemo(() => {
+    const modeName = "transfer";
+    return homePageData.descriptionList.filter(
+      (item) => item.modeTypeWhenVisible === modeName
+    );
+  }, [homePageData]);
 
   useEffect(() => {
     setForceRender((prev) => prev + 1);
@@ -84,20 +123,49 @@ export default function HomePage() {
               </div>
               <ProfileButton key={forceRender} avatar={profilePicture} />
             </div>
-
-            <ul className="flex flex-col gap-11 mb-16">
-              {homePageData.descriptionList.map((item, index) => (
-                <DescriptionItem
-                  icon={item.icon({
-                    color: "var(--text-main-screen-description)",
-                    className: item.iconClassName,
-                  })}
-                  key={index}
-                >
-                  {item.text}
-                </DescriptionItem>
-              ))}
-            </ul>
+            <div
+              className="relative"
+              style={{ height: descriptionListElementHeight }}
+            >
+              <ul
+                ref={exchangeDescriptionListElement}
+                className={clsx(
+                  "flex flex-col gap-11 mb-16 absolute top-0 left-0 transition-opacity",
+                  { "opacity-0": !isExchangeMode }
+                )}
+              >
+                {descriptionListExchange.map((item, index) => (
+                  <DescriptionItem
+                    icon={item.icon({
+                      color: "var(--text-main-screen-description)",
+                      className: item.iconClassName,
+                    })}
+                    key={index}
+                  >
+                    {item.text}
+                  </DescriptionItem>
+                ))}
+              </ul>
+              <ul
+                ref={transferDescriptionListElement}
+                className={clsx(
+                  "flex flex-col gap-11 mb-16 absolute top-0 left-0 transition-opacity",
+                  { "opacity-0": !isTransferAbroadMode }
+                )}
+              >
+                {descriptionListTransfer.map((item, index) => (
+                  <DescriptionItem
+                    icon={item.icon({
+                      color: "var(--text-main-screen-description)",
+                      className: item.iconClassName,
+                    })}
+                    key={index}
+                  >
+                    {item.text}
+                  </DescriptionItem>
+                ))}
+              </ul>
+            </div>
             <div className="min-h-60 flex flex-col gap-11  mb-20">
               {requestsInProcess?.map((request) => (
                 <RequestStatus
@@ -111,7 +179,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 gap-6 z-10">
             <Button onClick={handleStartButton} type={"main-screen-left"}>
-              Начать обмен
+              {isExchangeMode ? 'Начать обмен' : 'Начать платеж'}
             </Button>
             <Button onClick={callSupport} type={"main-screen-right"}>
               Поддержка

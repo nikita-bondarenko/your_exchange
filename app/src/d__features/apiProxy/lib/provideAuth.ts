@@ -9,18 +9,17 @@ import { isFileExist } from "./checkTokenFile";
 import { ensureDirectoryExist } from "./ensureDIrectoryExist";
 import { FetchApiProps, fetchApi } from "./fetchApi";
 
- type GetTokenApiArg = {
+type GetTokenApiArg = {
   username: string;
   password: string;
 };
 
- type GetTokenApiResponse = {
+type GetTokenApiResponse = {
   refresh: string;
   access: string;
 };
 
 const fetchAndSaveToken = async (filePath: string) => {
-
   const tokenFetchProps: FetchApiProps = {
     path: "/api/token",
     headers: {
@@ -47,7 +46,10 @@ export const provideFetchWithAuth = async <Result>(
   executionTime: number = 1
 ): Promise<any> => {
   try {
+    // if (request.method === "POST") console.log(1);
     if (executionTime > maxTryTimes) {
+      // if (request.method === "POST") console.log(2);
+
       throw {
         detail: `Fetching failed after ${maxTryTimes}`,
         code: "attempts_failed",
@@ -58,9 +60,23 @@ export const provideFetchWithAuth = async <Result>(
     const urlPath =
       request.nextUrl.pathname.replace(/^\/api/, "") +
         (!request.nextUrl.pathname.endsWith("/") ? "/" : "") || "/";
-    // console.log("urlPath", urlPath);
+    // if (request.method === "POST") console.log(3);
+
     const params = Object.fromEntries(request.nextUrl.searchParams);
-    const body = request.method === "GET" ? null : await request.json();
+
+    let body: any = null;
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      const contentType = request.headers.get("content-type") || "";
+
+      if (contentType.includes("application/json")) {
+        body = await request.json();
+      } else if (contentType.includes("multipart/form-data")) {
+        body = await request.formData();
+      } else {
+        body = await request.text();
+      }
+    }
+    // if (request.method === "POST") console.log(4);
 
     const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
 
@@ -72,13 +88,18 @@ export const provideFetchWithAuth = async <Result>(
       path: urlPath,
       body,
     };
+    // if (request.method === "POST") console.log(5);
 
     let result: Result;
 
     if (!isTokenFile) {
+      // if (request.method === "POST") console.log(6);
+
       await fetchAndSaveToken(tokenFilePath);
       return provideFetchWithAuth<Result>(request, executionTime + 1);
     } else {
+      // if (request.method === "POST") console.log(7);
+
       const token = await fs.readFile(tokenFilePath);
       if (token.length === 0) {
         await fetchAndSaveToken(tokenFilePath);
@@ -90,6 +111,8 @@ export const provideFetchWithAuth = async <Result>(
       };
 
       try {
+        // if (request.method === "POST") console.log(8);
+
         result = await fetchApi<Result>(fetchProps);
       } catch (e) {
         throw e;
@@ -97,12 +120,18 @@ export const provideFetchWithAuth = async <Result>(
 
       //@ts-expect-error "exeptional scenary - responsive object has no fixed type"
       if (result.code === "token_not_valid") {
+        console.log(8);
+
         await fetchAndSaveToken(tokenFilePath);
         return provideFetchWithAuth<Result>(request, executionTime + 1);
       }
     }
+    // if (request.method === "POST") console.log(9);
+
     return result;
   } catch (e) {
+    // if (request.method === "POST") console.log(10);
+
     // console.log("provideFetchWithAuth error", e);
     throw e;
   }

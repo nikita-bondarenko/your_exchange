@@ -1,6 +1,6 @@
 "use client";
 
-import { transferIdInputPathReferrencies } from "@/b__pages/transferAbroadType/config";
+import { transferIdInputPathReferrencies } from "@/d__features/transferAbroad/config";
 import ProcessLayout from "@/c__widgets/processLayout/ui";
 import { typograf, valueMask } from "@/shared/lib";
 import {

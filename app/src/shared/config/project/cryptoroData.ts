@@ -1,5 +1,5 @@
 import { ProjectData } from "@/shared/model/project";
-import { RocketIcon, ShieldIcon } from "@/shared/ui";
+import { CashIcon, RocketIcon, ShieldIcon, VisibilityOffIcon } from "@/shared/ui";
 import { CRYPTORO_THEME } from "../theme";
 
 export const CRYPTORO_PROJECT_DATA: ProjectData = {
@@ -18,15 +18,27 @@ export const CRYPTORO_PROJECT_DATA: ProjectData = {
       },
       subtitle: `Покупка и продажа <br />криптовалюты <br />по выгодному курсу`,
       descriptionList: [
-        {
-          icon: RocketIcon,
-          text: "Быстрый обмен",
-        },
-        {
-          icon: ShieldIcon,
-          text: "Безопасность",
-        },
-      ],
+           {
+             icon: RocketIcon,
+             text: "Быстрый обмен",
+             modeTypeWhenVisible: "exchange",
+           },
+           {
+             icon: ShieldIcon,
+             text: "Безопасность",
+             modeTypeWhenVisible: "exchange",
+           },
+           {
+             icon: CashIcon,
+             text: "Платежный агент",
+             modeTypeWhenVisible: "transfer",
+           },
+           {
+             icon: VisibilityOffIcon,
+             text: "Конфиденциальность",
+             modeTypeWhenVisible: "transfer",
+           },
+         ],
       firstScreenBackgroundImage: undefined,
       policyUrl:
         "https://drive.google.com/file/d/1viE-JdwTDLBfPxOaqt5wJA7mlMuwMMCu/preview",

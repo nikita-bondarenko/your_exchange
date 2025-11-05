@@ -5,3 +5,4 @@ export * from './fetching';
 export * from './routing';
 export * from './eventParsing'
 export * from './validation'
+export * from './sort'

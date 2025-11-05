@@ -1,8 +1,4 @@
-import {
-  CardIcon,
-  CashIcon,
-
-} from "@/shared/ui";
+import { CardIcon, CashIcon, VisibilityOffIcon } from "@/shared/ui";
 import { ALEX_THEME } from "../theme";
 import { ProjectData } from "@/shared/model/project";
 
@@ -18,12 +14,32 @@ export const ALEX_PROJECT_DATA: ProjectData = {
   page: {
     home: {
       title: {
-        text: "ALEX <br/>CHANGE"
+        text: "ALEX <br/>CHANGE",
       },
       subtitle: `Покупка и продажа <br />криптовалюты по <br />выгодному курсу`,
       descriptionList: [
-        { icon: CashIcon, iconClassName: "w-20", text: "Наличный обмен" },
-        { icon: CardIcon, iconClassName: "w-20 h-19", text: "Обмен по карте" },
+        {
+          icon: CashIcon,
+          iconClassName: "w-20",
+          text: "Наличный обмен",
+          modeTypeWhenVisible: "exchange",
+        },
+        {
+          icon: CardIcon,
+          iconClassName: "w-20 h-19",
+          text: "Обмен по карте",
+          modeTypeWhenVisible: "exchange",
+        },
+        {
+          icon: CashIcon,
+          text: "Платежный агент",
+          modeTypeWhenVisible: "transfer",
+        },
+        {
+          icon: VisibilityOffIcon,
+          text: "Конфиденциальность",
+          modeTypeWhenVisible: "transfer",
+        },
       ],
       firstScreenBackgroundImage: undefined,
       policyUrl:

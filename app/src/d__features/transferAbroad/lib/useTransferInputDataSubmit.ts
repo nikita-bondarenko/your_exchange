@@ -41,36 +41,42 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
   const requiestPromiseCallback = (value: {
     data?: OrderResponse | undefined;
   }) => {
-    console.log(value)
+    console.log(value);
     if (value.data?.order_id) dispatch(setOrderId(value.data?.order_id));
     router.push("/transfer-abroad/result");
   };
 
+  const userId = useAppSelector((state) => state.user.id);
+
   const handleSubmit = () => {
     switch (transferType) {
       case "cards": {
-        if (cardNumber && currency?.name && amount && bank?.name)
+        if (cardNumber && currency?.name && amount && bank?.name && userId)
           createAbroadCardTransferOrder({
             card_number: cardNumber,
             currency_name: currency?.name,
             amount,
             bank_name: bank?.name,
+            user_id: userId,
           }).then(requiestPromiseCallback);
         break;
       }
       case "chinese-platforms": {
         console.log(currency?.name, amount, platform?.name);
-        if (currency?.name && amount && platform?.name)
+        if (currency?.name && amount && platform?.name && userId)
           createChinesePlatform({
             currency_name: currency?.name,
             amount,
             platform_name: platform?.name,
+            user_id: userId,
           }).then(requiestPromiseCallback);
         break;
       }
       case "fta": {
-        if (currency?.name && amount && taskDescription)
+        console.log(currency?.name, amount, taskDescription, userId);
+        if (currency?.name && amount && taskDescription && userId)
           createFTAOrder({
+            user_id: userId,
             currency_name: currency?.name,
             amount,
             task_description: taskDescription,
@@ -94,7 +100,8 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
           amount &&
           taskDescription &&
           countryName &&
-          transferTypeCategorySlug
+          transferTypeCategorySlug &&
+          userId
         )
           createInvoiceOrder({
             currency_name: currency?.name,
@@ -102,6 +109,7 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
             task_description: taskDescription,
             country_name: countryName,
             transfer_type: transferTypeCategorySlug,
+            user_id: userId,
           }).then(requiestPromiseCallback);
         break;
       }

@@ -1,10 +1,16 @@
-import { CarIcon, HomeIcon, PlanetIcon } from "@/shared/ui";
+import {
+  CarIcon,
+  CashIcon,
+  HomeIcon,
+  PlanetIcon,
+  VisibilityOffIcon,
+} from "@/shared/ui";
 import { MAX_SECRET_THEME } from "../theme";
 import { ProjectData } from "@/shared/model/project";
 import { FirstScreenBackground } from "@/shared/ui/background";
 
 export const MAX_SECRET_PROJECT_DATA: ProjectData = {
-    name: "max-secret",
+  name: "max-secret",
   theme: MAX_SECRET_THEME,
 
   meta: {
@@ -15,7 +21,7 @@ export const MAX_SECRET_PROJECT_DATA: ProjectData = {
   page: {
     home: {
       title: {
-        text: "Секретный Обменник"
+        text: "Секретный Обменник",
       },
       subtitle: `Покупка и&nbsp;продажа <br />
                   криптовалюты <br />
@@ -24,12 +30,24 @@ export const MAX_SECRET_PROJECT_DATA: ProjectData = {
         {
           icon: HomeIcon,
           text: "Наличные в офисе",
+          modeTypeWhenVisible: "exchange",
         },
         {
           icon: CarIcon,
           text: "Курьерские доставки",
+          modeTypeWhenVisible: "exchange",
         },
-        { icon: PlanetIcon, text: "ВЭД" },
+        { icon: PlanetIcon, text: "ВЭД", modeTypeWhenVisible: "exchange" },
+        {
+          icon: CashIcon,
+          text: "Платежный агент",
+          modeTypeWhenVisible: "transfer",
+        },
+        {
+          icon: VisibilityOffIcon,
+          text: "Конфиденциальность",
+          modeTypeWhenVisible: "transfer",
+        },
       ],
       firstScreenBackgroundImage: FirstScreenBackground,
       policyUrl:

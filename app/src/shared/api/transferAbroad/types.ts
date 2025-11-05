@@ -3,6 +3,7 @@ export type TransferOption = {
   id: number;
   icon: string;
   name: string;
+  weight: number;
   description: string;
 };
 
@@ -40,11 +41,13 @@ export type InvoiceOrderBody = {
   amount: number;
   country_name: string;
   task_description: string;
+  user_id: number;
 };
 
 export type FTAOrderBody = {
   currency_name: string;
   amount: number;
+  user_id: number;
   task_description: string;
   russian_company_requisites?: string;
   abroad_company_requisites?: string;
@@ -56,6 +59,7 @@ export type ChinesePlatformOrderBody = {
   currency_name: string;
   amount: number;
   platform_name: string;
+  user_id: number;
 };
 
 export type AbroadCardOrderBody = {
@@ -63,6 +67,7 @@ export type AbroadCardOrderBody = {
   amount: number;
   bank_name: string;
   card_number: string;
+  user_id: number;
 };
 
 export type OrderResponse = {

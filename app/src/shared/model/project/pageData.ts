@@ -18,6 +18,7 @@ export type PageData = {
       icon: ({ className, color }: SvgIcon) => JSX.Element;
       iconClassName?: string;
       text: string;
+      modeTypeWhenVisible: 'exchange' | 'transfer'
     }[];
     firstScreenBackgroundImage: undefined | FirstScreenBackgroundImage;
     policyUrl: string;

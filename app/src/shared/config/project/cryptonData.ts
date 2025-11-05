@@ -1,5 +1,5 @@
 import { ProjectData } from "@/shared/model/project";
-import { RocketIcon, ShieldIcon } from "@/shared/ui";
+import { CashIcon, RocketIcon, ShieldIcon, VisibilityOffIcon } from "@/shared/ui";
 import { CRYPTON_THEME } from "../theme";
 
 export const CRYPTON_PROJECT_DATA: ProjectData = {
@@ -17,16 +17,28 @@ export const CRYPTON_PROJECT_DATA: ProjectData = {
         text: `Crypton Exchange`
       },
       subtitle: `Быстрый и&nbsp;выгодный обмен криптовалюты.`,
-      descriptionList: [
-        {
-          icon: RocketIcon,
-          text: "Быстрый обмен",
-        },
-        {
-          icon: ShieldIcon,
-          text: "Безопасность",
-        },
-      ],
+       descriptionList: [
+            {
+              icon: RocketIcon,
+              text: "Быстрый обмен",
+              modeTypeWhenVisible: "exchange",
+            },
+            {
+              icon: ShieldIcon,
+              text: "Безопасность",
+              modeTypeWhenVisible: "exchange",
+            },
+            {
+              icon: CashIcon,
+              text: "Платежный агент",
+              modeTypeWhenVisible: "transfer",
+            },
+            {
+              icon: VisibilityOffIcon,
+              text: "Конфиденциальность",
+              modeTypeWhenVisible: "transfer",
+            },
+          ],
       firstScreenBackgroundImage: undefined,
       policyUrl:
         "https://drive.google.com/file/d/1oEP--IJ4Wpohf_KDdrbPrSdEWJa7EMFs/preview",

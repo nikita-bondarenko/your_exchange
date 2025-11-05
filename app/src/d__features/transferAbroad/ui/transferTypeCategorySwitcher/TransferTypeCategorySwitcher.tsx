@@ -14,6 +14,7 @@ export const TransferTypeCategorySwitcher = memo(() => {
     (state) => state.transferAbroad.transferTypeCategory
   );
 
+  
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -33,8 +34,8 @@ export const TransferTypeCategorySwitcher = memo(() => {
 
   useEffect(() => {
     const transferTypeCategorySlug = isLegalEntity
-      ? "Юридическое лицо"
-      : "Физическое лицо";
+      ? "Юр. Лица"
+      : "Физ. Лица";
     dispatch(setTransferTypeCategorySlug(transferTypeCategorySlug));
   }, [isLegalEntity]);
 

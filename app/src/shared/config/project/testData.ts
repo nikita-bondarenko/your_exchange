@@ -1,6 +1,7 @@
-import { CarIcon, HomeIcon, PlanetIcon } from "@/shared/ui";
+import { CarIcon, CashIcon, HomeIcon, PlanetIcon } from "@/shared/ui";
 import { TEST_THEME } from "../theme/testTheme";
 import { ProjectData } from "@/shared/model/project";
+import { VisibilityOffIcon } from "@/shared/ui/icon/VisibilityOffIcon";
 
 export const TEST_PROJECT_DATA: ProjectData = {
   name: "test",
@@ -14,7 +15,7 @@ export const TEST_PROJECT_DATA: ProjectData = {
   page: {
     home: {
       title: {
-        text: "Test Change"
+        text: "Test Change",
       },
       subtitle: `Покупка и&nbsp;продажа <br />
                   криптовалюты <br />
@@ -23,12 +24,20 @@ export const TEST_PROJECT_DATA: ProjectData = {
         {
           icon: HomeIcon,
           text: "Наличные в офисе",
+          modeTypeWhenVisible: "exchange",
         },
         {
           icon: CarIcon,
           text: "Курьерские доставки",
+          modeTypeWhenVisible: "exchange",
         },
-        { icon: PlanetIcon, text: "ВЭД" },
+        { icon: PlanetIcon, text: "ВЭД", modeTypeWhenVisible: "exchange" },
+         {
+          icon: CashIcon,
+          text: "Платежный агент",
+          modeTypeWhenVisible: "transfer",
+        },
+        { icon: VisibilityOffIcon, text: "Конфиденциальность", modeTypeWhenVisible: "transfer" },
       ],
       firstScreenBackgroundImage: undefined,
       policyUrl:

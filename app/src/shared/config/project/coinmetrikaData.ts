@@ -1,5 +1,5 @@
 import { ProjectData } from "@/shared/model/project";
-import { RocketIcon, ShieldIcon } from "@/shared/ui";
+import { CashIcon, RocketIcon, ShieldIcon, VisibilityOffIcon } from "@/shared/ui";
 import { COINMETRIKA_THEME } from "../theme";
 
 export const COINMETRIKA_PROJECT_DATA: ProjectData = {
@@ -18,15 +18,27 @@ export const COINMETRIKA_PROJECT_DATA: ProjectData = {
       },
       subtitle: `Покупка и продажа криптовалюты по&nbsp;выгодному&nbsp;курсу`,
       descriptionList: [
-        {
-          icon: RocketIcon,
-          text: "Быстрый обмен",
-        },
-        {
-          icon: ShieldIcon,
-          text: "Безопасность",
-        },
-      ],
+           {
+             icon: RocketIcon,
+             text: "Быстрый обмен",
+             modeTypeWhenVisible: "exchange",
+           },
+           {
+             icon: ShieldIcon,
+             text: "Безопасность",
+             modeTypeWhenVisible: "exchange",
+           },
+           {
+             icon: CashIcon,
+             text: "Платежный агент",
+             modeTypeWhenVisible: "transfer",
+           },
+           {
+             icon: VisibilityOffIcon,
+             text: "Конфиденциальность",
+             modeTypeWhenVisible: "transfer",
+           },
+         ],
       firstScreenBackgroundImage: undefined,
       policyUrl:
         "https://drive.google.com/file/d/14NFieNWgcewmAX84wDUdatqCQwKfFG50/preview",

@@ -1,4 +1,3 @@
-import { number } from "zod";
 export const transferIdInputPathReferrencies: {
   [key in number]:
     | "fta"
@@ -6,9 +5,9 @@ export const transferIdInputPathReferrencies: {
     | "chinese-platforms"
     | "invoice";
 } = {
-  1: "fta",
-  2: "invoice",
-  3: "cards",
-  4: "chinese-platforms",
+  4: "fta",
   5: "invoice",
+  1: "cards",
+  2: "chinese-platforms",
+  3: "invoice",
 };
