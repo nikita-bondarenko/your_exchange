@@ -1,13 +1,14 @@
 import clsx from "clsx";
 import { SectionHeading, SectionHeadingProps } from "../exchange";
 import { ReactNode } from "react";
+import { SvgFromUrl } from "../icon";
 
 type Props = SectionHeadingProps & {
   currency: {
     name: string;
     icon: string;
   };
-  currencyAmount: string
+  currencyAmount: string;
   label?: string;
   children: ReactNode;
 };
@@ -18,7 +19,7 @@ export const Details = ({
   currency,
   label,
   children,
-  currencyAmount
+  currencyAmount,
 }: Props) => {
   return (
     <div className="">
@@ -27,7 +28,19 @@ export const Details = ({
         <div>
           <div className="mb-15 flex  items-center justify-between">
             <div className="flex  items-center gap-6">
-              <img src={currency.icon} className={clsx("w-24 h-24")}></img>
+              {currency.icon ? (
+                <img
+                  src={currency.icon || "/images/icons/cash.svg"}
+                  className={clsx("w-24 h-24")}
+                ></img>
+              ) : (
+                <SvgFromUrl
+                  src={"/images/icons/cash.svg"}
+                  color="var(--main-color)"
+                  className={clsx("w-24 h-24")}
+                ></SvgFromUrl>
+              )}
+
               <span className="text-16 leading-normal text-[var(--text-main)]">
                 {currency.name}
               </span>

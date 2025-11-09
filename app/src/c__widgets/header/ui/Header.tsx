@@ -50,6 +50,7 @@ export function Header() {
     if (isHome) {
       window.Telegram?.WebApp.close();
     } else if (isTransferAbroadDetails) {
+      setIsBackward(true);
       router.back();
     } else {
       setIsBackward(true);
