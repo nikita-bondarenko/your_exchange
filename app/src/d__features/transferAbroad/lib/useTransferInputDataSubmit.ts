@@ -42,7 +42,7 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
     data?: OrderResponse | undefined;
   }) => {
     console.log(value);
-    if (value.data?.order_id) dispatch(setOrderId(value.data?.order_id));
+    dispatch(setOrderId(value.data?.order_id || 'no_info'));
     router.push("/transfer-abroad/result");
   };
 
