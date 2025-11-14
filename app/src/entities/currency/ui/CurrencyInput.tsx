@@ -7,7 +7,7 @@ import React, { memo, useEffect, useState, useCallback } from "react";
 import CurrencySelect from "./CurrencySelect";
 import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
 import { Input } from "../../../shared/ui/form/Input";
-import { Currency } from "@/shared/api/exchange/types";
+import { Currency } from "@/shared/model/api/exchange/types";
 
 export type CurrencyInputProps = {
   inputValue: number | null;

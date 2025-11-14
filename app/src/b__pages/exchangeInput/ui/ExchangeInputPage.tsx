@@ -1,11 +1,14 @@
 "use client";
 import {Button} from "@/shared/ui/button";
-import { useAppDispatch, useAppSelector, setIsLoading, setAreErrorsVisible, setIsRateBeingPulled, store, selectCurrencyTypes } from "@/shared/model/store";
+
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import React, { memo, useCallback, useEffect } from "react";
 import { validateAllFields } from "@/shared/lib/validation";
 import ExchangeInput from "@/c__widgets/exchangeInput/ui";
+import { store } from "@/app/providers/storeProvider/lib";
+import { setAreErrorsVisible, setIsRateBeingPulled } from "@/d__features/exchange/model";
+import { useAppDispatch, useAppSelector, selectCurrencyTypes, setIsLoading } from "@/shared/model/store";
 
 export default memo(function ExchangeInputPage() {
   const dispatch = useAppDispatch();

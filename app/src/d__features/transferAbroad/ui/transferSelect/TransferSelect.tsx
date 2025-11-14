@@ -1,12 +1,12 @@
 import { memo, useEffect, useMemo } from "react";
 import { TransferSelectItem } from "./TransferSelectItem";
-import { useGetTransferOptionsQuery } from "@/shared/api";
 import {
-  setSelectedTranserTypeOptionId,
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
 import { sortArrayByProperty } from "@/shared/lib";
+import { useGetTransferOptionsQuery } from "../../api";
+import { setSelectedTranserTypeOptionId } from "../../model";
 
 export const TransferSelect = memo(() => {
   const { data } = useGetTransferOptionsQuery();

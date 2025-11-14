@@ -1,11 +1,11 @@
-import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 import { ValidatedField } from "./types";
 import { validators } from "./validators";
 
 export type ValidateExchangeInput = (props: {
   value: unknown;
   inputType: ValidatedField;
-  position: CurrencyPosition;
+  position: ExchangeCurrencyPosition;
   minValue: number;
   isPhoneNumberUsed?: boolean;
 }) => string | null;

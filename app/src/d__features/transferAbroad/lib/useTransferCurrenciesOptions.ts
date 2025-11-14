@@ -1,6 +1,6 @@
-import { TransferAbroadCurrency, useGetCurrenciesMutation } from "@/shared/api";
 import { useAppSelector } from "@/shared/model/store";
 import { useState, useEffect } from "react";
+import { TransferAbroadCurrency, useGetCurrenciesMutation } from "../api";
 
 export const useTransferCurrenciesOptions = () => {
   const selectedTranserTypeOptionId = useAppSelector(

@@ -2,14 +2,9 @@ import { SectionHeading } from "@/shared/ui/exchange";
 import { FileInput } from "@/shared/ui/form/FileInput";
 import { memo, useState } from "react";
 import { LicenseAndInvoiceExampleNote } from "./LicenseAndInvoiceExampleNote";
-import {
-  setFile1,
-  setFile1PreviewUrl,
-  setFile2,
-  setFile2PreviewUrl,
-  useAppDispatch,
-  useAppSelector,
-} from "@/shared/model/store";
+import { useAppSelector, useAppDispatch } from "@/shared/model/store";
+import { setFile1, setFile1PreviewUrl, setFile2, setFile2PreviewUrl } from "../../model";
+
 
 export const LicenseAndInvoiceExampleInput = memo(() => {
   const file1 = useAppSelector((state) => state.transferAbroad.file1);

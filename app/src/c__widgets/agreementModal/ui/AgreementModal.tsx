@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "../../../shared/ui/modal/BaseModal";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
-import { setAgreementAccepted } from "@/shared/model/store/reducers/userReducer";
+import { setAgreementAccepted } from "@/d__features/userDataDisplay/model/store/reducer/userReducer";
 import Checkbox from "../../../shared/ui/form/Checkbox";
 import { typograf } from "@/shared/lib/string/typograf";
-import { useUserUpdateCreateMutation } from "@/shared/api";
+import { useUserUpdateCreateMutation } from "@/d__features/userDataDisplay/api";
 
 export default function AgreementModal() {
 

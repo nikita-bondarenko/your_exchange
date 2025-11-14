@@ -1,10 +1,8 @@
 import { getAvailableCurrenciesBuyDetails } from "@/shared/lib/currency/getAvailableCurrenciesBuyDetails";
-import { exchangeApi } from "@/shared/api";
 import {
   DirectionType,
   GetDirectionInitialDataByDirectionTypeApiResponse,
-} from "../../api/exchange/types";
-import { AppDispatch } from "../../model/store/store";
+} from "../../model/api/exchange/types";
 import {
   setCurrenciesBuy,
   setSelectedCurrencyBuyWithoutListening,
@@ -15,7 +13,7 @@ import {
   setCities,
   setNetworks,
   setSelectedNetworkValueWithoutListening,
-} from "../../model/store/reducers/exchangeReducer";
+} from "../../../d__features/exchange/model/store/reducer/exchangeReducer";
 import {
   ListenerEffectAPI,
   ThunkDispatch,
@@ -23,6 +21,8 @@ import {
 } from "@reduxjs/toolkit";
 import { restartRatePullingIfActive } from "./restartRatePullingIfActive";
 import { RATE_INTERVAL_KEY } from "@/shared/config";
+import { AppDispatch } from "@/shared/model/store";
+import { exchangeApi } from "@/d__features/exchange/api";
 
 type Props = {
   listenerApi: ListenerEffectAPI<
@@ -154,9 +154,6 @@ export const setRateData = async ({
     }
   }
 
-  // if ()
-
-  // console.log(rateFetchingArgs);
 
   const { data } = await dispatch(
     exchangeApi.endpoints.rateList.initiate(rateFetchingArgs, {

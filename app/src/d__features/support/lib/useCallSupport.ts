@@ -1,6 +1,6 @@
+import { usePostCallingOperatorMutation } from "@/d__features/exchange/api";
 import { useAppSelector } from "@/shared/model/store/hooks";
 
-import { usePostCallingOperatorMutation } from "@/shared/api";
 
 export const useCallSupport = () => {
   const [callOperator] = usePostCallingOperatorMutation();

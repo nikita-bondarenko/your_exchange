@@ -1,15 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Request } from "@/shared/api/exchange/types";
-
-export type RequestDetails = Request;
-
-type RequestDetailsState = {
-  data: RequestDetails | null;
-};
+import { RequestDetails, RequestDetailsReducerState } from "../state";
 
 export const requestDetailsSlice = createSlice({
   name: "requestDetails",
-  initialState: { data: null } as RequestDetailsState,
+  initialState: { data: null } as RequestDetailsReducerState,
   reducers: {
     setRequestDetails: (state, action: PayloadAction<RequestDetails>) => {
       state.data = action.payload;

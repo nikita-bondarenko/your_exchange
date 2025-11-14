@@ -12,6 +12,7 @@ export const ALEX_PROJECT_DATA: ProjectData = {
   },
 
   page: {
+
     home: {
       title: {
         text: "ALEX <br/>CHANGE",

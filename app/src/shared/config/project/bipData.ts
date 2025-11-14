@@ -11,7 +11,8 @@ export const BIP_PROJECT_DATA: ProjectData = {
     description: "BIP39 Exchange - Telegram Mini App",
   },
 
-  page: {
+  page: { 
+
     home: {
       title: {
         image: {

@@ -1,2 +1,2 @@
-export * from './LoadingProvider'
-export * from './StoreProvider'
+export * from './loadingProvider'
+export * from './storeProvider'

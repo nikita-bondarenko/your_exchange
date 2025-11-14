@@ -1,8 +1,8 @@
-import { CurrencyPosition } from "@/entities/requestDetails/ui";
 import { calculateRate } from "@/shared/lib";
 import { createSelector } from "reselect";
-import { RootState } from "../store";
 import { selectCurrencyTypes } from "./currencyTypesSelector";
+import { RootState } from "../state";
+import { ExchangeCurrencyPosition } from "../../exchange";
 
 // Section Heading Props Selector
 export const selectSectionHeadingProps = (position: "given" | "received") =>
@@ -62,7 +62,7 @@ export const selectSectionHeadingProps = (position: "given" | "received") =>
   );
   
   // Input Value Selector
-  export const selectInputValue = (position: CurrencyPosition) =>
+  export const selectInputValue = (position: ExchangeCurrencyPosition) =>
     createSelector(
       (state: RootState) => state.exchange,
       (exchange) => {
@@ -102,7 +102,7 @@ export const selectSectionHeadingProps = (position: "given" | "received") =>
   
   // Selected Currency Selector
   
-  export const selectCurrency = (position: CurrencyPosition) =>
+  export const selectCurrency = (position: ExchangeCurrencyPosition) =>
     createSelector(
       (state: RootState) => state.exchange,
       (exchange) =>
@@ -123,7 +123,7 @@ export const selectSectionHeadingProps = (position: "given" | "received") =>
     );
   
   // Error Selectors
-  export const selectValueError = (position: CurrencyPosition) =>
+  export const selectValueError = (position: ExchangeCurrencyPosition) =>
     createSelector(
       (state: RootState) => state.exchange,
       (exchange) => {

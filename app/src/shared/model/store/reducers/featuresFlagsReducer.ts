@@ -1,12 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PROJECT_DATA } from "@/shared/config";
+import { FeaturesFlagsReducerState } from "../state";
 
-type FeaturesFlagsState = {
-  isExchangeMode: boolean;
-  isTransferAbroadMode: boolean;
-};
 
-const initialState: FeaturesFlagsState = {
+
+const initialState: FeaturesFlagsReducerState = {
   isExchangeMode: true,
   isTransferAbroadMode: false,
 };

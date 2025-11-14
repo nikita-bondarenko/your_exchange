@@ -1,7 +1,6 @@
-import {
-  setTransferAbroadAreErrorsVisible,
-  useAppDispatch,
-} from "@/shared/model/store";
+
+import { setTransferAbroadAreErrorsVisible } from "@/d__features/transferAbroad/model";
+import { useAppDispatch } from "@/shared/model/store";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

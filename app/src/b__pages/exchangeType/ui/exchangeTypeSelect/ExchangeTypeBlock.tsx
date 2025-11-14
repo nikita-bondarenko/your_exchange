@@ -1,11 +1,11 @@
 import React, { memo } from "react";
-import { CurrencyPosition } from "../../../../entities/requestDetails/ui/RequestDetails";
 import ExchangeTypeItem, { ExchangeTypeItemProps } from "./ExchangeTypeItem";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 
 export type ExchangeTypeBlockProps = {
   title: string;
   buttons: ExchangeTypeItemProps[];
-  position: CurrencyPosition
+  position: ExchangeCurrencyPosition
 };
 
 const ExchangeTypeBlock: React.FC<ExchangeTypeBlockProps> = memo(

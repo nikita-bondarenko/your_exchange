@@ -1,14 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
-import {
-  useAppDispatch,
-  useAppSelector,
-  setUserId,
-  clearAll,
-  setSelectedCurrencyBuyType,
-  setSelectedCurrencySellType,
-} from "@/shared/model/store";
+
 import { RequestResult } from "@/entities/requestResult/ui";
+import { clearAll, setSelectedCurrencySellType, setSelectedCurrencyBuyType } from "@/d__features/exchange/model";
+import { setUserId } from "@/d__features/userDataDisplay/model";
+import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 
 export default function ExchangeResultPage() {
   const dispatch = useAppDispatch();

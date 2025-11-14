@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import {BaseSelect, InputWrapper} from "@/shared/ui";
-import { City } from "@/shared/api";
 import clsx from "clsx";
+import { City } from "@/shared/model/api";
 
 export type PlaceOption = {
     name: string;

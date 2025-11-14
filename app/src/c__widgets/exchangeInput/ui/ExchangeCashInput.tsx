@@ -1,25 +1,17 @@
-import {PlaceSelect as CitySelect} from "@/entities/place/ui";
+import { setSelectedCityValue } from "@/d__features/exchange/model";
 import { CurrencyInput } from "@/entities/currency/ui";
-import { CurrencyPosition } from "@/entities/requestDetails/ui";
-import { Currency } from "@/shared/api";
-import { useExchangeInput } from "@/shared/lib/exchange";
-import { usePlaceholder } from "@/shared/lib/exchange/usePlaceholder";
-import {
-  useAppDispatch,
-  useAppSelector,
-  selectSectionHeadingProps,
-  selectCurrencyOptions,
-  selectCityOptions,
-  selectCityValue,
-  selectCityError,
-  setSelectedCityValue,
-} from "@/shared/model/store";
-import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";
-import React, { memo, useEffect, useState } from "react";
+import { useExchangeInput, usePlaceholder } from "@/shared/lib";
+import { Currency } from "@/shared/model/api";
+import { useAppDispatch, useAppSelector, selectSectionHeadingProps, selectCurrencyOptions, selectCityOptions, selectCityValue, selectCityError } from "@/shared/model/store";
+import { SectionHeading } from "@/shared/ui";
+import { memo, useEffect } from "react";
 import { MinValueNote } from "./MinValueNote";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
+import { PlaceSelect } from "@/entities/place/ui";
+
 
 export type ExchangeCashInputProps = {
-  position: CurrencyPosition;
+  position: ExchangeCurrencyPosition;
 };
 
 const ExchangeCashInput: React.FC<ExchangeCashInputProps> = memo(
@@ -81,7 +73,7 @@ const ExchangeCashInput: React.FC<ExchangeCashInputProps> = memo(
           />
         </div>
 
-        <CitySelect
+        <PlaceSelect
           value={cityValue.value?.name || ""}
           options={cityOptions || []}
           onChange={onSelectCity}

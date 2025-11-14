@@ -12,6 +12,7 @@ export const COINMETRIKA_PROJECT_DATA: ProjectData = {
   },
 
   page: {
+
     home: {
       title: {
         text: `Coinmetrika <br/>Exchange`

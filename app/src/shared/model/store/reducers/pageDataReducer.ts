@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PageData } from "../../project";
 import { PROJECT_DATA } from "@/shared/config";
+import { PageDataReducerState } from "../state";
 
-export type PageDataState = PageData
 
-const initialState: PageDataState = PROJECT_DATA.page;
+const initialState: PageDataReducerState = PROJECT_DATA.page;
 
 export const pageDataSlice = createSlice({
   name: "pageData",

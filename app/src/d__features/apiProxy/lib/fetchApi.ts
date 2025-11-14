@@ -1,6 +1,7 @@
 "use server";
 
 import { PROJECT_SERVER_DATA } from "@/shared/config/server";
+import { getToken } from "@/shared/lib/serverAction";
 
 export interface FetchError {
   message: string;
@@ -24,7 +25,8 @@ export async function fetchApi<T>({
   headers,
 }: FetchApiProps): Promise<T> {
   try {
-    // console.log(path)
+    const token = await getToken();
+
     const queryString = params
       ? Object.entries(params)
           .reduce(
@@ -36,27 +38,22 @@ export async function fetchApi<T>({
           .join("%20")
       : "/";
 
-      const url = `${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`;
+    const url = `${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`;
 
-      const fetchOptions: RequestInit = {
+    const fetchOptions: RequestInit = {
       method,
-      headers: headers || {},
+      headers: { ...headers, Authorization: `Bearer ${token}` },
     };
 
     if (body instanceof FormData) {
       fetchOptions.body = body;
-      // УДАЛИ Content-Type — браузер сам поставит boundary
       delete (fetchOptions.headers as any)["Content-Type"];
     } else if (body !== null && body !== undefined) {
       fetchOptions.body = JSON.stringify(body);
       (fetchOptions.headers as any)["Content-Type"] = "application/json";
     }
 
-  // console.log("fetchOptions.body:", fetchOptions.body);
-
     const result = await fetch(url, fetchOptions);
-
-    // console.log("Backend response:", result);
 
     const contentType = result.headers.get("Content-Type");
     if (!contentType?.includes("application/json")) {
@@ -72,11 +69,8 @@ export async function fetchApi<T>({
 
     const responseBody = await result.json();
 
-    // console.log("fetchApi result", responseBody);
-
     return responseBody;
   } catch (e) {
-    // console.log("fetchApi error", e);
     throw e;
   }
 }

@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import {BaseSelect} from "@/shared/ui";
-import { Currency } from "@/shared/api/exchange/types";
+import { Currency } from "@/shared/model/api/exchange/types";
 import { CashIcon } from "@/shared/ui";
 import clsx from "clsx";
 

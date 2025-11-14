@@ -1,11 +1,10 @@
 import {
-  setTransferTypeCategory,
-  setTransferTypeCategorySlug,
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
 import { Toggle } from "@/shared/ui";
 import { memo, useEffect, useState } from "react";
+import { setTransferTypeCategory, setTransferTypeCategorySlug } from "../../model";
 
 export const TransferTypeCategorySwitcher = memo(() => {
   const [isLegalEntity, setIsLegalEntity] = useState(true);

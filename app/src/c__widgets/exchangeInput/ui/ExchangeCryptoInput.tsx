@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useState } from "react";
-import { CurrencyPosition } from "../../../entities/requestDetails/ui/RequestDetails";
 import CurrencyInput from "../../../entities/currency/ui/CurrencyInput";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import {
@@ -19,14 +18,15 @@ import { useExchangeInput } from "@/shared/lib/exchange/useExchangeInput";
 import {
   setSelectedNetworkValue,
   setWalletAddressValue,
-} from "@/shared/model/store/reducers/exchangeReducer";
+} from "@/d__features/exchange/model/store/reducer/exchangeReducer";
 import clsx from "clsx";
-import { Currency, Network } from "@/shared/api/exchange/types";
+import { Currency, Network } from "@/shared/model/api/exchange/types";
 import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";
 import { MinValueNote } from "./MinValueNote";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 
 export type ExchangeCryptoInputProps = {
-  position: CurrencyPosition;
+  position: ExchangeCurrencyPosition;
 };
 
 const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(

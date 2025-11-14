@@ -12,7 +12,6 @@ export type PageData = {
         className: string;
       };
     };
-
     subtitle: string;
     descriptionList: {
       icon: ({ className, color }: SvgIcon) => JSX.Element;

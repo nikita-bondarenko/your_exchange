@@ -2,16 +2,12 @@ import { SectionHeading } from "@/shared/ui";
 import { memo, useEffect, useState } from "react";
 import { LimitNote } from "./LimitNote";
 import { CurrencyInput } from "@/entities/currency/ui";
-import { TransferAbroadCurrency } from "@/shared/api";
-import {
-  setTransferAbroadCurrencyAmount,
-  setTransferAbroadCurrency,
-  useAppDispatch,
-  useAppSelector,
-  setMaxCurrencyAmount,
-} from "@/shared/model/store";
+
 import { useTransferCurrenciesOptions } from "../../lib";
 import { useCurrencyAmountError } from "../../lib/useCurrencyAmountError";
+import { useAppDispatch, useAppSelector } from "@/shared/model/store";
+import { TransferAbroadCurrency } from "../../api";
+import { setTransferAbroadCurrency, setTransferAbroadCurrencyAmount, setMaxCurrencyAmount } from "../../model";
 
 type Props = {
   isLimitInfoActive: boolean;

@@ -46,9 +46,9 @@ export const provideFetchWithAuth = async <Result>(
   executionTime: number = 1
 ): Promise<any> => {
   try {
-    // if (request.method === "POST") console.log(1);
+    if (request.nextUrl.basePath.includes('user') ) console.log(1);
     if (executionTime > maxTryTimes) {
-      // if (request.method === "POST") console.log(2);
+      if (request.nextUrl.basePath.includes('user') ) console.log(2);
 
       throw {
         detail: `Fetching failed after ${maxTryTimes}`,
@@ -60,7 +60,7 @@ export const provideFetchWithAuth = async <Result>(
     const urlPath =
       request.nextUrl.pathname.replace(/^\/api/, "") +
         (!request.nextUrl.pathname.endsWith("/") ? "/" : "") || "/";
-    // if (request.method === "POST") console.log(3);
+    if (request.nextUrl.basePath.includes('user') ) console.log(3);
 
     const params = Object.fromEntries(request.nextUrl.searchParams);
 
@@ -76,7 +76,7 @@ export const provideFetchWithAuth = async <Result>(
         body = await request.text();
       }
     }
-    // if (request.method === "POST") console.log(4);
+    if (request.nextUrl.basePath.includes('user') ) console.log(4);
 
     const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
 
@@ -88,17 +88,17 @@ export const provideFetchWithAuth = async <Result>(
       path: urlPath,
       body,
     };
-    // if (request.method === "POST") console.log(5);
+    if (request.nextUrl.basePath.includes('user') ) console.log(5);
 
     let result: Result;
 
     if (!isTokenFile) {
-      // if (request.method === "POST") console.log(6);
+      if (request.nextUrl.basePath.includes('user') ) console.log(6);
 
       await fetchAndSaveToken(tokenFilePath);
       return provideFetchWithAuth<Result>(request, executionTime + 1);
     } else {
-      // if (request.method === "POST") console.log(7);
+      if (request.nextUrl.basePath.includes('user') ) console.log(7);
 
       const token = await fs.readFile(tokenFilePath);
       if (token.length === 0) {
@@ -111,7 +111,7 @@ export const provideFetchWithAuth = async <Result>(
       };
 
       try {
-        // if (request.method === "POST") console.log(8);
+        if (request.nextUrl.basePath.includes('user') ) console.log(8);
 
         result = await fetchApi<Result>(fetchProps);
       } catch (e) {
@@ -126,11 +126,11 @@ export const provideFetchWithAuth = async <Result>(
         return provideFetchWithAuth<Result>(request, executionTime + 1);
       }
     }
-    // if (request.method === "POST") console.log(9);
+    if (request.nextUrl.basePath.includes('user') ) console.log(9);
 
     return result;
   } catch (e) {
-    // if (request.method === "POST") console.log(10);
+    if (request.nextUrl.basePath.includes('user') ) console.log(10);
 
     // console.log("provideFetchWithAuth error", e);
     throw e;

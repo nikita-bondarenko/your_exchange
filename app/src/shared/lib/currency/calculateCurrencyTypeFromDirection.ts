@@ -1,4 +1,4 @@
-import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
+import { ExchangeCurrencyType } from "@/shared/model/exchange";
 
 export type Direction = "COIN - BANK" | "COIN - CASH" | "BANK - COIN" | "CASH - COIN";
 type Position = "given" | "received";
@@ -6,7 +6,7 @@ type Position = "given" | "received";
 export const calculateCurrencyTypeFromDirection = (
   direction: Direction,
   position: Position
-): CurrencyType => {
+): ExchangeCurrencyType => {
   // Для позиции "given" (отдаю)
   if (position === "given") {
     if (direction?.startsWith("COIN")) {

@@ -1,3 +1,4 @@
+"use client"
 import { createRef, useEffect, useState } from "react";
 import { DownloadIcon } from "../icon";
 import { FilePreview } from "./FilePreview";

@@ -1,17 +1,12 @@
-import {
-  useCreateInvoiceOrderMutation,
-  useCreateFTAOrderMutation,
-  useCreateChinesePlatformOrderMutation,
-  useCreateAbroadCardTransferOrderMutation,
-  OrderResponse,
-} from "@/shared/api";
+
 import {
   useAppSelector,
   abroadTransferDetailsSelector,
   useAppDispatch,
-  setOrderId,
 } from "@/shared/model/store";
 import { useRouter } from "next/navigation";
+import { useCreateInvoiceOrderMutation, useCreateFTAOrderMutation, useCreateChinesePlatformOrderMutation, useCreateAbroadCardTransferOrderMutation, OrderResponse } from "../api";
+import { setOrderId } from "../model";
 
 export const useTransferInputDataSubmit = (transferType: string | null) => {
   const router = useRouter();

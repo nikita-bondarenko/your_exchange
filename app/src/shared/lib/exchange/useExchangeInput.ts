@@ -9,13 +9,13 @@ import {
   selectCurrencyTypes,
   selectCurrency
 } from "@/shared/model/store/selectors";
-import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
-import { setActiveInputType, setCurrencyBuyAmountValue, setCurrencySellAmountValue, setSelectedCurrencyBuy, setSelectedCurrencySell } from "@/shared/model/store/reducers/exchangeReducer";
-import { Currency } from "@/shared/api/exchange/types";
+import { setActiveInputType, setCurrencyBuyAmountValue, setCurrencySellAmountValue, setSelectedCurrencyBuy, setSelectedCurrencySell } from "@/d__features/exchange/model/store/reducer/exchangeReducer";
+import { Currency } from "@/shared/model/api/exchange/types";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 
 export type ExchangeInputType = "BANK" | "CASH" | "COIN";
 
-export const useExchangeInput = (position: CurrencyPosition) => {
+export const useExchangeInput = (position: ExchangeCurrencyPosition) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   
   const dispatch = useAppDispatch();

@@ -10,4 +10,5 @@ export type ProjectData = {
         description: string;
     };
     page: PageData;
+    isTransferAbroadFeature?: boolean
 }

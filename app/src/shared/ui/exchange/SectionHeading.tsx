@@ -4,6 +4,8 @@ import React, { memo, ReactNode, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import WavesAnimation from "./WavesAnimation";
 import { AlertIcon, QuestionIcon } from "../icon";
+import type { SectionHeading as SectionHeadingProps } from "@/shared/model/sectionHeading";
+
 export type HeadingRate = {
   from: {
     value: number;
@@ -15,14 +17,6 @@ export type HeadingRate = {
   };
 };
 
-export type SectionHeadingProps = {
-  title: string;
-  rate?: HeadingRate | undefined | null;
-  minValue?: number | undefined | null;
-  error?: boolean;
-  note?: ReactNode;
-  conditionText?: string;
-};
 
 export const SectionHeading: React.FC<SectionHeadingProps> = memo(
   ({ title, rate, minValue, error, note, conditionText = "минимально" }) => {

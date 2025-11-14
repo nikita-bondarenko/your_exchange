@@ -1,22 +1,7 @@
-import {
-  setAbroadCompanyRequisites,
-  setBank,
-  setCardNumber,
-  setCountryName,
-  setFile1,
-  setFile1PreviewUrl,
-  setFile2,
-  setFile2PreviewUrl,
-  setMaxCurrencyAmount,
-  setPlatform,
-  setRussianCompanyRequisites,
-  setTaskDescription,
-  setTransferAbroadAreErrorsVisible,
-  setTransferAbroadCurrency,
-  setTransferAbroadCurrencyAmount,
-  useAppDispatch,
-} from "@/shared/model/store";
+
+import { useAppDispatch } from "@/shared/model/store";
 import { useEffect } from "react";
+import { setTransferAbroadAreErrorsVisible, setMaxCurrencyAmount, setAbroadCompanyRequisites, setRussianCompanyRequisites, setFile1, setFile1PreviewUrl, setFile2, setFile2PreviewUrl, setTaskDescription, setTransferAbroadCurrencyAmount, setCountryName, setBank, setCardNumber, setPlatform } from "../model";
 
 export const useNullifyTransferAbroadInputs = () => {
   const dispatch = useAppDispatch();

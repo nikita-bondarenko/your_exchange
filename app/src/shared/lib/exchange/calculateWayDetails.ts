@@ -1,4 +1,4 @@
-import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
+import { ExchangeCurrencyType } from "@/shared/model/exchange";
 import { Direction } from "../currency/calculateCurrencyTypeFromDirection";
 
 type WayDetails = {
@@ -9,7 +9,7 @@ type WayDetails = {
 type WayDetailsInput = {
   direction: Direction;
   position: "given" | "received";
-  type: CurrencyType;
+  type: ExchangeCurrencyType;
   address?: string;
   cardNumber?: string;
   phoneNumber?: string;

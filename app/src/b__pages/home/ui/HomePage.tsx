@@ -14,6 +14,7 @@ import { useAdditionalSectionList } from "../lib";
 import RequestStatus from "@/entities/requestStatus/ui";
 import { ModeSwitcher } from "@/d__features/modeSwitcher/ui";
 import clsx from "clsx";
+import { PROJECT_DATA } from "@/shared/config";
 
 export default function HomePage() {
   const { callSupport } = useCallSupport();
@@ -93,7 +94,7 @@ export default function HomePage() {
   return (
     <>
       <div className="container h-full flex flex-col">
-        <ModeSwitcher></ModeSwitcher>
+        {PROJECT_DATA.isTransferAbroadFeature && <ModeSwitcher/>}
         <div className="h-13"></div>
         <div className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col background-first-screen relative overflow-hidden">
           {homePageData.firstScreenBackgroundImage &&
@@ -179,7 +180,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 gap-6 z-10">
             <Button onClick={handleStartButton} type={"main-screen-left"}>
-              {isExchangeMode ? 'Начать обмен' : 'Начать платеж'}
+              {isExchangeMode ? "Начать обмен" : "Начать платеж"}
             </Button>
             <Button onClick={callSupport} type={"main-screen-right"}>
               Поддержка

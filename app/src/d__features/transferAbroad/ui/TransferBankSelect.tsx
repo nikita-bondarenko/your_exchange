@@ -1,9 +1,10 @@
 import { BankSelect } from "@/entities/bank/ui";
 import { memo, useEffect } from "react";
 import { useTransferDetailsOptions } from "../lib/useTransferDetailsOptions";
-import { setBank, useAppDispatch, useAppSelector } from "@/shared/model/store";
-import { CurrencySubOption } from "@/shared/api";
 import { useBankInputError } from "../lib/useBankInputError";
+import { useAppSelector, useAppDispatch } from "@/shared/model/store";
+import { CurrencySubOption } from "../api";
+import { setBank } from "../model";
 
 export const TransferBankSelect = memo(() => {
   const { banks } = useTransferDetailsOptions();

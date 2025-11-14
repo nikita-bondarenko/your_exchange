@@ -19,6 +19,7 @@ export const MAX_SECRET_PROJECT_DATA: ProjectData = {
   },
 
   page: {
+
     home: {
       title: {
         text: "Секретный Обменник",

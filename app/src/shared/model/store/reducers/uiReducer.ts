@@ -2,18 +2,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProjectName } from "../../project";
 import { PROJECT_NAME } from "@/shared/config";
+import { UiReducerState } from "../state";
 
-export type uiState = {
-  projectName: ProjectName;
-  pageName: string | null;
-  isLoading: boolean;
-  exchangeId: number | null;
-  isAppReady: boolean;
-  isFirstPageLoading: boolean;
-  hasRateNoteOpenedOnce: boolean;
-};
 
-const initialState: uiState = {
+
+const initialState: UiReducerState = {
   projectName: PROJECT_NAME,
   pageName: "",
   isLoading: true,

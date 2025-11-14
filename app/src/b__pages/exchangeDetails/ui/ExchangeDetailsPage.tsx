@@ -2,9 +2,11 @@
 
 import ExchangeLayout from "@/c__widgets/processLayout/ui";
 import PromoModal from "@/c__widgets/promocodeModal/ui";
-import { RequestDetails } from "@/entities/requestDetails/ui";
-import { useExchangesCreateMutation, useCheckPromocodeMutation } from "@/shared/api";
-import { useAppDispatch, useAppSelector, selectExchangeDetails, setPageName, selectExchangeCreateData, setExchangeId, setPromocode, setIsPromocodeValid } from "@/shared/model/store";
+import { useExchangesCreateMutation, useCheckPromocodeMutation } from "@/d__features/exchange/api";
+import { setPromocode, setIsPromocodeValid } from "@/d__features/exchange/model";
+import { ExchangeRequestDetails } from "@/d__features/exchange/ui/exchangeRequestDetails";
+import { useAppDispatch, useAppSelector, selectExchangeDetails, setPageName, selectExchangeCreateData, setExchangeId } from "@/shared/model/store";
+
 import { SignIcon } from "@/shared/ui";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
@@ -67,7 +69,7 @@ const timeoutId = useRef<NodeJS.Timeout>(null)
     <ExchangeLayout onMainButtonClick={onSubmit} buttonText="Оставить заявку">
       <div className="flex flex-col gap-26">
         {details.map((item, idx) => (
-          <RequestDetails {...item} key={idx} />
+          <ExchangeRequestDetails {...item} key={idx} />
         ))}
         <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-15 flex items-center justify-center " >
           {

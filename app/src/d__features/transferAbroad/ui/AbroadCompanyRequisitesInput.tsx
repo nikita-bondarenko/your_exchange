@@ -1,10 +1,11 @@
 import {
-  setAbroadCompanyRequisites,
+
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
 import { RequisitesTextInput } from "@/shared/ui";
 import { memo, useState } from "react";
+import { setAbroadCompanyRequisites } from "../model";
 
 const title = "Реквизиты компании за рубежом";
 const placeholder = `Shenzhen Electronics Co., Ltd

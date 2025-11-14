@@ -13,6 +13,7 @@ export const SUNSCRYPT_PROJECT_DATA: ProjectData = {
   },
 
   page: {
+
     home: {
       title: {
         text: "Sunscrypt Exchange"

@@ -2,10 +2,9 @@ import { validateAmount } from "@/shared/lib";
 import {
   useAppSelector,
   useAppDispatch,
-  setCurrencyAmountInputError,
-  setTaskInputError,
 } from "@/shared/model/store";
 import { useEffect } from "react";
+import { setTaskInputError } from "../model";
 
 export const useTaskInputError = () => {
   const taskDescription = useAppSelector(

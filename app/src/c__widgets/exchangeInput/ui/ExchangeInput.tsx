@@ -1,12 +1,12 @@
-import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
 import React, { memo } from "react";
 import ExchangeCardInput from "./ExchangeCardInput";
 import ExchangeCashInput from "./ExchangeCashInput";
 import ExchangeCryptoInput from "./ExchangeCryptoInput";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 
 
 export type ExchangeInputProps = {
-  position: CurrencyPosition;
+  position: ExchangeCurrencyPosition;
   type: "BANK" | "CASH" | "COIN" | null;
 };
 

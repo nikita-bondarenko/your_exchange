@@ -1,12 +1,12 @@
 import { PlaceSelect } from "@/entities/place/ui";
 import {
-  setCountryName,
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
 import { memo } from "react";
 import { useTransferDetailsOptions } from "../lib/useTransferDetailsOptions";
 import { useCountryInputError } from "../lib/useCountryInputError";
+import { setCountryName } from "../model";
 
 export const TransferCountryInput = memo(() => {
   const dispatch = useAppDispatch();

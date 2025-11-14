@@ -11,6 +11,7 @@ export const TEST_PROJECT_DATA: ProjectData = {
     title: "Test Change",
     description: "Test Change - Telegram Mini App",
   },
+  isTransferAbroadFeature: true,
 
   page: {
     home: {

@@ -9,13 +9,13 @@ import { calculateWayDetails } from "@/shared/lib/exchange/calculateWayDetails";
 import { valueMask } from "@/shared/lib/string/valueMask";
 import { roundTo8 } from "@/shared/lib/number/roundTo8";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
-import { RootState } from "@/shared/model/store/store";
 import { setIsLoading, setPageName } from "@/shared/model/store/reducers/uiReducer";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
-import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
-import { RequestCurrency } from "@/shared/api/exchange/types";
-import { RequestDetails, RequestDetailsProps } from "@/entities/requestDetails/ui";
+import { RequestCurrency } from "@/shared/model/api/exchange/types";
+import { RootState } from "@/shared/model/store";
+import { ExchangeCurrencyType } from "@/shared/model/exchange";
+import { ExchangeRequestDetails, ExchangeRequestDetailsProps } from "@/d__features/exchange/ui/exchangeRequestDetails";
 
 
 const Page: React.FC = () => {
@@ -30,7 +30,7 @@ const Page: React.FC = () => {
     }
   }, [request]);
 
-  const requestDetails: RequestDetailsProps[] = useMemo(() => {
+  const requestDetails: ExchangeRequestDetailsProps[] = useMemo(() => {
     if (!request) return [];
 
     const currencySellType = calculateCurrencyTypeFromDirection(
@@ -59,7 +59,7 @@ const Page: React.FC = () => {
     });
 
     const calculateTypeLabel = (
-      currencyType: CurrencyType,
+      currencyType: ExchangeCurrencyType,
       currency?: RequestCurrency
     ) => {
       return currencyType === "CASH"
@@ -118,7 +118,7 @@ const Page: React.FC = () => {
   return (
     <div className="container mt-10 flex flex-col gap-26">
       {requestDetails.map((request, index) => (
-        <RequestDetails {...request} key={index}></RequestDetails>
+        <ExchangeRequestDetails {...request} key={index}/>
       ))}
     </div>
   );

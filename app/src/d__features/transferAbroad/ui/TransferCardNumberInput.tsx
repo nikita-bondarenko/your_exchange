@@ -4,13 +4,13 @@ import {
   preventKeysOnCardNumberInput,
 } from "@/shared/lib";
 import {
-  setCardNumber,
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
 import { InputWrapper, Input } from "@/shared/ui";
 import { memo } from "react";
 import { useCardNumberInputError } from "../lib/useCardNumberInputError";
+import { setCardNumber } from "../model";
 
 export const TransferCardNumberInput = memo(() => {
   const cardNumber = useAppSelector((state) => state.transferAbroad.cardNumber);

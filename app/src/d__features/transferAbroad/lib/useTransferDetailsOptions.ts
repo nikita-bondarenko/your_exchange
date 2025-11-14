@@ -1,6 +1,7 @@
-import { CurrencySubOption, useGetTransferDetailsMutation } from "@/shared/api";
-import { setPlatform, useAppSelector } from "@/shared/model/store";
+import { CurrencySubOption } from "@/shared/model/api";
+import { useAppSelector } from "@/shared/model/store";
 import { useState, useEffect } from "react";
+import { useGetTransferDetailsMutation } from "../api";
 
 export const useTransferDetailsOptions = () => {
   const [countries, setCountries] = useState<CurrencySubOption[]>([]);

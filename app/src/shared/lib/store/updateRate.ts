@@ -1,5 +1,8 @@
-import { DirectionType, exchangeApi } from "@/shared/api";
-import { AppDispatch, RootState, setCurrencyBuyAmountValue, setCurrencySellAmountValue, setExchangeRate } from "@/shared/model/store";
+
+import { exchangeApi } from "@/d__features/exchange/api";
+import { setExchangeRate, setCurrencyBuyAmountValue, setCurrencySellAmountValue } from "@/d__features/exchange/model";
+import { DirectionType } from "@/shared/model/api";
+import { AppDispatch, RootState } from "@/shared/model/store";
 import { calculateInputAmountBasedOnAnotherOne } from "../exchange/calculateInputAmountBasedOnAnotherOne";
 
   export const updateRate = async (listenerApi: any) => {

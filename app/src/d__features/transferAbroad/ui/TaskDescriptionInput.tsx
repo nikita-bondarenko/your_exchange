@@ -2,8 +2,9 @@ import { InputWrapper } from "@/shared/ui";
 import {SectionHeading} from "@/shared/ui/exchange/SectionHeading";
 import { BaseTextarea } from "@/shared/ui";
 import { memo } from "react";
-import { setTaskDescription, useAppDispatch, useAppSelector } from "@/shared/model/store";
 import { useTaskInputError } from "../lib/useTaskInputError";
+import { useAppSelector, useAppDispatch } from "@/shared/model/store";
+import { setTaskDescription } from "../model";
 
 export const TaskDescriptionInput = memo(() => {
 

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../../shared/ui/modal/BaseModal";
 import InputField from "../../../shared/ui/form/InputField";
-import {  useUserUpdateCreateMutation } from "@/shared/api";
-import { setMailRequired, setUserEmail, useAppDispatch, useAppSelector } from "@/shared/model/store";
+
 import { validateEmail } from "@/shared/lib/validation";
+import { useUserUpdateCreateMutation } from "@/d__features/userDataDisplay/api";
+import { setMailRequired, setUserEmail } from "@/d__features/userDataDisplay/model";
+import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 
 
 export default function EmailModal () {

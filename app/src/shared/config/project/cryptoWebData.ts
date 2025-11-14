@@ -11,6 +11,7 @@ export const CRYPTO_WEB_PROJECT_DATA: ProjectData = {
   },
 
   page: {
+
     home: {
       title: {
         text: `Сrypto Web Exchange`

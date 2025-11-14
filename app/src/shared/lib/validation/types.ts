@@ -1,4 +1,4 @@
-import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 import { ValidateBankProps } from "./validateBank";
 import { ValidateCardNumberProps } from "./validateCardNumber";
 import { ValidateCityProps } from "./validateCity";
@@ -13,7 +13,7 @@ export type ValidationOptions = {
   required?: boolean | null;
   pattern?: RegExp | null;
   customValidator?: (value: any) => boolean;
-  position?: CurrencyPosition;
+  position?: ExchangeCurrencyPosition;
 };
 
 export type ValidationContext = {

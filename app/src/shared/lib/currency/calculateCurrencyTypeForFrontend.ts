@@ -1,7 +1,7 @@
-import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
+import { ExchangeCurrencyType } from "@/shared/model/exchange";
 import { ServerCurrencyType } from "./calculateCurrencyTypeForFetching";
 
-export const calculateCurrencyTypeForFrontend = (currencyType: ServerCurrencyType): CurrencyType => {
+export const calculateCurrencyTypeForFrontend = (currencyType: ServerCurrencyType): ExchangeCurrencyType => {
     switch (currencyType) {
         case "COIN":
             return "COIN";

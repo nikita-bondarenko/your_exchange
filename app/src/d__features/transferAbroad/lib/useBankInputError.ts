@@ -2,10 +2,9 @@ import { validateBank } from "@/shared/lib";
 import {
   useAppSelector,
   useAppDispatch,
-  setCountryInputError,
-  setBankInputError,
 } from "@/shared/model/store";
 import { useEffect } from "react";
+import { setBankInputError } from "../model";
 
 export const useBankInputError = () => {
   const bank = useAppSelector((state) => state.transferAbroad.bank);

@@ -1,15 +1,9 @@
-import { RootState } from "../store";
-import { RequestDetailsProps } from "@/entities/requestDetails/ui/RequestDetails";
-import { calculateRate } from "@/shared/lib/exchange/calculateRate";
-import { valueMask } from "@/shared/lib/string/valueMask";
+import { calculateRate, valueMask, roundTo8 } from "@/shared/lib";
 import { createSelector } from "@reduxjs/toolkit";
-
-import {
-
-  ExchangesCreateApiArg,
-} from "../../../api/exchange/types";
-import { roundTo8 } from "@/shared/lib/number/roundTo8";
+import { ExchangesCreateApiArg } from "../../api/exchange/types";
 import { selectBankValue, selectNetValue } from "./exchangeSelector";
+import { RootState } from "../state";
+import { ExchangeDetails } from "../../exchange/exchangeDetails";
 
 export const selectExchangeDetails = createSelector(
   (state: RootState) => state.exchange.selectedCurrencySellType,
@@ -41,9 +35,9 @@ export const selectExchangeDetails = createSelector(
     isPhoneNumberUsed,
     selectedCity,
     selectedNetwork
-  ): RequestDetailsProps[] => {
+  ): ExchangeDetails[] => {
     // "Я отдаю"
-    let give: RequestDetailsProps | null = null;
+    let give: ExchangeDetails | null = null;
     if (selectedCurrencySellType === "COIN") {
       give = {
         title: "Я отдаю",
@@ -53,8 +47,7 @@ export const selectExchangeDetails = createSelector(
           currencyGet: selectedCurrencyBuy?.name || "",
         }),
         currency: {
-          icon:
-          selectedCurrencySell?.icon || '' ,
+          icon: selectedCurrencySell?.icon || "",
           name: selectedCurrencySell?.name || "",
           type: "COIN",
           typeLabel: selectedNetwork?.name || "",
@@ -65,10 +58,14 @@ export const selectExchangeDetails = createSelector(
         },
       };
     } else if (selectedCurrencySellType === "BANK") {
-      const wayDetails = isPhoneNumberUsed 
-        ? (phoneNumber?.value ? { title: "Номер телефона", value: phoneNumber.value } : undefined)
-        : (cardNumber?.value ? { title: "Карта отправления", value: cardNumber.value } : undefined);
-        
+      const wayDetails = isPhoneNumberUsed
+        ? phoneNumber?.value
+          ? { title: "Номер телефона", value: phoneNumber.value }
+          : undefined
+        : cardNumber?.value
+        ? { title: "Карта отправления", value: cardNumber.value }
+        : undefined;
+
       give = {
         title: "Я отдаю",
         rate: calculateRate({
@@ -113,7 +110,7 @@ export const selectExchangeDetails = createSelector(
     }
 
     // "Я получаю"
-    let receive: RequestDetailsProps | null = null;
+    let receive: ExchangeDetails | null = null;
     if (selectedCurrencyBuyType === "COIN") {
       receive = {
         title: "Я получаю",
@@ -132,10 +129,14 @@ export const selectExchangeDetails = createSelector(
         },
       };
     } else if (selectedCurrencyBuyType === "BANK") {
-      const wayDetails = isPhoneNumberUsed 
-        ? (phoneNumber?.value ? { title: "Номер телефона", value: phoneNumber.value } : undefined)
-        : (cardNumber?.value ? { title: "Карта получения", value: cardNumber.value } : undefined);
-        
+      const wayDetails = isPhoneNumberUsed
+        ? phoneNumber?.value
+          ? { title: "Номер телефона", value: phoneNumber.value }
+          : undefined
+        : cardNumber?.value
+        ? { title: "Карта получения", value: cardNumber.value }
+        : undefined;
+
       receive = {
         title: "Я получаю",
         currency: {
@@ -169,7 +170,7 @@ export const selectExchangeDetails = createSelector(
       };
     }
 
-    return [give, receive].filter(Boolean) as RequestDetailsProps[];
+    return [give, receive].filter(Boolean) as ExchangeDetails[];
   }
 );
 
@@ -208,32 +209,37 @@ export const selectExchangeCreateData = createSelector(
       direction_id: exchangeRateId || -1,
       currency_give_amount: currencySellAmount.value || -1,
       currency_get_amount: currencyBuyAmount.value || -1,
-      course_title: course_title || ""
+      course_title: course_title || "",
     };
 
     if (isPromocodeValid) {
-
-      baseData = {...baseData, promo_code: promocode}
+      baseData = { ...baseData, promo_code: promocode };
     }
 
     // Determine what to send based on direction type
-    if (selectedCurrencySellType === "BANK" && selectedCurrencyBuyType === "COIN") {
+    if (
+      selectedCurrencySellType === "BANK" &&
+      selectedCurrencyBuyType === "COIN"
+    ) {
       // bank → coin: send wallet address for receiving crypto
       return {
         ...baseData,
-        wallet: walletAddress.value || ""
+        wallet: walletAddress.value || "",
       };
-    } else if (selectedCurrencySellType === "COIN" && selectedCurrencyBuyType === "BANK") {
+    } else if (
+      selectedCurrencySellType === "COIN" &&
+      selectedCurrencyBuyType === "BANK"
+    ) {
       // coin → bank: send card/phone for receiving fiat
-     if (isPhoneNumberUsed) {
+      if (isPhoneNumberUsed) {
         return {
           ...baseData,
-          phone: phoneNumber?.value || ""
+          phone: phoneNumber?.value || "",
         };
       } else {
         return {
           ...baseData,
-          card: cardNumber?.value || ""
+          card: cardNumber?.value || "",
         };
       }
     }
@@ -242,4 +248,3 @@ export const selectExchangeCreateData = createSelector(
     return baseData;
   }
 );
-

@@ -13,6 +13,7 @@ export const TOP_PROJECT_DATA: ProjectData = {
   },
 
   page: {
+
     home: {
       title: {
         text: "Top Exchange",

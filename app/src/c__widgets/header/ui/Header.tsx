@@ -3,15 +3,14 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 import {
-  setSelectedCurrencyBuyType,
-  setSelectedCurrencySellType,
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
 import { BACK_BUTTON_ROUTES } from "@/shared/config";
-import { ProgressBar } from "../../../d__features/progressBar/ui/ProgressBar";
 import { Menu } from "./Menu";
 import { CrossIcon, HeaderArrowIcon } from "@/shared/ui";
+import { setSelectedCurrencySellType, setSelectedCurrencyBuyType } from "@/d__features/exchange/model";
+import { ProgressBar } from "@/d__features/progressBar/ui";
 
 export function Header() {
   const pathname = usePathname();

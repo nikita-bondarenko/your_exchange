@@ -12,6 +12,7 @@ export const CRYPTORO_PROJECT_DATA: ProjectData = {
   },
 
   page: {
+
     home: {
       title: {
         text: `CrypToro <br/>Exchange`

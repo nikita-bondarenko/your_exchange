@@ -6,3 +6,4 @@ export * from './routing';
 export * from './eventParsing'
 export * from './validation'
 export * from './sort'
+export * from './number'

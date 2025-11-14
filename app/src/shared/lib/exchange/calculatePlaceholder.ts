@@ -1,13 +1,12 @@
-import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
+import { ExchangeCurrencyPosition, ExchangeCurrencyType } from "@/shared/model/exchange";
 import { HeadingRate } from "@/shared/ui";
 
-import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 
 type calculatePlaceholderProps = {
-  position: CurrencyPosition;
+  position: ExchangeCurrencyPosition;
   minValue: number;
   rate: HeadingRate | null;
-  currencyType: CurrencyType
+  currencyType: ExchangeCurrencyType
 };
 export const calculatePlaceholder = ({
   position,

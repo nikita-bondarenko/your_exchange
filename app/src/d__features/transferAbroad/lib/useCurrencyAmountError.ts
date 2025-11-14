@@ -1,10 +1,10 @@
 import { validateAmount } from "@/shared/lib";
 import {
-  setCurrencyAmountInputError,
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
 import { useEffect, useMemo, useState } from "react";
+import { setCurrencyAmountInputError } from "../model";
 
 export const useCurrencyAmountError = () => {
   const currencyAmount = useAppSelector((state) => state.transferAbroad.amount);

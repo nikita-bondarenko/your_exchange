@@ -2,10 +2,10 @@ import { validateCardNumber } from "@/shared/lib";
 import {
   useAppSelector,
   useAppDispatch,
-  setCountryInputError,
-  setCardNumberInputError,
+
 } from "@/shared/model/store";
 import { useEffect } from "react";
+import { setCardNumberInputError } from "../model";
 
 export const useCardNumberInputError = () => {
   const cardNumber = useAppSelector((state) => state.transferAbroad.cardNumber);

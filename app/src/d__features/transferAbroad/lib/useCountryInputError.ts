@@ -1,9 +1,9 @@
 import {
   useAppSelector,
   useAppDispatch,
-  setCountryInputError,
 } from "@/shared/model/store";
 import { useEffect } from "react";
+import { setCountryInputError } from "../model";
 
 export const useCountryInputError = () => {
   const countryName = useAppSelector(

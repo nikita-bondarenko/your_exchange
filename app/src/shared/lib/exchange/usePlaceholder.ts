@@ -1,13 +1,12 @@
 "use client"
-import { CurrencyPosition } from "@/entities/requestDetails/ui/RequestDetails";
 import { calculatePlaceholder } from "@/shared/lib/exchange/calculatePlaceholder";
 import { valueMask } from "@/shared/lib/string/valueMask";
+import { ExchangeCurrencyPosition, ExchangeCurrencyType } from "@/shared/model/exchange";
 import { useAppSelector } from "@/shared/model/store/hooks";
 import { selectRate } from "@/shared/model/store/selectors";
-import { CurrencyType } from "@/shared/model/store/reducers/exchangeReducer";
 import { useMemo } from "react";
 
-export const usePlaceholder = (position: CurrencyPosition, currencyType:CurrencyType) => {
+export const usePlaceholder = (position: ExchangeCurrencyPosition, currencyType:ExchangeCurrencyType) => {
   const minValue = useAppSelector((state) => state.exchange.exchangeRate?.currency_give_min_value);
   const rate = useAppSelector(selectRate());
   const placeholder = useMemo(() => {

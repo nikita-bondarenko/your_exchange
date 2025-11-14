@@ -1,10 +1,10 @@
 import {
   useAppSelector,
   useAppDispatch,
-  setRussianCompanyRequisites,
 } from "@/shared/model/store";
 import { RequisitesTextInput } from "@/shared/ui";
 import { memo } from "react";
+import { setRussianCompanyRequisites } from "../model";
 
 const title = "Реквизиты компании в РФ";
 const placeholder = `ООО «ТехноИмпорт»

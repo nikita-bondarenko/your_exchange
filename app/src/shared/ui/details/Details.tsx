@@ -1,7 +1,8 @@
 import clsx from "clsx";
-import { SectionHeading, SectionHeadingProps } from "../exchange";
+import type { SectionHeading as SectionHeadingProps } from "@/shared/model/sectionHeading";
 import { ReactNode } from "react";
 import { SvgFromUrl } from "../icon";
+import { SectionHeading } from "../exchange";
 
 type Props = SectionHeadingProps & {
   currency: {
@@ -23,7 +24,7 @@ export const Details = ({
 }: Props) => {
   return (
     <div className="">
-      <SectionHeading title={title} rate={rate}></SectionHeading>
+      <SectionHeading title={title} rate={rate}/>
       <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-24 flex flex-col gap-20">
         <div>
           <div className="mb-15 flex  items-center justify-between">

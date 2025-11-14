@@ -1,5 +1,5 @@
-import { AppDispatch } from "../../model/store/store";
-import { RootState } from "../../model/store/store";
+
+import { AppDispatch, RootState } from "@/shared/model/store";
 import {
   setSelectedBankError,
   setCardNumberError,
@@ -9,7 +9,7 @@ import {
   setCurrencyBuyAmountError,
   setWalletAddressError,
   setAreErrors,
-} from "../../model/store/reducers/exchangeReducer";
+} from "../../../d__features/exchange/model/store/reducer/exchangeReducer";
 import { validateExchangeInput } from "./validateExchangeInput";
 
 export const validateAllFields = (

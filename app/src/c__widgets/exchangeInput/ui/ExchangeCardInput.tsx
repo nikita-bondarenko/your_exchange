@@ -1,7 +1,5 @@
 import { BankSelect, BankOption } from "@/entities/bank/ui";
 import { CurrencyInput } from "@/entities/currency/ui";
-import { CurrencyPosition } from "@/entities/requestDetails/ui";
-import { Currency } from "@/shared/api";
 import {
   useExchangeInput,
   usePlaceholder,
@@ -24,17 +22,17 @@ import {
   selectBankError,
   selectCardNumberError,
   selectPhoneNumberError,
-  setCardNumberValue,
-  setPhoneNumberValue,
-  setSelectedBankValue,
 } from "@/shared/model/store";
 import { InputWrapper, Input } from "@/shared/ui";
 import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";
 import React, { memo, useCallback, useEffect } from "react";
 import { MinValueNote } from "./MinValueNote";
+import { setCardNumberValue, setPhoneNumberValue, setSelectedBankValue } from "@/d__features/exchange/model";
+import { Currency } from "@/shared/model/api";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 
 export type ExchangeCardInputProps = {
-  position: CurrencyPosition;
+  position: ExchangeCurrencyPosition;
 };
 
 const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(

@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { RootState } from "../store";
+import { RootState } from "../state";
 
 export const abroadTransferDetailsSelector = createSelector(
   (state: RootState) => state.transferAbroad.selectedTranserTypeOptionId,

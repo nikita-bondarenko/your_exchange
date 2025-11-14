@@ -2,16 +2,6 @@
 
 import {Button} from "@/shared/ui/button";
 import { Notification, InputField } from "@/shared/ui/form";
-import {
-  useUserUpdateCreateMutation,
-  UserUpdateCreateApiArg,
-} from "@/shared/api";
-import {
-  useAppDispatch,
-  useAppSelector,
-  setPageName,
-  updateUserProfileData,
-} from "@/shared/model/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
@@ -19,6 +9,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { formValidationSchema } from "@/shared/lib/validation";
 import RequestStoryItem from "@/entities/shortRequestDetails/ui";
 import { SignIcon } from "@/shared/ui";
+import { useUserUpdateCreateMutation } from "@/d__features/userDataDisplay/api";
+import { updateUserProfileData } from "@/d__features/userDataDisplay/model";
+import { UserUpdateCreateApiArg } from "@/shared/model/api";
+import { useAppDispatch, setPageName, useAppSelector } from "@/shared/model/store";
 
 const headingClassNames =
   "font-medium text-16 leading-normal mb-20 text-[var(--text-main)]";
