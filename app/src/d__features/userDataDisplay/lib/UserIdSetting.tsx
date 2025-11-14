@@ -1,50 +1,121 @@
 "use client";
-import { startTransition, useActionState, useEffect } from "react";
+import { startTransition, useEffect, useState } from "react";
 import { setIsAppReady, useAppDispatch } from "@/shared/model/store";
-import { TEST_USER_ID } from "@/shared/config";
-import { setUserData, setUserId } from "@/d__features/userDataDisplay/model";
+import { setUserId, setUserData } from "@/d__features/userDataDisplay/model";
 import { getUserDataAction } from "../api/actions/getUserDataAction";
+import { TEST_USER_ID } from "@/shared/config";
 
 export function UserIdSetting() {
   const dispatch = useAppDispatch();
+  const [scriptLoaded, setScriptLoaded] = useState(false);
 
   useEffect(() => {
+    // Если скрипт уже есть — просто отмечаем
+    if (window.Telegram?.WebApp) {
+      setScriptLoaded(true);
+      return;
+    }
+
     const script = document.createElement("script");
     script.src = "https://telegram.org/js/telegram-web-app.js";
     script.async = true;
-    script.onload = () => {
-      if (window.Telegram?.WebApp) {
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
-        dispatch(setIsAppReady(true));
 
-        let userId: number | null = null;
-        if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
-          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-        }
-        if (process.env.NODE_ENV === "development") {
-          userId = TEST_USER_ID;
-        }
-        if (userId) {
-          fetch(`/api/auth/set-protection`).then(() => {
-            dispatch(setUserId(userId));
-            startTransition(() => {
-              getUserDataAction({ userId })
-                .then((result) => {
-                  if (result) dispatch(setUserData(result));
-                })
-                .catch(console.error);
-            });
-          });
-        }
-      }
+    script.onload = () => {
+      setScriptLoaded(true);
     };
+
+    script.onerror = () => {
+      console.error("Failed to load Telegram WebApp script");
+    };
+
     document.head.appendChild(script);
 
     return () => {
-      document.head.removeChild(script);
+      // Не удаляем скрипт при размонтировании — он нужен глобально
+      // document.head.removeChild(script);
     };
   }, []);
+
+  useEffect(() => {
+    if (!scriptLoaded) return;
+
+    const tg = window.Telegram?.WebApp;
+    if (!tg) {
+      console.warn("Telegram WebApp not available");
+      return;
+    }
+
+    // Важно: сначала вызываем ready(), потом expand()
+    tg.ready();
+    tg.expand();
+
+    dispatch(setIsAppReady(true));
+
+    // Даем Telegram время подгрузить initData
+    const initWithDelay = () => {
+      setTimeout(() => {
+        let userId: number | null = null;
+
+        // ВАЖНО: в продакшене initDataUnsafe может быть пустым сразу после ready()
+        // Нужно ждать события onEvent('viewportChanged') или просто retry
+        if (tg.initDataUnsafe?.user?.id) {
+          userId = tg.initDataUnsafe.user.id;
+        }
+
+        // Dev-режим
+        if (process.env.NODE_ENV === "development" && !userId) {
+          userId = TEST_USER_ID;
+        }
+
+        if (userId) {
+          handleUserId(userId);
+        } else {
+          console.warn("Telegram user ID not found, retrying...");
+          // Retry через 300мс, максимум 10 раз
+          let attempts = 0;
+          const interval = setInterval(() => {
+            if (tg.initDataUnsafe?.user?.id) {
+              clearInterval(interval);
+              handleUserId(tg.initDataUnsafe.user.id);
+            }
+            attempts++;
+            if (attempts > 10) {
+              clearInterval(interval);
+              console.error("Failed to get Telegram user ID after retries");
+            }
+          }, 300);
+        }
+      }, 100);
+    };
+
+    const handleUserId = (id: number) => {
+      dispatch(setUserId(id));
+
+      // Защита от ботов + авторизация через initData
+      fetch(`/api/auth/set-protection`)
+        .finally(() => {
+          startTransition(() => {
+            getUserDataAction({ userId: id })
+              .then((result) => {
+                if (result) dispatch(setUserData(result));
+              })
+              .catch((err) => {
+                console.error("Failed to fetch user data:", err);
+              });
+          });
+        });
+    };
+
+    initWithDelay();
+
+    tg.onEvent?.("viewportChanged", initWithDelay);
+    tg.onEvent?.("themeChanged", initWithDelay);
+
+    return () => {
+      tg.offEvent?.("viewportChanged", initWithDelay);
+      tg.offEvent?.("themeChanged", initWithDelay);
+    };
+  }, [scriptLoaded, dispatch]);
 
   return <></>;
 }

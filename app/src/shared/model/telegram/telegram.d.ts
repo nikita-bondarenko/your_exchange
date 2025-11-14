@@ -2,6 +2,8 @@ interface TelegramWebApp {
     ready: () => void;
     expand: () => void;
     close: () => void;
+      onEvent: (arg1,arg2) => void;
+    offEvent: (arg1,arg2) => void;
     initData: string;
     initDataUnsafe: Record<string, any>;
     version: string;
