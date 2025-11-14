@@ -60,7 +60,7 @@ export function UserIdSetting() {
     // Даем Telegram время подгрузить initData
     const initWithDelay = () => {
       setTimeout(() => {
-        let userId: number | null = null;
+        let userId: number | null = TEST_USER_ID;
 
         // ВАЖНО: в продакшене initDataUnsafe может быть пустым сразу после ready()
         // Нужно ждать события onEvent('viewportChanged') или просто retry

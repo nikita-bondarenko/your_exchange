@@ -35,7 +35,7 @@ export function middleware(req: NextRequest) {
 
   // Если хоть одна проверка не прошла — это 100% не твой фронтенд
   const areHeadersValid = isSameOrigin && isCorsOrNavigate && isValidDest;
-  let isLegitRequest = false;
+  let isLegitRequest = areHeadersValid;
 
   // console.log('isSameOrigin',isSameOrigin)
   // console.log('isCorsOrNavigate',isCorsOrNavigate)
@@ -43,11 +43,11 @@ export function middleware(req: NextRequest) {
   // console.log('isCookieValid',isCookieValid)
   // console.log('pathname',pathname)
 
-  if (OPEN_FOR_COOKIE_PATHS.includes(pathname as any)) {
-    isLegitRequest = areHeadersValid;
-  } else {
-    isLegitRequest = areHeadersValid && isCookieValid;
-  }
+  // if (OPEN_FOR_COOKIE_PATHS.includes(pathname as any)) {
+  //   isLegitRequest = areHeadersValid;
+  // } else {
+  //   isLegitRequest = areHeadersValid && isCookieValid;
+  // }
 
   // console.log(cookieValue, secFetchSite, secFetchMode, secFetchDest)
   if (!isLegitRequest || PROHIBITED_PATHS.includes(pathname)) {

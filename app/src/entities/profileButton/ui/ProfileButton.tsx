@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PersonIcon } from "@/shared/ui";
 
 const ProfileButton: FC<{ onClick?: () => void, avatar?: string }> = memo(({avatar }) => {
+  console.log(avatar)
   return (
     <Link
       href="/profile"
