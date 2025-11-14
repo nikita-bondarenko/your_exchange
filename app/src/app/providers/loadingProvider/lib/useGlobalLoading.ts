@@ -6,13 +6,13 @@ import { useSelector } from "react-redux";
 
 
 const hasPendingQueries = (state: RootState, api: any) =>
-// @ts-ignore expectedly for this type of abstraction
+// @ts-expect-error expectedly for this type of abstraction
   Object.values(state[api.reducerPath]?.queries || {}).some(
     (query: any) => query?.status === "pending"
   );
 
 const hasPendingMutations = (state: RootState, api: any) =>
-  // @ts-ignore expectedly for this type of abstraction
+  // @ts-expect-error expectedly for this type of abstraction
   Object.values(state[api.reducerPath]?.mutations || {}).some(
     (mutation: any) => mutation?.status === "pending"
   );
