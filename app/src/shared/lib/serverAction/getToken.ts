@@ -23,11 +23,12 @@ type GetTokenApiResponse = {
 const TOKEN_FILE_NAME = "token.txt";
 const TOKEN_FILE_DIR = path.join(cwd(), "data");
 
-export const getToken = async () => {
+export const getToken = async ({isTokenValid = true}:{isTokenValid: boolean}) => {
   await ensureDirectoryExist(TOKEN_FILE_DIR);
   const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
   const isTokenFile = await isFileExist(tokenFilePath);
-  if (!isTokenFile) {
+
+  const getNewToken = async () => {
     const tokenFetchProps: FetchApiProps = {
       path: "/api/token",
       headers: {
@@ -43,9 +44,12 @@ export const getToken = async () => {
     const tokenData = await fetchApi<GetTokenApiResponse>(tokenFetchProps);
     await fs.writeFile(path.join(tokenFilePath), tokenData?.access);
     return tokenData.access;
+  };
+
+  if (!isTokenFile || !isTokenValid) {
+   return await getNewToken()
   } else {
     const tokenBuffer = await fs.readFile(tokenFilePath);
     return tokenBuffer.toString();
   }
-
 };

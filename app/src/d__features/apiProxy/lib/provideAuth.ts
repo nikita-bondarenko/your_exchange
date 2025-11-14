@@ -46,9 +46,9 @@ export const provideFetchWithAuth = async <Result>(
   executionTime: number = 1
 ): Promise<any> => {
   try {
-    if (request.nextUrl.basePath.includes('user') ) console.log(1);
+    // if (request.nextUrl.basePath.includes('user') ) console.log(1);
     if (executionTime > maxTryTimes) {
-      if (request.nextUrl.basePath.includes('user') ) console.log(2);
+      // if (request.nextUrl.basePath.includes('user') ) console.log(2);
 
       throw {
         detail: `Fetching failed after ${maxTryTimes}`,
@@ -88,17 +88,17 @@ export const provideFetchWithAuth = async <Result>(
       path: urlPath,
       body,
     };
-    if (request.nextUrl.basePath.includes('user') ) console.log(5);
+    // if (request.nextUrl.basePath.includes('user') ) console.log(5);
 
     let result: Result;
 
     if (!isTokenFile) {
-      if (request.nextUrl.basePath.includes('user') ) console.log(6);
+      // if (request.nextUrl.basePath.includes('user') ) console.log(6);
 
       await fetchAndSaveToken(tokenFilePath);
       return provideFetchWithAuth<Result>(request, executionTime + 1);
     } else {
-      if (request.nextUrl.basePath.includes('user') ) console.log(7);
+      // if (request.nextUrl.basePath.includes('user') ) console.log(7);
 
       const token = await fs.readFile(tokenFilePath);
       if (token.length === 0) {
@@ -111,7 +111,7 @@ export const provideFetchWithAuth = async <Result>(
       };
 
       try {
-        if (request.nextUrl.basePath.includes('user') ) console.log(8);
+        // if (request.nextUrl.basePath.includes('user') ) console.log(8);
 
         result = await fetchApi<Result>(fetchProps);
       } catch (e) {
@@ -120,17 +120,17 @@ export const provideFetchWithAuth = async <Result>(
 
       //@ts-expect-error "exeptional scenary - responsive object has no fixed type"
       if (result.code === "token_not_valid") {
-        console.log(8);
+        // console.log(8);
 
         await fetchAndSaveToken(tokenFilePath);
         return provideFetchWithAuth<Result>(request, executionTime + 1);
       }
     }
-    if (request.nextUrl.basePath.includes('user') ) console.log(9);
+    // if (request.nextUrl.basePath.includes('user') ) console.log(9);
 
     return result;
   } catch (e) {
-    if (request.nextUrl.basePath.includes('user') ) console.log(10);
+    // if (request.nextUrl.basePath.includes('user') ) console.log(10);
 
     // console.log("provideFetchWithAuth error", e);
     throw e;

@@ -25,49 +25,61 @@ export async function fetchApi<T>({
   headers,
 }: FetchApiProps): Promise<T> {
   try {
-    const token = await getToken();
+    let responseBody: any = null;
+    let isTokenValid = true;
+    const tryFetch = async () => {
+      const token = await getToken({ isTokenValid });
 
-    const queryString = params
-      ? Object.entries(params)
-          .reduce(
-            (str, [key, value], index) =>
-              str + `${index === 0 ? "?" : "&"}${key}=${value}`,
-            ""
-          )
-          .split(" ")
-          .join("%20")
-      : "/";
+      const queryString = params
+        ? Object.entries(params)
+            .reduce(
+              (str, [key, value], index) =>
+                str + `${index === 0 ? "?" : "&"}${key}=${value}`,
+              ""
+            )
+            .split(" ")
+            .join("%20")
+        : "/";
 
-    const url = `${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`;
+      const url = `${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`;
 
-    const fetchOptions: RequestInit = {
-      method,
-      headers: { ...headers, Authorization: `Bearer ${token}` },
+      const fetchOptions: RequestInit = {
+        method,
+        headers: { ...headers, Authorization: `Bearer ${token}` },
+      };
+
+      if (body instanceof FormData) {
+        fetchOptions.body = body;
+        delete (fetchOptions.headers as any)["Content-Type"];
+      } else if (body !== null && body !== undefined) {
+        fetchOptions.body = JSON.stringify(body);
+        (fetchOptions.headers as any)["Content-Type"] = "application/json";
+      }
+
+      const result = await fetch(url, fetchOptions);
+
+      const contentType = result.headers.get("Content-Type");
+      if (!contentType?.includes("application/json")) {
+        const text = await result.text();
+        throw {
+          error: result.statusText,
+          message: `Expected JSON, but received ${contentType}`,
+          details: text,
+          status: result.status,
+          headers: { "Content-Type": "application/json" },
+        } as T;
+      }
+      responseBody = await result.json();
     };
 
-    if (body instanceof FormData) {
-      fetchOptions.body = body;
-      delete (fetchOptions.headers as any)["Content-Type"];
-    } else if (body !== null && body !== undefined) {
-      fetchOptions.body = JSON.stringify(body);
-      (fetchOptions.headers as any)["Content-Type"] = "application/json";
+    await tryFetch();
+
+    if (responseBody?.code === "token_not_valid") {
+      // console.log(responseBody);
+
+      isTokenValid = false;
+      await tryFetch();
     }
-
-    const result = await fetch(url, fetchOptions);
-
-    const contentType = result.headers.get("Content-Type");
-    if (!contentType?.includes("application/json")) {
-      const text = await result.text();
-      throw {
-        error: result.statusText,
-        message: `Expected JSON, but received ${contentType}`,
-        details: text,
-        status: result.status,
-        headers: { "Content-Type": "application/json" },
-      } as T;
-    }
-
-    const responseBody = await result.json();
 
     return responseBody;
   } catch (e) {

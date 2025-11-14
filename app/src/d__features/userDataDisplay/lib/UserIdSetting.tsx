@@ -30,7 +30,7 @@ export function UserIdSetting() {
           console.error("user Id not found");
         }
       }
-      console.log(userId);
+      // console.log(userId);
       if (userId) {
         setTimeout(() => {
           dispatch(setUserId(userId));
@@ -40,11 +40,11 @@ export function UserIdSetting() {
   };
 
   useLayoutEffect(() => {
-    console.log(userId);
+    // console.log(userId);
     if (userId)
       getUserDataAction({ userId })
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           if (result) {
             dispatch(setUserData(result));
             dispatch(setIsAppReady(true));
