@@ -32,11 +32,16 @@ export function UserIdSetting() {
         console.log(userId);
         if (userId) {
           dispatch(setUserId(userId));
-          getUserDataAction({ userId })
-            .then((result) => {
-              if (result) dispatch(setUserData(result));
-            })
-            .catch(console.error);
+          setTimeout(() => {
+            startTransition(() => {
+              getUserDataAction({ userId })
+                .then((result) => {
+                  console.log(result);
+                  if (result) dispatch(setUserData(result));
+                })
+                .catch(console.error);
+            });
+          }, 100);
         }
       }
     };
