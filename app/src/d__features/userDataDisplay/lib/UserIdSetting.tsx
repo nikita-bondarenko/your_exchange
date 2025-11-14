@@ -8,6 +8,8 @@ import { TEST_USER_ID } from "@/shared/config";
 export function UserIdSetting() {
   const dispatch = useAppDispatch();
   const [scriptLoaded, setScriptLoaded] = useState(false);
+    const [protectionEnabled, setProtectionEnabled] = useState(false);
+
 
   useEffect(() => {
     // Если скрипт уже есть — просто отмечаем
@@ -30,6 +32,10 @@ export function UserIdSetting() {
 
     document.head.appendChild(script);
 
+    fetch('/api/auth/set-protection').then(() => {
+      setProtectionEnabled(true)
+    })
+
     return () => {
       // Не удаляем скрипт при размонтировании — он нужен глобально
       // document.head.removeChild(script);
@@ -37,7 +43,8 @@ export function UserIdSetting() {
   }, []);
 
   useEffect(() => {
-    if (!scriptLoaded) return;
+    if (!scriptLoaded || !protectionEnabled) return;
+    dispatch(setIsAppReady(true));
 
     const tg = window.Telegram?.WebApp;
     if (!tg) {
@@ -49,7 +56,6 @@ export function UserIdSetting() {
     tg.ready();
     tg.expand();
 
-    dispatch(setIsAppReady(true));
 
     // Даем Telegram время подгрузить initData
     const initWithDelay = () => {
@@ -92,8 +98,7 @@ export function UserIdSetting() {
       dispatch(setUserId(id));
 
       // Защита от ботов + авторизация через initData
-      fetch(`/api/auth/set-protection`)
-        .finally(() => {
+   
           startTransition(() => {
             getUserDataAction({ userId: id })
               .then((result) => {
@@ -103,7 +108,6 @@ export function UserIdSetting() {
                 console.error("Failed to fetch user data:", err);
               });
           });
-        });
     };
 
     initWithDelay();
@@ -115,7 +119,7 @@ export function UserIdSetting() {
       tg.offEvent?.("viewportChanged", initWithDelay);
       tg.offEvent?.("themeChanged", initWithDelay);
     };
-  }, [scriptLoaded, dispatch]);
+  }, [scriptLoaded, dispatch, protectionEnabled]);
 
   return <></>;
 }

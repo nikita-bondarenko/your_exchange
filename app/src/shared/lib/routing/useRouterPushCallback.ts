@@ -1,4 +1,6 @@
 
+
+"use client"
 import { setTransferAbroadAreErrorsVisible } from "@/d__features/transferAbroad/model";
 import { useAppDispatch } from "@/shared/model/store";
 import { useRouter } from "next/navigation";
