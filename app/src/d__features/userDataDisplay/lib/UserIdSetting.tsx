@@ -26,7 +26,7 @@ export function UserIdSetting() {
           userId = TEST_USER_ID;
         }
         if (userId) {
-          fetch(`/api/auth/set-protection`).finally(() => {
+          fetch(`/api/auth/set-protection`).then(() => {
             dispatch(setUserId(userId));
             startTransition(() => {
               getUserDataAction({ userId })

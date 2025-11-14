@@ -32,7 +32,5 @@ export async function getUserDataAction(
 
   const res = await fetchApi<UserListApiResponse>(fetchApiProps);
 
-  revalidatePath("/");
-
   return res;
 }
