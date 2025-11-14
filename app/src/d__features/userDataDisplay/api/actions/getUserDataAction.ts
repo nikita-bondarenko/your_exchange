@@ -8,7 +8,6 @@ import {
 import {
   UserListApiResponse,
 } from "@/shared/model/api";
-import { revalidatePath } from "next/cache";
 
 type Payload = {
   userId: number;
@@ -31,8 +30,5 @@ export async function getUserDataAction(
   };
 
   const res = await fetchApi<UserListApiResponse>(fetchApiProps);
-
-  revalidatePath("/");
-
   return res;
 }
