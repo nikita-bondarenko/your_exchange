@@ -1,18 +1,23 @@
 "use client";
-import { setIsAppReady, useAppDispatch } from "@/shared/model/store";
+import {
+  setIsAppReady,
+  useAppDispatch,
+  useAppSelector,
+} from "@/shared/model/store";
 import { TEST_USER_ID } from "@/shared/config";
 import { setUserData, setUserId } from "@/d__features/userDataDisplay/model";
 import { getUserDataAction } from "../api/actions/getUserDataAction";
 import Script from "next/script";
+import { useEffect, useLayoutEffect } from "react";
 
 export function UserIdSetting() {
-  const dispatch = useAppDispatch();
+  const userId = useAppSelector((state) => state.user.id);
 
+  const dispatch = useAppDispatch();
   const handleScriptLoad = () => {
     if (window.Telegram?.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
-      dispatch(setIsAppReady(true));
 
       let userId: number | null = null;
 
@@ -27,16 +32,26 @@ export function UserIdSetting() {
       }
       console.log(userId);
       if (userId) {
-        dispatch(setUserId(userId));
-        getUserDataAction({ userId })
-          .then((result) => {
-            console.log(result)
-            if (result) dispatch(setUserData(result));
-          })
-          .catch(console.error);
+        setTimeout(() => {
+          dispatch(setUserId(userId));
+        }, 100);
       }
     }
   };
+
+  useLayoutEffect(() => {
+    console.log(userId);
+    if (userId)
+      getUserDataAction({ userId })
+        .then((result) => {
+          console.log(result);
+          if (result) {
+            dispatch(setUserData(result));
+            dispatch(setIsAppReady(true));
+          }
+        })
+        .catch(console.error);
+  }, [userId]);
 
   return (
     <Script
