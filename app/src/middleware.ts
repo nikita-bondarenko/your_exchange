@@ -35,7 +35,7 @@ export function middleware(req: NextRequest) {
 
   // Если хоть одна проверка не прошла — это 100% не твой фронтенд
   const areHeadersValid = isSameOrigin && isCorsOrNavigate && isValidDest;
-  let isLegitRequest = areHeadersValid;
+  const isLegitRequest = areHeadersValid;
 
   // console.log('isSameOrigin',isSameOrigin)
   // console.log('isCorsOrNavigate',isCorsOrNavigate)
