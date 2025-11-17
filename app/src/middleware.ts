@@ -8,11 +8,12 @@ import {
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  if (pathname.startsWith("/api")) {
-    return apiProtectionMiddleware(req);
-  }
+  if (pathname.startsWith("/api")) return apiProtectionMiddleware(req);
 
-  return webPlatformFilteringMiddleware(req);
+  if (process.env.NODE_ENV === "production")
+    return webPlatformFilteringMiddleware(req);
+
+  return NextResponse.next();
 }
 
 // Применяем ко всем API-роутам, кроме health
