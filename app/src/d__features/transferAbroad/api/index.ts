@@ -1,2 +1,1 @@
-export * from './transferAbroadApi'
-export * from '@/shared/model/api'
+export * from './actions'

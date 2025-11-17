@@ -7,32 +7,35 @@ import {
   requestDetailsReducer,
   uiReducer,
 } from "@/shared/model/store";
-import { exchangeApi } from "@/d__features/exchange/api";
 import {
+  exchangeApiLoadingReducer,
   exchangeReducer,
   exchangeSliceListener,
   validateListener,
 } from "@/d__features/exchange/model";
-import { transferAbroadApi } from "@/d__features/transferAbroad/api";
-import { transferAbroadReducer } from "@/d__features/transferAbroad/model";
 import {
+  transferAbroadApiLoadingReducer,
+  transferAbroadReducer,
+} from "@/d__features/transferAbroad/model";
+import {
+  userApiLoadingReducer,
   userReducer,
   userSliceListener,
 } from "@/d__features/userDataDisplay/model";
-import { userApi } from "@/d__features/userDataDisplay/api";
+import { supportApiLoadingReducer } from "@/d__features/support/model/store";
 
 const rootReducer = combineReducers({
   ui: uiReducer,
   user: userReducer,
   requestDetails: requestDetailsReducer,
   exchange: exchangeReducer,
-  [exchangeApi.reducerPath]: exchangeApi.reducer,
-  [transferAbroadApi.reducerPath]: transferAbroadApi.reducer,
-  [userApi.reducerPath]: userApi.reducer,
-
   pageData: pageDataReducer,
   featuresFlags: featuresFlagsReducer,
   transferAbroad: transferAbroadReducer,
+  userApiLoading: userApiLoadingReducer,
+  transferAbroadApiLoading: transferAbroadApiLoadingReducer,
+  supportApiLoading: supportApiLoadingReducer,
+  exchangeApiLoading: exchangeApiLoadingReducer,
 });
 
 export const store = configureStore({
@@ -42,15 +45,11 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
-    })
-      .prepend(
-        exchangeSliceListener.middleware,
-        validateListener.middleware,
-        userSliceListener.middleware
-      )
-      .concat(exchangeApi.middleware)
-      .concat(transferAbroadApi.middleware)
-      .concat(userApi.middleware),
+    }).prepend(
+      exchangeSliceListener.middleware,
+      validateListener.middleware,
+      userSliceListener.middleware
+    ),
 
   devTools: process.env.NODE_ENV !== "production",
 });

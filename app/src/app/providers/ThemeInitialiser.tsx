@@ -1,6 +1,6 @@
+import { switchTheme } from "@/d__features/themeSwitcher/lib";
 import { PROJECT_DATA } from "@/shared/config";
 import { memo, useEffect } from "react";
-import { switchTheme } from "../lib";
 
 export const ThemeInitialiser = () => {
 

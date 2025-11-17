@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import { setAgreementAccepted } from "@/d__features/userDataDisplay/model/store/reducer/userReducer";
 import { redirect, usePathname } from "next/navigation";
-import React, { useEffect } from "react";
-import { useCheckConsentMutation } from "../api";
+import React, { startTransition, useEffect } from "react";
+import { checkConsentRequirementAction } from "../api";
 
 export function AgreementsRequirementChecking() {
   const path = usePathname();
@@ -12,12 +12,13 @@ export function AgreementsRequirementChecking() {
     (state) => state.user.agreementAccepted
   );
   const dispatch = useAppDispatch();
-  const [fetchIsConsented] = useCheckConsentMutation();
 
   useEffect(() => {
     if (userId)
-      fetchIsConsented({ user_id: userId }).then((res) => {
-        if (res.data?.consent_required) dispatch(setAgreementAccepted(false));
+      startTransition(async () => {
+        const res = await checkConsentRequirementAction({ user_id: userId });
+        console.log(res)
+        if (res.consent_required) dispatch(setAgreementAccepted(false));
       });
   }, [userId]);
 

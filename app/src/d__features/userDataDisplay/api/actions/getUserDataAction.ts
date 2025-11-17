@@ -6,15 +6,12 @@ import {
   FetchApiProps,
 } from "@/d__features/apiProxy/lib";
 import {
+  UserListApiArg,
   UserListApiResponse,
 } from "@/shared/model/api";
 
-type Payload = {
-  userId: number;
-};
-
 export async function getUserDataAction(
-  payload: Payload
+  payload: UserListApiArg
 ): Promise<UserListApiResponse> {
   const userId = payload.userId;
 

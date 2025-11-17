@@ -11,7 +11,11 @@
 }
 
 body {
-  @apply font-main 
+  @apply font-main  antialiased flex flex-col h-screen bg-[var(--background-global)]
+}
+
+main {
+  @apply pb-35 grow h-full
 }
 
 .container {

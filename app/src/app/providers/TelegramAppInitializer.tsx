@@ -6,11 +6,11 @@ import {
 } from "@/shared/model/store";
 import { TEST_USER_ID } from "@/shared/config";
 import { setUserData, setUserId } from "@/d__features/userDataDisplay/model";
-import { getUserDataAction } from "../api/actions/getUserDataAction";
+import { getUserDataAction } from "../../d__features/userDataDisplay/api/actions/getUserDataAction";
 import Script from "next/script";
 import { useEffect, useLayoutEffect } from "react";
 
-export function UserIdSetting() {
+export function TelegramAppInitializer() {
   const userId = useAppSelector((state) => state.user.id);
 
   const dispatch = useAppDispatch();

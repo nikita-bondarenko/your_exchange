@@ -2,7 +2,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   apiProtectionMiddleware,
-  webPlatformFilteringMiddleware,
 } from "./d__features/security/lib";
 
 export function middleware(req: NextRequest) {
@@ -10,8 +9,6 @@ export function middleware(req: NextRequest) {
 
   if (pathname.startsWith("/api")) return apiProtectionMiddleware(req);
 
-  if (process.env.NODE_ENV === "production")
-    return webPlatformFilteringMiddleware(req);
 
   return NextResponse.next();
 }
