@@ -12,7 +12,7 @@ const initialState: ExchangeApiLoadingReducerState = {
 };
 
 export const exchangeLoadingSlice = createSlice({
-  name: "exchangeLoading",
+  name: "exchangeApiLoading",
   initialState,
   reducers: {
     setCheckPromocodeLoading: (state, action: PayloadAction<boolean>) => {

@@ -18,7 +18,7 @@ type BaseModalProps = {
   renderTrigger?: number;
 };
 
-const BaseModal = forwardRef(
+export const BaseModal = forwardRef(
   (
     {
       children,
@@ -93,4 +93,3 @@ const BaseModal = forwardRef(
 
 BaseModal.displayName = "BaseModal";
 
-export default BaseModal;

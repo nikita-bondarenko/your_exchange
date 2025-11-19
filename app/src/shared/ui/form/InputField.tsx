@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Input } from "./Input";
 import { InputWrapper } from "./InputWrapper";
 
-const InputField: React.FC<{
+export const InputField: React.FC<{
   value: string;
   onChange: (value: string) => void;
   onBlur?: () => void;
@@ -32,5 +32,3 @@ const InputField: React.FC<{
     </InputWrapper>
   );
 };
-
-export default InputField;

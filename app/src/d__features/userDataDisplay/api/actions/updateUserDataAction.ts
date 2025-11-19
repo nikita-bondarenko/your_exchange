@@ -7,7 +7,7 @@ export async function updateUserDataAction(
   payload: UserUpdateCreateApiArg
 ): Promise<UserUpdateCreateApiResponse> {
   const fetchApiProps: FetchApiProps = {
-    path: "/api/user/update",
+    path: "/user/update",
     method: "POST",
     body: payload,
     headers: {

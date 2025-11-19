@@ -1,5 +1,5 @@
 "use client";
-import {Button} from "@/shared/ui/button";
+import { Button } from "@/shared/ui/button";
 
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
@@ -7,8 +7,28 @@ import React, { memo, useCallback, useEffect } from "react";
 import { validateAllFields } from "@/shared/lib/validation";
 import ExchangeInput from "@/c__widgets/exchangeInput/ui";
 import { store } from "@/app/providers/storeProvider/lib";
-import { setAreErrorsVisible, setIsRateBeingPulled } from "@/d__features/exchange/model";
-import { useAppDispatch, useAppSelector, selectCurrencyTypes, setIsLoading } from "@/shared/model/store";
+import {
+  setAreErrorsVisible,
+  setIsRateBeingPulled,
+} from "@/d__features/exchange/model";
+import {
+  useAppDispatch,
+  useAppSelector,
+  selectCurrencyTypes,
+  setIsLoading,
+} from "@/shared/model/store";
+import {
+  useSetCurrencySellAmountEffect,
+  useSetCurrencyBuyAmountEffect,
+  useSetSelectedCurrencySellEffect,
+  useSetSelectedCurrencyBuyEffect,
+  useSetSelectedBankEffect,
+  useSetSelectedCityEffect,
+  useSetSelectedNetworkEffect,
+  useSetIsRateBeingPulledEffect,
+  useSetExchangeRateEffect,
+  useExchangeInputsValidation,
+} from "@/d__features/exchange/lib";
 
 export default memo(function ExchangeInputPage() {
   const dispatch = useAppDispatch();
@@ -25,25 +45,40 @@ export default memo(function ExchangeInputPage() {
     router.push("/exchange/details");
   }, [dispatch, router]);
 
-
-  const {givenType, receivedType} = useAppSelector(selectCurrencyTypes);
+  const { givenType, receivedType } = useAppSelector(selectCurrencyTypes);
 
   useEffect(() => {
     dispatch(setIsLoading(false));
-    dispatch(setIsRateBeingPulled(true)); // Start automatic rate updates
+    dispatch(setIsRateBeingPulled(true)); 
     return () => {
       dispatch(setAreErrorsVisible(false));
-      dispatch(setIsRateBeingPulled(false)); // Stop automatic rate updates
+      dispatch(setIsRateBeingPulled(false)); 
     };
   }, [dispatch]);
 
+  useSetCurrencySellAmountEffect();
+  useSetCurrencyBuyAmountEffect();
+
+  useSetSelectedCurrencySellEffect();
+  useSetSelectedCurrencyBuyEffect();
+
+  useSetSelectedBankEffect();
+  useSetSelectedCityEffect();
+  useSetSelectedNetworkEffect();
+
+  useSetIsRateBeingPulledEffect();
+  useSetExchangeRateEffect();
+
+  useExchangeInputsValidation();
+
   return (
     <div className="container">
-      <div
-        className={clsx("flex flex-col gap-30 mb-22 ")}
-      >
-        <ExchangeInput position={'given'} type={givenType}></ExchangeInput>
-        <ExchangeInput position={'received'} type={receivedType}></ExchangeInput>
+      <div className={clsx("flex flex-col gap-30 mb-22 ")}>
+        <ExchangeInput position={"given"} type={givenType}></ExchangeInput>
+        <ExchangeInput
+          position={"received"}
+          type={receivedType}
+        ></ExchangeInput>
       </div>
       <Button type="primary" onClick={onSubmit}>
         Далее

@@ -9,7 +9,7 @@ import {
   selectCurrencyTypes,
   selectCurrency
 } from "@/shared/model/store/selectors";
-import { setActiveInputType, setCurrencyBuyAmountValue, setCurrencySellAmountValue, setSelectedCurrencyBuy, setSelectedCurrencySell } from "@/d__features/exchange/model/store/reducer/exchangeReducer";
+import { setActiveInputType, setCurrencyBuyAmountValue, setCurrencySellAmountValue, setSelectedCurrencyBuy, setSelectedCurrencySell } from "@/d__features/exchange/model/store/reducer/exchangeReducer/exchangeReducer";
 import { Currency } from "@/shared/model/api/exchange/types";
 import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 
@@ -32,7 +32,7 @@ export const useExchangeInput = (position: ExchangeCurrencyPosition) => {
 
   const onSelectChange = useCallback((option: Currency) => {
     // // console.log(option);
-    dispatch(setActiveInputType(position));
+    // dispatch(setActiveInputType(position));
 
     const currency = position === 'given' 
       ? currenciesSell.find((currency) => currency.id === option.id)
@@ -44,6 +44,7 @@ export const useExchangeInput = (position: ExchangeCurrencyPosition) => {
   }, [dispatch, position, currenciesSell, currenciesBuy]);
 
   const onInputChange = useCallback((value: number | null) => {
+    console.log('onInputChange')
     dispatch(setActiveInputType(position));
     switch (position) {
       case "given":

@@ -2,8 +2,8 @@ import { CurrentProjectTheme } from "@/shared/model/theme";
 import { LIGHT_THEME } from "./lightTheme";
 
 export const CRYPTORO_THEME: CurrentProjectTheme = {
-          ...LIGHT_THEME,
-  
+  ...LIGHT_THEME,
+
   "--main-color": "#F09810",
 
   "--text-main-screen-title": "#FFFFFF",
@@ -30,4 +30,6 @@ export const CRYPTORO_THEME: CurrentProjectTheme = {
 
   "--border-button-secondary": "#262626",
   "--border-profile-icon": "#FFFFFF",
+  "--progress-bar-active": "#F09810",
+  "--result-screen-clock": "#F09810",
 };

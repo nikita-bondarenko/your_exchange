@@ -21,7 +21,7 @@ export const ProgressLine: React.FC<ProgressLineProps> = ({
     <div className="w-52 h-2 bg-[var(--progress-bar-default)] rounded-full relative">
       <div
         className={clsx(
-          "h-2 bg-[var(--main-color)] rounded-full absolute top-0 left-0",
+          "h-2 bg-[var(--progress-bar-active)] rounded-full absolute top-0 left-0",
           {
             [getWidth()]: true,
             "delay-1000":

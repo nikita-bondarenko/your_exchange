@@ -1,7 +1,7 @@
 "use client";
 
-import {Button} from "@/shared/ui/button";
-import { Notification, InputField } from "@/shared/ui/form";
+import { Button } from "@/shared/ui/button";
+import { Notification, ProfileInputField } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
@@ -9,10 +9,18 @@ import { FormProvider, useForm } from "react-hook-form";
 import { formValidationSchema } from "@/shared/lib/validation";
 import RequestStoryItem from "@/entities/shortRequestDetails/ui";
 import { SignIcon } from "@/shared/ui";
-import { useUserUpdateCreateMutation } from "@/d__features/userDataDisplay/api";
-import { updateUserProfileData } from "@/d__features/userDataDisplay/model";
+import {
+  setUpdateUserDataLoading,
+  updateUserProfileData,
+} from "@/d__features/userDataDisplay/model";
 import { UserUpdateCreateApiArg } from "@/shared/model/api";
-import { useAppDispatch, setPageName, useAppSelector } from "@/shared/model/store";
+import {
+  useAppDispatch,
+  setPageName,
+  useAppSelector,
+} from "@/shared/model/store";
+import { updateUserDataAction } from "@/d__features/userDataDisplay/api";
+import { useServerAction } from "@/shared/lib";
 
 const headingClassNames =
   "font-medium text-16 leading-normal mb-20 text-[var(--text-main)]";
@@ -30,7 +38,11 @@ export default function ProfilePage() {
   });
 
   const { id: userId, data } = useAppSelector((state) => state.user);
-  const [updateUser] = useUserUpdateCreateMutation();
+
+  const [updateUser, response] = useServerAction({
+    action: updateUserDataAction,
+    loadingAction: setUpdateUserDataLoading,
+  });
 
   const onSubmit = methods.handleSubmit((data) => {
     if (!userId) return;
@@ -40,16 +52,18 @@ export default function ProfilePage() {
       phone: data.phone,
       email: data.email,
     };
+    updateUser(updateUserMutationArgs);
+  });
 
-    updateUser(updateUserMutationArgs).then(() => {
+  useEffect(() => {
+    if (response) {
       setShowSuccess(true);
-      dispatch(updateUserProfileData(updateUserMutationArgs));
-
+      dispatch(updateUserProfileData(response));
       setTimeout(() => {
         setShowSuccess(false);
       }, 3000);
-    });
-  });
+    }
+  }, [response]);
 
   useEffect(() => {
     if (data) {
@@ -73,13 +87,13 @@ export default function ProfilePage() {
                   "blur-sm": showSuccess,
                 })}
               >
-                <InputField name="name" type="text" placeholder="ФИО" />
-                <InputField
+                <ProfileInputField name="name" type="text" placeholder="ФИО" />
+                <ProfileInputField
                   name="phone"
                   type="tel"
                   placeholder="Номер телефона"
                 />
-                <InputField
+                <ProfileInputField
                   name="email"
                   type="email"
                   placeholder="Электронная почта"

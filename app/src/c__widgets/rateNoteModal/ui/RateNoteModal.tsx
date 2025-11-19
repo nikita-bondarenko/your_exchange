@@ -1,6 +1,6 @@
 import { useCallSupport } from "@/d__features/support/lib";
 import { setHasRateNoteOpenedOnce, useAppDispatch, useAppSelector } from "@/shared/model/store";
-import BaseModal from "@/shared/ui/modal/BaseModal";
+import {BaseModal} from "@/shared/ui";
 import { useEffect, useRef, useState } from "react";
 
 const RateNoteModal = () => {

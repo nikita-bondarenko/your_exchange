@@ -1,6 +1,6 @@
 import { useThemeSwitcherClickHandler } from "@/d__features/themeSwitcher/lib";
 import { ThemeButton } from "@/d__features/themeSwitcher/ui";
-import {  PROJECT_NAME, TOTAL_PROJECTS_DATA_ARR } from "@/shared/config";
+import { PROJECT_NAME, TOTAL_PROJECTS_DATA_ARR } from "@/shared/config";
 import { CryptoIcon } from "@/shared/ui";
 import { useRouter } from "next/navigation";
 import { ReactNode, useCallback, useMemo, useRef } from "react";
@@ -40,19 +40,25 @@ export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
         children: "Нас часто спрашивают",
         onClick: toFaqPage,
       },
-      {
-        children: "Соглашение",
-        onClick: () => openUrl(termsUrl),
-      },
-      {
-        children: "Политика AML",
-        onClick: () => openUrl(policyUrl),
-      },
+      ...(termsUrl
+        ? [
+            {
+              children: "Соглашение",
+              onClick: () => openUrl(termsUrl),
+            },
+          ]
+        : []),
+      ...(policyUrl
+        ? [
+            {
+              children: "Политика AML",
+              onClick: () => openUrl(policyUrl),
+            },
+          ]
+        : []),
       ...(PROJECT_NAME === "test"
         ? TOTAL_PROJECTS_DATA_ARR.map((project) => ({
-            children: (
-              <ThemeButton project={project}></ThemeButton>
-            ),
+            children: <ThemeButton project={project}></ThemeButton>,
             onClick: () => themeSwitcherClickHandler(project.name),
           }))
         : []),

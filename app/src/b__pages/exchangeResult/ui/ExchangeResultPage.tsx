@@ -18,8 +18,8 @@ export default function ExchangeResultPage() {
 
   useEffect(() => {
     dispatch(clearAll());
-    dispatch(setSelectedCurrencySellType("COIN"));
-    dispatch(setSelectedCurrencyBuyType("BANK"));
+    // dispatch(setSelectedCurrencySellType("COIN"));
+    // dispatch(setSelectedCurrencyBuyType("BANK"));
 
     return () => {
       updateUserData();

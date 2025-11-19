@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Modal from "../../../shared/ui/modal/BaseModal";
-import InputField from "../../../shared/ui/form/InputField";
-
-import { validateEmail } from "@/shared/lib/validation";
-import { useUserUpdateCreateMutation } from "@/d__features/userDataDisplay/api";
-import { setMailRequired, setUserEmail } from "@/d__features/userDataDisplay/model";
+import { updateUserDataAction } from "@/d__features/userDataDisplay/api";
+import {
+  setMailRequired,
+  setUpdateUserDataLoading,
+  setUserEmail,
+} from "@/d__features/userDataDisplay/model";
+import { useServerAction, validateEmail } from "@/shared/lib";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store";
+import { InputField, BaseModal } from "@/shared/ui";
+import React, { useEffect, useState } from "react";
 
-
-export default function EmailModal () {
+export default function EmailModal() {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [isErrorShowing, setIsErrorShowing] = useState(false);
@@ -24,7 +25,7 @@ export default function EmailModal () {
     if (isMailRequired)
       setTimeout(() => {
         setIsEmailModalOpen(true);
-        dispatch(setMailRequired(false))
+        dispatch(setMailRequired(false));
       }, 1000);
   }, [isMailRequired]);
 
@@ -33,37 +34,44 @@ export default function EmailModal () {
     setError(validationResult.error);
   }, [value]);
 
-  const [updateUser] = useUserUpdateCreateMutation();
-  const handleSubmit = async () => {
+  const [updateUser, response, errorResponse] = useServerAction({
+    action: updateUserDataAction,
+    loadingAction: setUpdateUserDataLoading,
+  });
+
+  const handleSubmit = () => {
     setIsErrorShowing(true);
     if (!error && userId) {
-      try {
-        await updateUser({
-       
-            user_id: userId,
-            full_name: userData?.name,
-            phone: userData?.phone,
-            email: value,
-         
-        });
-        dispatch(setUserEmail(value));
-        setIsEmailModalOpen(false);
-        setIsSuccessModalOpen(true);
-        setTimeout(() => {
-          setIsSuccessModalOpen(false);
-        }, 3000);
-      } catch {
-        setIsEmailModalOpen(false);
-        setIsErrorModalOpen(true);
-        setTimeout(() => {
-          setIsErrorModalOpen(false);
-        }, 3000);
-      }
+      updateUser({
+        user_id: userId,
+        email: value,
+      });
     }
   };
+
+  useEffect(() => {
+    if (response) {
+      dispatch(setUserEmail(value));
+      setIsEmailModalOpen(false);
+      setIsSuccessModalOpen(true);
+      setTimeout(() => {
+        setIsSuccessModalOpen(false);
+      }, 3000);
+    }
+  }, [response]);
+
+  useEffect(() => {
+    if (errorResponse) {
+      setIsEmailModalOpen(false);
+      setIsErrorModalOpen(true);
+      setTimeout(() => {
+        setIsErrorModalOpen(false);
+      }, 3000);
+    }
+  }, [errorResponse]);
   return (
     <>
-      <Modal
+      <BaseModal
         isOpen={isEmailModalOpen}
         handleClose={() => setIsEmailModalOpen(false)}
         handleButton={handleSubmit}
@@ -82,19 +90,19 @@ export default function EmailModal () {
             placeholder="Электронная почта"
           />
         </div>
-      </Modal>
-      <Modal
+      </BaseModal>
+      <BaseModal
         isOpen={isSuccessModalOpen}
         handleClose={() => setIsSuccessModalOpen(false)}
       >
         <p className="text-center">Email успешно сохранен!</p>
-      </Modal>
-      <Modal
+      </BaseModal>
+      <BaseModal
         isOpen={isErrorModalOpen}
         handleClose={() => setIsErrorModalOpen(false)}
       >
         Произошла ошибка при попытке сохранить email. Свяжитесь с оператором.
-      </Modal>
+      </BaseModal>
     </>
   );
 }

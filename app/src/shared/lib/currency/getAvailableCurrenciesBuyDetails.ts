@@ -7,11 +7,11 @@ import {
   GetCurrenciesGetApiResponse,
   GetDirectionInitialDataByDirectionTypeApiResponse,
 } from "@/shared/model/api/exchange/types";
-import { calculateSecondaryProperties } from "@/d__features/exchange/model/store/reducer/exchangeReducer";
 import {
   calculateCurrencyTypeFromDirection,
   Direction,
 } from "./calculateCurrencyTypeFromDirection";
+import { calculateSecondaryProperties } from "@/d__features/exchange/lib";
 
 type Props = {
   availableCurrenciesGet: GetCurrenciesGetApiResponse;

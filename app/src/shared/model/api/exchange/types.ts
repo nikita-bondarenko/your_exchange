@@ -4,10 +4,8 @@ export type PostCallingOperatorApiResponse =
     id?: number;
   };
 export type PostCallingOperatorApiArg = {
-  body: {
     /** ID пользователя */
     user_id: number;
-  };
 };
 export type City = SecondaryPropertiesOption;
 export type Bank = SecondaryPropertiesOption;

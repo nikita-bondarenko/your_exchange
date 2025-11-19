@@ -18,4 +18,6 @@ export const TEST_THEME: CurrentProjectTheme = {
   "--background-request-status": "#EBEBEB",
 
   "--border-button-secondary": "#323232",
+    '--progress-bar-active': "#323232",
+  '--result-screen-clock': "#323232"
 };

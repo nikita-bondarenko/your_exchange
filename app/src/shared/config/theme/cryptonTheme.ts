@@ -2,9 +2,9 @@ import { CurrentProjectTheme } from "@/shared/model/theme";
 import { DARK_THEME } from "./darkTheme";
 
 export const CRYPTON_THEME: CurrentProjectTheme = {
-        ...DARK_THEME,
+  ...DARK_THEME,
 
-   "--main-color": "#BAF015",
+  "--main-color": "#BAF015",
 
   "--text-main-screen-title": "#BAF015",
   "--text-main-screen-subtitle": "#CDCDCD",
@@ -25,4 +25,6 @@ export const CRYPTON_THEME: CurrentProjectTheme = {
 
   "--border-profile-icon": "#000000",
   "--profile-button-wave": "#BAF015",
+  "--progress-bar-active": "#BAF015",
+  "--result-screen-clock": "#BAF015",
 };

@@ -2,9 +2,9 @@ import { CurrentProjectTheme } from "@/shared/model/theme";
 import { DARK_THEME } from "./darkTheme";
 
 export const BIP_THEME: CurrentProjectTheme = {
-    ...DARK_THEME,
-  
-    "--main-color": "#F09810",
+  ...DARK_THEME,
+
+  "--main-color": "#F09810",
 
   "--text-main-screen-title": "#F09810",
   "--text-main-screen-subtitle": "#CDCDCD",
@@ -17,13 +17,14 @@ export const BIP_THEME: CurrentProjectTheme = {
   "--background-button-first-screen-left": "#F09810",
   "--background-button-first-screen-right": "#F5F5F5",
   "--background-button-secondary": "#F5F5F5",
-  "--background-first-screen": 
+  "--background-first-screen":
     "linear-gradient(149.32deg, #222222 5.59%, #363636 105.56%)",
   "--background-request-status": "#383838",
   "--background-button-profile": "#F09810",
   "--background-profile-icon": "#282828",
 
   "--border-profile-icon": "#000000",
-    "--profile-button-wave": "#F09810"
-
+  "--profile-button-wave": "#F09810",
+  "--progress-bar-active": "#F09810",
+  "--result-screen-clock": "#F09810",
 };

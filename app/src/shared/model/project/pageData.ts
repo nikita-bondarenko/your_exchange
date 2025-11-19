@@ -20,8 +20,8 @@ export type PageData = {
       modeTypeWhenVisible: 'exchange' | 'transfer'
     }[];
     firstScreenBackgroundImage: undefined | FirstScreenBackgroundImage;
-    policyUrl: string;
-    termsUrl: string;
+    policyUrl?: string;
+    termsUrl?: string;
   };
   result: {
     video: {

@@ -1,10 +1,17 @@
 import { useAppSelector } from "@/shared/model/store/hooks";
 import { callOperatorAction } from "../api";
-import { startTransition } from "react";
+import { useEffect } from "react";
+import { useServerAction } from "@/shared/lib";
+import { setCallOperatorLoading } from "../model/store";
 
 export const useCallSupport = () => {
   const userId = useAppSelector((state) => state.user.id);
   const isAppReady = useAppSelector((state) => state.ui.isAppReady);
+
+  const [callOperator, response] = useServerAction({
+    action: callOperatorAction,
+    loadingAction: setCallOperatorLoading,
+  });
 
   const callSupport = async () => {
     if (!isAppReady) return;
@@ -13,29 +20,23 @@ export const useCallSupport = () => {
       return;
     }
 
-    try {
-      startTransition(async () => {
-        await callOperatorAction({
-          body: {
-            user_id: userId,
-          },
-        });
-
-        // Пробуем закрыть WebApp после успешного запроса
-        if (
-          window.Telegram &&
-          window.Telegram.WebApp &&
-          typeof window.Telegram.WebApp.close === "function"
-        ) {
-          window.Telegram.WebApp.close();
-        } else {
-          alert("Вы можете закрыть это окно вручную");
-        }
-      });
-    } catch (error) {
-      console.error("Error calling support:", error);
-    }
+    callOperator({
+      user_id: userId,
+    });
   };
+
+  useEffect(() => {
+    if (response)
+      if (
+        window.Telegram &&
+        window.Telegram.WebApp &&
+        typeof window.Telegram.WebApp.close === "function"
+      ) {
+        window.Telegram.WebApp.close();
+      } else {
+        alert("Вы можете закрыть это окно вручную");
+      }
+  }, [response]);
 
   return {
     callSupport,

@@ -23,7 +23,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   );
   return (
     <div className="flex items-center gap-5 [&_*]:transition-all [&_*]:duration-500">
-      <div className="w-20 h-20 rounded-full relative shrink-0 bg-[var(--main-color)]">
+      <div className="w-20 h-20 rounded-full relative shrink-0 bg-[var(--progress-bar-active)]">
         <ProgressBarSignIcon
           color="var(--progress-bar-sign)"
           className=" top-6 center-x"

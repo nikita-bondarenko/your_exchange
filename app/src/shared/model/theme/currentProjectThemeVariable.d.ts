@@ -9,3 +9,5 @@ export type CurrentProjectThemeVariable =
   | "--background-button-secondary"
   | "--background-first-screen"
   | "--background-request-status"
+  | "--progress-bar-active"
+  | "--result-screen-clock"

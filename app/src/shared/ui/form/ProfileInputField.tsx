@@ -12,7 +12,7 @@ type Props = {
   disabled?: boolean;
 };
 
-export const InputField: React.FC<Props> = ({
+export const ProfileInputField: React.FC<Props> = ({
   name,
   type = "text",
   placeholder,

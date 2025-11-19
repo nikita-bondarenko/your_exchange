@@ -1,5 +1,5 @@
 "use client"
-import { calculatePlaceholder } from "@/shared/lib/exchange/calculatePlaceholder";
+import { calculatePlaceholder } from "@/d__features/exchange/lib/inputField/calculatePlaceholder";
 import { valueMask } from "@/shared/lib/string/valueMask";
 import { ExchangeCurrencyPosition, ExchangeCurrencyType } from "@/shared/model/exchange";
 import { useAppSelector } from "@/shared/model/store/hooks";

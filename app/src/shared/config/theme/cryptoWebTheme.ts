@@ -25,4 +25,6 @@ export const CRYPTO_WEB_THEME: CurrentProjectTheme = {
 
   "--border-profile-icon": "#000000",
   "--profile-button-wave": "#14F513",
+  "--progress-bar-active": "#14F513",
+  "--result-screen-clock": "#14F513",
 };

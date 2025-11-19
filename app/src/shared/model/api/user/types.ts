@@ -20,7 +20,7 @@ export type UserListApiArg = {
 };
 export type UserUpdateCreateApiResponse =
   /** status 200 Успешное обновление */ {
-    user_id?: number;
+    user_id: number;
     full_name?: string;
     phone?: string;
     email?: string;

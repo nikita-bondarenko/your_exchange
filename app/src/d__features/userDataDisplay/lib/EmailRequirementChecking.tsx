@@ -12,7 +12,7 @@ export function EmailRequirementChecking() {
       startTransition(async () => {
         const res = await checkMailRequirementAction({ user_id: userId});
         console.log(res)
-        if (res.consent_required) dispatch(setMailRequired(true));
+        if (res.mail_required) dispatch(setMailRequired(true));
       });
     }
   }, [userId]);

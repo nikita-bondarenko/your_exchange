@@ -3,7 +3,6 @@ import { DARK_THEME } from "./darkTheme";
 import { LIGHT_THEME } from "./lightTheme";
 
 export const CRYPTUS_THEME: CurrentProjectTheme = {
-
   ...LIGHT_THEME,
 
   "--main-color": "#43C0FF",
@@ -30,5 +29,7 @@ export const CRYPTUS_THEME: CurrentProjectTheme = {
 
   "--divider-main": "#C0C0C0",
   "--divider-secondary": "#C3C3C3",
-  "--divider-thirdary": "#E8E8E8"
+  "--divider-thirdary": "#E8E8E8",
+  "--progress-bar-active": "#43C0FF",
+  "--result-screen-clock": "#43C0FF",
 };

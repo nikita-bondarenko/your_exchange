@@ -4,7 +4,7 @@ import {
   calculateCurrencyTypeFromDirection,
   Direction,
 } from "@/shared/lib/currency/calculateCurrencyTypeFromDirection";
-import { calculateRate } from "@/shared/lib/exchange/calculateRate";
+import { calculateRate } from "@/d__features/exchange/lib/rate/calculateRate";
 import { calculateWayDetails } from "@/shared/lib/exchange/calculateWayDetails";
 import { valueMask } from "@/shared/lib/string/valueMask";
 import { roundTo8 } from "@/shared/lib/number/roundTo8";

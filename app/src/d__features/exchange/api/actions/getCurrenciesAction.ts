@@ -7,7 +7,7 @@ export async function getCurrenciesAction(
   payload: GetCurrenciesGetApiArg
 ): Promise<GetCurrenciesGetApiResponse> {
   const props: FetchApiProps = {
-    path: "/api/currencies-get",
+    path: "/currencies-get",
     params: {
       give_currency_id: payload.giveCurrencyId,
       currency_type: payload.currencyType,

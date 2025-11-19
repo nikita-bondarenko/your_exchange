@@ -7,7 +7,7 @@ export async function getDirectionInitialDataAction(
   directionType: GetDirectionInitialDataByDirectionTypeApiArg["directionType"]
 ): Promise<GetDirectionInitialDataByDirectionTypeApiResponse> {
   const props: FetchApiProps = {
-    path: `/api/direction-initial-data/${directionType}`,
+    path: `/direction-initial-data/${directionType}`,
     method: "GET",
   };
   return await fetchApi<GetDirectionInitialDataByDirectionTypeApiResponse>(props);

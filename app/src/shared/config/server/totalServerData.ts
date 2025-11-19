@@ -10,6 +10,7 @@ import { SECRET_SERVER_DATA } from "./secret";
 import { SUNSCRYPT_SERVER_DATA } from "./sunscrypt";
 import { TEST_SERVER_DATA } from "./test";
 import { TOP_SERVER_DATA } from "./top";
+import { WHITE_SERVER_DATA } from "./whiteWay";
 
 export const TOTAL_SERVER_DATA: {[key in ProjectName]: ProjectServerData} = {
  'alex': ALEX_SERVER_DATA,
@@ -22,5 +23,6 @@ export const TOTAL_SERVER_DATA: {[key in ProjectName]: ProjectServerData} = {
  'max-secret': SECRET_SERVER_DATA,
  'sunscrypt': SUNSCRYPT_SERVER_DATA,
  'test': TEST_SERVER_DATA,
- 'top': TOP_SERVER_DATA
+ 'top': TOP_SERVER_DATA,
+ 'white-way':WHITE_SERVER_DATA
 }

@@ -10,8 +10,6 @@ import {
 import {
   exchangeApiLoadingReducer,
   exchangeReducer,
-  exchangeSliceListener,
-  validateListener,
 } from "@/d__features/exchange/model";
 import {
   transferAbroadApiLoadingReducer,
@@ -20,7 +18,6 @@ import {
 import {
   userApiLoadingReducer,
   userReducer,
-  userSliceListener,
 } from "@/d__features/userDataDisplay/model";
 import { supportApiLoadingReducer } from "@/d__features/support/model/store";
 
@@ -46,9 +43,8 @@ export const store = configureStore({
       serializableCheck: false,
       immutableCheck: false,
     }).prepend(
-      exchangeSliceListener.middleware,
-      validateListener.middleware,
-      userSliceListener.middleware
+      // exchangeSliceListener.middleware,
+      // validateListener.middleware,
     ),
 
   devTools: process.env.NODE_ENV !== "production",

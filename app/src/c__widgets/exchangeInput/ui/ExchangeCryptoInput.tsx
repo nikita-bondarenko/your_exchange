@@ -10,15 +10,15 @@ import {
   selectWalletAddressError,
 } from "@/shared/model/store/selectors";
 
-import { usePlaceholder } from "@/shared/lib/exchange/usePlaceholder";
+import { usePlaceholder } from "@/d__features/exchange/lib/inputField/usePlaceholder";
 import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
 import { Input } from "../../../shared/ui/form/Input";
 import {BaseTabs as CryptoNetSelect} from "@/shared/ui";
-import { useExchangeInput } from "@/shared/lib/exchange/useExchangeInput";
+import { useExchangeInput } from "@/d__features/exchange/lib/inputField/useExchangeInput";
 import {
   setSelectedNetworkValue,
   setWalletAddressValue,
-} from "@/d__features/exchange/model/store/reducer/exchangeReducer";
+} from "@/d__features/exchange/model/store/reducer/exchangeReducer/exchangeReducer";
 import clsx from "clsx";
 import { Currency, Network } from "@/shared/model/api/exchange/types";
 import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";

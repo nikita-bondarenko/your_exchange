@@ -17,8 +17,8 @@ export const formValidationSchema = z.object({
       { message: "Допустимы только цифры, символы + и -" }
     )
     .refine(
-      (val) => val.replace(/[^0-9]/g, "").length >= 10, // минимум 10 цифр
-      { message: "Телефон должен содержать минимум 10 цифр" }
+      (val) => val.replace(/[^0-9]/g, "").length >= 11, // минимум 10 цифр
+      { message: "Телефон должен содержать минимум 11 цифр" }
     ),
 });
 

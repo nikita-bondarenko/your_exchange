@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
-import Modal from "../../../shared/ui/modal/BaseModal";
+import {BaseModal} from "@/shared/ui";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import { setAgreementAccepted } from "@/d__features/userDataDisplay/model/store/reducer/userReducer";
 import Checkbox from "../../../shared/ui/form/Checkbox";
 import { typograf } from "@/shared/lib/string/typograf";
-import { useUserUpdateCreateMutation } from "@/d__features/userDataDisplay/api";
+import { useServerAction } from "@/shared/lib";
+import { updateUserDataAction } from "@/d__features/userDataDisplay/api";
+import { setUpdateUserDataLoading } from "@/d__features/userDataDisplay/model";
 
 export default function AgreementModal() {
-
   const [isAgreementModalOpen, setIsAgreementModalOpen] = useState(true);
   const [isMature, setIsMature] = useState(false);
   const [isIdPossessor, setIsIdPossessor] = useState(false);
@@ -16,19 +17,21 @@ export default function AgreementModal() {
   const agreementAccepted = useAppSelector(
     (state) => state.user.agreementAccepted
   );
-  const policyUrl = useAppSelector(state => state.pageData.home.policyUrl)
+  const policyUrl = useAppSelector((state) => state.pageData.home.policyUrl);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     setIsAgreementModalOpen(!agreementAccepted);
   }, [agreementAccepted]);
-  
 
-  const [updateUser] = useUserUpdateCreateMutation();
+  const [updateUser] = useServerAction({
+    action: updateUserDataAction,
+    loadingAction: setUpdateUserDataLoading,
+  });
 
   const handleSubmit = () => {
     dispatch(setAgreementAccepted(true));
-    if (userId) updateUser({   user_id: userId, has_consented: true  });
+    if (userId) updateUser({ user_id: userId, has_consented: true });
   };
 
   const isSubmitButtonDisabled = useMemo(() => {
@@ -36,7 +39,7 @@ export default function AgreementModal() {
   }, [isMature, isIdPossessor, hasAgreedWithTerms]);
 
   return (
-    <Modal
+    <BaseModal
       isOpen={isAgreementModalOpen}
       handleClose={() => {}}
       handleButton={handleSubmit}
@@ -80,6 +83,6 @@ export default function AgreementModal() {
           </a>
         </Checkbox>
       </div>
-    </Modal>
+    </BaseModal>
   );
 }

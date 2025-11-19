@@ -18,7 +18,7 @@ export const Button: React.FC<ButtonProps> = memo(
         type={submit ? "submit" : "button"}
         className={clsx(
           className,
-          "flex items-center justify-center w-full text-16 rounded-6 transition-all",
+          "flex items-center justify-center w-full text-16 rounded-6 transition-all shrink-0",
           {
             "bg-[var(--main-color)] text-[var(--text-button-main)] h-47": type === "primary",
             "bg-[var(--background-button-secondary)] text-[var(--text-button-secondary)] border border-[var(--border-button-secondary)] h-47": type === "secondary",

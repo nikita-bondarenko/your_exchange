@@ -10,9 +10,9 @@ type ProgressStepProps = {
 export const ProgressStep: React.FC<ProgressStepProps> = ({ isActive, isCompleted, delay }) => (
   <div
     className={clsx(
-      "w-20 h-20 border-2 border-[var(--main-color)] rounded-full flex items-center justify-center relative shrink-0",
+      "w-20 h-20 border-2 border-[var(--progress-bar-active)] rounded-full flex items-center justify-center relative shrink-0",
       {
-        "bg-[var(--main-color)]": isCompleted,
+        "bg-[var(--progress-bar-active)]": isCompleted,
         "delay-500": delay,
       }
     )}

@@ -29,4 +29,6 @@ export const TOP_THEME: CurrentProjectTheme = {
 
   "--border-button-secondary": "#262626",
   "--border-profile-icon": "#FFFFFF",
+    '--progress-bar-active': "#F09810",
+  '--result-screen-clock': "#F09810"
 };

@@ -1,13 +1,13 @@
 "use server"
 
 import { FetchApiProps, fetchApi } from "@/d__features/apiProxy/lib";
-import { CheckConsentApiArg, CheckConsentApiResponse } from "@/shared/model/api";
+import {  CheckMailApiArg, CheckMailApiResponse } from "@/shared/model/api";
 
 export async function checkMailRequirementAction(
-  payload: CheckConsentApiArg
-): Promise<CheckConsentApiResponse> {
+  payload: CheckMailApiArg
+): Promise<CheckMailApiResponse> {
   const fetchApiProps: FetchApiProps = {
-    path: "/api/user/check-consent",
+    path: "/user/check-mail/",
     params: { user_id: payload.user_id },
     method: "GET",
     headers: {
@@ -15,6 +15,6 @@ export async function checkMailRequirementAction(
     },
   };
 
-  const res = await fetchApi<CheckConsentApiResponse>(fetchApiProps);
+  const res = await fetchApi<CheckMailApiResponse>(fetchApiProps);
   return res;
 }

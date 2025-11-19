@@ -2,34 +2,26 @@ import { getAvailableCurrenciesBuyDetails } from "@/shared/lib/currency/getAvail
 import {
   DirectionType,
   GetDirectionInitialDataByDirectionTypeApiResponse,
-} from "../../model/api/exchange/types";
+} from "@/shared/model/api";
+import { restartRatePullingIfActive } from "./restartRatePullingIfActive";
+import { AppDispatch } from "@/shared/model/store";
+import { calculateSecondaryProperties } from "@/d__features/exchange/lib";
 import {
   setCurrenciesBuy,
   setSelectedCurrencyBuyWithoutListening,
   setBanks,
   setSelectedBankValueWithoutListening,
-  setExchangeRate,
-  calculateSecondaryProperties,
-  setCities,
   setNetworks,
   setSelectedNetworkValueWithoutListening,
-} from "../../../d__features/exchange/model/store/reducer/exchangeReducer";
-import {
-  ListenerEffectAPI,
-  ThunkDispatch,
-  UnknownAction,
-} from "@reduxjs/toolkit";
-import { restartRatePullingIfActive } from "./restartRatePullingIfActive";
-import { RATE_INTERVAL_KEY } from "@/shared/config";
-import { AppDispatch } from "@/shared/model/store";
-import { exchangeApi } from "@/d__features/exchange/api";
+  setExchangeRate,
+  setCities,
+  setGetRateLoading,
+} from "@/d__features/exchange/model";
+import { getCurrenciesAction, getRateAction } from "@/d__features/exchange/api";
+import { setGetCurrenciesLoading } from "@/d__features/transferAbroad/model";
 
 type Props = {
-  listenerApi: ListenerEffectAPI<
-    unknown,
-    ThunkDispatch<unknown, unknown, UnknownAction>,
-    unknown
-  >;
+  dispatch: AppDispatch;
   initialData: GetDirectionInitialDataByDirectionTypeApiResponse;
   selectedCurrencySellType: string;
   selectedCurrencyBuyType: string;
@@ -38,6 +30,7 @@ type Props = {
   selectedNetworkValueId?: number;
   selectedBankId?: number;
   selectedCityId?: number;
+  isRateBeingPulled: boolean
 };
 
 export const setRateData = async ({
@@ -49,9 +42,9 @@ export const setRateData = async ({
   selectedCurrencySellId,
   selectedCurrencySellType,
   selectedNetworkValueId,
-  listenerApi,
+  dispatch,
+  isRateBeingPulled
 }: Props) => {
-  const dispatch = listenerApi.dispatch as AppDispatch;
   const rateFetchingArgs = {
     direction_type:
       `${selectedCurrencySellType} - ${selectedCurrencyBuyType}` as DirectionType,
@@ -97,17 +90,12 @@ export const setRateData = async ({
   //   currencyType: selectedCurrencyBuyType,
   // })
 
-  const { data: availableCurrenciesGet } = await dispatch(
-    exchangeApi.endpoints.getCurrenciesGet.initiate(
-      {
-        giveCurrencyId,
-        currencyType: selectedCurrencyBuyType,
-      },
-      {
-        forceRefetch: true,
-      }
-    )
-  );
+  dispatch(setGetCurrenciesLoading(true));
+  const availableCurrenciesGet = await getCurrenciesAction({
+    giveCurrencyId,
+    currencyType: selectedCurrencyBuyType,
+  });
+  dispatch(setGetCurrenciesLoading(false));
 
   // console.log("availableCurrenciesGet", availableCurrenciesGet);
 
@@ -154,19 +142,16 @@ export const setRateData = async ({
     }
   }
 
+  dispatch(setGetRateLoading(true))
+  const rateData = await getRateAction(rateFetchingArgs)
+  dispatch(setGetRateLoading(false))
 
-  const { data } = await dispatch(
-    exchangeApi.endpoints.rateList.initiate(rateFetchingArgs, {
-      forceRefetch: true,
-    })
-  );
-
-  if (!data) return;
-  dispatch(setExchangeRate(data?.rate || null));
+  if (!rateData) return;
+  dispatch(setExchangeRate(rateData?.rate || null));
   const cities = calculateSecondaryProperties({
-    rate: data?.rate,
+    rate: rateData?.rate,
     propertyKey: "cities",
   });
   dispatch(setCities(cities));
-  restartRatePullingIfActive(listenerApi, dispatch, RATE_INTERVAL_KEY);
+  restartRatePullingIfActive(isRateBeingPulled, dispatch);
 };

@@ -7,7 +7,7 @@ export async function getRateAction(
   params?: RateListApiArg
 ): Promise<RateListApiResponse> {
   const props: FetchApiProps = {
-    path: "/api/rate",
+    path: "/rate",
     params,
     method: "GET",
   };

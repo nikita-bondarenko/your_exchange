@@ -2,9 +2,9 @@ import { CurrentProjectTheme } from "@/shared/model/theme";
 import { DARK_THEME } from "./darkTheme";
 
 export const COINMETRIKA_THEME: CurrentProjectTheme = {
-      ...DARK_THEME,
-  
-   "--main-color": "#AD41D7",
+  ...DARK_THEME,
+
+  "--main-color": "#AD41D7",
 
   "--text-main-screen-title": "#AD41D7",
   "--text-main-screen-subtitle": "#CDCDCD",
@@ -24,5 +24,7 @@ export const COINMETRIKA_THEME: CurrentProjectTheme = {
   "--background-profile-icon": "#282828",
 
   "--border-profile-icon": "#000000",
-  "--profile-button-wave": "#AD41D7"
+  "--profile-button-wave": "#AD41D7",
+  "--progress-bar-active": "#AD41D7",
+  "--result-screen-clock": "#AD41D7",
 };

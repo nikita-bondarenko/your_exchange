@@ -22,7 +22,6 @@ export type ExchangeReducerState = {
   selectedCurrencyBuy: Currency | null;
   selectedCurrencySellType: ExchangeCurrencyType | null;
   selectedCurrencyBuyType: ExchangeCurrencyType | null;
-  currencyBuyTypeOptions: ExchangeType[] | null;
   cities: City[] | null;
   selectedCity: ExchangeInput<City | null>;
   networks: Network[] | null;

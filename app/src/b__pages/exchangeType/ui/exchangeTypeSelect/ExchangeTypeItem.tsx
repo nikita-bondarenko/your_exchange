@@ -2,17 +2,9 @@ import React, { memo, ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
 import clsx from "clsx";
 import { SignIcon } from "@/shared/ui";
-import { setSelectedCurrencyBuyType, setSelectedCurrencySellType } from "@/d__features/exchange/model";
-import { ExchangeCurrencyType, ExchangeCurrencyPosition } from "@/shared/model/exchange";
+import { ExchangeTypeButton, setSelectedCurrencyBuyType, setSelectedCurrencySellType } from "@/d__features/exchange/model";
 
-export type ExchangeTypeItemProps = {
-  icon: ReactNode;
-  name: string;
-  type: ExchangeCurrencyType;
-  position?: ExchangeCurrencyPosition;
-};
-
-const ExchangeTypeItem: React.FC<ExchangeTypeItemProps> = memo(
+const ExchangeTypeItem: React.FC<ExchangeTypeButton> = memo(
   ({ icon, name, type, position }) => {
     const dispatch = useAppDispatch();
 

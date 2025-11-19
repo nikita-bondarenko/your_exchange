@@ -5,10 +5,15 @@ import {
   useAppSelector,
 } from "@/shared/model/store";
 import { TEST_USER_ID } from "@/shared/config";
-import { setUserData, setUserId } from "@/d__features/userDataDisplay/model";
+import {
+  setGetUserDataLoading,
+  setUserData,
+  setUserId,
+} from "@/d__features/userDataDisplay/model";
 import { getUserDataAction } from "../../d__features/userDataDisplay/api/actions/getUserDataAction";
 import Script from "next/script";
-import { useEffect, useLayoutEffect } from "react";
+import { startTransition, useEffect } from "react";
+import { useServerAction } from "@/shared/lib";
 
 export function TelegramAppInitializer() {
   const userId = useAppSelector((state) => state.user.id);
@@ -30,28 +35,27 @@ export function TelegramAppInitializer() {
           console.error("user Id not found");
         }
       }
-      // console.log(userId);
       if (userId) {
-        setTimeout(() => {
-          dispatch(setUserId(userId));
-        }, 100);
+        dispatch(setUserId(userId));
       }
     }
   };
 
-  useLayoutEffect(() => {
-    // console.log(userId);
-    if (userId)
-      getUserDataAction({ userId })
-        .then((result) => {
-          // console.log(result);
-          if (result) {
-            dispatch(setUserData(result));
-            dispatch(setIsAppReady(true));
-          }
-        })
-        .catch(console.error);
+  const [getUserData, userData] = useServerAction({
+    action: getUserDataAction,
+    loadingAction: setGetUserDataLoading,
+  });
+
+  useEffect(() => {
+    if (userId) getUserData({ userId });
   }, [userId]);
+
+  useEffect(() => {
+    if (userData) {
+      dispatch(setUserData(userData));
+      dispatch(setIsAppReady(true));
+    }
+  }, [userData]);
 
   return (
     <Script

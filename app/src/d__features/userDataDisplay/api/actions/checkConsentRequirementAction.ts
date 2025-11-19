@@ -1,12 +1,15 @@
-"use server"
+"use server";
 import { FetchApiProps, fetchApi } from "@/d__features/apiProxy/lib";
-import { CheckConsentApiArg, CheckConsentApiResponse } from "@/shared/model/api";
+import {
+  CheckConsentApiArg,
+  CheckConsentApiResponse,
+} from "@/shared/model/api";
 
 export async function checkConsentRequirementAction(
   payload: CheckConsentApiArg
 ): Promise<CheckConsentApiResponse> {
   const fetchApiProps: FetchApiProps = {
-    path: "/api/user/check-consent",
+    path: "/user/check-consent/",
     params: { user_id: payload.user_id },
     method: "GET",
     headers: {

@@ -25,4 +25,6 @@ export const SUNSCRYPT_THEME: CurrentProjectTheme = {
 
   "--border-profile-icon": "#000000",
   "--profile-button-wave": "#00C7FF",
+    '--progress-bar-active': "#00C7FF",
+  '--result-screen-clock': "#00C7FF"
 };

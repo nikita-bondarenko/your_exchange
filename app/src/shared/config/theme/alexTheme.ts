@@ -24,4 +24,6 @@ export const ALEX_THEME: CurrentProjectTheme = {
   "--profile-button-wave": "#d2f0ff",
 
   "--border-button-secondary": "#262626",
+  "--progress-bar-active": "#23E2A5",
+  "--result-screen-clock": "#23E2A5",
 };

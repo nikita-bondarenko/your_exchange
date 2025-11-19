@@ -1,19 +1,24 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/shared/model/store/hooks";
-import { setIsLoading, setPageName } from "@/shared/model/store/reducers/uiReducer";
+import {
+  setIsLoading,
+  setPageName,
+} from "@/shared/model/store/reducers/uiReducer";
 import { useRouter } from "next/navigation";
 import React, { memo, useCallback, useEffect, useRef } from "react";
-import { EXCHANGE_TYPES_BUTTONS } from "../config";
 import { useCallSupport } from "@/d__features/support/lib";
 import ExchangeLayout from "@/c__widgets/processLayout/ui";
 import RateNoteModal from "@/c__widgets/rateNoteModal/ui";
 import ExchangeTypeBlock from "./exchangeTypeSelect/ExchangeTypeBlock";
+import { EXCHANGE_TYPES_BUTTONS } from "@/d__features/exchange/config";
+import {
+  useSetInitDirections,
+  useSetSelectedCurrencyBuyTypeEffect,
+  useSetSelectedCurrencySellTypeEffect,
+} from "@/d__features/exchange/lib";
 
 export default memo(function Page() {
-  const recieveOptions = useAppSelector(
-    (state) => state.exchange.currencyBuyTypeOptions
-  );
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -29,24 +34,23 @@ export default memo(function Page() {
     dispatch(setIsLoading(false));
   }, [dispatch]);
 
-  const giveOptions = useRef(EXCHANGE_TYPES_BUTTONS);
+  useSetInitDirections();
   
+  const {receiveTypesVariants} = useSetSelectedCurrencySellTypeEffect();
+  useSetSelectedCurrencyBuyTypeEffect();
 
   return (
-    <ExchangeLayout
-      onMainButtonClick={onSubmit}
-      buttonText="Подтвердить выбор"
-    >
+    <ExchangeLayout onMainButtonClick={onSubmit} buttonText="Подтвердить выбор">
       <div className="flex flex-col gap-12 justify-between mb-50">
         <ExchangeTypeBlock
           position="given"
           title="Я отдаю"
-          buttons={giveOptions.current}
+          buttons={EXCHANGE_TYPES_BUTTONS}
         ></ExchangeTypeBlock>
         <ExchangeTypeBlock
           position="received"
           title="Я получаю"
-          buttons={recieveOptions || []}
+          buttons={receiveTypesVariants}
         ></ExchangeTypeBlock>
         <div className="border-[1px] rounded-6 border-[var(--border-main)] bg-[var(--background-secondary)] w-full h-70 flex flex-col items-center justify-center">
           <p className="text-13 text-[var(--text-secondary)]">
@@ -60,7 +64,7 @@ export default memo(function Page() {
           </button>
         </div>
       </div>
-      <RateNoteModal/>
+      <RateNoteModal />
     </ExchangeLayout>
   );
 });

@@ -1,32 +1,26 @@
 "use client";
-import { exchangeApi } from "@/d__features/exchange/api";
-import { transferAbroadApi } from "@/d__features/transferAbroad/api";
+import { exchangeApiLoadingReducer } from "@/d__features/exchange/model";
+import { supportApiLoadingReducer } from "@/d__features/support/model/store";
+import { transferAbroadApiLoadingReducer } from "@/d__features/transferAbroad/model";
+import { userApiLoadingReducer } from "@/d__features/userDataDisplay/model";
 import { RootState } from "@/shared/model/store";
+import { Reducer } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
+const hasLoadingActions = (state: any) => {
 
-const hasPendingQueries = (state: RootState, api: any) =>
-// @ts-expect-error expectedly for this type of abstraction
-  Object.values(state[api.reducerPath]?.queries || {}).some(
-    (query: any) => query?.status === "pending"
+  return Object.values(state).some(
+    (isLoading: any) => !!isLoading
   );
-
-const hasPendingMutations = (state: RootState, api: any) =>
-  // @ts-expect-error expectedly for this type of abstraction
-  Object.values(state[api.reducerPath]?.mutations || {}).some(
-    (mutation: any) => mutation?.status === "pending"
-  );
-
-// Основной селектор
+}
+ 
 export const selectIsLoading = (state: RootState) =>
-  hasPendingQueries(state, exchangeApi) ||
-  hasPendingMutations(state, exchangeApi) ||
-  hasPendingQueries(state, transferAbroadApi) ||
-  hasPendingMutations(state, transferAbroadApi);
-
+  hasLoadingActions(state.exchangeApiLoading) ||
+  hasLoadingActions(state.supportApiLoading) ||
+  hasLoadingActions(state.transferAbroadApiLoading) ||
+  hasLoadingActions(state.userApiLoading);
 
 export const useGlobalLoading = () => {
-  // Получаем количество активных запросов RTK Query
   const isLoading = useSelector(selectIsLoading);
 
   return {

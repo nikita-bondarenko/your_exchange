@@ -9,130 +9,14 @@ import {
   Network,
   Rate,
 } from "@/shared/model/api/exchange/types";
-import {
-  calculateCurrencyTypeFromDirection,
-} from "@/shared/lib/currency/calculateCurrencyTypeFromDirection";
 import { getAvailableCurrenciesBuyDetails } from "@/shared/lib/currency";
-import { ExchangeReducerState } from "@/shared/model/store/state";
 import { ExchangeCurrencyPosition, ExchangeCurrencyType, ExchangeType } from "@/shared/model/exchange";
-
-export const initialState: ExchangeReducerState = {
-  currenciesSell: [],
-  currenciesBuy: [],
-  selectedCurrencySell: null,
-  selectedCurrencyBuy: null,
-  selectedCurrencySellType: null,
-  selectedCurrencyBuyType: null,
-  currencyBuyTypeOptions: null,
-  cities: null,
-  selectedCity: {
-    value: null,
-    error: null,
-  },
-  networks: null,
-  selectedNetwork: {
-    value: null,
-    error: null,
-  },
-  banks: null,
-  selectedBank: {
-    value: null,
-    error: null,
-  },
-  cardNumber: {
-    value: null,
-    error: null,
-  },
-  phoneNumber: {
-    value: null,
-    error: null,
-  },
-  isPhoneNumberUsed: false,
-  walletAddress: {
-    value: null,
-    error: null,
-  },
-  areErrorsVisible: false,
-  areErrors: false,
-  activeInputType: null,
-  exchangeRate: null,
-  currencySellAmount: {
-    value: null,
-    error: null,
-  },
-  currencyBuyAmount: {
-    value: null,
-    error: null,
-  },
-  isRateBeingPulled: false,
-  promocode: "",
-  isPromocodeValid: false,
-  availableCurrenciesGetData: null,
-  initialData: null,
-};
-
-export const calculateSecondaryProperties = ({
-  rate,
-  propertyKey,
-  initialData,
-  selectedCurrencyBuyId,
-  selectedCurrencySellId,
-}: {
-  rate?: Rate;
-  propertyKey?: "banks" | "networks" | "cities";
-  initialData?: GetDirectionInitialDataByDirectionTypeApiResponse;
-  selectedCurrencySellId?: number;
-  selectedCurrencyBuyId?: number;
-}) => {
-  if (!rate || !propertyKey) return [];
-  const currencySellType = calculateCurrencyTypeFromDirection(
-    rate.direction_type,
-    "given"
-  );
-
-  let currencyGive: Currency | undefined = rate.currency_give;
-  let currencyGet: Currency | undefined = rate.currency_get;
-
-  if (selectedCurrencySellId) {
-    currencyGive = initialData?.currencies_give?.find(
-      (currency) => currency.id === selectedCurrencySellId
-    );
-  }
-
-  if (selectedCurrencyBuyId) {
-    currencyGet = initialData?.currencies_get?.find(
-      (currency) => currency.id === selectedCurrencyBuyId
-    );
-  }
-
-  switch (propertyKey) {
-    case "networks": {
-      if (currencySellType === "COIN") {
-        return currencyGive?.networks || [];
-      } else {
-        return currencyGet?.networks || [];
-      }
-    }
-    case "banks": {
-      if (currencySellType === "BANK") {
-        return currencyGive?.banks || [];
-      } else {
-        return currencyGet?.banks || [];
-      }
-    }
-    case "cities": {
-      if (currencySellType === "CASH") {
-        return currencyGive?.cities || [];
-      } else {
-        return currencyGet?.cities || [];
-      }
-    }
-  }
-};
+import { exchangeReducerInitialState } from "./exchangeReducerInitialState";
+import { calculateSecondaryProperties } from "@/d__features/exchange/lib";
 
 export const exchangeSlice = createSlice({
   name: "exchange",
-  initialState,
+  initialState: exchangeReducerInitialState,
   reducers: {
     setInitialData: (
       state,
@@ -150,10 +34,7 @@ export const exchangeSlice = createSlice({
 
       state.currenciesSell = initData?.currencies_give || [];
 
-      // console.log('initData',availableCurrenciesGet)
-
       const {
-        
         selectedNetwork,
         selectedBank,
         networks,
@@ -239,12 +120,7 @@ export const exchangeSlice = createSlice({
       if (state.selectedCurrencyBuyType === action.payload) return;
       state.selectedCurrencyBuyType = action.payload;
     },
-    setCurrencyBuyTypeOptions: (
-      state,
-      action: PayloadAction<ExchangeType[] | null>
-    ) => {
-      state.currencyBuyTypeOptions = action.payload;
-    },
+  
     setCities: (state, action: PayloadAction<City[] | null>) => {
       state.cities = action.payload;
     },
@@ -360,10 +236,9 @@ export const exchangeSlice = createSlice({
       state.selectedCurrencyBuy = null;
       state.selectedCurrencySellType = null;
       state.selectedCurrencyBuyType = null;
-      state.currencyBuyTypeOptions = null;
     },
     clearAll: (state) => {
-      return initialState;
+      return exchangeReducerInitialState;
     },
     setIsRateBeingPulled: (state, action: PayloadAction<boolean>) => {
       state.isRateBeingPulled = action.payload;
@@ -388,7 +263,6 @@ export const {
   setSelectedCurrencyBuy,
   setSelectedCurrencySellType,
   setSelectedCurrencyBuyType,
-  setCurrencyBuyTypeOptions,
   setCities,
   setSelectedCityValue,
   setSelectedCityError,

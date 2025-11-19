@@ -60,7 +60,7 @@ export async function fetchApi<T>({
 
       const contentType = result.headers.get("Content-Type");
       if (!contentType?.includes("application/json")) {
-        const text = await result.text();
+        const text = (await result.text()).slice(0,5000);
         throw {
           error: result.statusText,
           message: `Expected JSON, but received ${contentType}`,

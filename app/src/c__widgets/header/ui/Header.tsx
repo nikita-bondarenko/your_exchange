@@ -2,14 +2,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/shared/model/store";
+import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 import { BACK_BUTTON_ROUTES } from "@/shared/config";
 import { Menu } from "./Menu";
 import { CrossIcon, HeaderArrowIcon } from "@/shared/ui";
-import { setSelectedCurrencySellType, setSelectedCurrencyBuyType } from "@/d__features/exchange/model";
+import {
+  setSelectedCurrencySellType,
+  setSelectedCurrencyBuyType,
+} from "@/d__features/exchange/model";
 import { ProgressBar } from "@/d__features/progressBar/ui";
 
 export function Header() {
@@ -21,21 +21,19 @@ export function Header() {
     [pathname]
   );
 
-  const isAppReady = useAppSelector((state) => state.ui.isAppReady);
-
   const isProgressBarActive = useMemo(
-    () => pathname?.startsWith("/exchange") || pathname?.startsWith("/transfer-abroad"),
+    () =>
+      pathname?.startsWith("/exchange") ||
+      pathname?.startsWith("/transfer-abroad"),
     [pathname]
   );
 
-  const isResultPage = useMemo(
-    () => pathname?.endsWith("/result") ,
-    [pathname]
-  );
+  const isResultPage = useMemo(() => pathname?.endsWith("/result"), [pathname]);
   const router = useRouter();
 
   const backButton = useRef<HTMLButtonElement>(null);
   const [isBackward, setIsBackward] = useState(false);
+  const isAppReady = useAppSelector((state) => state.ui.isAppReady);
 
   useEffect(() => {
     setTimeout(() => {
@@ -57,14 +55,6 @@ export function Header() {
     }
   };
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (isAppReady) {
-      dispatch(setSelectedCurrencySellType("COIN"));
-      dispatch(setSelectedCurrencyBuyType("BANK"));
-    }
-  }, [isAppReady]);
   const isPageNameVisible = useMemo(
     () => pathname.includes("profile") || pathname === "/faq",
     [pathname]
