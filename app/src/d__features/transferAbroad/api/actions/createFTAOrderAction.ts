@@ -1,6 +1,6 @@
 'use server'
 
-import { FetchApiProps, fetchApi } from "@/d__features/apiProxy/lib";
+import { FetchApiProps, fetchApi } from "@/shared/lib/serverAction";
 import { FTAOrderBody, OrderResponse } from "@/shared/model/api";
 
 export async function createFTAOrderAction(
@@ -21,7 +21,7 @@ export async function createFTAOrderAction(
   if (payload.file_2) formData.append("file_2", payload.file_2);
 
   const props: FetchApiProps = {
-    path: "/api/transfer-abroad/order/fta",
+    path: "/transfer-abroad/order/fta",
     method: "POST",
     body: formData,
     // Важно: не передаём Content-Type, браузер сам поставит с boundary

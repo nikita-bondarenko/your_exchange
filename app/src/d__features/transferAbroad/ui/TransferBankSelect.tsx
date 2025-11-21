@@ -3,8 +3,8 @@ import { memo, useEffect } from "react";
 import { useTransferDetailsOptions } from "../lib/useTransferDetailsOptions";
 import { useBankInputError } from "../lib/useBankInputError";
 import { useAppSelector, useAppDispatch } from "@/shared/model/store";
-import { CurrencySubOption } from "../api";
 import { setBank } from "../model";
+import { CurrencySubOption } from "@/shared/model/api";
 
 export const TransferBankSelect = memo(() => {
   const { banks } = useTransferDetailsOptions();

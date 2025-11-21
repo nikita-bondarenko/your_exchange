@@ -17,7 +17,7 @@ export const useExchangeInputsValidation = () => {
     selectedCity,
   } = useAppSelector(selectExchangeInputsState);
 
-  const state = useAppSelector((state) => state);
+  const state = useAppSelector((state) => state.exchange);
 
   useEffect(() => {
     validateAllFields(state, dispatch);

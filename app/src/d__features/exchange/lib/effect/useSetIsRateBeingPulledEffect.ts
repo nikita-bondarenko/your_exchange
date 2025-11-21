@@ -73,7 +73,7 @@ export const useSetIsRateBeingPulledEffect = () => {
       () => {
         setRefetchTrigger((prev) => prev + 1);
       },
-      5000,
+      30000,
       RATE_INTERVAL_KEY
     );
 
@@ -83,7 +83,8 @@ export const useSetIsRateBeingPulledEffect = () => {
   }, [isRateBeingPulled, rate]);
 
   useEffect(() => {
-    if (rateData?.rate) {
+    if (rateData?.rate?.currency_give_min_value) {
+      // console.log(rateData.rate)
       dispatch(setExchangeRate(rateData?.rate));
     }
   }, [rateData]);

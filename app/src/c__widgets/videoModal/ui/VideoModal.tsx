@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import BaseModal from "@/shared/ui/modal/BaseModal";
+import {BaseModal} from "@/shared/ui";
 import { CrossIcon } from "@/shared/ui";
 
 type Props = {

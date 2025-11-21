@@ -37,7 +37,7 @@ export default memo(function ExchangeInputPage() {
   const onSubmit = useCallback(() => {
     dispatch(setAreErrorsVisible(true));
     const state = store.getState();
-    const areErrors = validateAllFields(state, dispatch);
+    const areErrors = validateAllFields(state.exchange, dispatch);
     if (areErrors) {
       return;
     }

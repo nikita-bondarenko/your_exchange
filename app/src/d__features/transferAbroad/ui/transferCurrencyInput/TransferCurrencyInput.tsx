@@ -6,8 +6,8 @@ import { CurrencyInput } from "@/entities/currency/ui";
 import { useTransferCurrenciesOptions } from "../../lib";
 import { useCurrencyAmountError } from "../../lib/useCurrencyAmountError";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store";
-import { TransferAbroadCurrency } from "../../api";
 import { setTransferAbroadCurrency, setTransferAbroadCurrencyAmount, setMaxCurrencyAmount } from "../../model";
+import { TransferAbroadCurrency } from "@/shared/model/api";
 
 type Props = {
   isLimitInfoActive: boolean;

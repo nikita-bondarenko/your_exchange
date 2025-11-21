@@ -1,7 +1,9 @@
+import { useServerAction } from "@/shared/lib";
 import { CurrencySubOption } from "@/shared/model/api";
 import { useAppSelector } from "@/shared/model/store";
 import { useState, useEffect } from "react";
-import { useGetTransferDetailsMutation } from "../api";
+import { getTransferDetailsAction } from "../api";
+import { setGetTransferDetailsLoading } from "../model";
 
 export const useTransferDetailsOptions = () => {
   const [countries, setCountries] = useState<CurrencySubOption[]>([]);
@@ -13,27 +15,33 @@ export const useTransferDetailsOptions = () => {
   );
   const currency = useAppSelector((state) => state.transferAbroad.currency);
 
+  const [getTransferDetails, getTransferDetailsResponse] = useServerAction({
+    action: getTransferDetailsAction,
+    loadingAction: setGetTransferDetailsLoading,
+  });
+
   useEffect(() => {
     if (currency && transferTypeId) {
       getTransferDetails({
         currency_id: currency.id,
         transfer_option_id: transferTypeId,
-      }).then((res) => {
-        if (res?.data?.countries) {
-          setCountries(res?.data?.countries);
-        }
-        if (res?.data?.banks) {
-          setBanks(res?.data?.banks);
-        }
-        if (res?.data?.platforms) {
-          setPlatforms(res?.data?.platforms);
-        }
-      });
+      })
     }
   }, [currency, transferTypeId]);
 
-  const [getTransferDetails] = useGetTransferDetailsMutation();
-
+  useEffect(() => {
+    if (getTransferDetailsResponse) {
+      if (getTransferDetailsResponse?.countries) {
+        setCountries(getTransferDetailsResponse?.countries);
+      }
+      if (getTransferDetailsResponse?.banks) {
+        setBanks(getTransferDetailsResponse?.banks);
+      }
+      if (getTransferDetailsResponse?.platforms) {
+        setPlatforms(getTransferDetailsResponse?.platforms);
+      }
+    }
+  }, [getTransferDetailsResponse]);
   return {
     countries,
     banks,

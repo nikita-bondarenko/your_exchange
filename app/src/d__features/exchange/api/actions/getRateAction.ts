@@ -1,6 +1,6 @@
 'use server'
 
-import { FetchApiProps, fetchApi } from "@/d__features/apiProxy/lib";
+import { FetchApiProps, fetchApi } from "@/shared/lib/serverAction";
 import { RateListApiArg, RateListApiResponse } from "@/shared/model/api";
 
 export async function getRateAction(

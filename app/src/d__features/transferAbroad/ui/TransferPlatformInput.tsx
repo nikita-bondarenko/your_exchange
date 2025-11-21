@@ -2,8 +2,8 @@ import { BaseTabs, SectionHeading } from "@/shared/ui";
 import { useTransferDetailsOptions } from "../lib/useTransferDetailsOptions";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store";
-import { CurrencySubOption } from "../api";
 import { setPlatform } from "../model";
+import { CurrencySubOption } from "@/shared/model/api";
 
 export const TransferPlatformInput: React.FC = () => {
   const { platforms } = useTransferDetailsOptions();

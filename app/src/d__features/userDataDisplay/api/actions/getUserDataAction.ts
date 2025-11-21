@@ -4,7 +4,7 @@
 import {
   fetchApi,
   FetchApiProps,
-} from "@/d__features/apiProxy/lib";
+} from "@/shared/lib/serverAction";
 import {
   UserListApiArg,
   UserListApiResponse,

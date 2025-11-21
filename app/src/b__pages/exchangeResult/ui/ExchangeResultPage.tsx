@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 
 import { RequestResult } from "@/entities/requestResult/ui";
-import { clearAll, setSelectedCurrencySellType, setSelectedCurrencyBuyType } from "@/d__features/exchange/model";
+import { clearAll } from "@/d__features/exchange/model";
 import { setUserId } from "@/d__features/userDataDisplay/model";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 

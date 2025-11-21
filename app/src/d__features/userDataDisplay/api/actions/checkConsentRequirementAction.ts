@@ -1,5 +1,5 @@
 "use server";
-import { FetchApiProps, fetchApi } from "@/d__features/apiProxy/lib";
+import { FetchApiProps, fetchApi } from "@/shared/lib/serverAction";
 import {
   CheckConsentApiArg,
   CheckConsentApiResponse,

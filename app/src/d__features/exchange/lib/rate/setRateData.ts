@@ -118,7 +118,7 @@ export const setRateData = async ({
     selectedCurrencySellId: rateFetchingArgs.currency_give_id,
   });
   if (selectedCurrencyBuyType === "COIN" && selectedCurrencySellType === "CASH")
-    console.log("getAvailableCurrenciesBuyDetails", networks, isNetworkValid);
+    // console.log("getAvailableCurrenciesBuyDetails", networks, isNetworkValid);
 
   dispatch(setCurrenciesBuy(currenciesBuy));
 
@@ -143,10 +143,14 @@ export const setRateData = async ({
   }
 
   dispatch(setGetRateLoading(true))
+  // console.log('rateFetchingArgs',rateFetchingArgs)
+    console.log('isNetworkValid',isNetworkValid)
+
   const rateData = await getRateAction(rateFetchingArgs)
   dispatch(setGetRateLoading(false))
 
   if (!rateData) return;
+  // console.log(JSON.stringify(rateData.rate))
   dispatch(setExchangeRate(rateData?.rate || null));
   const cities = calculateSecondaryProperties({
     rate: rateData?.rate,

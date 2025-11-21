@@ -1,18 +1,25 @@
 import { memo, useEffect, useMemo } from "react";
 import { TransferSelectItem } from "./TransferSelectItem";
+import { useAppDispatch, useAppSelector } from "@/shared/model/store";
+import { sortArrayByProperty, useServerAction } from "@/shared/lib";
 import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/shared/model/store";
-import { sortArrayByProperty } from "@/shared/lib";
-import { useGetTransferOptionsQuery } from "../../api";
-import { setSelectedTranserTypeOptionId } from "../../model";
+  setGetTransferOptionsLoading,
+  setSelectedTranserTypeOptionId,
+} from "../../model";
+import { getTransferOptionsAction } from "../../api";
 
 export const TransferSelect = memo(() => {
-  const { data } = useGetTransferOptionsQuery();
+  const [getTransferOptions, getTransferOptionsResponse] = useServerAction({
+    action: getTransferOptionsAction,
+    loadingAction: setGetTransferOptionsLoading,
+  });
+
+  useEffect(() => {
+    getTransferOptions(undefined);
+  }, []);
 
   const parsedData = useMemo(() => {
-    const copiedObject = { ...data };
+    const copiedObject = { ...getTransferOptionsResponse };
 
     const categories: ("individual" | "legal_entity")[] = [
       "individual",
@@ -30,10 +37,8 @@ export const TransferSelect = memo(() => {
         });
     });
 
-    console.log(data, copiedObject)
-
     return copiedObject;
-  }, [data]);
+  }, [getTransferOptionsResponse]);
 
   const selectedTranserTypeOptionId = useAppSelector(
     (state) => state.transferAbroad.selectedTranserTypeOptionId
@@ -59,7 +64,8 @@ export const TransferSelect = memo(() => {
     if (
       parsedData &&
       transferTypeCategory &&
-      parsedData[transferTypeCategory]
+      parsedData[transferTypeCategory] &&
+      parsedData[transferTypeCategory][0]
     ) {
       const id = parsedData[transferTypeCategory][0].id;
       dispatch(setSelectedTranserTypeOptionId(id));

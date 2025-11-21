@@ -159,6 +159,7 @@ export type CheckPromocodeApiArg = {
 
 export type CheckPromocodeApiResponse = {
   detail: string;
+  error?: any
 };
 
 

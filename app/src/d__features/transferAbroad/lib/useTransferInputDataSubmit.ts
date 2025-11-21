@@ -1,12 +1,26 @@
-
 import {
   useAppSelector,
   abroadTransferDetailsSelector,
   useAppDispatch,
 } from "@/shared/model/store";
 import { useRouter } from "next/navigation";
-import { useCreateInvoiceOrderMutation, useCreateFTAOrderMutation, useCreateChinesePlatformOrderMutation, useCreateAbroadCardTransferOrderMutation, OrderResponse } from "../api";
-import { setOrderId } from "../model";
+
+import {
+  setCreateAbroadCardOrderLoading,
+  setCreateChinesePlatformOrderLoading,
+  setCreateFTAOrderLoading,
+  setCreateInvoiceOrderLoading,
+  setOrderId,
+} from "../model";
+import { useServerAction } from "@/shared/lib";
+import {
+  createAbroadCardOrderAction,
+  createChinesePlatformOrderAction,
+  createFTAOrderAction,
+  createInvoiceOrderAction,
+} from "../api";
+import { OrderResponse } from "@/shared/model/api";
+import { useEffect } from "react";
 
 export const useTransferInputDataSubmit = (transferType: string | null) => {
   const router = useRouter();
@@ -25,19 +39,30 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
     abroadCompanyRequisites,
   } = useAppSelector(abroadTransferDetailsSelector);
 
-  const [createInvoiceOrder] = useCreateInvoiceOrderMutation();
-  const [createFTAOrder] = useCreateFTAOrderMutation();
-  const [createChinesePlatform] = useCreateChinesePlatformOrderMutation();
-  const [createAbroadCardTransferOrder] =
-    useCreateAbroadCardTransferOrderMutation();
+  const [createInvoiceOrder, createInvoiceOrderResponse] = useServerAction({
+    action: createInvoiceOrderAction,
+    loadingAction: setCreateInvoiceOrderLoading,
+  });
+  const [createFTAOrder, createFTAOrderResponse] = useServerAction({
+    action: createFTAOrderAction,
+    loadingAction: setCreateFTAOrderLoading,
+  });
+  const [createChinesePlatformOrder, createChinesePlatformOrderResponse] =
+    useServerAction({
+      action: createChinesePlatformOrderAction,
+      loadingAction: setCreateChinesePlatformOrderLoading,
+    });
+  const [createAbroadCardTransferOrder, createAbroadCardTransferOrderResponse] =
+    useServerAction({
+      action: createAbroadCardOrderAction,
+      loadingAction: setCreateAbroadCardOrderLoading,
+    });
 
   const dispatch = useAppDispatch();
 
-  const requiestPromiseCallback = (value: {
-    data?: OrderResponse | undefined;
-  }) => {
-    console.log(value);
-    dispatch(setOrderId(value.data?.order_id || 'no_info'));
+  const requiestPromiseCallback = (data?: OrderResponse | undefined) => {
+    // console.log(value);
+    dispatch(setOrderId(data?.order_id || "no_info"));
     router.push("/transfer-abroad/result");
   };
 
@@ -53,18 +78,18 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
             amount,
             bank_name: bank?.name,
             user_id: userId,
-          }).then(requiestPromiseCallback);
+          });
         break;
       }
       case "chinese-platforms": {
         console.log(currency?.name, amount, platform?.name);
         if (currency?.name && amount && platform?.name && userId)
-          createChinesePlatform({
+          createChinesePlatformOrder({
             currency_name: currency?.name,
             amount,
             platform_name: platform?.name,
             user_id: userId,
-          }).then(requiestPromiseCallback);
+          });
         break;
       }
       case "fta": {
@@ -79,7 +104,7 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
             file_2: file2,
             russian_company_requisites: russianCompanyRequisites,
             abroad_company_requisites: abroadCompanyRequisites,
-          }).then(requiestPromiseCallback);
+          });
         break;
       }
       case "invoice": {
@@ -105,11 +130,35 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
             country_name: countryName,
             transfer_type: transferTypeCategorySlug,
             user_id: userId,
-          }).then(requiestPromiseCallback);
+          });
         break;
       }
     }
   };
+
+  useEffect(() => {
+    if (createInvoiceOrderResponse) {
+      requiestPromiseCallback(createInvoiceOrderResponse);
+    }
+  }, [createInvoiceOrderResponse]);
+
+  useEffect(() => {
+    if (createFTAOrderResponse) {
+      requiestPromiseCallback(createFTAOrderResponse);
+    }
+  }, [createFTAOrderResponse]);
+
+  useEffect(() => {
+    if (createChinesePlatformOrderResponse) {
+      requiestPromiseCallback(createChinesePlatformOrderResponse);
+    }
+  }, [createChinesePlatformOrderResponse]);
+
+  useEffect(() => {
+    if (createAbroadCardTransferOrderResponse) {
+      requiestPromiseCallback(createAbroadCardTransferOrderResponse);
+    }
+  }, [createAbroadCardTransferOrderResponse]);
 
   return [handleSubmit];
 };

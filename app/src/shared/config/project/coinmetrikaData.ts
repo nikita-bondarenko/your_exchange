@@ -7,15 +7,15 @@ export const COINMETRIKA_PROJECT_DATA: ProjectData = {
   theme: COINMETRIKA_THEME,
 
   meta: {
-    title: "Coinmetrika Exchange",
-    description: "Coinmetrika Exchange - Telegram Mini App",
+    title: "Metrika Exchange",
+    description: "Metrika Exchange - Telegram Mini App",
   },
 
   page: {
 
     home: {
       title: {
-        text: `Coinmetrika <br/>Exchange`
+        text: `Metrika <br/>Exchange`
       },
       subtitle: `Покупка и продажа криптовалюты по&nbsp;выгодному&nbsp;курсу`,
       descriptionList: [
@@ -42,9 +42,9 @@ export const COINMETRIKA_PROJECT_DATA: ProjectData = {
          ],
       firstScreenBackgroundImage: undefined,
       policyUrl:
-        "https://drive.google.com/file/d/14NFieNWgcewmAX84wDUdatqCQwKfFG50/preview",
+        "https://drive.google.com/file/d/1O-EunRgSTVfbiLJUhccB3WqEsjs1IQPQ/preview",
       termsUrl:
-        "https://drive.google.com/file/d/10b-qAUrP9GMx0uMBYDOVfYiwbTLTOO7Z/preview",
+        "https://drive.google.com/file/d/1LUeRKUY3kJG3Ll8-wWDeuf0XvKZYTCgQ/preview",
     },
     result: {
       video: {

@@ -56,6 +56,7 @@ export const useSetSelectedCityEffect = () => {
 
   useEffect(() => {
     if (rateData) {
+      // console.log(rateData.rate)
       dispatch(setExchangeRate(rateData?.rate || null));
       const cities = calculateSecondaryProperties({
         rate: rateData?.rate,

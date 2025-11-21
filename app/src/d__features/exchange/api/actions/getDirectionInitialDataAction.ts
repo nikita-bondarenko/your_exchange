@@ -1,6 +1,6 @@
 'use server'
 
-import { FetchApiProps, fetchApi } from "@/d__features/apiProxy/lib";
+import { FetchApiProps, fetchApi } from "@/shared/lib/serverAction";
 import { GetDirectionInitialDataByDirectionTypeApiArg, GetDirectionInitialDataByDirectionTypeApiResponse } from "@/shared/model/api";
 
 export async function getDirectionInitialDataAction(

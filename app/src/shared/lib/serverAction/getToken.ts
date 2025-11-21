@@ -1,14 +1,12 @@
 "use server";
-import {
-  ensureDirectoryExist,
-  fetchApi,
-  FetchApiProps,
-  isFileExist,
-} from "@/d__features/apiProxy/lib";
+
 import { PROJECT_SERVER_DATA } from "@/shared/config/server";
 import path from "path";
 import { cwd } from "process";
 import { promises as fs } from "fs";
+import { FetchApiProps, fetchApi } from "./fetchApi";
+import { isFileExist } from "./checkTokenFile";
+import { ensureDirectoryExist } from "./ensureDIrectoryExist";
 
 type GetTokenApiArg = {
   username: string;

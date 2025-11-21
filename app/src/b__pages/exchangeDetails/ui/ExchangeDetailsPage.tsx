@@ -2,95 +2,138 @@
 
 import ExchangeLayout from "@/c__widgets/processLayout/ui";
 import PromoModal from "@/c__widgets/promocodeModal/ui";
-import { useExchangesCreateMutation, useCheckPromocodeMutation } from "@/d__features/exchange/api";
-import { setPromocode, setIsPromocodeValid } from "@/d__features/exchange/model";
+import {
+  checkPromocodeAction,
+  createExchangeAction,
+} from "@/d__features/exchange/api";
+import {
+  setPromocode,
+  setIsPromocodeValid,
+  setCreateExchangeLoading,
+  setCheckPromocodeLoading,
+} from "@/d__features/exchange/model";
 import { ExchangeRequestDetails } from "@/d__features/exchange/ui/exchangeRequestDetails";
-import { useAppDispatch, useAppSelector, selectExchangeDetails, setPageName, selectExchangeCreateData, setExchangeId } from "@/shared/model/store";
+import { checkConsentRequirementAction } from "@/d__features/userDataDisplay/api";
+import { useServerAction } from "@/shared/lib";
+import {
+  useAppDispatch,
+  useAppSelector,
+  selectExchangeDetails,
+  setPageName,
+  selectExchangeCreateData,
+  setExchangeId,
+} from "@/shared/model/store";
 
 import { SignIcon } from "@/shared/ui";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
 
-
 export default function ExchangeDetailsPage() {
   const dispatch = useAppDispatch();
   const details = useAppSelector(selectExchangeDetails);
   const router = useRouter();
-  const [isPromoApplied, setIsPromoApplied] = useState(false)
+  const [isPromoApplied, setIsPromoApplied] = useState(false);
   const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
-  const [promocode, setPromoCode] = useState('')
-  const [isPromocodeErrorShowing,setIsPromocodeErrorShowing] = useState(false)
-const timeoutId = useRef<NodeJS.Timeout>(null)
+  const [promocode, setPromoCode] = useState("");
+  const [isPromocodeErrorShowing, setIsPromocodeErrorShowing] = useState(false);
+  const timeoutId = useRef<NodeJS.Timeout>(null);
 
   useEffect(() => {
     dispatch(setPageName("подтверждение заявки"));
   }, [dispatch]);
-  const createExchangeData = useAppSelector(selectExchangeCreateData)
-  const [createExchange] = useExchangesCreateMutation();
+  const createExchangeData = useAppSelector(selectExchangeCreateData);
 
-  const onSubmit = useCallback(() => {
-    createExchange(createExchangeData).unwrap().then((res) => {
-      dispatch(setExchangeId(res.exchange_id));
+  const [createExchange, createExchangeResponse] = useServerAction({
+    action: createExchangeAction,
+    loadingAction: setCreateExchangeLoading,
+  });
+
+  const [checkPromocode, checkPromocodeResponse] = useServerAction({
+    action: checkPromocodeAction,
+    loadingAction: setCheckPromocodeLoading,
+  });
+
+  const onSubmit = () => {
+    createExchange(createExchangeData);
+  };
+
+  useEffect(() => {
+    if (createExchangeResponse) {
+      dispatch(setExchangeId(createExchangeResponse?.exchange_id));
       router.push("/exchange/result");
-    })
-  }, [router, dispatch, createExchangeData]);
+    }
+  }, [createExchangeResponse]);
 
   const handlePromoButton = () => {
-    setIsPromoModalOpen(true)
-  }
+    setIsPromoModalOpen(true);
+  };
 
   const handlePromoModalCloseEvent = () => {
-    setIsPromoModalOpen(false)
-  }
+    setIsPromoModalOpen(false);
+  };
 
-  const [checkPromocode] = useCheckPromocodeMutation()
+  const handlePromocodeSubmit = () => {
+    checkPromocode(promocode);
+  };
 
-  const handlePromocodeSubmit = async () => {
-
-    const response = await checkPromocode({code: promocode})
-
-    if (response.error) {
-      setIsPromocodeErrorShowing(true)
-      if (timeoutId.current )
-      clearTimeout(timeoutId.current)
-      timeoutId.current = setTimeout(() => {
-        setIsPromocodeErrorShowing(false)
-      },3000)
-    } else {
-      setIsPromoApplied(true)
-      handlePromoModalCloseEvent()
-      dispatch(setPromocode(promocode))
-      dispatch(setIsPromocodeValid(true))
+  useEffect(() => {
+    if (checkPromocodeResponse) {
+      if (checkPromocodeResponse.error) {
+        setIsPromocodeErrorShowing(true);
+        if (timeoutId.current) clearTimeout(timeoutId.current);
+        timeoutId.current = setTimeout(() => {
+          setIsPromocodeErrorShowing(false);
+        }, 3000);
+      } else {
+        setIsPromoApplied(true);
+        handlePromoModalCloseEvent();
+        dispatch(setPromocode(promocode));
+        dispatch(setIsPromocodeValid(true));
+      }
     }
-  }
+  }, [checkPromocodeResponse]);
 
   return (
     <>
-    <ExchangeLayout onMainButtonClick={onSubmit} buttonText="Оставить заявку">
-      <div className="flex flex-col gap-26">
-        {details.map((item, idx) => (
-          <ExchangeRequestDetails {...item} key={idx} />
-        ))}
-        <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-15 flex items-center justify-center " >
-          {
-            !isPromoApplied ? <button className=" underline underline-offset-2 text-[var(--text-main)]" onClick={handlePromoButton}>У меня есть промокод</button>
-              :
+      <ExchangeLayout onMainButtonClick={onSubmit} buttonText="Оставить заявку">
+        <div className="flex flex-col gap-26">
+          {details.map((item, idx) => (
+            <ExchangeRequestDetails {...item} key={idx} />
+          ))}
+          <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-15 flex items-center justify-center ">
+            {!isPromoApplied ? (
+              <button
+                className=" underline underline-offset-2 text-[var(--text-main)]"
+                onClick={handlePromoButton}
+              >
+                У меня есть промокод
+              </button>
+            ) : (
               <div className="flex items-center justify-center gap-[15px]">
-                <p className="text-[var(--main-color)]">Промокод будет успешно применен</p>
-                <SignIcon className="w-[16px] h-[16px] translate-y-[2px]"/>
+                <p className="text-[var(--main-color)]">
+                  Промокод будет успешно применен
+                </p>
+                <SignIcon className="w-[16px] h-[16px] translate-y-[2px]" />
               </div>
-          }
-        </div>
-     <div className="bg-[var(--background-secondary)] text-[var(--text-main)] rounded-6 px-20 py-15 flex items-center justify-center ">
+            )}
+          </div>
+          <div className="bg-[var(--background-secondary)] text-[var(--text-main)] rounded-6 px-20 py-15 flex items-center justify-center ">
             <p className="text-center mx-auto">
               Курс обмена может меняться в&nbsp;зависимости
               от&nbsp;волатильности рынка. Итоговый курс сделки озвучит
               оператор.
             </p>
           </div>
-      </div>
-    </ExchangeLayout>
-    <PromoModal handleCloseEvent={handlePromoModalCloseEvent} isErrorMessageShowing={isPromocodeErrorShowing} isOpen={isPromoModalOpen} onSubmit={handlePromocodeSubmit} value={promocode} setValue={setPromoCode}></PromoModal>
+        </div>
+      </ExchangeLayout>
+      <PromoModal
+        handleCloseEvent={handlePromoModalCloseEvent}
+        isErrorMessageShowing={isPromocodeErrorShowing}
+        isOpen={isPromoModalOpen}
+        onSubmit={handlePromocodeSubmit}
+        value={promocode}
+        setValue={setPromoCode}
+      ></PromoModal>
     </>
   );
 }

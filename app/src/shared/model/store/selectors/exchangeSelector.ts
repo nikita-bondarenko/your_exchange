@@ -8,8 +8,9 @@ import { ExchangeCurrencyPosition } from "../../exchange";
 export const selectSectionHeadingProps = (position: "given" | "received") =>
     createSelector(
       (state: RootState) => state.exchange,
+
       (exchange) => {
-      
+      // console.log(exchange.exchangeRate)
   
         return position === "given"
           ? { title: "Я отдаю", minValue: exchange.exchangeRate?.currency_give_min_value }
