@@ -15,6 +15,7 @@ import RequestStatus from "@/entities/requestStatus/ui";
 import { ModeSwitcher } from "@/c__widgets/modeSwitcher/ui";
 import clsx from "clsx";
 import { PROJECT_DATA } from "@/shared/config";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export default function HomePage() {
   const { callSupport } = useCallSupport();
@@ -36,11 +37,20 @@ export default function HomePage() {
     (state) => state.featuresFlags.isTransferAbroadMode
   );
 
+  const { trackPushButton, trackUserAction } = useTrackUserAction();
+
+  const startButtonText = useMemo(
+    () => (isExchangeMode ? " Начать обмен" : "Начать платеж"),
+    [isExchangeMode]
+  );
+
   const handleStartButton = () => {
     const startButtonHref =
       isExchangeMode && !isTransferAbroadMode
         ? "/exchange/type"
         : "/transfer-abroad/type";
+
+    trackPushButton(startButtonText);
     router.push(startButtonHref);
   };
 
@@ -91,10 +101,16 @@ export default function HomePage() {
     termsUrl: homePageData.termsUrl,
   });
 
+  const handleButtonGroupVisibilityChange = (isOpen: boolean) => {
+    trackUserAction(
+      `${isOpen ? "Открыта" : "Закрыта"} группа кнопок 'Дополнительно'`
+    );
+  };
+
   return (
     <>
       <div className="container h-full flex flex-col">
-        {PROJECT_DATA.isTransferAbroadFeature && <ModeSwitcher/>}
+        {PROJECT_DATA.isTransferAbroadFeature && <ModeSwitcher />}
         <div className="h-13"></div>
         <div className="rounded-6 px-20 pt-35 pb-28 mb-17 flex-grow flex flex-col background-first-screen relative overflow-hidden">
           {homePageData.firstScreenBackgroundImage &&
@@ -180,7 +196,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 gap-6 z-10">
             <Button onClick={handleStartButton} type={"main-screen-left"}>
-              {isExchangeMode ? "Начать обмен" : "Начать платеж"}
+              {startButtonText}
             </Button>
             <Button onClick={callSupport} type={"main-screen-right"}>
               Поддержка
@@ -188,6 +204,7 @@ export default function HomePage() {
           </div>
         </div>
         <ExpandableList
+          handleVisibilityChange={handleButtonGroupVisibilityChange}
           items={additionalSectionListItems}
           title="Дополнительно"
         />

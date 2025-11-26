@@ -6,12 +6,12 @@ import {
 } from "../../model";
 
 export const writeSessionDetailsAction = async (
-  params: WriteSessionDetailsArg
+  body: WriteSessionDetailsArg
 ): Promise<WriteSessionDetailsResponse> => {
   const props: FetchApiProps = {
     path: "/user/tracking/action",
-    method: "GET",
-    params,
+    method: "POST",
+    body,
     headers: {
       "Content-Type": "application/json",
     },

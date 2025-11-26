@@ -4,12 +4,12 @@ import { FetchApiProps, fetchApi } from "@/shared/lib/serverAction";
 import { CreateSessionArg, CreateSessionResponse } from "../../model";
 
 export async function createTrackingSessionAction(
-  params: CreateSessionArg
+  body: CreateSessionArg
 ): Promise<CreateSessionResponse> {
   const props: FetchApiProps = {
     path: "/user/tracking/session",
-    method: "GET",
-    params,
+    method: "POST",
+    body,
     headers: {
       "Content-Type": "application/json",
     },

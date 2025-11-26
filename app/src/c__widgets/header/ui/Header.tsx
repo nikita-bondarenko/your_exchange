@@ -6,10 +6,6 @@ import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 import { BACK_BUTTON_ROUTES } from "@/shared/config";
 import { Menu } from "./Menu";
 import { CrossIcon, HeaderArrowIcon } from "@/shared/ui";
-import {
-  setSelectedCurrencySellType,
-  setSelectedCurrencyBuyType,
-} from "@/d__features/exchange/model";
 import { ProgressBar } from "@/c__widgets/progressBar/ui";
 
 export function Header() {

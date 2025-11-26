@@ -1,9 +1,10 @@
 import { useThemeSwitcherClickHandler } from "@/d__features/themeSwitcher/lib";
 import { ThemeButton } from "@/d__features/themeSwitcher/ui";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 import { PROJECT_NAME, TOTAL_PROJECTS_DATA_ARR } from "@/shared/config";
-import { CryptoIcon } from "@/shared/ui";
+import { useAppSelector } from "@/shared/model/store";
 import { useRouter } from "next/navigation";
-import { ReactNode, useCallback, useMemo, useRef } from "react";
+import { ReactNode, useMemo } from "react";
 
 type Props = {
   policyUrl: string | undefined;
@@ -30,21 +31,34 @@ export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
 
   const [themeSwitcherClickHandler] = useThemeSwitcherClickHandler();
 
+  const sessionId = useAppSelector(state => state.user.sessionId)
+
+  const { trackPushButton } = useTrackUserAction();
+
   const additionalSectionListItems = useMemo<AdditionalButton[]>(
     () => [
       {
         children: "Профиль",
-        onClick: toProfilePage,
+        onClick: () => {
+          toProfilePage();
+          trackPushButton("Профиль");
+        },
       },
       {
         children: "Нас часто спрашивают",
-        onClick: toFaqPage,
+        onClick: () => {
+          toFaqPage();
+          trackPushButton("Нас часто спрашивают");
+        },
       },
       ...(termsUrl
         ? [
             {
               children: "Соглашение",
-              onClick: () => openUrl(termsUrl),
+              onClick: () => {
+                openUrl(termsUrl);
+                trackPushButton("Соглашение");
+              },
             },
           ]
         : []),
@@ -52,18 +66,23 @@ export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
         ? [
             {
               children: "Политика AML",
-              onClick: () => openUrl(policyUrl),
+              onClick: () => {
+                openUrl(policyUrl);
+                trackPushButton("Политика AML");
+              },
             },
           ]
         : []),
       ...(PROJECT_NAME === "test"
         ? TOTAL_PROJECTS_DATA_ARR.map((project) => ({
             children: <ThemeButton project={project}></ThemeButton>,
-            onClick: () => themeSwitcherClickHandler(project.name),
+            onClick: () => {
+              themeSwitcherClickHandler(project.name);
+            },
           }))
         : []),
     ],
-    [policyUrl, termsUrl]
+    [policyUrl, termsUrl, sessionId]
   );
 
   return {
