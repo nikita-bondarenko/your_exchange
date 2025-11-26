@@ -5,4 +5,5 @@ export type UserReducerState = {
   data: UserListApiResponse | null;
   mailRequired: boolean;
   agreementAccepted: boolean;
+  sessionId: string | null
 };

@@ -25,6 +25,7 @@ export async function fetchApi<T>({
   headers,
 }: FetchApiProps): Promise<T> {
   try {
+    
     let responseBody: any = null;
     let isTokenValid = true;
     const tryFetch = async () => {
@@ -41,7 +42,10 @@ export async function fetchApi<T>({
             .join("%20")
         : "/";
 
+
       const url = `${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`;
+      if (path === '/user/tracking/action')
+        console.log(url)
 
       const fetchOptions: RequestInit = {
         method,

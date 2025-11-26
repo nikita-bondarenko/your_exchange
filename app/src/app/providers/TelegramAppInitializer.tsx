@@ -7,6 +7,7 @@ import {
 import { TEST_USER_ID } from "@/shared/config";
 import {
   setGetUserDataLoading,
+  setSessionId,
   setUserData,
   setUserId,
 } from "@/d__features/userDataDisplay/model";
@@ -14,6 +15,7 @@ import { getUserDataAction } from "../../d__features/userDataDisplay/api/actions
 import Script from "next/script";
 import { startTransition, useEffect } from "react";
 import { useServerAction } from "@/shared/lib";
+import { createTrackingSessionAction } from "@/d__features/userDataDisplay/api/actions/createTrackingSessionAction";
 
 export function TelegramAppInitializer() {
   const userId = useAppSelector((state) => state.user.id);
@@ -46,8 +48,16 @@ export function TelegramAppInitializer() {
     loadingAction: setGetUserDataLoading,
   });
 
+  const [createTrackingSession, createTrackingSessionResponse] =
+    useServerAction({
+      action: createTrackingSessionAction,
+    });
+
   useEffect(() => {
-    if (userId) getUserData({ userId });
+    if (userId) {
+      getUserData({ userId });
+      createTrackingSession({ user_id: userId });
+    }
   }, [userId]);
 
   useEffect(() => {
@@ -57,8 +67,14 @@ export function TelegramAppInitializer() {
     }
   }, [userData]);
 
+  useEffect(() => {
+    if(createTrackingSessionResponse?.session_id) {
+      dispatch(setSessionId(createTrackingSessionResponse.session_id))
+    }
+  }, [createTrackingSessionResponse])
+
   return (
-    <Script
+    <Script      
       src="https://telegram.org/js/telegram-web-app.js"
       strategy="afterInteractive"
       onLoad={handleScriptLoad}

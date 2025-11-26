@@ -10,7 +10,7 @@ import {
   setSelectedCurrencySellType,
   setSelectedCurrencyBuyType,
 } from "@/d__features/exchange/model";
-import { ProgressBar } from "@/d__features/progressBar/ui";
+import { ProgressBar } from "@/c__widgets/progressBar/ui";
 
 export function Header() {
   const pathname = usePathname();

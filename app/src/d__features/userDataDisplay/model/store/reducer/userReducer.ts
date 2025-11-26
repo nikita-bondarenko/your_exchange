@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserListApiResponse, UserUpdateCreateApiArg } from "@/shared/model/api";
+import {
+  UserListApiResponse,
+  UserUpdateCreateApiArg,
+} from "@/shared/model/api";
 import { UserReducerState } from "@/shared/model/store/state";
 
 const initialState: UserReducerState = {
@@ -7,6 +10,7 @@ const initialState: UserReducerState = {
   id: null,
   mailRequired: false,
   agreementAccepted: true,
+  sessionId: null,
 };
 
 export const userSlice = createSlice({
@@ -34,14 +38,15 @@ export const userSlice = createSlice({
       state,
       action: PayloadAction<UserUpdateCreateApiArg>
     ) {
-      const {
-       full_name, phone, email ,
-      } = action.payload;
+      const { full_name, phone, email } = action.payload;
       if (state.data?.user_data) {
         state.data.user_data.email = email;
         state.data.user_data.name = full_name;
         state.data.user_data.phone = phone;
       }
+    },
+    setSessionId(state, action: PayloadAction<string>) {
+      state.sessionId = action.payload;
     },
   },
 });
@@ -51,6 +56,7 @@ export const {
   setUserEmail,
   setMailRequired,
   setAgreementAccepted,
-  updateUserProfileData
+  updateUserProfileData,
+  setSessionId
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;

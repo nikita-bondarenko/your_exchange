@@ -12,7 +12,7 @@ import EmailModal from "@/c__widgets/emailmodal/ui";
 import AgreementModal from "@/c__widgets/agreementModal/ui";
 import { useAdditionalSectionList } from "../lib";
 import RequestStatus from "@/entities/requestStatus/ui";
-import { ModeSwitcher } from "@/d__features/modeSwitcher/ui";
+import { ModeSwitcher } from "@/c__widgets/modeSwitcher/ui";
 import clsx from "clsx";
 import { PROJECT_DATA } from "@/shared/config";
 

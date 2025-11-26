@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PROJECT_DATA } from "@/shared/config";
+import { createSlice } from "@reduxjs/toolkit";
 import { FeaturesFlagsReducerState } from "../state";
 
 
