@@ -6,8 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "routes": "find app -type f -name 'page.*' | sed 's|app/\\|\\(/page\\.[a-z]*$\\)\\|\\(/layout\\.[a-z]*$\\)\\|\\(/loading\\.[a-z]*$\\)\\|\\(/error\\.[a-z]*$\\)\\|\\(/not-found\\.[a-z]*$\\)\\|\\(/template\\.[a-z]*$\\)\\|\\(/route\\.[a-z]*$\\)|/|' | sed 's|/page\\.[a-z]*$||' | sort"
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
