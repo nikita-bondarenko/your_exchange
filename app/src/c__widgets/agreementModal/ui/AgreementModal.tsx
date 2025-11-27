@@ -28,8 +28,8 @@ export default function AgreementModal() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isAgreementModalOpen !== agreementAccepted)
-    setIsAgreementModalOpen(!agreementAccepted);
+    if (isAgreementModalOpen === agreementAccepted)
+      setIsAgreementModalOpen(!agreementAccepted);
   }, [agreementAccepted]);
 
   const [updateUser] = useServerAction({
@@ -51,26 +51,23 @@ export default function AgreementModal() {
     return !(isMature && isIdPossessor && hasAgreedWithTerms);
   }, [isMature, isIdPossessor, hasAgreedWithTerms]);
 
-  useEffect(() => {
-    if (sessionId && isAgreementModalOpen) {
-      trackCheckboxChange(matureCheckboxLabel, isMature);
-    }
-  }, [isMature, sessionId]);
+  const handleIsMatureCheckbox = () => {
+    trackCheckboxChange(matureCheckboxLabel, !isMature);
+    setIsMature(!isMature);
+  };
 
-  useEffect(() => {
-    if (sessionId && isAgreementModalOpen) {
-      trackCheckboxChange(idPossessorCheckboxLabel, isMature);
-    }
-  }, [isIdPossessor, sessionId]);
+  const handleIsIdPossessor = () => {
+    trackCheckboxChange(idPossessorCheckboxLabel, !isIdPossessor);
+    setIsIdPossessor(!isIdPossessor);
+  };
 
-  useEffect(() => {
-    if (sessionId && isAgreementModalOpen) {
-      trackCheckboxChange(
-        agreedWithTermsCheckboxLabel + " персональных данных",
-        isMature
-      );
-    }
-  }, [hasAgreedWithTerms, sessionId]);
+  const handleIsAgreementAccepted = () => {
+    trackCheckboxChange(
+      agreedWithTermsCheckboxLabel + " персональных данных",
+      !hasAgreedWithTerms
+    );
+    setHasAgreedWithTerms(!hasAgreedWithTerms);
+  };
 
   useEffect(() => {
     if (sessionId) {
@@ -98,30 +95,19 @@ export default function AgreementModal() {
       isSubmitButtonDisabled={isSubmitButtonDisabled}
     >
       <div className="flex flex-col gap-[17px]">
-        <Checkbox
-          checked={isMature}
-          onClick={() => {
-            setIsMature(!isMature);
-          }}
-        >
+        <Checkbox checked={isMature} onClick={handleIsMatureCheckbox}>
           {typograf(matureCheckboxLabel)}
         </Checkbox>
-        <Checkbox
-          checked={isIdPossessor}
-          onClick={() => {
-            setIsIdPossessor(!isIdPossessor);
-          }}
-        >
+        <Checkbox checked={isIdPossessor} onClick={handleIsIdPossessor}>
           {typograf(idPossessorCheckboxLabel)}
         </Checkbox>
         <Checkbox
           checked={hasAgreedWithTerms}
-          onClick={() => {
-            setHasAgreedWithTerms(!hasAgreedWithTerms);
-          }}
+          onClick={handleIsAgreementAccepted}
         >
           {typograf(agreedWithTermsCheckboxLabel)}
           <a
+            onClick={(e) => e.stopPropagation()}
             data-tracking-label="Политика обработки персональных данных"
             target="_blank"
             className="underline underline-offset-2"

@@ -18,7 +18,6 @@ export default function EmailModal() {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const userData = useAppSelector((state) => state.user.data?.user_data);
   const userId = useAppSelector((state) => state.user.id);
   const isMailRequired = useAppSelector((state) => state.user.mailRequired);
   const sessionId = useAppSelector((state) => state.user.sessionId);

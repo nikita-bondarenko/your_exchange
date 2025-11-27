@@ -37,6 +37,7 @@ export default function RootLayout({
         <StoreProvider>
           <ThemeInitialiser />
           <TelegramAppInitializer />
+          <PageOpenTracking />
           <Header />
           <LoadingProvider>
             <main>{children}</main>
@@ -45,9 +46,8 @@ export default function RootLayout({
           <EmailRequirementChecking />
           <AgreementsRequirementChecking />
           <RateUpdatingRequirementChecking />
-          <PageOpenTracking />
           <InputChangeTracking />
-          <ButtonPressTracking/>
+          <ButtonPressTracking />
         </StoreProvider>
         <div id={PORTAL_TARGET_ID}></div>
       </body>
