@@ -1,6 +1,6 @@
 "use client";
 import clsx from "clsx";
-import {Button} from "../button/Button";
+import { Button } from "../button/Button";
 import { createPortal } from "react-dom";
 import { ForwardedRef, forwardRef, useEffect, useRef } from "react";
 import { CrossIcon } from "../icon";
@@ -59,20 +59,19 @@ export const BaseModal = forwardRef(
             " relative w-full max-w-[400px] rounded-[16px] p-[28px] pt-[36px] flex flex-col gap-[30px] bg-[var(--background-secondary)]"
           )}
         >
-          <div
-            className={clsx(
-              " text-[16px] text-[var(--text-main)]",
-            )}
-          >
+          <div className={clsx(" text-[16px] text-[var(--text-main)]")}>
             {children}
           </div>
-         {!isSubmitButtonHidden && <Button
-            disabled={isSubmitButtonDisabled}
-            type="primary"
-            onClick={handleButton || handleClose}
-          >
-            {buttonText}
-          </Button>}
+          {!isSubmitButtonHidden && (
+            <Button
+              trackingLabel={buttonText}
+              disabled={isSubmitButtonDisabled}
+              type="primary"
+              onClick={handleButton || handleClose}
+            >
+              {buttonText}
+            </Button>
+          )}
           {!isCloseButtonHidden && (
             <button
               className="absolute top-[19px] right-[17px]"
@@ -92,4 +91,3 @@ export const BaseModal = forwardRef(
 );
 
 BaseModal.displayName = "BaseModal";
-

@@ -28,8 +28,8 @@ export const LicenseAndInvoiceExampleInput = memo(() => {
     <div className="relative">
       <SectionHeading title="Лицензия компании <br/>и пример invoice" />
       <div className="flex gap-7">
-        <FileInput value={file1} onChange={handleFile1Input} />
-        <FileInput value={file2} onChange={handleFile2Input} />
+        <FileInput trackingLabel="Загружен файл" value={file1} onChange={handleFile1Input} />
+        <FileInput trackingLabel="Загружен файл" value={file2} onChange={handleFile2Input} />
       </div>
      {!file1 && !file2 && <LicenseAndInvoiceExampleNote  />}
     </div>

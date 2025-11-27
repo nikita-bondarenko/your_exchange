@@ -1,11 +1,17 @@
 import { useCallSupport } from "@/d__features/support/lib";
-import { setHasRateNoteOpenedOnce, useAppDispatch, useAppSelector } from "@/shared/model/store";
-import {BaseModal} from "@/shared/ui";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
+import {
+  setHasRateNoteOpenedOnce,
+  useAppDispatch,
+  useAppSelector,
+} from "@/shared/model/store";
+import { BaseModal } from "@/shared/ui";
 import { useEffect, useRef, useState } from "react";
 
 const RateNoteModal = () => {
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [renderTrigger, setRenderTrigger] = useState(0);
+  const sessionId = useAppSelector((state) => state.user.sessionId);
 
   const hasRateNoteOpenedOnce = useAppSelector(
     (state) => state.ui.hasRateNoteOpenedOnce
@@ -26,13 +32,30 @@ const RateNoteModal = () => {
     if (!hasRateNoteOpenedOnce)
       setTimeout(() => {
         setIsNoteModalOpen(true);
-        dispatch(setHasRateNoteOpenedOnce(true))
+        dispatch(setHasRateNoteOpenedOnce(true));
       }, 1000);
   }, [modalElement]);
 
   useEffect(() => {
     setRenderTrigger((prev) => prev + 1);
   }, []);
+
+  const { trackUserAction } = useTrackUserAction();
+
+  useEffect(() => {
+    if (sessionId) {
+      if (isNoteModalOpen) {
+        trackUserAction(
+          "Открыто модальное окно 'Информация о волатильности курса и минимальной сумме обмена'"
+        );
+        return () => {
+          trackUserAction(
+            "Закрыто модальное окно 'Информация о волатильности курса и минимальной сумме обмена'"
+          );
+        };
+      }
+    }
+  }, [isNoteModalOpen, sessionId]);
 
   return (
     <BaseModal
@@ -48,6 +71,7 @@ const RateNoteModal = () => {
       <br /> <br />
       Если сумма ниже минимального порога,{" "}
       <a
+        data-tracking-label="Обратитесь к операторам"
         onClick={supportLinkHandler}
         className="underline underline-offset-3 font-semibold"
         href="#"

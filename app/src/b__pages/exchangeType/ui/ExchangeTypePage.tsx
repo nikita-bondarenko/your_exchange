@@ -17,8 +17,17 @@ import {
   useSetSelectedCurrencyBuyTypeEffect,
   useSetSelectedCurrencySellTypeEffect,
 } from "@/d__features/exchange/lib";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
+import { useDebounce } from "@/shared/lib";
 
 export default memo(function Page() {
+  const sessionId = useAppSelector((state) => state.user.sessionId);
+  const selectedCurrencyBuyType = useAppSelector(
+    (state) => state.exchange.selectedCurrencyBuyType
+  );
+  const selectedCurrencySellType = useAppSelector(
+    (state) => state.exchange.selectedCurrencySellType
+  );
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -28,6 +37,7 @@ export default memo(function Page() {
   }, [router]);
 
   const { callSupport } = useCallSupport();
+  const { trackUserAction } = useTrackUserAction();
 
   useEffect(() => {
     dispatch(setPageName("выбор типа обмена"));
@@ -35,9 +45,18 @@ export default memo(function Page() {
   }, [dispatch]);
 
   useSetInitDirections();
-  
-  const {receiveTypesVariants} = useSetSelectedCurrencySellTypeEffect();
+
+  const { receiveTypesVariants } = useSetSelectedCurrencySellTypeEffect();
   useSetSelectedCurrencyBuyTypeEffect();
+
+  const {debounce} = useDebounce()
+
+  useEffect(() => {
+    if (sessionId && selectedCurrencyBuyType && selectedCurrencySellType) {
+      const direction = `${selectedCurrencySellType} - ${selectedCurrencyBuyType}`;
+      debounce(() => trackUserAction(`Выбрано направление ${direction}`))
+    }
+  }, [sessionId, selectedCurrencyBuyType, selectedCurrencySellType]);
 
   return (
     <ExchangeLayout onMainButtonClick={onSubmit} buttonText="Подтвердить выбор">
@@ -57,6 +76,7 @@ export default memo(function Page() {
             Не нашли интересующий тип обмена?
           </p>
           <button
+            data-tracking-label="Связаться с поддержкой"
             onClick={callSupport}
             className="text-13 font-medium text-[var(--text-main)] underline underline-offset-2"
           >

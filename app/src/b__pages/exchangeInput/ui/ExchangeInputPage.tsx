@@ -29,16 +29,20 @@ import {
   useSetExchangeRateEffect,
   useExchangeInputsValidation,
 } from "@/d__features/exchange/lib";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export default memo(function ExchangeInputPage() {
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const {trackUserAction} = useTrackUserAction()
 
   const onSubmit = useCallback(() => {
     dispatch(setAreErrorsVisible(true));
     const state = store.getState();
     const areErrors = validateAllFields(state.exchange, dispatch);
     if (areErrors) {
+      trackUserAction('Поля не прошли валидацию')
       return;
     }
 
@@ -80,7 +84,7 @@ export default memo(function ExchangeInputPage() {
           type={receivedType}
         ></ExchangeInput>
       </div>
-      <Button type="primary" onClick={onSubmit}>
+      <Button trackingLabel="Далее" type="primary" onClick={onSubmit}>
         Далее
       </Button>
     </div>

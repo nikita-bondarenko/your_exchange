@@ -8,6 +8,7 @@ import CurrencySelect from "./CurrencySelect";
 import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
 import { Input } from "../../../shared/ui/form/Input";
 import { Currency } from "@/shared/model/api/exchange/types";
+import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
 
 export type CurrencyInputProps = {
   inputValue: number | null;
@@ -17,6 +18,7 @@ export type CurrencyInputProps = {
   options: Currency[];
   placeholder?: string;
   error?: boolean;
+  position?: ExchangeCurrencyPosition
 };
 
 const CurrencyInput: React.FC<CurrencyInputProps> = memo(
@@ -28,6 +30,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = memo(
     placeholder,
     selectValue,
     error,
+    position
   }) => {
     const [inputValue, setInputValue] = useState<string>("");
 
@@ -123,6 +126,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = memo(
           <div className="py-9 rounded-6 border transition-all duration-500 border-[var(--border-placeholder)] bg-[var(--background-secondary)]">
             <div className="relative w-full flex items-center justify-between text-13">
               <Input
+              trackingLabel={`Сумма${position ? (position === 'given' ? ' продажи' : ' покупки') : ''}`}
                 value={inputValue || ""}
                 onChange={handleChange}
                 placeholder={placeholder}

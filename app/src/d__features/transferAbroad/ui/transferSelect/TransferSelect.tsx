@@ -7,6 +7,8 @@ import {
   setSelectedTranserTypeOptionId,
 } from "../../model";
 import { getTransferOptionsAction } from "../../api";
+import { TransferOption } from "@/shared/model/api";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export const TransferSelect = memo(() => {
   const [getTransferOptions, getTransferOptionsResponse] = useServerAction({
@@ -48,6 +50,9 @@ export const TransferSelect = memo(() => {
     (state) => state.transferAbroad.transferTypeCategory
   );
 
+
+  const sessionId = useAppSelector(state => state.user.sessionId)
+
   const transferTypeOptions = useMemo(() => {
     return transferTypeCategory && parsedData
       ? parsedData[transferTypeCategory]
@@ -56,8 +61,10 @@ export const TransferSelect = memo(() => {
 
   const dispatch = useAppDispatch();
 
-  const handleSelect = (id: number) => {
-    dispatch(setSelectedTranserTypeOptionId(id));
+  const {trackUserAction} = useTrackUserAction()
+
+  const handleSelect = (type: TransferOption) => {
+    dispatch(setSelectedTranserTypeOptionId(type.id));
   };
 
   useEffect(() => {
@@ -72,6 +79,17 @@ export const TransferSelect = memo(() => {
     }
   }, [parsedData, transferTypeCategory]);
 
+
+useEffect(() => {
+  if (sessionId && selectedTranserTypeOptionId && transferTypeOptions) {
+    console.log(selectedTranserTypeOptionId, transferTypeOptions)
+    const selectedTransferTypeOption = transferTypeOptions?.find(option => option.id === selectedTranserTypeOptionId)
+    if (selectedTransferTypeOption)
+    trackUserAction(`Выбран тип перевода за рубеж '${selectedTransferTypeOption.name}'`)
+  }
+
+}, [selectedTranserTypeOptionId, sessionId, transferTypeOptions])
+
   return (
     <div className="overflow-hidden rounded-6 bg-[var(--background-secondary)] border border-[var(--border-placeholder)]">
       {transferTypeOptions?.map((type) => (
@@ -79,7 +97,7 @@ export const TransferSelect = memo(() => {
           key={type.id}
           {...type}
           isSelected={type.id === selectedTranserTypeOptionId}
-          onClick={() => handleSelect(type.id)}
+          onClick={() => handleSelect(type)}
         ></TransferSelectItem>
       ))}
     </div>

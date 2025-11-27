@@ -21,6 +21,7 @@ import {
 } from "@/shared/model/store";
 import { updateUserDataAction } from "@/d__features/userDataDisplay/api";
 import { useServerAction } from "@/shared/lib";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 const headingClassNames =
   "font-medium text-16 leading-normal mb-20 text-[var(--text-main)]";
@@ -44,8 +45,15 @@ export default function ProfilePage() {
     loadingAction: setUpdateUserDataLoading,
   });
 
+  const { trackUserAction } = useTrackUserAction();
+
   const onSubmit = methods.handleSubmit((data) => {
-    if (!userId) return;
+    if (!userId) {
+      trackUserAction(
+        "Поля формы не прошли валидацию, запрос на изменение информации пользователя не отправлен"
+      );
+      return;
+    }
     const updateUserMutationArgs: UserUpdateCreateApiArg = {
       user_id: userId,
       full_name: data.name,
@@ -53,6 +61,9 @@ export default function ProfilePage() {
       email: data.email,
     };
     updateUser(updateUserMutationArgs);
+    trackUserAction(
+      "Поля формы прошли валидацию, запрос на изменение информации пользователя успешно отправлен"
+    );
   });
 
   useEffect(() => {
@@ -87,8 +98,14 @@ export default function ProfilePage() {
                   "blur-sm": showSuccess,
                 })}
               >
-                <ProfileInputField name="name" type="text" placeholder="ФИО" />
                 <ProfileInputField
+                  trackingLabel="ФИО"
+                  name="name"
+                  type="text"
+                  placeholder="ФИО"
+                />
+                <ProfileInputField
+                  trackingLabel="Номер телефона"
                   name="phone"
                   type="tel"
                   placeholder="Номер телефона"
@@ -97,6 +114,7 @@ export default function ProfilePage() {
                   name="email"
                   type="email"
                   placeholder="Электронная почта"
+                  trackingLabel="Электронная почта"
                 />
               </div>
               <Notification
@@ -106,7 +124,7 @@ export default function ProfilePage() {
                 message="данные успешно сохранены"
               />
             </div>
-            <Button submit type="primary">
+            <Button trackingLabel="Сохранить" submit type="primary">
               Сохранить
             </Button>
           </form>

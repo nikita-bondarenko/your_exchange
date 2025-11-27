@@ -3,10 +3,7 @@ import {
   normalizeInput,
   preventKeysOnCardNumberInput,
 } from "@/shared/lib";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/shared/model/store";
+import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 import { InputWrapper, Input } from "@/shared/ui";
 import { memo } from "react";
 import { useCardNumberInputError } from "../lib/useCardNumberInputError";
@@ -25,6 +22,7 @@ export const TransferCardNumberInput = memo(() => {
   return (
     <InputWrapper className="-mt-26" error={cardNumberInputError}>
       <Input
+        trackingLabel="Номер карты"
         onChange={handleCardNumberInput}
         onKeyDown={preventKeysOnCardNumberInput}
         value={cardNumber}

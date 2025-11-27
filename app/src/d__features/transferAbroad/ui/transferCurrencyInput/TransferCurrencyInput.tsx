@@ -6,8 +6,13 @@ import { CurrencyInput } from "@/entities/currency/ui";
 import { useTransferCurrenciesOptions } from "../../lib";
 import { useCurrencyAmountError } from "../../lib/useCurrencyAmountError";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store";
-import { setTransferAbroadCurrency, setTransferAbroadCurrencyAmount, setMaxCurrencyAmount } from "../../model";
+import {
+  setTransferAbroadCurrency,
+  setTransferAbroadCurrencyAmount,
+  setMaxCurrencyAmount,
+} from "../../model";
 import { TransferAbroadCurrency } from "@/shared/model/api";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 type Props = {
   isLimitInfoActive: boolean;
@@ -48,6 +53,14 @@ export const TransferCurrencyInput = memo(({ isLimitInfoActive }: Props) => {
     else dispatch(setMaxCurrencyAmount(null));
   }, [isLimitInfoActive, currency]);
 
+  const { trackInputChange } = useTrackUserAction();
+
+  const handleSelectCUrrency = (currency: TransferAbroadCurrency) => {
+    setCurrency(currency);
+    trackInputChange("Валюта", currency.name);
+  };
+
+
   return (
     <div>
       <SectionHeading
@@ -62,7 +75,7 @@ export const TransferCurrencyInput = memo(({ isLimitInfoActive }: Props) => {
         inputValue={currencyAmount}
         onInputChange={handleAmountInput}
         selectValue={currency}
-        onSelectChange={setCurrency}
+        onSelectChange={handleSelectCUrrency}
         error={isAmountInputError}
         placeholder="50 000"
       ></CurrencyInput>

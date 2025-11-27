@@ -4,14 +4,18 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 import { setPlatform } from "../model";
 import { CurrencySubOption } from "@/shared/model/api";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export const TransferPlatformInput: React.FC = () => {
   const { platforms } = useTransferDetailsOptions();
 
   const dispatch = useAppDispatch();
 
+  const { trackInputChange } = useTrackUserAction();
+
   const handleTabs = (value: CurrencySubOption) => {
     dispatch(setPlatform(value));
+    trackInputChange("Платформа", value.name);
   };
 
   useEffect(() => {

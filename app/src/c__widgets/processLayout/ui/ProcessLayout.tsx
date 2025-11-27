@@ -14,6 +14,7 @@ const ProcessLayout: React.FC<ProcessLayoutProps> = memo(
       <div className="container h-full flex flex-col justify-between pb-0 gap-26 ">
         <div className="flex flex-col gap-26 mb-5">{children}</div>
         <Button
+          trackingLabel={buttonText}
           disabled={buttonDisabled}
           className="sticky bottom-0 z-30"
           type="primary"

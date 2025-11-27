@@ -3,12 +3,10 @@ import { callOperatorAction } from "../api";
 import { useEffect } from "react";
 import { useServerAction } from "@/shared/lib";
 import { setCallOperatorLoading } from "../model/store";
-import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export const useCallSupport = () => {
   const userId = useAppSelector((state) => state.user.id);
   const isAppReady = useAppSelector((state) => state.ui.isAppReady);
-  const { trackUserAction } = useTrackUserAction();
 
   const [callOperator, response] = useServerAction({
     action: callOperatorAction,
@@ -21,7 +19,6 @@ export const useCallSupport = () => {
       console.error("User ID is required");
       return;
     }
-    trackUserAction("Вызвана поддержка");
     callOperator({
       user_id: userId,
     });

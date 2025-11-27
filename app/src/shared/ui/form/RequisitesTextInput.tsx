@@ -1,4 +1,4 @@
-import {SectionHeading} from "@/shared/ui/exchange/SectionHeading";
+import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";
 import { BaseTextarea } from "@/shared/ui/form/BaseTextarea";
 import { memo } from "react";
 import { InputCopiedIcon } from "../icon";
@@ -9,10 +9,11 @@ type Props = {
   placeholder: string;
   value: string;
   setValue: (value: string) => void;
+  trackingLabel?: string;
 };
 
 export const RequisitesTextInput = memo(
-  ({ title, placeholder, value, setValue }: Props) => {
+  ({ title, placeholder, value, setValue, trackingLabel }: Props) => {
     const inputClipboardText = async () => {
       try {
         const text = await navigator.clipboard.readText();
@@ -42,4 +43,4 @@ export const RequisitesTextInput = memo(
   }
 );
 
-RequisitesTextInput.displayName = "RequisitesTextInput"
+RequisitesTextInput.displayName = "RequisitesTextInput";

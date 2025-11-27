@@ -24,7 +24,7 @@ const RequestStoryItem: React.FC<RequestStoryItemProps> = memo(({ data }) => {
     router.push("/profile/request");
   };
   return (
-    <button onClick={goToRequestDetails} className="mb-26 w-full text-[var(--text-main)]">
+    <button data-tracking-label={`Превью операции: Заявка #${data.id}`} onClick={goToRequestDetails} className="mb-26 w-full text-[var(--text-main)]">
      <div  className="flex justify-between items-center mb-9 text-13 leading-normal text-[var(--text-secondary)]">
         <span >{formatDate(data.date)}</span>
         <span >заявка {data.id}</span>

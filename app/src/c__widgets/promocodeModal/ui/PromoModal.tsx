@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-import {Button} from "../../../shared/ui/button/Button";
+import { Button } from "../../../shared/ui/button/Button";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
+import { useAppSelector } from "@/shared/model/store";
 
 type PromoModalProps = {
   isOpen: boolean;
@@ -38,6 +40,8 @@ const PromoModal: React.FC<PromoModalProps> = ({
   const [isHandlerDragged, setIsHandlerDragged] = useState(false);
   const [translateY, setTranslateY] = useState(0);
   const initClientY = useRef(0);
+  const { trackUserAction } = useTrackUserAction();
+  const sessionId = useAppSelector((state) => state.user.sessionId);
 
   const computePosition = (clientY: number) => {
     const translateY = clientY - initClientY.current;
@@ -108,6 +112,17 @@ const PromoModal: React.FC<PromoModalProps> = ({
     }
   }, [translateY]);
 
+  useEffect(() => {
+    if (sessionId) {
+      if (isOpen) {
+        trackUserAction("Открыто окно для ввода промокода");
+        return () => {
+          trackUserAction("Закрыто окно для ввода промокода");
+        };
+      }
+    }
+  }, [isOpen, sessionId]);
+
   return (
     <div
       className={clsx(
@@ -161,6 +176,7 @@ const PromoModal: React.FC<PromoModalProps> = ({
             </div>
             <div className="relative">
               <input
+                data-tracking-label="Промокод"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 ref={input}
@@ -174,7 +190,7 @@ const PromoModal: React.FC<PromoModalProps> = ({
               />
               <div className="w-full h-2 rounded-2 bg-[var(--main-color)]"></div>
             </div>
-            <Button type="primary" onClick={onSubmit}>
+            <Button trackingLabel="Применить" type="primary" onClick={onSubmit}>
               Применить
             </Button>
           </div>

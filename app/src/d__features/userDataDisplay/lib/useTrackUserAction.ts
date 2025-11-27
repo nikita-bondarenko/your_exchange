@@ -20,9 +20,17 @@ export const useTrackUserAction = () => {
       });
   };
 
-  const trackPushButton = (buttonName: string) => trackUserAction(`Нажата кнопка '${buttonName}'`);
+  const trackPushButton = (buttonName: string) =>
+    trackUserAction(`Нажата кнопка '${buttonName}'`);
 
-    const trackPageOpen = (pageName: string) => trackUserAction(`Открыта страница '${pageName}'`);
+  const trackPageOpen = (pageName: string) =>
+    trackUserAction(`Открыта страница '${pageName}'`);
 
-  return { trackUserAction, trackPushButton, trackPageOpen };
+  const trackInputChange = (label: string, value: string | number) =>
+    trackUserAction(`Изменено значение поля '${label}' на '${value}'`);
+
+    const trackCheckboxChange = (label: string, value: boolean) => 
+    trackUserAction(value ? `Отмечен чекбокс '${label}'` : `Убрана отметка с чекбокса '${label}'`);
+
+  return { trackUserAction, trackPushButton, trackPageOpen, trackInputChange, trackCheckboxChange };
 };

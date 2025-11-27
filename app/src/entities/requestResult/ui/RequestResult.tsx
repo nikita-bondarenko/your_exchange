@@ -5,12 +5,12 @@ import { ReactNode, useState } from "react";
 import { Notification } from "@/shared/ui/form/Notification";
 
 type Props = {
-    id: string | number | null | undefined
-    video?: string | undefined 
-    children?: ReactNode
-}
+  id: string | number | null | undefined;
+  video?: string | undefined;
+  children?: ReactNode;
+};
 
-export const RequestResult = ({id, video, children}: Props) => {
+export const RequestResult = ({ id, video, children }: Props) => {
   const router = useRouter();
 
   const [copied, setCopied] = useState(false);
@@ -33,7 +33,10 @@ export const RequestResult = ({id, video, children}: Props) => {
     <div className="container h-full  ">
       <div className="w-full mx-auto flex flex-col h-full justify-between">
         <div className="bg-[var(--background-secondary)] rounded-6 text-[var(--text-light)] px-26 pt-32 pb-25 flex flex-col items-center mb-30">
-          <ClockIcon color="var(--result-screen-clock)" className="w-40 h-40 mb-18" />
+          <ClockIcon
+            color="var(--result-screen-clock)"
+            className="w-40 h-40 mb-18"
+          />
           <div className="text-17 font-medium mb-8 text-center text-[var(--text-main)]">
             Ваша заявка <br />
             принята в работу
@@ -41,13 +44,13 @@ export const RequestResult = ({id, video, children}: Props) => {
           <div className="text-16  mb-18 text-center leading-[120%]">
             Наш оператор свяжется <br />с вами в течение 15 минут
             {children}
-           
           </div>
           <div className="w-full h-1 bg-[var(--divider-thirdary)] mt-5 mb-13"></div>
           <div className="flex flex-col items-center gap-2">
             <div className="text-16 ">номер заявки</div>
             <div className="flex items-center gap-7">
               <button
+                data-tracking-label="Скопировать номер заявки"
                 onClick={handleCopy}
                 className="p-1 flex items-center gap-7"
               >
@@ -67,6 +70,7 @@ export const RequestResult = ({id, video, children}: Props) => {
           />
           <div className="flex flex-col gap-12">
             <Button
+              trackingLabel="В чат с оператором"
               onClick={handleGoChat}
               type="primary"
               className="w-full text-15 py-15"
@@ -74,6 +78,7 @@ export const RequestResult = ({id, video, children}: Props) => {
               В чат с оператором
             </Button>
             <Button
+              trackingLabel="В главное меню"
               onClick={handleGoHome}
               type="secondary"
               className="w-full text-15 py-15"

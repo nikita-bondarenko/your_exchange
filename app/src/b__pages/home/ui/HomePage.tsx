@@ -37,7 +37,7 @@ export default function HomePage() {
     (state) => state.featuresFlags.isTransferAbroadMode
   );
 
-  const { trackPushButton, trackUserAction } = useTrackUserAction();
+  const {  trackUserAction } = useTrackUserAction();
 
   const startButtonText = useMemo(
     () => (isExchangeMode ? " Начать обмен" : "Начать платеж"),
@@ -49,8 +49,6 @@ export default function HomePage() {
       isExchangeMode && !isTransferAbroadMode
         ? "/exchange/type"
         : "/transfer-abroad/type";
-
-    trackPushButton(startButtonText);
     router.push(startButtonHref);
   };
 
@@ -138,7 +136,7 @@ export default function HomePage() {
                   dangerouslySetInnerHTML={{ __html: homePageData.subtitle }}
                 ></p>
               </div>
-              <ProfileButton key={forceRender} avatar={profilePicture} />
+              <ProfileButton trackingLabel="Аватар профиля" key={forceRender} avatar={profilePicture} />
             </div>
             <div
               className="relative"
@@ -195,10 +193,10 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 gap-6 z-10">
-            <Button onClick={handleStartButton} type={"main-screen-left"}>
+            <Button trackingLabel={startButtonText} onClick={handleStartButton} type={"main-screen-left"}>
               {startButtonText}
             </Button>
-            <Button onClick={callSupport} type={"main-screen-right"}>
+            <Button trackingLabel="Поддержка" onClick={callSupport} type={"main-screen-right"}>
               Поддержка
             </Button>
           </div>

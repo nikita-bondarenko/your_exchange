@@ -27,9 +27,14 @@ import { InputWrapper, Input } from "@/shared/ui";
 import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";
 import React, { memo, useCallback, useEffect } from "react";
 import { MinValueNote } from "./MinValueNote";
-import { setCardNumberValue, setPhoneNumberValue, setSelectedBankValue } from "@/d__features/exchange/model";
+import {
+  setCardNumberValue,
+  setPhoneNumberValue,
+  setSelectedBankValue,
+} from "@/d__features/exchange/model";
 import { Currency } from "@/shared/model/api";
 import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export type ExchangeCardInputProps = {
   position: ExchangeCurrencyPosition;
@@ -90,12 +95,15 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
       }
     }, []);
 
+    const { trackInputChange } = useTrackUserAction();
+
     const handleBankChange = (option: BankOption | null) => {
       if (!option) return;
       if (isInitialLoad) return;
       const bank = banks?.find((bank) => bank.id === option.id);
       if (bank) {
         dispatch(setSelectedBankValue(bank));
+        trackInputChange("Банк", bank.name);
       }
     };
 
@@ -108,6 +116,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
             error={!!valueError && areErrorsVisible}
           />
           <CurrencyInput
+            position={position}
             placeholder={placeholder}
             inputValue={globalStateValue}
             onInputChange={onInputChange}
@@ -136,6 +145,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
                 }
               >
                 <Input
+                  trackingLabel="Номер телефона"
                   onChange={handlePhoneNumberChange}
                   onKeyDown={preventKeysOnPhoneInput}
                   value={phoneNumberValue ?? ""}
@@ -151,6 +161,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
                 }
               >
                 <Input
+                  trackingLabel="Номер карты"
                   onChange={handleCardNumberChange}
                   onKeyDown={preventKeysOnCardNumberInput}
                   value={cardNumberValue ?? ""}

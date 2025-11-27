@@ -18,12 +18,11 @@ export default function FaqList() {
     loadingAction: setGetFaqsLoading,
   });
 
-  const { trackPageOpen, trackUserAction } = useTrackUserAction();
+  const {  trackUserAction } = useTrackUserAction();
 
   useEffect(() => {
     const pageName = "Нас часто спрашивают";
     dispatch(setPageName(pageName));
-    trackPageOpen(pageName);
     getFaqs(undefined);
   }, []);
 

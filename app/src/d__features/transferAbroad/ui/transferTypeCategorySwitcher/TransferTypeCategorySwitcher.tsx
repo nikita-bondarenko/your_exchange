@@ -1,10 +1,11 @@
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/shared/model/store";
+import { useAppDispatch, useAppSelector } from "@/shared/model/store";
 import { Toggle } from "@/shared/ui";
 import { memo, useEffect, useState } from "react";
-import { setTransferTypeCategory, setTransferTypeCategorySlug } from "../../model";
+import {
+  setTransferTypeCategory,
+  setTransferTypeCategorySlug,
+} from "../../model";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export const TransferTypeCategorySwitcher = memo(() => {
   const [isLegalEntity, setIsLegalEntity] = useState(true);
@@ -13,7 +14,9 @@ export const TransferTypeCategorySwitcher = memo(() => {
     (state) => state.transferAbroad.transferTypeCategory
   );
 
-  
+  const sessionId = useAppSelector((state) => state.user.sessionId);
+  const { trackUserAction } = useTrackUserAction();
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,11 +35,16 @@ export const TransferTypeCategorySwitcher = memo(() => {
   };
 
   useEffect(() => {
-    const transferTypeCategorySlug = isLegalEntity
-      ? "Юр. Лица"
-      : "Физ. Лица";
+    const transferTypeCategorySlug = isLegalEntity ? "Юр. Лица" : "Физ. Лица";
     dispatch(setTransferTypeCategorySlug(transferTypeCategorySlug));
   }, [isLegalEntity]);
+
+  useEffect(() => {
+    if (sessionId) {
+      const transferTypeCategorySlug = isLegalEntity ? "юр. лиц" : "физ. лиц";
+      trackUserAction(`Выбран список операций для ${transferTypeCategorySlug}`)
+    }
+  }, [isLegalEntity, sessionId]);
 
   return (
     <Toggle

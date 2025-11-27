@@ -7,6 +7,7 @@ import { BACK_BUTTON_ROUTES } from "@/shared/config";
 import { Menu } from "./Menu";
 import { CrossIcon, HeaderArrowIcon } from "@/shared/ui";
 import { ProgressBar } from "@/c__widgets/progressBar/ui";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export function Header() {
   const pathname = usePathname();
@@ -37,6 +38,8 @@ export function Header() {
     }, 200);
   }, [pathname]);
 
+  const { trackPushButton } = useTrackUserAction();
+
   const onBackButtonClick = () => {
     if (!isAppReady) return;
     const backButtonPath = BACK_BUTTON_ROUTES[pathname as string];
@@ -49,6 +52,7 @@ export function Header() {
       setIsBackward(true);
       router.push(backButtonPath);
     }
+    trackPushButton("Назад");
   };
 
   const isPageNameVisible = useMemo(
@@ -89,6 +93,7 @@ export function Header() {
       )}
       {isResultPage && (
         <button
+          data-tracking-label="Закрыть"
           ref={backButton}
           onClick={onBackButtonClick}
           className="flex items-center justify-center relative w-16 h-16"

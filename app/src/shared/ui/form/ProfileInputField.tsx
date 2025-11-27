@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useFormContext } from "react-hook-form";
 import React from "react";
 import clsx from "clsx";
@@ -10,6 +10,7 @@ type Props = {
   placeholder?: string;
   value?: string;
   disabled?: boolean;
+  trackingLabel: string;
 };
 
 export const ProfileInputField: React.FC<Props> = ({
@@ -18,6 +19,7 @@ export const ProfileInputField: React.FC<Props> = ({
   placeholder,
   value,
   disabled = false,
+  trackingLabel
 }) => {
   const {
     register,
@@ -48,6 +50,7 @@ export const ProfileInputField: React.FC<Props> = ({
   return (
     <InputWrapper error={errors[name]?.message as string}>
       <input
+        data-tracking-label={trackingLabel}
         id={name}
         type={type}
         placeholder={placeholder}

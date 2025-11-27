@@ -13,5 +13,5 @@ export const BACK_BUTTON_ROUTES: { [key in string]: string } = {
   "/transfer-abroad/input/chinese-platforms": "/transfer-abroad/type",
   "/transfer-abroad/input/cards": "/transfer-abroad/type",
   "/transfer-abroad/result": "/",
-
 };
+

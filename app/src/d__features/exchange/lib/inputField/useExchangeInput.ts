@@ -12,6 +12,7 @@ import {
 import { setActiveInputType, setCurrencyBuyAmountValue, setCurrencySellAmountValue, setSelectedCurrencyBuy, setSelectedCurrencySell } from "@/d__features/exchange/model/store/reducer/exchangeReducer/exchangeReducer";
 import { Currency } from "@/shared/model/api/exchange/types";
 import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export type ExchangeInputType = "BANK" | "CASH" | "COIN";
 
@@ -26,13 +27,11 @@ export const useExchangeInput = (position: ExchangeCurrencyPosition) => {
   const selectedCurrency = useAppSelector(selectCurrency(position));
   const currenciesSell = useAppSelector(state => state.exchange.currenciesSell);  
   const currenciesBuy = useAppSelector(state => state.exchange.currenciesBuy);
-  const availableCurrenciesGet = useAppSelector(state => state.exchange.availableCurrenciesGetData)
 
-  // useEffect(() => {console.log(availableCurrenciesGet)}, [availableCurrenciesGet ])
+  const { trackInputChange } = useTrackUserAction();
 
   const onSelectChange = useCallback((option: Currency) => {
-    // // console.log(option);
-    // dispatch(setActiveInputType(position));
+      trackInputChange(`Валюта ${position === 'received' ? 'продажи' : 'покупки'}`, option.name);
 
     const currency = position === 'given' 
       ? currenciesSell.find((currency) => currency.id === option.id)

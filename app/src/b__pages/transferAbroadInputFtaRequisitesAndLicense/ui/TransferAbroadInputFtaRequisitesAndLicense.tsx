@@ -12,6 +12,7 @@ export default function TransferAbroadInputFtaRequisitesAndLicense() {
   const [handleSubmit] = useRouterPushCallback({
     nextPagePath: "/transfer-abroad/details",
   });
+  
   return (
     <ProcessLayout onMainButtonClick={handleSubmit} buttonText="Далее">
       <RussianCompanyRequisitesInput></RussianCompanyRequisitesInput>

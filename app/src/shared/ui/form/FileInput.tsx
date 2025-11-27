@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { createRef, useEffect, useState } from "react";
 import { DownloadIcon } from "../icon";
 import { FilePreview } from "./FilePreview";
@@ -6,9 +6,10 @@ import { FilePreview } from "./FilePreview";
 type Props = {
   onChange: (file: File) => void;
   value: File | null;
+  trackingLabel: string;
 };
 
-export const FileInput = ({ onChange, value }: Props) => {
+export const FileInput = ({ onChange, value, trackingLabel }: Props) => {
   const [previewUrl, setPreviewUrl] = useState<string>();
   const [fileType, setFileType] = useState<string>();
   const fileInputElement = createRef<HTMLInputElement>();
@@ -49,6 +50,7 @@ export const FileInput = ({ onChange, value }: Props) => {
         color="var(--main-color)"
       ></DownloadIcon>
       <input
+        data-tracking-label={trackingLabel}
         accept="application/pdf,image/*"
         ref={fileInputElement}
         className="hidden"

@@ -5,14 +5,17 @@ import BurgerIcon from "./BurgerIcon";
 import { useMenuButtons } from "../lib/useMenuButtons";
 import React from "react";
 import SimpleBar from "simplebar-react";
-
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 const MenuDivider = () => (
   <div className="border-b border-[var(--divider-secondary)]"></div>
 );
 export const Menu = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const {trackUserAction} = useTrackUserAction()
   const handleMenuToggle = () => {
+    trackUserAction(!isMenuOpen ? "Открыто меню" : "Закрыто меню")
     setIsMenuOpen((v) => !v);
   };
 
@@ -29,7 +32,6 @@ export const Menu = memo(() => {
   );
 
   const { menuButtons } = useMenuButtons({ closeMenu });
-
 
   return (
     <div className="flex justify-end relative">
@@ -53,27 +55,28 @@ export const Menu = memo(() => {
         )}
       >
         <SimpleBar style={{ maxHeight: 300 }} className="custom-scrollbar">
-        {menuButtons.map((button, index) => (
-          <React.Fragment key={index}>
-            <button
-              className={clsx(
-                "flex items-center gap-8 px-11 py-13  rounded-6",
-                button.className
-              )}
-              onClick={button.onClick}
-            >
-              {button.icon}
-              <span className="text-13 leading-normal text-left">
-                {button.text}
-              </span>
-            </button>
-            {index !== menuButtons.length - 1 && <MenuDivider />}
-          </React.Fragment>
-        ))}
+          {menuButtons.map((button, index) => (
+            <React.Fragment key={index}>
+              <button
+                data-tracking-label={button.text}
+                className={clsx(
+                  "flex items-center gap-8 px-11 py-13  rounded-6",
+                  button.className
+                )}
+                onClick={button.onClick}
+              >
+                {button.icon}
+                <span className="text-13 leading-normal text-left">
+                  {button.text}
+                </span>
+              </button>
+              {index !== menuButtons.length - 1 && <MenuDivider />}
+            </React.Fragment>
+          ))}
         </SimpleBar>
       </div>
     </div>
   );
 });
 
-Menu.displayName = "Menu"
+Menu.displayName = "Menu";

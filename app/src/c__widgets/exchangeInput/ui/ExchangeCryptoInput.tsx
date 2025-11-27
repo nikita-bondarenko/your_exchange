@@ -13,7 +13,7 @@ import {
 import { usePlaceholder } from "@/d__features/exchange/lib/inputField/usePlaceholder";
 import { InputWrapper } from "../../../shared/ui/form/InputWrapper";
 import { Input } from "../../../shared/ui/form/Input";
-import {BaseTabs as CryptoNetSelect} from "@/shared/ui";
+import { BaseTabs as CryptoNetSelect } from "@/shared/ui";
 import { useExchangeInput } from "@/d__features/exchange/lib/inputField/useExchangeInput";
 import {
   setSelectedNetworkValue,
@@ -24,6 +24,7 @@ import { Currency, Network } from "@/shared/model/api/exchange/types";
 import { SectionHeading } from "@/shared/ui/exchange/SectionHeading";
 import { MinValueNote } from "./MinValueNote";
 import { ExchangeCurrencyPosition } from "@/shared/model/exchange";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export type ExchangeCryptoInputProps = {
   position: ExchangeCurrencyPosition;
@@ -64,10 +65,13 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(
       }
     }, []);
 
+        const { trackInputChange } = useTrackUserAction();
+
     const handleNetChange = (net: Network) => {
       const network = networks?.find((network) => network.id === net.id);
       if (network) {
         dispatch(setSelectedNetworkValue(network));
+        trackInputChange('Сеть', network.name)
       }
     };
 
@@ -86,6 +90,7 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(
             error={!!valueError && areErrorsVisible}
           />
           <CurrencyInput
+            position={position}
             placeholder={placeholder}
             inputValue={globalStateValue}
             onInputChange={onInputChange}
@@ -121,6 +126,7 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(
               }
             >
               <Input
+                trackingLabel="Адрес кошелька"
                 className="border border-[var(--border-placeholder)] rounded-6 bg-[var(--background-secondary)] text-16 leading-normal px-18 py-15 pr-30 w-full"
                 type="text"
                 onChange={handleWalletAddressChange}

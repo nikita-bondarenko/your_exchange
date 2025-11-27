@@ -11,7 +11,17 @@ export const InputField: React.FC<{
   placeholder?: string;
   disabled?: boolean;
   className?: string;
-}> = ({ value, onChange, onBlur, error, placeholder, disabled, className }) => {
+  trackingLabel: string;
+}> = ({
+  value,
+  onChange,
+  onBlur,
+  error,
+  placeholder,
+  disabled,
+  className,
+  trackingLabel,
+}) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
@@ -23,10 +33,14 @@ export const InputField: React.FC<{
   return (
     <InputWrapper error={error}>
       <Input
+        trackingLabel={trackingLabel}
         onChange={handleChange}
         value={value}
         type="text"
-        className={clsx(" border border-transparent rounded-6  placeholder:text-[var(--text-light)] text-16 leading-normal px-18 py-15 w-full", className)}
+        className={clsx(
+          " border border-transparent rounded-6  placeholder:text-[var(--text-light)] text-16 leading-normal px-18 py-15 w-full",
+          className
+        )}
         placeholder={placeholder}
       />
     </InputWrapper>

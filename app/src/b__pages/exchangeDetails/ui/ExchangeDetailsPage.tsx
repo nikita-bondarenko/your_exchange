@@ -14,6 +14,7 @@ import {
 } from "@/d__features/exchange/model";
 import { ExchangeRequestDetails } from "@/d__features/exchange/ui/exchangeRequestDetails";
 import { checkConsentRequirementAction } from "@/d__features/userDataDisplay/api";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 import { useServerAction } from "@/shared/lib";
 import {
   useAppDispatch,
@@ -53,6 +54,8 @@ export default function ExchangeDetailsPage() {
     loadingAction: setCheckPromocodeLoading,
   });
 
+  const { trackUserAction } = useTrackUserAction();
+
   const onSubmit = () => {
     createExchange(createExchangeData);
   };
@@ -74,17 +77,21 @@ export default function ExchangeDetailsPage() {
 
   const handlePromocodeSubmit = () => {
     checkPromocode(promocode);
+    trackUserAction("Промокод отправлен на проверку");
   };
 
   useEffect(() => {
     if (checkPromocodeResponse) {
-      if (checkPromocodeResponse.error) {
+      console.log(checkPromocodeResponse)
+      if (checkPromocodeResponse.detail === 'Промокод не найден.') {
+        trackUserAction("Промокод не прошел проверку");
         setIsPromocodeErrorShowing(true);
         if (timeoutId.current) clearTimeout(timeoutId.current);
         timeoutId.current = setTimeout(() => {
           setIsPromocodeErrorShowing(false);
         }, 3000);
       } else {
+        trackUserAction("Промокод упешно прошел проверку");
         setIsPromoApplied(true);
         handlePromoModalCloseEvent();
         dispatch(setPromocode(promocode));
@@ -103,6 +110,7 @@ export default function ExchangeDetailsPage() {
           <div className="bg-[var(--background-secondary)] rounded-6 px-20 py-15 flex items-center justify-center ">
             {!isPromoApplied ? (
               <button
+                data-tracking-label="У меня есть промокод"
                 className=" underline underline-offset-2 text-[var(--text-main)]"
                 onClick={handlePromoButton}
               >

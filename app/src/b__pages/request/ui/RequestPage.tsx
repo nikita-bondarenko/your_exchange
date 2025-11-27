@@ -23,7 +23,7 @@ const Page: React.FC = () => {
   const request = useAppSelector((state: RootState) => state.requestDetails.data);
   const router = useRouter();
   useEffect(() => {
-    dispatch(setPageName(`заявка ${request?.id}`));
+    dispatch(setPageName(`Заявка #${request?.id}`));
     dispatch(setIsLoading(false));
     if (!request) {
       router.push("/profile");

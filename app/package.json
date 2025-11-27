@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-api": "rtk-query-codegen-openapi openapi-config.mjs"
+    "routes": "find app -type f -name 'page.*' | sed 's|app/\\|\\(/page\\.[a-z]*$\\)\\|\\(/layout\\.[a-z]*$\\)\\|\\(/loading\\.[a-z]*$\\)\\|\\(/error\\.[a-z]*$\\)\\|\\(/not-found\\.[a-z]*$\\)\\|\\(/template\\.[a-z]*$\\)\\|\\(/route\\.[a-z]*$\\)|/|' | sed 's|/page\\.[a-z]*$||' | sort"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

@@ -8,6 +8,7 @@ type InputProps = {
   type?: string;
   className?: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  trackingLabel: string;
 };
 
 export const Input: React.FC<InputProps> = ({
@@ -17,9 +18,11 @@ export const Input: React.FC<InputProps> = ({
   type = "text",
   className,
   onKeyDown,
+  trackingLabel,
 }) => {
   return (
     <input
+      data-tracking-label={trackingLabel}
       type={type}
       className={clsx(
         "w-full bg-[var(--background-secondary)] outline-none text-16 text-[var(--text-main)]  px-16 py-8 ",
@@ -31,4 +34,4 @@ export const Input: React.FC<InputProps> = ({
       placeholder={placeholder}
     />
   );
-}; 
+};

@@ -17,6 +17,7 @@ import {
 } from "@/shared/model/store";
 import { useEffect } from "react";
 import { clearMyInterval } from "../../model/interval";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export const useSetSelectedCurrencyBuyTypeEffect = () => {
   const { givenType, receivedType } = useAppSelector(selectCurrencyTypes);
@@ -43,6 +44,7 @@ export const useSetSelectedCurrencyBuyTypeEffect = () => {
       getInitialData(directionType);
     }
   }, [receivedType]);
+
 
    useEffect(() => {
     if (initialData) {

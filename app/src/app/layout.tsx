@@ -11,12 +11,14 @@ import { PORTAL_TARGET_ID } from "@/shared/config";
 import { RateUpdatingRequirementChecking } from "@/d__features/exchange/lib";
 import {
   AgreementsRequirementChecking,
+  ButtonPressTracking,
   EmailRequirementChecking,
+  InputChangeTracking,
+  PageOpenTracking,
 } from "@/d__features/userDataDisplay/lib";
 import { ThemeInitialiser } from "./providers/ThemeInitialiser";
 import { Head } from "@/c__widgets/head/ui";
 import { Header } from "@/c__widgets/header/ui";
-
 
 const inter = Inter({
   variable: "--font-inter",
@@ -39,9 +41,13 @@ export default function RootLayout({
           <LoadingProvider>
             <main>{children}</main>
           </LoadingProvider>
+
           <EmailRequirementChecking />
           <AgreementsRequirementChecking />
           <RateUpdatingRequirementChecking />
+          <PageOpenTracking />
+          <InputChangeTracking />
+          <ButtonPressTracking/>
         </StoreProvider>
         <div id={PORTAL_TARGET_ID}></div>
       </body>

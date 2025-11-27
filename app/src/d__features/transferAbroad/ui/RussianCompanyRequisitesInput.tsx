@@ -1,10 +1,8 @@
-import {
-  useAppSelector,
-  useAppDispatch,
-} from "@/shared/model/store";
+import { useAppSelector, useAppDispatch } from "@/shared/model/store";
 import { RequisitesTextInput } from "@/shared/ui";
 import { memo } from "react";
 import { setRussianCompanyRequisites } from "../model";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 const title = "Реквизиты компании в РФ";
 const placeholder = `ООО «ТехноИмпорт»
@@ -21,11 +19,16 @@ export const RussianCompanyRequisitesInput = memo(() => {
     (state) => state.transferAbroad.russianCompanyRequisites
   );
   const dispatch = useAppDispatch();
+
+  const {trackInputChange} = useTrackUserAction()
   const handleInputChange = (value: string) => {
+
     dispatch(setRussianCompanyRequisites(value));
+    trackInputChange(title, value)
   };
   return (
     <RequisitesTextInput
+      trackingLabel={title}
       title={title}
       placeholder={placeholder}
       value={value}

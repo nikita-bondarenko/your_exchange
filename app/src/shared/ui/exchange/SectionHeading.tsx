@@ -64,6 +64,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = memo(
         )}
         {minValue && (
           <button
+          data-tracking-label="Информация о минимальной сумме"
             onClick={handleMinValueClick}
             className=" relative block pl-17 max-w-200"
           >

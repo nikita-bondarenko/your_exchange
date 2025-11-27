@@ -1,4 +1,5 @@
 import { updateUserDataAction } from "@/d__features/userDataDisplay/api";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 import {
   setMailRequired,
   setUpdateUserDataLoading,
@@ -20,6 +21,7 @@ export default function EmailModal() {
   const userData = useAppSelector((state) => state.user.data?.user_data);
   const userId = useAppSelector((state) => state.user.id);
   const isMailRequired = useAppSelector((state) => state.user.mailRequired);
+  const sessionId = useAppSelector((state) => state.user.sessionId);
 
   useEffect(() => {
     if (isMailRequired)
@@ -39,15 +41,57 @@ export default function EmailModal() {
     loadingAction: setUpdateUserDataLoading,
   });
 
+  const { trackUserAction } = useTrackUserAction();
+
   const handleSubmit = () => {
     setIsErrorShowing(true);
     if (!error && userId) {
+      trackUserAction("Email отправлен");
       updateUser({
         user_id: userId,
         email: value,
       });
+    } else {
+      trackUserAction("Ошибка при валидации email");
     }
   };
+
+  useEffect(() => {
+    if (sessionId) {
+      if (isEmailModalOpen) {
+        trackUserAction("Открыто модальное окно для ввода электронной почты");
+        return () => {
+          trackUserAction("Закрыто модальное окно для ввода электронной почты");
+        };
+      }
+    }
+  }, [isEmailModalOpen, sessionId]);
+
+  useEffect(() => {
+    if (sessionId) {
+      if (isSuccessModalOpen) {
+        trackUserAction("Открыто модальное окно 'Email успешно сохранен!'");
+        return () => {
+          trackUserAction("Закрыто модальное окно 'Email успешно сохранен!'");
+        };
+      }
+    }
+  }, [isSuccessModalOpen, sessionId]);
+
+  useEffect(() => {
+    if (sessionId) {
+      if (isErrorModalOpen) {
+        trackUserAction(
+          "Открыто модальное окно 'Произошла ошибка при попытке сохранить email'"
+        );
+        return () => {
+          trackUserAction(
+            "Закрыто модальное окно 'Произошла ошибка при попытке сохранить email'"
+          );
+        };
+      }
+    }
+  }, [isErrorModalOpen, sessionId]);
 
   useEffect(() => {
     if (response) {
@@ -83,6 +127,7 @@ export default function EmailModal() {
             спама, пишем только по&nbsp;делу
           </p>
           <InputField
+            trackingLabel="Электронная почта"
             onChange={setValue}
             error={isErrorShowing ? error : ""}
             value={value}

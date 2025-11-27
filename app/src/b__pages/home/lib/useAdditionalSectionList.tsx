@@ -14,6 +14,7 @@ type Props = {
 export type AdditionalButton = {
   children: ReactNode;
   onClick: () => void;
+  trackingLabel: string;
 };
 
 export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
@@ -31,9 +32,7 @@ export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
 
   const [themeSwitcherClickHandler] = useThemeSwitcherClickHandler();
 
-  const sessionId = useAppSelector(state => state.user.sessionId)
-
-  const { trackPushButton } = useTrackUserAction();
+  const sessionId = useAppSelector((state) => state.user.sessionId);
 
   const additionalSectionListItems = useMemo<AdditionalButton[]>(
     () => [
@@ -41,15 +40,15 @@ export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
         children: "Профиль",
         onClick: () => {
           toProfilePage();
-          trackPushButton("Профиль");
         },
+        trackingLabel: "Профиль",
       },
       {
         children: "Нас часто спрашивают",
         onClick: () => {
           toFaqPage();
-          trackPushButton("Нас часто спрашивают");
         },
+        trackingLabel: "Нас часто спрашивают",
       },
       ...(termsUrl
         ? [
@@ -57,8 +56,8 @@ export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
               children: "Соглашение",
               onClick: () => {
                 openUrl(termsUrl);
-                trackPushButton("Соглашение");
               },
+              trackingLabel: "Соглашение",
             },
           ]
         : []),
@@ -68,17 +67,18 @@ export const useAdditionalSectionList = ({ policyUrl, termsUrl }: Props) => {
               children: "Политика AML",
               onClick: () => {
                 openUrl(policyUrl);
-                trackPushButton("Политика AML");
               },
+              trackingLabel: "Политика AML",
             },
           ]
         : []),
       ...(PROJECT_NAME === "test"
         ? TOTAL_PROJECTS_DATA_ARR.map((project) => ({
-            children: <ThemeButton project={project}></ThemeButton>,
+            children: <ThemeButton project={project}/>,
             onClick: () => {
               themeSwitcherClickHandler(project.name);
             },
+            trackingLabel: `${project.meta.title} Theme`,
           }))
         : []),
     ],

@@ -7,6 +7,7 @@ import { memo } from "react";
 import { useTransferDetailsOptions } from "../lib/useTransferDetailsOptions";
 import { useCountryInputError } from "../lib/useCountryInputError";
 import { setCountryName } from "../model";
+import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export const TransferCountryInput = memo(() => {
   const dispatch = useAppDispatch();
@@ -19,8 +20,13 @@ export const TransferCountryInput = memo(() => {
 
   const { countryInputError } = useCountryInputError();
 
+  const {trackInputChange} = useTrackUserAction()
+
   const handleSelect = (value: string | null) => {
-    if (value) dispatch(setCountryName(value));
+    if (value) {
+      dispatch(setCountryName(value))
+      trackInputChange('Страна', value)
+    };
   };
   return (
     <div className="-mt-26">

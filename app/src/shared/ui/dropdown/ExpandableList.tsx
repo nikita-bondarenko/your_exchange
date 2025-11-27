@@ -8,9 +8,10 @@ type ExpandableListProps = {
   items: Array<{
     children: ReactNode;
     onClick: () => void;
+    trackingLabel?: string;
   }>;
   title: string;
-  handleVisibilityChange: (isOpen: boolean) => void;
+  handleVisibilityChange?: (isOpen: boolean) => void;
 };
 
 export default function ExpandableList({
@@ -25,7 +26,7 @@ export default function ExpandableList({
           <Button
             onClick={() => {
               onClick();
-              handleVisibilityChange(!isOpen);
+              if (handleVisibilityChange) handleVisibilityChange(!isOpen);
             }}
             arrowPosition={isOpen ? "bottom" : "top"}
             arrow
@@ -37,7 +38,11 @@ export default function ExpandableList({
         <ul className="w-full">
           {items.map((item, index) => (
             <li key={index}>
-              <Button border onClick={item.onClick}>
+              <Button
+                trackingLabel={item.trackingLabel}
+                border
+                onClick={item.onClick}
+              >
                 {item.children}
               </Button>
             </li>
