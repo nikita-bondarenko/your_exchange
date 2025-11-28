@@ -15,9 +15,7 @@ export const FileInput = ({ onChange, value, trackingLabel }: Props) => {
   const fileInputElement = createRef<HTMLInputElement>();
 
   useEffect(() => {
-    console.log(value);
     if (!value?.type) return;
-    console.log(value.type);
     const imageUrl = URL?.createObjectURL(value);
     setPreviewUrl(imageUrl);
     setFileType(value.type);

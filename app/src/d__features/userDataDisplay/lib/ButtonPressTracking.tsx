@@ -12,7 +12,6 @@ export const ButtonPressTracking = () => {
   const handleButtonPress = (element: Element) => {
     const button = element as HTMLButtonElement | HTMLAnchorElement;
     const label = button.dataset.trackingLabel;
-    console.log(button, label);
     if (label) {
       trackPushButton(label);
     }
@@ -27,10 +26,6 @@ export const ButtonPressTracking = () => {
         button?.addEventListener("click", (e) => handleButtonPress(button))
       );
 
-      //   allButtons.forEach((button) =>
-      //     console.log(button,(button as HTMLButtonElement).dataset.trackingLabel)
-      //   );
-      //   console.log(allButtons);
     }, 500);
   }, [pathname, sessionId]);
   return <></>;

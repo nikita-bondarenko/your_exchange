@@ -48,11 +48,6 @@ export const useSetSelectedCurrencyBuyEffect = () => {
       let selectedNetworkValueId = selectedNetwork.value?.id;
 
       if (selectedCurrencyBuyType === "COIN") {
-        // // console.log(
-        //   "setSelectedNetworkValue setSelectedCurrencyBuyListener",
-        //   selectedCurrencyBuy?.networks?.[0]
-        // );
-
         selectedNetworkValueId = selectedCurrencyBuyNetwork?.id
 
         dispatch(
@@ -100,7 +95,6 @@ export const useSetSelectedCurrencyBuyEffect = () => {
 
   useEffect(() => {
     if (rateData) {
-      // console.log(rateData.rate)
       dispatch(setExchangeRate(rateData?.rate || null));
       const cities = calculateSecondaryProperties({
         rate: rateData?.rate,

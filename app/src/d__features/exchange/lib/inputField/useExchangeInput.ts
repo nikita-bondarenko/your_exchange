@@ -43,7 +43,6 @@ export const useExchangeInput = (position: ExchangeCurrencyPosition) => {
   }, [dispatch, position, currenciesSell, currenciesBuy]);
 
   const onInputChange = useCallback((value: number | null) => {
-    console.log('onInputChange')
     dispatch(setActiveInputType(position));
     switch (position) {
       case "given":

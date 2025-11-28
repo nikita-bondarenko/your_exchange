@@ -29,8 +29,6 @@ export const useSetSelectedCurrencySellEffect = () => {
 
   useEffect(() => {
     if (selectedCurrencySell) {
-      //     console.log('before clearMyInterval')
-      // clearMyInterval(RATE_INTERVAL_KEY);
       if (
         !selectedCurrencySell?.id ||
         !selectedCurrencyBuy?.id ||
@@ -42,10 +40,6 @@ export const useSetSelectedCurrencySellEffect = () => {
 
       let selectedNetworkValueId = selectedNetwork.value?.id;
       if (selectedCurrencySellType === "COIN") {
-        console.log(
-          "setSelectedNetworkValue setSelectedCurrencySellListener",
-          selectedCurrencySell
-        );
 
         dispatch(
           setSelectedNetworkValue(selectedCurrencySell?.networks?.[0] || null)
@@ -64,25 +58,9 @@ export const useSetSelectedCurrencySellEffect = () => {
         dispatch(setSelectedCityValue(null));
       }
       if (selectedCurrencySellType === "BANK" && selectedCurrencySell?.banks) {
-        // console.log("setSelectedBankValue setSelectedCurrencySell");
         dispatch(setSelectedBankValue(selectedCurrencySell?.banks[0]));
         dispatch(setBanks(selectedCurrencySell?.banks || null));
       }
-
-      console.log(
-        "setRateData setSelectedNetworkValue setSelectedCurrencySell",
-        {
-          initialData,
-          // listenerApi,
-          selectedBankId: selectedBank.value?.id,
-          selectedCityId: selectedCity.value?.id,
-          selectedCurrencyBuyId: selectedCurrencyBuy.id,
-          selectedCurrencyBuyType: selectedCurrencyBuyType,
-          selectedCurrencySellId: selectedCurrencySell.id,
-          selectedCurrencySellType: selectedCurrencySellType,
-          selectedNetworkValueId: selectedNetworkValueId,
-        }
-      );
 
       startTransition(() => {
         setRateData({

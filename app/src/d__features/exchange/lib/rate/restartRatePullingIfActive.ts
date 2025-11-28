@@ -9,9 +9,6 @@ export const restartRatePullingIfActive = (
   dispatch: AppDispatch,
 ) => {
   if (isRateBeingPulled) {
-        // console.log('before clearMyInterval')
-
-    // clearMyInterval(RATE_INTERVAL_KEY)
     setTimeout(() => {
       dispatch(setIsRateBeingPulled(true));
     }, 100); // Small delay to ensure state is updated

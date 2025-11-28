@@ -17,9 +17,6 @@ export const useSetSelectedCurrencySellTypeEffect = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (selectedCurrencySellType) {
-      //     console.log('before clearMyInterval')
-
-      // clearMyInterval(RATE_INTERVAL_KEY);
       const receiveVariants = filterReceiveVariants(selectedCurrencySellType);
       setReceiveTypesVariants(receiveVariants)
       if (receiveVariants.length)

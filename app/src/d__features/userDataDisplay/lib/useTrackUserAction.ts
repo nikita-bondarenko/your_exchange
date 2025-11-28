@@ -8,9 +8,7 @@ export const useTrackUserAction = () => {
   const [writeSessionDetails, response] = useServerAction({
     action: writeSessionDetailsAction,
   });
-  useEffect(() => {
-    console.log(response);
-  }, [response]);
+
   const trackUserAction = (actionDescription: string) => {
     console.log(actionDescription, trackingSessionId);
     if (trackingSessionId)

@@ -44,8 +44,6 @@ export async function fetchApi<T>({
 
 
       const url = `${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`;
-      if (path === '/user/tracking/action')
-        console.log(url)
 
       const fetchOptions: RequestInit = {
         method,
@@ -79,7 +77,6 @@ export async function fetchApi<T>({
     await tryFetch();
 
     if (responseBody?.code === "token_not_valid") {
-      // console.log(responseBody);
 
       isTokenValid = false;
       await tryFetch();

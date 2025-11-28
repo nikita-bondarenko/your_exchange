@@ -28,20 +28,6 @@ export const useSetSelectedNetworkEffect = () => {
         !initialData
       )
         return;
-      console.log(
-        "setRateData setSelectedNetworkValue setSelectedNetworkValue",
-        {
-          initialData,
-          // listenerApi,
-          selectedBankId: selectedBank.value?.id,
-          selectedCityId: selectedCity.value?.id,
-          selectedCurrencyBuyId: selectedCurrencyBuy.id,
-          selectedCurrencyBuyType: selectedCurrencyBuyType,
-          selectedCurrencySellId: selectedCurrencySell.id,
-          selectedCurrencySellType: selectedCurrencySellType,
-          selectedNetworkValueId: selectedNetwork?.value.id,
-        }
-      );
 
       startTransition(() => {
         setRateData({

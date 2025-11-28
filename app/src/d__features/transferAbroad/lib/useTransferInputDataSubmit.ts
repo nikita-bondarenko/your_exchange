@@ -61,7 +61,6 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
   const dispatch = useAppDispatch();
 
   const requiestPromiseCallback = (data?: OrderResponse | undefined) => {
-    // console.log(value);
     dispatch(setOrderId(data?.order_id || "no_info"));
     router.push("/transfer-abroad/result");
   };
@@ -82,7 +81,6 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
         break;
       }
       case "chinese-platforms": {
-        console.log(currency?.name, amount, platform?.name);
         if (currency?.name && amount && platform?.name && userId)
           createChinesePlatformOrder({
             currency_name: currency?.name,
@@ -93,7 +91,6 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
         break;
       }
       case "fta": {
-        console.log(currency?.name, amount, taskDescription, userId);
         if (currency?.name && amount && taskDescription && userId)
           createFTAOrder({
             user_id: userId,
@@ -108,13 +105,7 @@ export const useTransferInputDataSubmit = (transferType: string | null) => {
         break;
       }
       case "invoice": {
-        console.log(
-          currency?.name,
-          amount,
-          taskDescription,
-          countryName,
-          transferTypeCategorySlug
-        );
+  
         if (
           currency?.name &&
           amount &&

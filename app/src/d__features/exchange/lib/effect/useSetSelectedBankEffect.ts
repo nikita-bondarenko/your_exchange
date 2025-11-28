@@ -48,11 +48,7 @@ export const useSetSelectedBankEffect = () => {
       if (selectedCurrencyBuyType === "COIN" && !selectedNetwork.value?.id) {
         selectedNetworkId = selectedCurrencySell?.id;
       }
-      console.log(
-        "setRateData setSelectedBankValue",
-        selectedCurrencySell.id,
-        selectedNetwork.value?.id
-      );
+
       startTransition(() => {
         setRateData({
           initialData,

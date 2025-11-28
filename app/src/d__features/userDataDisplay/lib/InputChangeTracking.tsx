@@ -37,7 +37,6 @@ export const InputChangeTracking = () => {
         input?.addEventListener("input", (e) => debounce(() => handleInputChange(e)))
       );
 
-    //   console.log(allInputs);
     }, 500);
   }, [pathname, sessionId]);
   return <></>;

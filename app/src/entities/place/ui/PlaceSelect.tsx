@@ -1,11 +1,11 @@
 import React, { memo, useEffect, useState } from "react";
-import {BaseSelect, InputWrapper} from "@/shared/ui";
+import { BaseSelect, InputWrapper } from "@/shared/ui";
 import clsx from "clsx";
 import { City } from "@/shared/model/api";
 
 export type PlaceOption = {
-    name: string;
-    id: number;
+  name: string;
+  id: number;
 };
 
 export type PlaceSelectProps = {
@@ -32,10 +32,11 @@ export const PlaceSelect: React.FC<PlaceSelectProps> = memo(
       const val = e.target.value;
       setSearchValue(val);
       setIsOpen(true);
-      
+
       // Check if the input value exactly matches any city name
-      const exactMatch = options.find(option => option.name.toLowerCase() === val.toLowerCase());
-      // // console.log(exactMatch)
+      const exactMatch = options.find(
+        (option) => option.name.toLowerCase() === val.toLowerCase()
+      );
       onChange(exactMatch ? exactMatch.name : null);
     };
 
@@ -46,35 +47,36 @@ export const PlaceSelect: React.FC<PlaceSelectProps> = memo(
 
     const showCustomPlaceholder = !searchValue;
 
-    const [showFullOptionsArray, setShowFullOptionsArray] = useState(false)
+    const [showFullOptionsArray, setShowFullOptionsArray] = useState(false);
 
     useEffect(() => {
-      setShowFullOptionsArray(false)
-    }, [searchValue])
+      setShowFullOptionsArray(false);
+    }, [searchValue]);
 
     useEffect(() => {
-      if(!isOpen) {
-        setShowFullOptionsArray(true)
+      if (!isOpen) {
+        setShowFullOptionsArray(true);
       }
-    }, [isOpen])
+    }, [isOpen]);
 
     const filterOptions = (options: PlaceOption[], searchValue: string) => {
-      return showFullOptionsArray ? options : options.filter((option) =>
-        option.name.toLowerCase().includes(searchValue.toLowerCase())
-      );
+      return showFullOptionsArray
+        ? options
+        : options.filter((option) =>
+            option.name.toLowerCase().includes(searchValue.toLowerCase())
+          );
     };
 
     useEffect(() => {
-      console.log(value)
-if (value !== searchValue) {
-  setSearchValue(value)
-}
-    }, [value])
+      if (value !== searchValue) {
+        setSearchValue(value);
+      }
+    }, [value]);
 
     return (
       <BaseSelect<City>
         options={options}
-        value={options.find(opt => opt.name === value) || null}
+        value={options.find((opt) => opt.name === value) || null}
         onChange={handleSelect}
         isOpen={isOpen}
         onOpenChange={setIsOpen}
@@ -93,7 +95,9 @@ if (value !== searchValue) {
                 <div
                   className={clsx(
                     "absolute left-16 pointer-events-none text-16 transition-colors",
-                    focused ? "text-[var(--text-light)]" : "text-[var(--text-main)]"
+                    focused
+                      ? "text-[var(--text-light)]"
+                      : "text-[var(--text-main)]"
                   )}
                 >
                   {focused ? placeholderFocused : placeholder}
@@ -146,4 +150,3 @@ if (value !== searchValue) {
 );
 
 PlaceSelect.displayName = "PlaceSelect";
-

@@ -82,7 +82,6 @@ export default function ExchangeDetailsPage() {
 
   useEffect(() => {
     if (checkPromocodeResponse) {
-      console.log(checkPromocodeResponse)
       if (checkPromocodeResponse.detail === 'Промокод не найден.') {
         trackUserAction("Промокод не прошел проверку");
         setIsPromocodeErrorShowing(true);

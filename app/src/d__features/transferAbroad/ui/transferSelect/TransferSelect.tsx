@@ -82,7 +82,6 @@ export const TransferSelect = memo(() => {
 
 useEffect(() => {
   if (sessionId && selectedTranserTypeOptionId && transferTypeOptions) {
-    console.log(selectedTranserTypeOptionId, transferTypeOptions)
     const selectedTransferTypeOption = transferTypeOptions?.find(option => option.id === selectedTranserTypeOptionId)
     if (selectedTransferTypeOption)
     trackUserAction(`Выбран тип перевода за рубеж '${selectedTransferTypeOption.name}'`)

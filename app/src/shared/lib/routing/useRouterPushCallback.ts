@@ -20,17 +20,12 @@ export const useRouterPushCallback = ({
   const dispatch = useAppDispatch();
 
   const callback = () => {
-    console.log(isFormValid)
     if (isFormValid) {
       router.push(nextPagePath);
     } else {
       dispatch(setTransferAbroadAreErrorsVisible(true));
     }
   };
-
-  useEffect(() => {
-    console.log(isFormValid)
-  }, [isFormValid])
 
   return [callback];
 };

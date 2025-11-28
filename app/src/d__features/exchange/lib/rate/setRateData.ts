@@ -58,7 +58,6 @@ export const setRateData = async ({
   let giveCurrencyId: number = selectedCurrencySellId;
 
   if (selectedCurrencySellType === "COIN") {
-    console.log("COIN", selectedNetworkValueId);
 
     const isSelectedNetworkValueIdValid =
       !!initialData.currencies_give
@@ -77,18 +76,11 @@ export const setRateData = async ({
   }
 
   if (selectedCurrencySellType === "BANK") {
-    // console.log("BANK", selectedBankId);
     if (selectedBankId) giveCurrencyId = selectedBankId;
     else {
-      console.error("selectedBankId undefined");
       return;
     }
   }
-
-  // // console.log('availableCurrenciesGet ARGS', {
-  //   giveCurrencyId,
-  //   currencyType: selectedCurrencyBuyType,
-  // })
 
   dispatch(setGetCurrenciesLoading(true));
   const availableCurrenciesGet = await getCurrenciesAction({
@@ -96,8 +88,6 @@ export const setRateData = async ({
     currencyType: selectedCurrencyBuyType,
   });
   dispatch(setGetCurrenciesLoading(false));
-
-  // console.log("availableCurrenciesGet", availableCurrenciesGet);
 
   const {
     currenciesBuy,
@@ -118,7 +108,6 @@ export const setRateData = async ({
     selectedCurrencySellId: rateFetchingArgs.currency_give_id,
   });
   if (selectedCurrencyBuyType === "COIN" && selectedCurrencySellType === "CASH")
-    // console.log("getAvailableCurrenciesBuyDetails", networks, isNetworkValid);
 
   dispatch(setCurrenciesBuy(currenciesBuy));
 
@@ -143,14 +132,11 @@ export const setRateData = async ({
   }
 
   dispatch(setGetRateLoading(true))
-  // console.log('rateFetchingArgs',rateFetchingArgs)
-    console.log('isNetworkValid',isNetworkValid)
 
   const rateData = await getRateAction(rateFetchingArgs)
   dispatch(setGetRateLoading(false))
 
   if (!rateData) return;
-  // console.log(JSON.stringify(rateData.rate))
   dispatch(setExchangeRate(rateData?.rate || null));
   const cities = calculateSecondaryProperties({
     rate: rateData?.rate,

@@ -21,7 +21,6 @@ export const AbroadCompanyRequisitesInput = memo(() => {
     const {trackInputChange} = useTrackUserAction()
   
   const handleInputChange = (value: string) => {
-    console.log(value);
     dispatch(setAbroadCompanyRequisites(value));
         trackInputChange(title, value)
 

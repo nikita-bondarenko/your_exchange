@@ -14,9 +14,7 @@ type Props = {
 };
 
 export const BaseTabs: React.FC<Props> = ({ onChange, options, value }) => {
-  useEffect(() => {
-    console.log(value)
-  }, [value])
+
   return (
     <div className="flex gap-x-8 gap-y-11 flex-wrap">
       {options.map((option, index) => (

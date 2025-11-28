@@ -61,10 +61,8 @@ export const useSetIsRateBeingPulledEffect = () => {
 
 
   useEffect(() => {
-    // console.log("isRateBeingPulled", isRateBeingPulled);
 
     if (!isRateBeingPulled) {
-      // console.log("before clearMyInterval");
       clearMyInterval(RATE_INTERVAL_KEY);
       return;
     }
@@ -84,7 +82,6 @@ export const useSetIsRateBeingPulledEffect = () => {
 
   useEffect(() => {
     if (rateData?.rate?.currency_give_min_value) {
-      // console.log(rateData.rate)
       dispatch(setExchangeRate(rateData?.rate));
     }
   }, [rateData]);

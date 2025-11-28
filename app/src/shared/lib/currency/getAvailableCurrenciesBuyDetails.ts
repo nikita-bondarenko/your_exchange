@@ -62,11 +62,6 @@ export const getAvailableCurrenciesBuyDetails = ({
     currenciesBuy = availableCurrenciesGet;
   }
 
-  // // console.log(
-  //   currenciesBuy,
-  //   availableCurrenciesGet,
-  //   initialData?.currencies_get
-  // );
 
   const isCurrencyBuyValid = currenciesBuy.some(
     (cur) => cur.id === selectedCurrencyBuyId
@@ -75,14 +70,11 @@ export const getAvailableCurrenciesBuyDetails = ({
   const isBankValid = currenciesBuy.some((cur) =>
     cur.banks?.some((b) => b.id === selectedBankId)
   );
-  if (currencyBuyType === "COIN")
-    console.log("selectedNetworkId", selectedNetworkId, currenciesBuy);
 
   const isNetworkValid = currenciesBuy.some((cur) =>
     cur.networks?.some((n) => n.id === selectedNetworkId)
   );
 
-  // console.log(currenciesBuy);
 
   const selectedCurrencyBuy: Currency = JSON.parse(
     JSON.stringify(
@@ -131,8 +123,6 @@ export const getAvailableCurrenciesBuyDetails = ({
     );
     selectedCurrencyBuy.networks = networks;
   }
-
-  // console.log(banks);
 
   return {
     selectedNetwork: networks[0] || null,

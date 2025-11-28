@@ -6,7 +6,6 @@ export const setMyInterval = (
   delay: number,
   key: string
 ) => {
-        console.log('setMyInterval')
 
   clearMyInterval(key); // очищаем старый, если был
 
@@ -15,7 +14,6 @@ export const setMyInterval = (
 };
 
 export const clearMyInterval = (key: string) => {
-    // console.log('clearMyInterval')
   const existing = intervals.get(key);
   if (existing) {
     clearInterval(existing);

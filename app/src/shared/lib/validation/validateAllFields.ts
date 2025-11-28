@@ -53,8 +53,6 @@ export const validateAllFields = (exchangeReducerState: ExchangeReducerState, di
     }
     dispatch(setWalletAddressError(walletAddressError));
 
-    // // // console.log('amountError, walletAddressError',amountError, walletAddressError);
-
     hasErrors = !!(amountError || walletAddressError);
   }
 
@@ -122,7 +120,6 @@ export const validateAllFields = (exchangeReducerState: ExchangeReducerState, di
     dispatch(setSelectedBankError(bankError));
     dispatch(setCardNumberError(cardNumberError));
     dispatch(setPhoneNumberError(phoneNumberError));
-    // // // console.log('amountError, bankError, cardNumberError',amountError, bankError, cardNumberError, banks);
 
     hasErrors =
       hasErrors ||
@@ -168,7 +165,6 @@ export const validateAllFields = (exchangeReducerState: ExchangeReducerState, di
       dispatch(setCurrencyBuyAmountError(amountError));
     }
     dispatch(setSelectedCityError(cityError));
-    // // // console.log('amountError, cityError',amountError, cityError);
 
     hasErrors = hasErrors || !!(amountError || cityError);
   }

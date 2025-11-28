@@ -11,7 +11,6 @@ export function EmailRequirementChecking() {
     if (userId) {
       startTransition(async () => {
         const res = await checkMailRequirementAction({ user_id: userId});
-        console.log(res)
         if (res.mail_required) dispatch(setMailRequired(true));
       });
     }

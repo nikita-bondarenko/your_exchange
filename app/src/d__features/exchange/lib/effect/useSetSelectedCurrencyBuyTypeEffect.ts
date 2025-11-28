@@ -38,8 +38,7 @@ export const useSetSelectedCurrencyBuyTypeEffect = () => {
 
   useEffect(() => {
     if (receivedType) {
-      //     console.log('before clearMyInterval')
-      // clearMyInterval(RATE_INTERVAL_KEY); 
+
       const directionType = `${givenType} - ${receivedType}`;
       getInitialData(directionType);
     }

@@ -17,7 +17,6 @@ export function AgreementsRequirementChecking() {
     if (userId)
       startTransition(async () => {
         const res = await checkConsentRequirementAction({ user_id: userId });
-        console.log(res)
         if (res.consent_required) dispatch(setAgreementAccepted(false));
       });
   }, [userId]);

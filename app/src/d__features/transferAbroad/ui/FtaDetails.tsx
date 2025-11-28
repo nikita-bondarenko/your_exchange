@@ -24,8 +24,6 @@ export const FtaDetails = () => {
     [file1, file2, file1PreviewUrl, file2PreviewUrl]
   );
 
-  useEffect(() => {console.log(filesPreview)}, [filesPreview])
-
   const requisites = useMemo(
     () => [
       {

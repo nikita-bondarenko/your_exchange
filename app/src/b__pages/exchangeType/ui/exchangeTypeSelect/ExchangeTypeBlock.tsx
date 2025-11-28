@@ -12,7 +12,6 @@ export type ExchangeTypeBlockProps = {
 const ExchangeTypeBlock: React.FC<ExchangeTypeBlockProps> = memo(
   ({ title, buttons, position }) => {
 
-    console.log(buttons)
     return (
       <div className="relative rounded-6 bg-[var(--background-secondary)] overflow-hidden flex flex-col items-center after:absolute after:inset-0 after:border after:border-[var(--border-placeholder)] after:rounded-6 after:z-10 after:pointer-events-none text-[var(--text-main)]">
         <h2 className="py-15 px-19 w-full font-medium text-16 leading-normal">
