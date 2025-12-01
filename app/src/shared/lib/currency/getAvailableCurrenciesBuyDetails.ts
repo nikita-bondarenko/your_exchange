@@ -37,6 +37,8 @@ export const getAvailableCurrenciesBuyDetails = ({
 
   let currenciesBuy: Currency[] = initialData?.currencies_get || [];
 
+  // console.log(availableCurrenciesGet)
+
   if (currencyBuyType === "CASH") {
     currenciesBuy =
       initialData?.currencies_get?.filter((currency) =>
@@ -49,7 +51,7 @@ export const getAvailableCurrenciesBuyDetails = ({
         availableCurrenciesGet.some((item) =>
           currency[propertyName]?.some(
             (option) => option.id === item.id
-          )
+          ) || item.id === currency.id
         )
       ).map(cur => ({...cur, [propertyName]:cur[propertyName]?.filter(item => {
         const availableCurrency = availableCurrenciesGet.find(c => c.id === cur.id)

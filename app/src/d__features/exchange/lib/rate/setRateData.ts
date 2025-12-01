@@ -126,7 +126,7 @@ export const setRateData = async ({
   if (selectedCurrencyBuyType === "COIN") {
     dispatch(setNetworks(networks));
     if (!isNetworkValid) {
-      rateFetchingArgs.network_id = selectedNetwork.id;
+      rateFetchingArgs.network_id = selectedNetwork?.id  || selectedCurrencyBuyId;
       dispatch(setSelectedNetworkValueWithoutListening(selectedNetwork));
     }
   }
@@ -134,6 +134,7 @@ export const setRateData = async ({
   dispatch(setGetRateLoading(true))
 
   const rateData = await getRateAction(rateFetchingArgs)
+  // console.log(rateData)
   dispatch(setGetRateLoading(false))
 
   if (!rateData) return;
