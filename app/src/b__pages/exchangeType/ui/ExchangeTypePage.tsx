@@ -14,7 +14,7 @@ import ExchangeTypeBlock from "./exchangeTypeSelect/ExchangeTypeBlock";
 import { EXCHANGE_TYPES_BUTTONS } from "@/d__features/exchange/config";
 import {
   useSetInitDirections,
-  useSetSelectedCurrencyBuyTypeEffect,
+  useSetSelectedCurrencyTypesEffect,
   useSetSelectedCurrencySellTypeEffect,
 } from "@/d__features/exchange/lib";
 import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
@@ -47,7 +47,7 @@ export default memo(function Page() {
   useSetInitDirections();
 
   const { receiveTypesVariants } = useSetSelectedCurrencySellTypeEffect();
-  useSetSelectedCurrencyBuyTypeEffect();
+  useSetSelectedCurrencyTypesEffect();
 
   const {debounce} = useDebounce()
 

@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import { clearMyInterval } from "../../model/interval";
 import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
-export const useSetSelectedCurrencyBuyTypeEffect = () => {
+export const useSetSelectedCurrencyTypesEffect = () => {
   const { givenType, receivedType } = useAppSelector(selectCurrencyTypes);
   const isRateBeingPulled = useAppSelector(
     (state) => state.exchange.isRateBeingPulled
@@ -37,12 +37,12 @@ export const useSetSelectedCurrencyBuyTypeEffect = () => {
   });
 
   useEffect(() => {
-    if (receivedType) {
+    if (receivedType && givenType) {
 
       const directionType = `${givenType} - ${receivedType}`;
       getInitialData(directionType);
     }
-  }, [receivedType]);
+  }, [receivedType,givenType]);
 
 
    useEffect(() => {

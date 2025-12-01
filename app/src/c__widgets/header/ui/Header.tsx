@@ -43,9 +43,7 @@ export function Header() {
   const onBackButtonClick = () => {
     if (!isAppReady) return;
     const backButtonPath = BACK_BUTTON_ROUTES[pathname as string];
-    if (isHome) {
-      window.Telegram?.WebApp.close();
-    } else if (isTransferAbroadDetails) {
+    if (isTransferAbroadDetails) {
       setIsBackward(true);
       router.back();
     } else {

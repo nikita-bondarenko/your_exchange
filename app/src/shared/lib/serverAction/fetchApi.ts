@@ -84,6 +84,7 @@ export async function fetchApi<T>({
 
     return responseBody;
   } catch (e) {
+    console.error(e)
     throw e;
   }
 }
