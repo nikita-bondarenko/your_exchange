@@ -51,6 +51,7 @@ cmd_deploy() {
         echo "❌ Deployment failed!"
         return 1
     fi
+    docker system prune -a -f
 }
 
 cmd_status() {
