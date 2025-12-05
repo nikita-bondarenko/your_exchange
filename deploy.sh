@@ -24,8 +24,8 @@ cmd_deploy() {
     echo ""
 
     mkdir -p /tmp && \
-    cp nginx/nginx.conf "/tmp/nginx_conf_backup_$dir" &&
-    cp app/data/token.txt "/tmp/token_txt_backup_$dir"
+    cp nginx/nginx.conf "/tmp/nginx_conf_backup_$SCRIPT_DIR" &&
+    cp app/data/token.txt "/tmp/token_txt_backup_$SCRIPT_DIR"
 
      git fetch origin 2>/dev/null
     current_branch=$(git branch --show-current)
@@ -34,12 +34,12 @@ cmd_deploy() {
       git fetch origin
       git reset --hard origin/main
     else
-      echo "Нет новых коммитов на remote в $dir - обновление не требуется."
+      echo "Нет новых коммитов на remote в $SCRIPT_DIR - обновление не требуется."
     fi
 
         # Возвращаем оригиналы файлов до запуска deploy.sh
-    mv "/tmp/nginx_conf_backup_$dir" nginx/nginx.conf &&
-    mv "/tmp/token_txt_backup_$dir" app/data/token.txt
+    mv "/tmp/nginx_conf_backup_$SCRIPT_DIR" nginx/nginx.conf &&
+    mv "/tmp/token_txt_backup_$SCRIPT_DIR" app/data/token.txt
     
     # Use the library's main deployment function
     if zdt_deploy "$@"; then
