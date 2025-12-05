@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Simplified Zero Downtime Deployment Script for alex
+# Simplified Zero Downtime Deployment Script for $ZDT_MAIN_CONTAINER
 # Uses the zero-downtime-lib for all deployment logic
 
 set -e
@@ -8,7 +8,7 @@ set -e
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Source the alex configuration (which includes the library)
+# Source the $ZDT_MAIN_CONTAINER configuration (which includes the library)
 source "$SCRIPT_DIR/deployment-config.sh"
 
 chmod -R 777 ./app/data
@@ -18,8 +18,28 @@ chmod -R 777 ./app/data
 # ========================================
 
 cmd_deploy() {
-    echo "🚀 Starting alex Zero Downtime Deployment..."
+
+    
+    echo "🚀 Starting $ZDT_MAIN_CONTAINER Zero Downtime Deployment..."
     echo ""
+
+    mkdir -p /tmp && \
+    cp nginx/nginx.conf "/tmp/nginx_conf_backup_$dir" &&
+    cp app/data/token.txt "/tmp/token_txt_backup_$dir"
+
+     git fetch origin 2>/dev/null
+    current_branch=$(git branch --show-current)
+    if [ $(git rev-list --count HEAD..origin/"$current_branch" 2>/dev/null || echo 0) -gt 0 ]; then
+      echo "Найдены новые коммиты на remote в $ZDT_MAIN_CONTAINER - запускаем обновление."
+      git fetch origin
+      git reset --hard origin/main
+    else
+      echo "Нет новых коммитов на remote в $dir - обновление не требуется."
+    fi
+
+        # Возвращаем оригиналы файлов до запуска deploy.sh
+    mv "/tmp/nginx_conf_backup_$dir" nginx/nginx.conf &&
+    mv "/tmp/token_txt_backup_$dir" app/data/token.txt
     
     # Use the library's main deployment function
     if zdt_deploy "$@"; then
@@ -34,7 +54,7 @@ cmd_deploy() {
 }
 
 cmd_status() {
-    echo "📊 alex Deployment Status"
+    echo "📊 $ZDT_MAIN_CONTAINER Deployment Status"
     echo "=================================="
     
     # Use the library's status function
@@ -42,7 +62,7 @@ cmd_status() {
 }
 
 cmd_rollback() {
-    echo "🔄 Starting alex Rollback..."
+    echo "🔄 Starting $ZDT_MAIN_CONTAINER Rollback..."
     echo ""
     
     if zdt_rollback; then
@@ -56,7 +76,7 @@ cmd_rollback() {
 }
 
 cmd_start() {
-    echo "▶️  Starting alex Services..."
+    echo "▶️  Starting $ZDT_MAIN_CONTAINER Services..."
     echo ""
     
     if alex_start_services; then
@@ -71,7 +91,7 @@ cmd_start() {
 }
 
 cmd_stop() {
-    echo "⏹️  Stopping alex Services..."
+    echo "⏹️  Stopping $ZDT_MAIN_CONTAINER Services..."
     echo ""
     
     if alex_stop_services; then
@@ -85,7 +105,7 @@ cmd_stop() {
 }
 
 cmd_cleanup() {
-    echo "🧹 Cleaning up alex Resources..."
+    echo "🧹 Cleaning up $ZDT_MAIN_CONTAINER Resources..."
     echo ""
     
     # Stop all services
@@ -107,9 +127,9 @@ cmd_logs() {
     
     if [ -z "$service" ]; then
         echo "Available services:"
-        echo "  - main (alex nginx)"
-        echo "  - blue (alex-blue)"
-        echo "  - green (alex-green)"
+        echo "  - main ($ZDT_MAIN_CONTAINER nginx)"
+        echo "  - blue ($ZDT_MAIN_CONTAINER-blue)"
+        echo "  - green ($ZDT_MAIN_CONTAINER-green)"
         echo ""
         echo "Usage: $0 logs <service> [follow]"
         return 1
@@ -200,7 +220,7 @@ cmd_health() {
 }
 
 cmd_version() {
-    echo "alex Zero Downtime Deployment"
+    echo "$ZDT_MAIN_CONTAINER Zero Downtime Deployment"
     echo "================================="
     zdt_version
     echo "Configuration: deployment-config.sh"
@@ -209,15 +229,15 @@ cmd_version() {
 
 cmd_help() {
     cat << EOF
-alex Zero Downtime Deployment Tool
+$ZDT_MAIN_CONTAINER Zero Downtime Deployment Tool
 
 USAGE:
     $0 [COMMAND] [OPTIONS]
 
 COMMANDS:
     deploy              Perform zero downtime deployment (default)
-    start               Start all alex services
-    stop                Stop all alex services
+    start               Start all $ZDT_MAIN_CONTAINER services
+    stop                Stop all $ZDT_MAIN_CONTAINER services
     status              Show deployment status
     rollback            Rollback to previous version
     switch <instance>   Manually switch traffic to blue/green
