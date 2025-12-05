@@ -1,8 +1,8 @@
 import { ProjectServerData } from "@/shared/model/project";
 
 const API_URL = 'https://top-tap-backend.partners-bot.ru'; 
-const USERNAME = "admin"
-const PASSWORD = "hX4-xSZ-txp-hRb"
+const USERNAME = "front_api"
+const PASSWORD = "P3r-LEA-i5V-BxR"
 
 export const TOP_SERVER_DATA: ProjectServerData = {
     apiUrl: API_URL,

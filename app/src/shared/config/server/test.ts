@@ -1,8 +1,8 @@
 import { ProjectServerData } from "@/shared/model/project";
 
 const API_URL = 'https://test-exchange-backend.partners-bot.ru'; 
-const USERNAME = "admin"
-const PASSWORD = "vbw-dZ8-C4y-aWs"
+const USERNAME = "front_api"
+const PASSWORD = "iJA-e2n-wG9-vu5"
 
 export const TEST_SERVER_DATA: ProjectServerData = {
     apiUrl: API_URL,

@@ -1,8 +1,8 @@
 import { ProjectServerData } from "@/shared/model/project";
 
 const API_URL = 'https://coinmetrika-backend.partners-bot.ru'; 
-const USERNAME = "admin"
-const PASSWORD = "ta6-5tM-t5d-Mvn"
+const USERNAME = "front_api"
+const PASSWORD = "qAb-ccH-Vw3-wUn"
 
 export const COINMETRIKA_SERVER_DATA: ProjectServerData = {
     apiUrl: API_URL,
