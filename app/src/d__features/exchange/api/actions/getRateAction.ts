@@ -10,6 +10,7 @@ export async function getRateAction(
     path: "/rate",
     params,
     method: "GET",
+      timeoutMs: 60000,
   };
   return await fetchApi<RateListApiResponse>(props);
 }

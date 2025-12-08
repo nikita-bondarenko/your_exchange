@@ -18,7 +18,10 @@ import { PROJECT_DATA } from "@/shared/config";
 import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 
 export default function HomePage() {
-  const { callSupport } = useCallSupport();
+
+    const userId = useAppSelector((state) => state.user.id);
+    const isAppReady = useAppSelector((state) => state.ui.isAppReady);
+  const { callSupport } = useCallSupport({userId, isAppReady});
   const router = useRouter();
 
   const requestsInProcess = useAppSelector(

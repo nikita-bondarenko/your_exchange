@@ -1,7 +1,10 @@
 import { useCallSupport } from "@/d__features/support/lib";
+import {useAppSelector} from "@/shared/model/store";
 
 export const MinValueNote = () => {
-  const { callSupport } = useCallSupport();
+    const userId = useAppSelector((state) => state.user.id);
+    const isAppReady = useAppSelector((state) => state.ui.isAppReady);
+  const { callSupport } = useCallSupport({userId, isAppReady});
 
   const handleMinValueDescriptionClick: React.MouseEventHandler = () => {
     callSupport();

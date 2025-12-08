@@ -6,11 +6,12 @@ import { useMenuButtons } from "../lib/useMenuButtons";
 import React from "react";
 import SimpleBar from "simplebar-react";
 import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
+import {useAppSelector} from "@/shared/model/store";
 
 const MenuDivider = () => (
   <div className="border-b border-[var(--divider-secondary)]"></div>
 );
-export const Menu = memo(() => {
+export const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const {trackUserAction} = useTrackUserAction()
@@ -77,6 +78,6 @@ export const Menu = memo(() => {
       </div>
     </div>
   );
-});
+};
 
 Menu.displayName = "Menu";

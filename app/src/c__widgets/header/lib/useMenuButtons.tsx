@@ -1,6 +1,6 @@
 import { useCallSupport } from "@/d__features/support/lib";
 import { ProjectData, ProjectName } from "@/shared/model/project";
-import { ReactElement, useMemo, useRef } from "react";
+import {ReactElement, useCallback, useEffect, useMemo, useRef} from "react";
 import { CryptoIcon, ReloadIcon, SupportIcon } from "@/shared/ui";
 import { PROJECT_NAME, TOTAL_PROJECTS_DATA_ARR } from "@/shared/config";
 import {
@@ -19,10 +19,14 @@ type MenuButton = {
 
 type Props = {
   closeMenu: () => void;
+
 };
 
 export const useMenuButtons = ({ closeMenu }: Props) => {
   const projectName = useAppSelector((state) => state.ui.projectName);
+    const userId = useAppSelector((state) => state.user.id);
+    const isAppReady = useAppSelector((state) => state.ui.isAppReady);
+
 
   const reloadButtonHandler = () => {
     try {
@@ -32,7 +36,7 @@ export const useMenuButtons = ({ closeMenu }: Props) => {
     }
   };
 
-  const { callSupport } = useCallSupport();
+  const { callSupport } = useCallSupport({userId, isAppReady});
 
   const [themeSwitcherClickHandler] = useThemeSwitcherClickHandler();
 
@@ -68,7 +72,7 @@ export const useMenuButtons = ({ closeMenu }: Props) => {
           }))
         : []),
     ],
-    [projectName]
+    [projectName, userId,isAppReady]
   );
 
   return { menuButtons };

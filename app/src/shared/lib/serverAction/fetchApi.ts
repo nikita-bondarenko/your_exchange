@@ -45,6 +45,7 @@ export async function fetchApi<T>({
 
       const url = `${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`;
 
+      console.log(`Bearer ${token}`)
       const fetchOptions: RequestInit = {
         method,
         headers: { ...headers, Authorization: `Bearer ${token}` },
@@ -76,7 +77,7 @@ export async function fetchApi<T>({
 
     await tryFetch();
 
-    if (responseBody?.code === "token_not_valid") {
+    if (responseBody?.code === "token_not_valid" || responseBody?.code === 'bad_authorization_header') {
 
       isTokenValid = false;
       await tryFetch();

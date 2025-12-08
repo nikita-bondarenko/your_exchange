@@ -28,6 +28,8 @@ export default memo(function Page() {
   const selectedCurrencySellType = useAppSelector(
     (state) => state.exchange.selectedCurrencySellType
   );
+    const userId = useAppSelector((state) => state.user.id);
+    const isAppReady = useAppSelector((state) => state.ui.isAppReady);
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -36,7 +38,7 @@ export default memo(function Page() {
     router.push("/exchange/input");
   }, [router]);
 
-  const { callSupport } = useCallSupport();
+  const { callSupport } = useCallSupport({userId, isAppReady});
   const { trackUserAction } = useTrackUserAction();
 
   useEffect(() => {

@@ -30,7 +30,7 @@ const ProfileButton: FC<{
         <img
           src={avatar}
           alt="User Avatar"
-          className={clsx("w-full h-full object-cover rounded-full", {
+          className={clsx("w-full h-full absolute top-0 left-0 object-cover rounded-full", {
             "opacity-0": !avatar,
           })}
         />
