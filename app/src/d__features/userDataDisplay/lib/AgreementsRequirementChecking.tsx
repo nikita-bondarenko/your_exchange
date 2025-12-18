@@ -12,14 +12,15 @@ export function AgreementsRequirementChecking() {
     (state) => state.user.agreementAccepted
   );
   const dispatch = useAppDispatch();
+    const initData = useAppSelector(state => state.user.initData)
 
   useEffect(() => {
-    if (userId)
+    if (userId && initData)
       startTransition(async () => {
-        const res = await checkConsentRequirementAction({ user_id: userId });
+        const res = await checkConsentRequirementAction({ user_id: userId, initData });
         if (res.consent_required) dispatch(setAgreementAccepted(false));
       });
-  }, [userId]);
+  }, [userId,initData]);
 
   useEffect(() => {
     if (!agreementAccepted && path !== "/") {

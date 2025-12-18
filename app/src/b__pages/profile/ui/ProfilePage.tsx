@@ -29,6 +29,7 @@ const headingClassNames =
 export default function ProfilePage() {
   const dispatch = useAppDispatch();
   const [showSuccess, setShowSuccess] = useState(false);
+    const initData = useAppSelector(state => state.user.initData)
 
   useEffect(() => {
     dispatch(setPageName("Данные профиля"));
@@ -59,6 +60,7 @@ export default function ProfilePage() {
       full_name: data.name,
       phone: data.phone,
       email: data.email,
+        initData
     };
     updateUser(updateUserMutationArgs);
     trackUserAction(

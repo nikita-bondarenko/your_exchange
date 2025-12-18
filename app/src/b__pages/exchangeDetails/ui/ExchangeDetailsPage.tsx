@@ -32,6 +32,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 export default function ExchangeDetailsPage() {
   const dispatch = useAppDispatch();
   const details = useAppSelector(selectExchangeDetails);
+  const initData = useAppSelector(state => state.user.initData)
   const router = useRouter();
   const [isPromoApplied, setIsPromoApplied] = useState(false);
   const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
@@ -57,7 +58,9 @@ export default function ExchangeDetailsPage() {
   const { trackUserAction } = useTrackUserAction();
 
   const onSubmit = () => {
-    createExchange(createExchangeData);
+      if (initData)
+    createExchange({...createExchangeData, initData});
+      else console.log('initData is not valid')
   };
 
   useEffect(() => {

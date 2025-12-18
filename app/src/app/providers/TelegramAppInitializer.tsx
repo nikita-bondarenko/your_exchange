@@ -4,21 +4,27 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
-import { TEST_USER_ID } from "@/shared/config";
+import {TEST_USER_ID, TEST_USER_INIT_DATA} from "@/shared/config";
 import {
   setGetUserDataLoading,
   setSessionId,
   setUserData,
   setUserId,
+  setUserInitData,
 } from "@/d__features/userDataDisplay/model";
-import { getUserDataAction } from "../../d__features/userDataDisplay/api/actions/getUserDataAction";
-import Script from "next/script";
-import { startTransition, useEffect } from "react";
+import { RootState } from "@/shared/model/store/state";
+import { getUserDataAction } from "@/d__features/userDataDisplay/api/actions/getUserDataAction";
+import { useEffect } from "react";
 import { useServerAction } from "@/shared/lib";
 import { createTrackingSessionAction } from "@/d__features/userDataDisplay/api/actions/createTrackingSessionAction";
 
+// Локальное объявление process, чтобы TypeScript не выдавал ошибку в клиентском компоненте.
+// В среде Next.js значение process.env.NODE_ENV подставляется на этапе сборки.
+declare const process: { env: { NODE_ENV?: string } };
+
 export function TelegramAppInitializer() {
-  const userId = useAppSelector((state) => state.user.id);
+  const userId = useAppSelector((state: RootState) => state.user.id);
+  const initData = useAppSelector((state: RootState) => state.user.initData);
 
   const dispatch = useAppDispatch();
   const handleScriptLoad = () => {
@@ -26,17 +32,26 @@ export function TelegramAppInitializer() {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
 
-      let userId: number | null = null;
+      let userId: number | null = window.Telegram?.WebApp?.initDataUnsafe?.user?.id ||  null;
+
+      let initDataString = window.Telegram?.WebApp?.initData || null;
 
       if (process.env.NODE_ENV === "development") {
         userId = TEST_USER_ID;
+        initDataString = TEST_USER_INIT_DATA
       } else {
-        if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
-          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-        } else {
-          console.error("user Id not found");
+          if (!window.Telegram?.WebApp?.initData) {
+              console.error("user initData not found");
+          }
+          if (!window.Telegram?.WebApp?.initDataUnsafe?.user) {
+            console.error("user Id not found");
         }
       }
+
+      if (initDataString) {
+        dispatch(setUserInitData(initDataString));
+      }
+
       if (userId) {
         dispatch(setUserId(userId));
       }
@@ -54,11 +69,26 @@ export function TelegramAppInitializer() {
     });
 
   useEffect(() => {
-    if (userId) {
-      getUserData({ userId });
-      createTrackingSession({ user_id: userId });
+    const script = document.createElement("script");
+    script.src = "https://telegram.org/js/telegram-web-app.js";
+    script.async = true;
+    script.onload = handleScriptLoad;
+
+    document.body.appendChild(script);
+
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (userId && initData) {
+      getUserData({ userId, initData });
+      createTrackingSession({ user_id: userId, initData });
     }
-  }, [userId]);
+  }, [userId, initData]);
 
   useEffect(() => {
     if (userData) {
@@ -68,16 +98,10 @@ export function TelegramAppInitializer() {
   }, [userData]);
 
   useEffect(() => {
-    if(createTrackingSessionResponse?.session_id) {
-      dispatch(setSessionId(createTrackingSessionResponse.session_id))
+    if (createTrackingSessionResponse?.session_id) {
+      dispatch(setSessionId(createTrackingSessionResponse.session_id));
     }
-  }, [createTrackingSessionResponse])
+  }, [createTrackingSessionResponse]);
 
-  return (
-    <Script      
-      src="https://telegram.org/js/telegram-web-app.js"
-      strategy="afterInteractive"
-      onLoad={handleScriptLoad}
-    />
-  );
+  return null;
 }

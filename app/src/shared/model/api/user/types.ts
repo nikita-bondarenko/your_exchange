@@ -2,41 +2,44 @@ import { DirectionType, RequestCurrency } from "../exchange";
 
 export type UserListApiResponse =
   /** status 200 Информация о пользователе и его транзакциях */ {
-    user_data?: {
-      profile_picture?: string;
-      name?: string;
-      email?: string;
-      phone?: string;
-      mail_request?: boolean;
-    };
-    requests_in_process?: ExchangeRequest[];
-    requests_all?: ExchangeRequest[];
-    card?: string;
-    city?: string;
+  user_data?: {
+    profile_picture?: string;
+    name?: string;
+    email?: string;
+    phone?: string;
+    mail_request?: boolean;
   };
+  requests_in_process?: ExchangeRequest[];
+  requests_all?: ExchangeRequest[];
+  card?: string;
+  city?: string;
+};
 export type UserListApiArg = {
   /** ID пользователя */
   userId?: number;
+  initData: string;
 };
 export type UserUpdateCreateApiResponse =
   /** status 200 Успешное обновление */ {
-    user_id: number;
-    full_name?: string;
-    phone?: string;
-    email?: string;
-  };
+  user_id: number;
+  full_name?: string;
+  phone?: string;
+  email?: string;
+};
 export type UserUpdateCreateApiArg = {
   // body: {
-    /** ID пользователя */
-    user_id: number;
-    /** ФИО пользователя */
-    full_name?: string;
-    /** Номер телефона */
-    phone?: string;
-    /** Электронная почта */
-    email?: string;
+  /** ID пользователя */
+  user_id: number;
+  /** ФИО пользователя */
+  full_name?: string;
+  /** Номер телефона */
+  phone?: string;
+  /** Электронная почта */
+  email?: string;
 
-    has_consented?: boolean;
+  has_consented?: boolean;
+  /** Telegram WebApp initData (для валидации на сервере) */
+  initData: string | null;
   // };
 };
 export type UsersRequisites = {
@@ -47,6 +50,7 @@ export type UsersRequisites = {
 
 export type CheckMailApiArg = {
   user_id: number;
+  initData: string;
 };
 
 export type CheckMailApiResponse = {
@@ -55,6 +59,7 @@ export type CheckMailApiResponse = {
 
 export type CheckConsentApiArg = {
   user_id: number;
+  initData: string | null;
 };
 
 export type CheckConsentApiResponse = {

@@ -7,13 +7,15 @@ import { checkMailRequirementAction } from "../api";
 export function EmailRequirementChecking() {
   const userId = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (userId) {
+    const initData = useAppSelector(state => state.user.initData)
+
+    useEffect(() => {
+    if (userId && initData) {
       startTransition(async () => {
-        const res = await checkMailRequirementAction({ user_id: userId});
+        const res = await checkMailRequirementAction({ user_id: userId, initData});
         if (res.mail_required) dispatch(setMailRequired(true));
       });
     }
-  }, [userId]);
+  }, [userId,initData]);
   return <></>;
 }

@@ -45,10 +45,13 @@ services:
       dockerfile: Dockerfile
       args:
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+
     container_name: test-change-blue
     user: "1000:1000"
     environment:
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - NODE_ENV=production
       - PORT=3000
       - INSTANCE_COLOR=blue
@@ -74,10 +77,12 @@ services:
       dockerfile: Dockerfile
       args:
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
     container_name: test-change-green
     user: "1000:1000"
     environment:
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - NODE_ENV=production
       - PORT=3000
       - INSTANCE_COLOR=green

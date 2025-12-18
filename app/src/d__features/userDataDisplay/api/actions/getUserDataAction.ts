@@ -9,11 +9,17 @@ import {
   UserListApiArg,
   UserListApiResponse,
 } from "@/shared/model/api";
+import { authenticateUser } from "@/d__features/userDataDisplay/lib/telegramAuth";
 
 export async function getUserDataAction(
-  payload: UserListApiArg
+  payload: UserListApiArg & { initData: string }
 ): Promise<UserListApiResponse> {
-  const userId = payload.userId;
+  const { userId, initData } = payload;
+
+  const authUserId = await authenticateUser(initData);
+  if (!userId || authUserId !== userId) {
+    throw new Error("Unauthorized: user_id mismatch or missing");
+  }
 
   const fetchApiProps: FetchApiProps = {
     path: "/user",
@@ -23,6 +29,7 @@ export async function getUserDataAction(
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "x-telegram-init-data": initData,
     },
   };
 

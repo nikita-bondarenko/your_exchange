@@ -41,6 +41,7 @@ export default function EmailModal() {
   });
 
   const { trackUserAction } = useTrackUserAction();
+    const initData = useAppSelector(state => state.user.initData)
 
   const handleSubmit = () => {
     setIsErrorShowing(true);
@@ -49,6 +50,7 @@ export default function EmailModal() {
       updateUser({
         user_id: userId,
         email: value,
+          initData
       });
     } else {
       trackUserAction("Ошибка при валидации email");

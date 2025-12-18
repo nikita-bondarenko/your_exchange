@@ -38,12 +38,13 @@ export default function AgreementModal() {
   });
 
   const { trackUserAction, trackCheckboxChange } = useTrackUserAction();
+    const initData = useAppSelector(state => state.user.initData)
 
   const handleSubmit = () => {
     dispatch(setAgreementAccepted(true));
     if (userId) {
       trackUserAction("Данные чекбоксов отправлены");
-      updateUser({ user_id: userId, has_consented: true });
+      updateUser({ user_id: userId, has_consented: true, initData  });
     }
   };
 
