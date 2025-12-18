@@ -1,5 +1,7 @@
 'use server';
 
+import crypto from 'crypto'
+
 import type { TelegramUser, TelegramWebAppData, TelegramWebAppValidationResult } from './types';
 
 /**
@@ -10,15 +12,10 @@ export async function parseInitData(initDataString: string): Promise<TelegramWeb
     const result: any = {};
 
     for (const [key, value] of params) {
-        if (key === 'user' || key === 'receiver') {
-            try {
-                result[key] = JSON.parse(decodeURIComponent(value));
-            } catch {
-                result[key] = null;
-            }
-        } else {
-            result[key] = decodeURIComponent(value);
-        }
+        // Для user оставляем как строку (decodeURIComponent уже даёт правильный JSON)
+        result[key] = decodeURIComponent(value);
+        // Если хотите объект user для использования после валидации — можно добавить отдельно
+        // if (key === 'user') result.userObj = JSON.parse(result.user);
     }
 
     return result;
@@ -27,8 +24,18 @@ export async function parseInitData(initDataString: string): Promise<TelegramWeb
 /**
  * Создание строки данных для проверки подписи (как требует Telegram)
  */
+// export async function createDataCheckString(data: TelegramWebAppData): Promise<string> {
+//     // Сортируем ключи и создаем строку
+//     const sortedKeys = Object.keys(data)
+//         .filter(key => key !== 'hash')
+//         .sort();
+//
+//     return sortedKeys
+//         .map(key => `${key}=${data[key as keyof TelegramWebAppData]}`)
+//         .join('\n');
+// }
+
 export async function createDataCheckString(data: TelegramWebAppData): Promise<string> {
-    // Сортируем ключи и создаем строку
     const sortedKeys = Object.keys(data)
         .filter(key => key !== 'hash')
         .sort();
@@ -75,65 +82,82 @@ export async function validateTelegramWebAppData(
     initDataString: string,
     botToken: string
 ): Promise<TelegramWebAppValidationResult> {
-    try {
-        // Парсим initData
-        const data = await parseInitData(initDataString);
+    const crypto = require('crypto'); // Для Node.js (server actions)
 
-        // Проверяем наличие обязательных полей
+    try {
+        // === 1. Парсим initData, НО НЕ ПАРСИМ user в объект ===
+        const params = new URLSearchParams(initDataString);
+        const data: Record<string, string> = {};
+
+        for (const [key, value] of params) {
+            // Все значения декодируем, но оставляем как строки
+            data[key] = decodeURIComponent(value);
+        }
+
+        // === 2. Проверяем обязательные поля ===
         if (!data.auth_date || !data.hash) {
             return { isValid: false, error: 'Missing required fields (auth_date or hash)' };
         }
 
-        // Проверяем время (не более 24 часов)
+        // === 3. Проверяем свежесть данных (не старше 24 часов) ===
         const currentTime = Math.floor(Date.now() / 1000);
         const authAge = currentTime - Number(data.auth_date);
-        const maxAge = 24 * 60 * 60; // 24 часа в секундах
-
-        if (authAge > maxAge) {
-            return { isValid: false, error: 'Auth data too old', user: data.user };
+        const maxAge = 24 * 60 * 60;
+        if (authAge > maxAge || authAge < 0) {
+            return { isValid: false, error: 'Auth data too old or from future' };
         }
 
+        // === 4. Вычисляем secret_key по правилам Telegram ===
+        const secretKey = crypto
+            .createHmac('sha256', 'WebAppData')
+            .update(botToken)
+            .digest('hex');
 
-        // Создаем секретный ключ из токена бота
-        const secretKey = await hmacSHA256('WebAppData', botToken);
+        // === 5. Формируем data_check_string ===
+        const sortedKeys = Object.keys(data)
+            .filter(key => key !== 'hash')
+            .sort();
+
+        const dataCheckString = sortedKeys
+            .map(key => `${key}=${data[key]}`)
+            .join('\n');
+
+        // === 6. Вычисляем expected hash ===
+        const expectedHash = crypto
+            .createHmac('sha256', Buffer.from(secretKey, 'hex'))
+            .update(dataCheckString)
+            .digest('hex');
 
 
-
-        // Создаем строку для проверки
-        const dataCheckString = await createDataCheckString(data);
-
-        // Вычисляем хеш
-        const expectedHash = await hmacSHA256(secretKey, dataCheckString);
-
-        console.log('data', data)
-        console.log('botToken', botToken)
-        console.log('secretKey', secretKey)
-
-        console.log('dataCheckString', dataCheckString)
-
-        console.log('expectedHash', expectedHash)
-
-
-
-
-        // Сравниваем хеши (чувствительно к регистру)
-        if (expectedHash !== data.hash) {
-            return { isValid: false, error: 'Invalid hash signature', user: data.user };
+        // === 7. Сравниваем хеши ===
+        if (expectedHash !== data.hash.toLowerCase()) { // Telegram отправляет hash в lowercase
+            return { isValid: false, error: 'Invalid hash signature' };
         }
 
-        // Проверяем пользователя
-        if (!data.user) {
+        // === 8. Только ПОСЛЕ успешной проверки парсим user в объект ===
+        let parsedUser: TelegramUser | null = null;
+        if (data.user) {
+            try {
+                parsedUser = JSON.parse(data.user) as TelegramUser;
+            } catch (e) {
+                return { isValid: false, error: 'Failed to parse user data' };
+            }
+        }
+
+        if (!parsedUser) {
             return { isValid: false, error: 'No user data in initData' };
         }
 
+        // === 9. Всё прошло успешно ===
         return {
             isValid: true,
-            user: data.user,
-            queryId: data.query_id
+            user: parsedUser,
+            queryId: data.query_id ?? undefined // query_id может отсутствовать
         };
 
     } catch (error) {
-        return { isValid: false, error: `Validation error: ${error}` };
+        console.error('Telegram validation error:', error);
+        return { isValid: false, error: `Validation error: ${error instanceof Error ? error.message : String(error)}` };
     }
 }
 
