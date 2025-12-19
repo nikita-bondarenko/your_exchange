@@ -22,7 +22,7 @@ jobs:
 
       - name: Use the extracted repository name
         run: |
-          echo "The repository name is: ${{ steps.extract_repo_name.outputs.repo_name }}"
+          echo "The repository name is: ${{ steps.extract_repo_name.outputs.repo_name }}/"
 
       # Копируем директорию на сервер через rsync, исключая .env и app/data/token.txt
       - name: Rsync directory excluding specific files
@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASS }}
           source: "." # Директория для копирования
-          target: "/home/apps/${{ steps.extract_repo_name.outputs.repo_name }}"/" # Удалённая директория на сервере
+          target: "/home/apps/${{ steps.extract_repo_name.outputs.repo_name }}" # Удалённая директория на сервере
           exclude: ".env,app/data/token.txt" # Исключаемые файлы
 
       # Выполняем Docker Compose на сервере
