@@ -22,7 +22,7 @@ export const WHITE_PROJECT_DATA: ProjectData = {
       title: {
         text: "White Way <br />Exchange",
       },
-      subtitle: `Покупка и&nbsp;продажа криптовалюты с&nbsp;поддержкой наличных и&nbsp; безналичных способов!`,
+      subtitle: `Покупка и&nbsp;продажа криптовалюты с&nbsp;поддержкой наличных и&nbsp;безналичных способов!`,
       descriptionList: [
         {
           icon: RocketIcon,

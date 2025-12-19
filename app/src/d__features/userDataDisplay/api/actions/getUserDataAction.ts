@@ -10,16 +10,23 @@ import {
   UserListApiResponse,
 } from "@/shared/model/api";
 import { authenticateUser } from "@/d__features/userDataDisplay/lib/telegramAuth";
+import { PROJECT_NAME } from "@/shared/config";
 
 export async function getUserDataAction(
   payload: UserListApiArg & { initData: string }
 ): Promise<UserListApiResponse> {
   const { userId, initData } = payload;
 
-  const authUserId = await authenticateUser(initData);
-  if (!userId || authUserId !== userId) {
-    throw new Error("Unauthorized: user_id mismatch or missing");
-  }
+    if (PROJECT_NAME === 'test') {
+      if (!initData) {
+        throw new Error("Telegram WebApp initData required");
+      }
+  
+      const authUserId = await authenticateUser(initData);
+      if (authUserId !== userId) {
+        throw new Error("User ID mismatch");
+      }
+    }
 
   const fetchApiProps: FetchApiProps = {
     path: "/user",

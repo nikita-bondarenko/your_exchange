@@ -3,18 +3,23 @@
 import { FetchApiProps, fetchApi } from "@/shared/lib/serverAction";
 import { CheckMailApiArg, CheckMailApiResponse } from "@/shared/model/api";
 import { authenticateUser } from "@/d__features/userDataDisplay/lib/telegramAuth";
+import { PROJECT_NAME } from "@/shared/config";
 
 export async function checkMailRequirementAction(
   payload: CheckMailApiArg
 ): Promise<CheckMailApiResponse> {
   const { initData, user_id } = payload;
 
-  if (initData) {
-    const authUserId = await authenticateUser(initData);
-    if (authUserId !== user_id) {
-      throw new Error("User ID mismatch");
-    }
-  }
+   if (PROJECT_NAME === 'test') {
+     if (!initData) {
+       throw new Error("Telegram WebApp initData required");
+     }
+ 
+     const authUserId = await authenticateUser(initData);
+     if (authUserId !== user_id) {
+       throw new Error("User ID mismatch");
+     }
+   }
 
   const fetchApiProps: FetchApiProps = {
     path: "/user/check-mail/",
