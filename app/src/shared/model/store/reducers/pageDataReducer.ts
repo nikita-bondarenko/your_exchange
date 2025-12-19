@@ -4,7 +4,7 @@ import { PROJECT_DATA } from "@/shared/config";
 import { PageDataReducerState } from "../state";
 
 
-const initialState: PageDataReducerState = PROJECT_DATA.page;
+const initialState: PageDataReducerState = PROJECT_DATA?.page;
 
 export const pageDataSlice = createSlice({
   name: "pageData",

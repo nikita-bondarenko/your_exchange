@@ -45,7 +45,7 @@ export async function fetchApi<T>({
 
       const url = `${PROJECT_SERVER_DATA.apiUrl}${path}${queryString}`;
 
-      console.log(`Bearer ${token}`)
+      // console.log(`Bearer ${token}`)
       const fetchOptions: RequestInit = {
         method,
         headers: { ...headers, Authorization: `Bearer ${token}` },

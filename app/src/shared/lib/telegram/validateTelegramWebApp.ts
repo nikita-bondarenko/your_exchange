@@ -4,80 +4,7 @@ import crypto from 'crypto'
 
 import type { TelegramUser, TelegramWebAppData, TelegramWebAppValidationResult } from './types';
 
-/**
- * Парсинг initData из строки Telegram WebApp
- */
-export async function parseInitData(initDataString: string): Promise<TelegramWebAppData> {
-    const params = new URLSearchParams(initDataString);
-    const result: any = {};
 
-    for (const [key, value] of params) {
-        // Для user оставляем как строку (decodeURIComponent уже даёт правильный JSON)
-        result[key] = decodeURIComponent(value);
-        // Если хотите объект user для использования после валидации — можно добавить отдельно
-        // if (key === 'user') result.userObj = JSON.parse(result.user);
-    }
-
-    return result;
-}
-
-/**
- * Создание строки данных для проверки подписи (как требует Telegram)
- */
-// export async function createDataCheckString(data: TelegramWebAppData): Promise<string> {
-//     // Сортируем ключи и создаем строку
-//     const sortedKeys = Object.keys(data)
-//         .filter(key => key !== 'hash')
-//         .sort();
-//
-//     return sortedKeys
-//         .map(key => `${key}=${data[key as keyof TelegramWebAppData]}`)
-//         .join('\n');
-// }
-
-export async function createDataCheckString(data: TelegramWebAppData): Promise<string> {
-    const sortedKeys = Object.keys(data)
-        .filter(key => key !== 'hash')
-        .sort();
-
-    return sortedKeys
-        .map(key => `${key}=${data[key as keyof TelegramWebAppData]}`)
-        .join('\n');
-}
-
-/**
- * Простая реализация HMAC SHA-256 для браузера и Node.js
- */
-export async function hmacSHA256(key: string, message: string): Promise<string> {
-    if (typeof window !== 'undefined' && window.crypto) {
-        // Браузер
-        const encoder = new TextEncoder();
-        const keyData = encoder.encode(key);
-        const messageData = encoder.encode(message);
-
-        const cryptoKey = await crypto.subtle.importKey(
-            'raw',
-            keyData,
-            { name: 'HMAC', hash: 'SHA-256' },
-            false,
-            ['sign']
-        );
-
-        const signature = await crypto.subtle.sign('HMAC', cryptoKey, messageData);
-
-        return Array.from(new Uint8Array(signature))
-            .map(b => b.toString(16).padStart(2, '0'))
-            .join('');
-    } else {
-        // Node.js (для server actions)
-        const crypto = require('crypto');
-        return crypto.createHmac('sha256', key).update(message).digest('hex');
-    }
-}
-
-/**
- * Валидация Telegram WebApp данных с проверкой подписи
- */
 export async function validateTelegramWebAppData(
     initDataString: string,
     botToken: string
@@ -161,10 +88,6 @@ export async function validateTelegramWebAppData(
     }
 }
 
-/**
- * Главная функция валидации для Server Actions
- * Нужно передать initData из клиента
- */
 export async function verifyTelegramWebApp(
     initData: string,
     botToken?: string
@@ -202,19 +125,3 @@ export async function validateAndGetUserId(
  * Middleware-функция для использования в API actions
  * Защищает от прямых вызовов без Telegram WebApp
  */
-export async function requireTelegramAuth(
-    initData?: string
-): Promise<TelegramUser> {
-    if (!initData) {
-        throw new Error('Telegram WebApp initData required');
-    }
-
-    const result = await verifyTelegramWebApp(initData);
-
-    if (!result.isValid || !result.user) {
-        throw new Error(`Unauthorized: ${result.error}`);
-    }
-
-    return result.user;
-}
-

@@ -22,9 +22,7 @@ export const WHITE_PROJECT_DATA: ProjectData = {
       title: {
         text: "White Way <br />Exchange",
       },
-      subtitle: `Покупка и&nbsp;продажа <br />
-                  криптовалюты <br />
-                  по&nbsp;выгодному курсу`,
+      subtitle: `Покупка и&nbsp;продажа криптовалюты с&nbsp;поддержкой наличных и&nbsp; безналичных способов!`,
       descriptionList: [
         {
           icon: RocketIcon,
@@ -33,7 +31,12 @@ export const WHITE_PROJECT_DATA: ProjectData = {
         },
         {
           icon: ShieldIcon,
-          text: "Безопасность",
+          text: "Безопасные сделки",
+          modeTypeWhenVisible: "exchange",
+        },
+         {
+          icon: CashIcon,
+          text: "Прозрачный курс ",
           modeTypeWhenVisible: "exchange",
         },
         {
