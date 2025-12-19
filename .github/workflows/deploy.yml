@@ -48,5 +48,5 @@ jobs:
              docker compose down && \
              docker system prune -a -f && \
              docker-compose up -d && \
-             chmod -R 777 /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}/app/data && \
-             chmod -R 777 /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}/app/data/token.txt &&
+             chmod -R 777 /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}/app/data/ && \
+             chmod -R 777 /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}/app/data/token.txt 
