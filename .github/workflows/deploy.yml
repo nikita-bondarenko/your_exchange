@@ -14,9 +14,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Show repository name using expression
+      - name: Extract and show repository name
+        id: extract_repo_name
         run: |
-          echo "Repository name is: ${{ split(GITHUB_REPOSITORY, '/')[1] }}"
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          echo "::set-output name=repo_name::$REPO_NAME"
+
+      - name: Use the extracted repository name
+        run: |
+          echo "The repository name is: ${{ steps.extract_repo_name.outputs.repo_name }}"
 
       # Копируем директорию на сервер через rsync, исключая .env и app/data/token.txt
       - name: Rsync directory excluding specific files
