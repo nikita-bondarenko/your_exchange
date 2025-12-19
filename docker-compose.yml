@@ -1,20 +1,28 @@
 services:
-  # Main service for Traefik (nginx load balancer)
   
   app:
     build:
       context: ./app
       dockerfile: Dockerfile
       args:
+      - API_URL=${API_URL}
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
+      - PORT=${PORT}
 
     container_name: ${NEXT_PUBLIC_PROJECT_NAME}
     user: "1000:1000"
     environment:
+      - NODE_ENV=production
+      - API_URL=${API_URL}
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
       - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
-      - NODE_ENV=production
+      - NEXT_PUBLIC_PROJECT_NAME=${NEXT_PUBLIC_PROJECT_NAME}
       - PORT=${PORT}
     volumes:
       - ./app/data:/usr/src/app/data  
@@ -33,13 +41,8 @@ services:
       - "traefik.http.routers.${TRAEFIK_SERVICE}.entrypoints=websecure"
       - "traefik.http.routers.${TRAEFIK_SERVICE}.tls.certresolver=myresolver"
       - "traefik.http.routers.${TRAEFIK_SERVICE}.service=${TRAEFIK_SERVICE}"
-
       - "traefik.http.services.${TRAEFIK_SERVICE}.loadbalancer.server.port=${PORT}"
-
-      # Rate Limit — РАБОТАЕТ!
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-limit.inflightreq.amount=30"
-
-      # Security Headers
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.sslRedirect=true"
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.stsSeconds=31536000"
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.stsIncludeSubdomains=true"
@@ -47,10 +50,7 @@ services:
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.frameDeny=true"
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.contentTypeNosniff=true"
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.browserXssFilter=true"
-
-      # Применяем
       - "traefik.http.routers.${TRAEFIK_SERVICE}.middlewares=${TRAEFIK_SERVICE}-limit,${TRAEFIK_SERVICE}-sec" 
-
 
 networks:
   coex-tma:
