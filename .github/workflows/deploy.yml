@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASS }}
           source: "." # Директория для копирования
-          target: "/home/apps/${{ split(GITHUB_REPOSITORY, '/')[1] }}/" # Удалённая директория на сервере
+          target: "/home/apps/${{ steps.extract_repo_name.outputs.repo_name }}"/" # Удалённая директория на сервере
           exclude: ".env,app/data/token.txt" # Исключаемые файлы
 
       # Выполняем Docker Compose на сервере
@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.SERVER_PASS }}
           port: 22
           script: |
-            cd /home/apps/${{ split(GITHUB_REPOSITORY, '/')[1] }} && \
+            cd /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}" && \
              docker compose down && \
              docker system prune -a -f && \
              docker-compose up -d 
