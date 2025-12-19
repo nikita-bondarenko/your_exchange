@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.SERVER_PASS }}
           port: 22
           script: |
-            cd /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}" && \
+            cd /home/apps/${{ steps.extract_repo_name.outputs.repo_name }} && \
              docker compose down && \
              docker system prune -a -f && \
              docker-compose up -d 
