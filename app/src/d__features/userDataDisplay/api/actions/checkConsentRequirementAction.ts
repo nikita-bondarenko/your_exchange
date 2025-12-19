@@ -13,12 +13,10 @@ export async function checkConsentRequirementAction(
   const { initData, user_id } = payload;
 
   if (initData) {
-    if (PROJECT_NAME === 'test') {
       const authUserId = await authenticateUser(initData);
       if (authUserId !== user_id) {
         throw new Error("User ID mismatch");
       }
-    }
   }
 
   const fetchApiProps: FetchApiProps = {

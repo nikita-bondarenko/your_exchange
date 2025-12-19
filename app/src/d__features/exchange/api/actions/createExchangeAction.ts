@@ -15,12 +15,11 @@ export async function createExchangeAction(
   if (!initData) {
     throw new Error("Telegram WebApp initData required");
   }
-  if (PROJECT_NAME === 'test') {
     const authUserId = await authenticateUser(initData);
     if (authUserId !== user_id) {
       throw new Error("User ID mismatch");
     }
-  }
+  
 
   const props: FetchApiProps = {
     path: "/exchange",
