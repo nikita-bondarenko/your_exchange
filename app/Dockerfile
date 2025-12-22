@@ -16,18 +16,19 @@ ENV NEXT_PUBLIC_PROJECT_NAME=$NEXT_PUBLIC_PROJECT_NAME
 ENV TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN
 ENV PORT=$PORT
 
-
 RUN npm i -g pnpm
 
-COPY package.json ./
+COPY package.json pnpm-lock.yaml* ./
 
-RUN pnpm install
+# ← Главная магия: кэшируем pnpm store между сборками
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
 
 COPY . .
 
 RUN pnpm build
 
-RUN mkdir -p /usr/src/app/data 
+RUN mkdir -p /usr/src/app/data
 
 EXPOSE $PORT
 

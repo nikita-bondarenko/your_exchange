@@ -25,21 +25,21 @@ export async function fetchApi<T>({
   headers,
 }: FetchApiProps): Promise<T> {
   try {
-    
+
     let responseBody: any = null;
     let isTokenValid = true;
     const tryFetch = async () => {
       const token = await getToken({ isTokenValid });
-
+      if (!token) throw "Token is not fetched, check api credentials"
       const queryString = params
         ? Object.entries(params)
-            .reduce(
-              (str, [key, value], index) =>
-                str + `${index === 0 ? "?" : "&"}${key}=${value}`,
-              ""
-            )
-            .split(" ")
-            .join("%20")
+          .reduce(
+            (str, [key, value], index) =>
+              str + `${index === 0 ? "?" : "&"}${key}=${value}`,
+            ""
+          )
+          .split(" ")
+          .join("%20")
         : "/";
 
 
@@ -63,7 +63,7 @@ export async function fetchApi<T>({
 
       const contentType = result.headers.get("Content-Type");
       if (!contentType?.includes("application/json")) {
-        const text = (await result.text()).slice(0,5000);
+        const text = (await result.text()).slice(0, 5000);
         throw {
           error: result.statusText,
           message: `Expected JSON, but received ${contentType}`,
@@ -76,6 +76,8 @@ export async function fetchApi<T>({
     };
 
     await tryFetch();
+
+    // console.log('responseBody?.code', responseBody?.code)
 
     if (responseBody?.code === "token_not_valid" || responseBody?.code === 'bad_authorization_header') {
 

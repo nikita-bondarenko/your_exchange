@@ -21,33 +21,44 @@ type GetTokenApiResponse = {
 const TOKEN_FILE_NAME = "token.txt";
 const TOKEN_FILE_DIR = path.join(cwd(), "data");
 
-export const getToken = async ({isTokenValid = true}:{isTokenValid: boolean}) => {
-    await ensureDirectoryExist(TOKEN_FILE_DIR);
-    const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
-    const isTokenFile = await isFileExist(tokenFilePath);
+export const getToken = async ({ isTokenValid = true }: { isTokenValid: boolean }) => {
+    try {
+        await ensureDirectoryExist(TOKEN_FILE_DIR);
+        const tokenFilePath = path.join(TOKEN_FILE_DIR, TOKEN_FILE_NAME);
+        const isTokenFile = await isFileExist(tokenFilePath);
 
-    const getNewToken = async () => {
-        const tokenFetchProps: FetchApiProps = {
-            path: "/api/token",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: {
-                username: PROJECT_SERVER_DATA.username,
-                password: PROJECT_SERVER_DATA.password,
-            } as GetTokenApiArg,
-            method: "POST",
+        // console.log('isTokenFile', isTokenFile)
+
+        const getNewToken = async () => {
+
+            const result = await fetch(PROJECT_SERVER_DATA.apiUrl + '/api/token/', {
+                method: "POST", body: JSON.stringify({
+                    username: PROJECT_SERVER_DATA.username,
+                    password: PROJECT_SERVER_DATA.password,
+                },), headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+
+            const tokenData: GetTokenApiResponse = await result.json();
+
+
+            // console.log('tokenData', tokenData)
+
+            await fs.writeFile(path.join(tokenFilePath), tokenData?.access || '');
+            return tokenData.access;
         };
 
-        const tokenData = await fetchApi<GetTokenApiResponse>(tokenFetchProps);
-        await fs.writeFile(path.join(tokenFilePath), tokenData?.access);
-        return tokenData.access;
-    };
+        if (!isTokenFile || !isTokenValid) {
+            return await getNewToken()
+        } else {
+            const tokenBuffer = await fs.readFile(tokenFilePath);
+            // console.log('tokenBuffer', tokenBuffer)
 
-    if (!isTokenFile || !isTokenValid) {
-        return await getNewToken()
-    } else {
-        const tokenBuffer = await fs.readFile(tokenFilePath);
-        return tokenBuffer.toString();
+            return tokenBuffer.toString();
+        }
+    } catch (e) {
+        console.log(e)
     }
+
 };

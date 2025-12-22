@@ -26,6 +26,7 @@ services:
       - PORT=${PORT}
     volumes:
       - ./app/data:/usr/src/app/data  
+      - /home/pnpm-store:/root/.local/share/pnpm/store
     networks:
       - coex-tma
     restart: unless-stopped
