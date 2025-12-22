@@ -30,7 +30,7 @@ export async function fetchApi<T>({
     let isTokenValid = true;
     const tryFetch = async () => {
       const token = await getToken({ isTokenValid });
-      if (!token) throw "Token is not fetched, check api credentials"
+      // console.log('token',token)
       const queryString = params
         ? Object.entries(params)
           .reduce(
