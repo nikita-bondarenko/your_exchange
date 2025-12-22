@@ -28,8 +28,6 @@ COPY . .
 
 RUN pnpm build
 
-RUN mkdir -p /usr/src/app/data
-
 EXPOSE $PORT
 
 CMD ["npm", "run", "start"]
