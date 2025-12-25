@@ -1,6 +1,6 @@
 import { useTrackUserAction } from "@/d__features/userDataDisplay/lib";
 import {
-  toggleMode,
+  setIsExchangeMode,
   useAppDispatch,
   useAppSelector,
 } from "@/shared/model/store";
@@ -19,9 +19,9 @@ export const ModeSwitcher = () => {
 
   const { trackUserAction } = useTrackUserAction();
 
-  const handleToggle = useCallback(() => {
-    dispatch(toggleMode());
-  }, [isExchangeMode]);
+  const handleToggle = (value: boolean) => {
+    dispatch(setIsExchangeMode(value))
+  }
 
   const [trackText, setTrackText] = useState<string>();
 

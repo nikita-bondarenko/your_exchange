@@ -149,14 +149,14 @@ textarea:focus {
 }
 
 .shimmer-on-loading {
-  @apply transition-all duration-500
+  @apply transition-all duration-500 fixed top-0 left-0 w-screen h-screen z-[200] pointer-events-none;
 }
 
 .loading.shimmer-on-loading {
-  position: relative;
   overflow: hidden;
   color: transparent;
   filter: blur(2px) brightness(0.9);
+    @apply pointer-events-auto;
 }
 
 .loading.shimmer-on-loading::after {

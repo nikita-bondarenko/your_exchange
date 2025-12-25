@@ -55,7 +55,6 @@ export async function validateTelegramWebAppData(
             .update(dataCheckString)
             .digest('hex');
 
-
         // === 7. Сравниваем хеши ===
         if (expectedHash !== data.hash.toLowerCase()) { // Telegram отправляет hash в lowercase
             return { isValid: false, error: 'Invalid hash signature' };

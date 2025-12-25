@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FeaturesFlagsReducerState } from "../state";
 
 
@@ -12,12 +12,13 @@ export const featuresFlagsSlice = createSlice({
   name: "featuresFlags",
   initialState,
   reducers: {
-    toggleMode: (state) => {
-      state.isExchangeMode = !state.isExchangeMode;
-      state.isTransferAbroadMode = !state.isTransferAbroadMode;
+    setIsExchangeMode: (state, action: PayloadAction<boolean>) => {
+      const isExchangeMode = action.payload
+      state.isExchangeMode = isExchangeMode;
+      state.isTransferAbroadMode = !isExchangeMode;
     },
   },
 });
 
-export const {toggleMode} = featuresFlagsSlice.actions;
+export const {setIsExchangeMode} = featuresFlagsSlice.actions;
 export const featuresFlagsReducer = featuresFlagsSlice.reducer;

@@ -39,10 +39,8 @@ export default function RootLayout({
           <TelegramAppInitializer />
           <PageOpenTracking />
           <Header />
-          <LoadingProvider>
+          <LoadingProvider/>
             <main>{children}</main>
-          </LoadingProvider>
-
           <EmailRequirementChecking />
           <AgreementsRequirementChecking />
           <RateUpdatingRequirementChecking />
