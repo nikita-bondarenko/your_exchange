@@ -44,5 +44,5 @@ jobs:
             cd /home/apps/${{ steps.extract_repo_name.outputs.repo_name }} && \
             docker compose up -d --build && \
             chown -R 1000:1000 /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}/app/data && \
-            chmod -R 755 /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}/app/data && \
+            chmod -R 755 /home/apps/${{ steps.extract_repo_name.outputs.repo_name }}/app/data
           
