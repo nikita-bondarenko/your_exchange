@@ -108,12 +108,12 @@ export const setRateData = async ({
     selectedCurrencySellId: rateFetchingArgs.currency_give_id,
   });
 
-    console.log('availableCurrenciesGet',availableCurrenciesGet)
-console.log('currenciesBuy',currenciesBuy)
-    console.log('rateFetchingArgs.network_id',rateFetchingArgs.network_id)
+//     console.log('availableCurrenciesGet',availableCurrenciesGet)
+// console.log('currenciesBuy',currenciesBuy)
+//     console.log('rateFetchingArgs.network_id',rateFetchingArgs.network_id)
 
-    console.log('selectedNetwork',selectedNetwork)
-    console.log('selectedCurrencyBuy',newSelectedCurrencyBuy)
+//     console.log('selectedNetwork',selectedNetwork)
+//     console.log('selectedCurrencyBuy',newSelectedCurrencyBuy)
 
   dispatch(setCurrenciesBuy(currenciesBuy));
 
