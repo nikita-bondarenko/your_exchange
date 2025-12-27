@@ -18,7 +18,7 @@ export const calculatePlaceholder = ({
     return minValue;
   } else {
     if (rate === null || rate === undefined) return minValue;
-
+console.log('placeholder')
     const result = (minValue * rate)
     return currencyType !== 'COIN' ? Number(result.toFixed(2)) : Number(result.toFixed(8));
   }
