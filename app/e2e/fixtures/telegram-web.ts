@@ -20,10 +20,60 @@ export const test = base.extend<{
     // Если есть сохраненное состояние авторизации, используем его
     if (fs.existsSync(authFile)) {
       try {
-        const cookies = JSON.parse(fs.readFileSync(authFile, 'utf-8'));
-        await context.addCookies(cookies);
+        const authData = JSON.parse(fs.readFileSync(authFile, 'utf-8'));
+        
+        // Сначала переходим на страницу Telegram Web
+        console.log('🌐 Переход на Telegram Web для восстановления авторизации...');
+        try {
+          await page.goto('https://web.telegram.org/k/', { waitUntil: 'domcontentloaded', timeout: 60000 });
+        } catch (error) {
+          console.warn('⚠️ Таймаут при загрузке, но продолжаем...');
+        }
+        
+        await page.waitForTimeout(2000); // Даем время на загрузку
+        
+        // Восстанавливаем localStorage ПЕРЕД cookies (важно для Telegram Web)
+        if (authData.localStorage && typeof authData.localStorage === 'object') {
+          console.log(`📦 Восстановление localStorage (${Object.keys(authData.localStorage).length} элементов)...`);
+          
+          await page.evaluate((storage: Record<string, string>) => {
+            const storageObj = storage;
+            for (const key in storageObj) {
+              if (storageObj.hasOwnProperty(key)) {
+                try {
+                  window.localStorage.setItem(key, storageObj[key]);
+                } catch (e) {
+                  console.warn(`Failed to set localStorage key ${key}:`, e);
+                }
+              }
+            }
+          }, authData.localStorage);
+          
+          console.log(`✅ LocalStorage восстановлен`);
+          
+          // Перезагружаем страницу после восстановления localStorage
+          await page.reload({ waitUntil: 'domcontentloaded', timeout: 60000 });
+          await page.waitForTimeout(3000);
+        }
+        
+        // Восстанавливаем cookies, если они есть
+        if (authData.cookies && Array.isArray(authData.cookies) && authData.cookies.length > 0) {
+          // Устанавливаем cookies для правильного домена
+          const cookiesWithDomain = authData.cookies.map((cookie: any) => ({
+            ...cookie,
+            domain: cookie.domain || '.telegram.org',
+            path: cookie.path || '/',
+          }));
+          await context.addCookies(cookiesWithDomain);
+          console.log(`✅ Загружено ${cookiesWithDomain.length} cookies`);
+          
+          // Перезагружаем страницу после восстановления cookies
+          await page.reload({ waitUntil: 'domcontentloaded', timeout: 60000 });
+          await page.waitForTimeout(3000);
+        }
       } catch (error) {
-        console.warn('Failed to load saved auth state:', error);
+        console.warn('⚠️ Ошибка при загрузке сохраненного состояния авторизации:', error);
+        console.log('   Продолжаем без восстановления...');
       }
     }
 
@@ -49,74 +99,192 @@ export const test = base.extend<{
       throw new Error('TELEGRAM_BOT_USERNAME environment variable is required when USE_REAL_TELEGRAM=true');
     }
 
-    // Переходим на Telegram Web
-    // Используем 'load' вместо 'networkidle', так как Telegram Web может долго загружать ресурсы
-    console.log('🌐 Переход на Telegram Web...');
-    try {
-      await page.goto('https://web.telegram.org/k/', { 
-        waitUntil: 'load',
-        timeout: 60000 
-      });
-      console.log('✅ Telegram Web загружен');
-    } catch (error) {
-      console.warn('⚠️ Таймаут при загрузке, но продолжаем...');
-      // Продолжаем даже если был таймаут
+    // Если мы еще не на странице Telegram Web (не восстановили авторизацию выше), переходим
+    const currentUrl = page.url();
+    if (!currentUrl.includes('web.telegram.org')) {
+      console.log('🌐 Переход на Telegram Web...');
+      console.log('💡 ВАЖНО: Если требуется авторизация, выполните её вручную в браузере');
+      console.log('   После авторизации тесты продолжат автоматически');
+      
+      try {
+        await page.goto('https://web.telegram.org/k/', { 
+          waitUntil: 'domcontentloaded', // Используем domcontentloaded для более быстрой загрузки
+          timeout: 90000 
+        });
+        console.log('✅ Telegram Web загружен');
+      } catch (error) {
+        console.warn('⚠️ Таймаут при загрузке, но продолжаем...');
+        // Продолжаем даже если был таймаут
+      }
+      
+      // Даем время на загрузку и рендеринг
+      await page.waitForTimeout(5000);
+    } else {
+      console.log('✅ Уже на странице Telegram Web');
     }
-    
-    // Даем время на загрузку
-    await page.waitForTimeout(3000);
     
     // Проверяем, авторизованы ли мы
     console.log('🔍 Проверка авторизации...');
-    const isLoggedIn = await page.locator('text=Messages, text=Сообщения').first()
-      .isVisible({ timeout: 5000 })
-      .catch(() => false);
+    await page.waitForTimeout(5000); // Даем больше времени на загрузку после восстановления localStorage
+    
+    // Проверяем через JavaScript, есть ли данные авторизации в localStorage
+    const hasAuthData = await page.evaluate(() => {
+      return !!(
+        window.localStorage.getItem('account1') ||
+        window.localStorage.getItem('user_auth') ||
+        window.localStorage.getItem('dc')
+      );
+    });
+    
+    if (hasAuthData) {
+      console.log('✅ Обнаружены данные авторизации в localStorage');
+    }
+    
+    let isLoggedIn = false;
+    
+    // Пробуем разные способы проверки авторизации
+    const authCheckSelectors = [
+      'text=Messages',
+      'text=Сообщения',
+      'text=Chats',
+      'text=Чаты',
+      '[data-testid="chat-list"]',
+      '.chat-list',
+      '[class*="ChatList"]',
+      '[class*="chat-list"]',
+      'div[class*="Chat"]',
+      'aside', // Боковая панель с чатами
+    ];
+    
+    console.log('🔍 Проверка элементов авторизации...');
+    for (const selector of authCheckSelectors) {
+      try {
+        const element = page.locator(selector).first();
+        if (await element.isVisible({ timeout: 3000 }).catch(() => false)) {
+          console.log(`✅ Найден индикатор авторизации: ${selector}`);
+          isLoggedIn = true;
+          break;
+        }
+      } catch (error) {
+        // Продолжаем проверку
+      }
+    }
+    
+    // Дополнительная проверка через JavaScript
+    if (!isLoggedIn) {
+      const jsCheck = await page.evaluate(() => {
+        // Проверяем наличие элементов интерфейса Telegram
+        const hasChatList = !!document.querySelector('[class*="chat"], [class*="Chat"], aside');
+        const hasNoAuthForm = !document.querySelector('canvas, [class*="auth"], [class*="login"]');
+        return hasChatList && hasNoAuthForm;
+      });
+      
+      if (jsCheck) {
+        console.log('✅ Авторизован (проверка через JavaScript)');
+        isLoggedIn = true;
+      }
+    }
     
     if (!isLoggedIn) {
-      // Проверяем альтернативные индикаторы авторизации
-      const alternativeIndicators = [
-        page.locator('text=Chats, text=Чаты').first(),
-        page.locator('[data-testid="chat-list"]').first(),
-        page.locator('.chat-list').first(),
+      console.log('⚠️ Требуется авторизация в Telegram Web');
+      console.log('📱 Пожалуйста, авторизуйтесь вручную в открывшемся браузере');
+      console.log('   Вы можете использовать QR-код или войти через телефон');
+      console.log('   После авторизации тесты продолжат автоматически...');
+      
+      // Ждем появления элементов авторизации (QR код или форма входа)
+      console.log('🔍 Ожидание элементов авторизации...');
+      
+      // Пробуем найти разные варианты элементов авторизации
+      const authSelectors = [
+        'canvas', // QR код
+        '[data-testid="auth-qr-code"]',
+        'input[type="tel"]', // Поле для телефона
+        'input[type="text"]',
+        'button:has-text("Log in by phone"), button:has-text("Войти по телефону")',
+        'button:has-text("Log in"), button:has-text("Войти")',
+        '[class*="auth"]',
+        '[class*="login"]',
       ];
       
-      for (const indicator of alternativeIndicators) {
-        if (await indicator.isVisible({ timeout: 2000 }).catch(() => false)) {
-          console.log('✅ Авторизован (найден альтернативный индикатор)');
+      let authElementFound = false;
+      for (const selector of authSelectors) {
+        try {
+          await page.waitForSelector(selector, { timeout: 10000 });
+          console.log(`✅ Найден элемент авторизации: ${selector}`);
+          authElementFound = true;
           break;
+        } catch (error) {
+          // Продолжаем поиск
         }
       }
       
-      // Если все еще не авторизованы, ждем авторизации
-      const needsAuth = !await page.locator('canvas, [data-testid="auth-qr-code"], input[type="tel"], input[type="text"]').first()
-        .isVisible({ timeout: 5000 })
-        .catch(() => false);
+      if (!authElementFound) {
+        console.warn('⚠️ Элементы авторизации не найдены автоматически');
+        console.log('💡 Попробуйте авторизоваться вручную в браузере');
+      }
       
-      if (needsAuth) {
-        // Ждем QR-код или форму авторизации
-        console.log('⚠️ Ожидание авторизации в Telegram Web...');
-        console.log('Пожалуйста, отсканируйте QR-код или войдите в аккаунт');
-        
-        // Ждем появления элементов авторизации
-        await page.waitForSelector('canvas, [data-testid="auth-qr-code"], input[type="tel"], input[type="text"]', { 
-          timeout: 60000 
-        });
-        
-        // Ждем завершения авторизации (появление Messages или Chats)
-        await page.waitForSelector('text=Messages, text=Сообщения, text=Chats, text=Чаты', { 
-          timeout: 300000 // До 5 минут на авторизацию
-        });
-        
+      // Если есть кнопка "Войти по телефону", пытаемся нажать на неё
+      const phoneLoginButton = page.locator('button')
+        .filter({ hasText: /Log in by phone|Войти по телефону|Войти/i })
+        .first();
+      
+      if (await phoneLoginButton.isVisible({ timeout: 5000 }).catch(() => false)) {
+        console.log('📱 Найдена кнопка входа по телефону, кликаем...');
+        try {
+          await phoneLoginButton.click();
+          await page.waitForTimeout(2000);
+          console.log('✅ Кнопка нажата, ожидаем поле для ввода телефона...');
+        } catch (error) {
+          console.warn('⚠️ Не удалось кликнуть на кнопку входа по телефону:', error);
+        }
+      }
+      
+      // Ждем завершения авторизации (появление Messages, Chats или списка чатов)
+      console.log('⏳ Ожидание завершения авторизации...');
+      console.log('   Это может занять до 5 минут...');
+      
+      try {
+        await page.waitForSelector(
+          'text=Messages, text=Сообщения, text=Chats, text=Чаты, [data-testid="chat-list"], [class*="ChatList"]',
+          { timeout: 300000 } // До 5 минут на авторизацию
+        );
         console.log('✅ Авторизация успешна!');
+      } catch (error) {
+        console.error('❌ Таймаут ожидания авторизации');
+        console.error('💡 Убедитесь, что вы авторизовались в браузере');
+        throw new Error('Не удалось авторизоваться в Telegram Web. Пожалуйста, авторизуйтесь вручную и запустите тесты снова.');
       }
     } else {
       console.log('✅ Уже авторизован');
     }
 
-    // Сохраняем состояние авторизации
+    // Сохраняем состояние авторизации (cookies + localStorage)
+    console.log('💾 Сохранение состояния авторизации...');
     const cookies = await context.cookies();
-    fs.writeFileSync(authFile, JSON.stringify(cookies, null, 2));
-    console.log('💾 Состояние авторизации сохранено');
+    
+    // Получаем localStorage
+    const localStorage = await page.evaluate(() => {
+      const storage: Record<string, string> = {};
+      for (let i = 0; i < window.localStorage.length; i++) {
+        const key = window.localStorage.key(i);
+        if (key) {
+          storage[key] = window.localStorage.getItem(key) || '';
+        }
+      }
+      return storage;
+    });
+    
+    // Сохраняем оба в один файл
+    const authData = {
+      cookies: cookies,
+      localStorage: localStorage,
+      savedAt: new Date().toISOString(),
+    };
+    
+    fs.writeFileSync(authFile, JSON.stringify(authData, null, 2));
+    console.log(`💾 Состояние авторизации сохранено:`);
+    console.log(`   - Cookies: ${cookies.length}`);
+    console.log(`   - LocalStorage keys: ${Object.keys(localStorage).length}`);
 
     // Ищем бота по username
     console.log(`🔍 Поиск бота @${botUsername}...`);

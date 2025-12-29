@@ -48,7 +48,7 @@ services:
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.stsSeconds=31536000"
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.stsIncludeSubdomains=true"
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.stsPreload=true"
-      - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.frameDeny=true"
+      - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.frameDeny=false"
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.contentTypeNosniff=true"
       - "traefik.http.middlewares.${TRAEFIK_SERVICE}-sec.headers.browserXssFilter=true"
       - "traefik.http.routers.${TRAEFIK_SERVICE}.middlewares=${TRAEFIK_SERVICE}-limit,${TRAEFIK_SERVICE}-sec" 
