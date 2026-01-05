@@ -16,10 +16,7 @@ export async function getUserDataAction(
 ): Promise<UserListApiResponse> {
   const { userId, initData } = payload;
 
-  const authUserId = await authenticateUser(initData);
-  if (!userId || authUserId !== userId) {
-    throw new Error("Unauthorized: user_id mismatch or missing");
-  }
+  await authenticateUser(initData, userId);
 
   const fetchApiProps: FetchApiProps = {
     path: "/user",
@@ -29,7 +26,7 @@ export async function getUserDataAction(
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "x-telegram-init-data": initData,
+      ...(initData ? { "x-telegram-init-data": initData } : {}),
     },
   };
 

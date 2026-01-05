@@ -70,6 +70,7 @@ export function Header() {
     >
       <div>
         <button
+          id="back-button"
           ref={backButton}
           onClick={onBackButtonClick}
           className={clsx("flex gap-2 items-center", {

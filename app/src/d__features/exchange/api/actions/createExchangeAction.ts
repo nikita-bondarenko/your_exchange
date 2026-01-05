@@ -12,20 +12,15 @@ export async function createExchangeAction(
 ): Promise<ExchangesCreateApiResponse> {
   const { initData, user_id, ...rest } = payload;
 
-  if (!initData) {
-    throw new Error("Telegram WebApp initData required");
-  }
-    const authUserId = await authenticateUser(initData);
-    if (authUserId !== user_id) {
-      throw new Error("User ID mismatch");
-    }
-  
+ await authenticateUser(initData, user_id);
 
   const props: FetchApiProps = {
     path: "/exchange",
     method: "POST",
     body: { user_id, ...rest },
-    headers: { "Content-Type": "application/json", "x-telegram-init-data": initData },
-  };
+    headers: {
+      "Content-Type": "application/json",
+      ...(initData ? { "x-telegram-init-data": initData } : {}),
+    },  };
   return await fetchApi<ExchangesCreateApiResponse>(props);
 }

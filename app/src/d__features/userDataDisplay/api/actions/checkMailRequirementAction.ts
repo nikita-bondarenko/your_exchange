@@ -9,12 +9,7 @@ export async function checkMailRequirementAction(
 ): Promise<CheckMailApiResponse> {
   const { initData, user_id } = payload;
 
-  if (initData) {
-    const authUserId = await authenticateUser(initData);
-    if (authUserId !== user_id) {
-      throw new Error("User ID mismatch");
-    }
-  }
+  await authenticateUser(initData, user_id);
 
   const fetchApiProps: FetchApiProps = {
     path: "/user/check-mail/",

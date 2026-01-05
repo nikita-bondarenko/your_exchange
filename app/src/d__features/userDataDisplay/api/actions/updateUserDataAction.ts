@@ -9,14 +9,7 @@ export async function updateUserDataAction(
 ): Promise<UserUpdateCreateApiResponse> {
   const { initData, user_id, ...rest } = payload;
 
-  if (!initData) {
-    throw new Error("Telegram WebApp initData required");
-  }
-
-  const authUserId = await authenticateUser(initData);
-  if (authUserId !== user_id) {
-    throw new Error("User ID mismatch");
-  }
+  await authenticateUser(initData, user_id);
 
   const fetchApiProps: FetchApiProps = {
     path: "/user/update",
@@ -24,7 +17,7 @@ export async function updateUserDataAction(
     body: { user_id, ...rest },
     headers: {
       "Content-Type": "application/json",
-      "x-telegram-init-data": initData,
+      ...(initData ? { "x-telegram-init-data": initData } : {}),
     },
   };
 

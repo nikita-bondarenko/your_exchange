@@ -5,19 +5,13 @@ import {
   CheckConsentApiResponse,
 } from "@/shared/model/api";
 import { authenticateUser } from "@/d__features/userDataDisplay/lib/telegramAuth";
-import { PROJECT_NAME } from "@/shared/config";
 
 export async function checkConsentRequirementAction(
   payload: CheckConsentApiArg
 ): Promise<CheckConsentApiResponse> {
   const { initData, user_id } = payload;
 
-  if (initData) {
-      const authUserId = await authenticateUser(initData);
-      if (authUserId !== user_id) {
-        throw new Error("User ID mismatch");
-      }
-  }
+  await authenticateUser(initData, user_id);
 
   const fetchApiProps: FetchApiProps = {
     path: "/user/check-consent/",

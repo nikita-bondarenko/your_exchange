@@ -6,7 +6,17 @@ import { validateAndGetUserId } from '@/shared/lib/telegram/validateTelegramWebA
  * Аутентификация через Telegram WebApp
  * Эта функция должна вызываться в начале каждого API действия
  */
-export async function authenticateUser(initData: string): Promise<number> {
+export async function authenticateUser(initData: string | undefined | null, userId: number | undefined | null) {
+
+    if (process.env.NODE_ENV === 'development') return
+
+    if (!initData) {
+        throw new Error("Telegram WebApp initData required");
+    }
+
+    if (!userId) {
+        throw new Error("Telegram User Id required");
+    }
     // Валидируем initData и получаем userId
     const result = await validateAndGetUserId(initData);
 
@@ -14,19 +24,9 @@ export async function authenticateUser(initData: string): Promise<number> {
         throw new Error(`Authentication failed: ${result.error}`);
     }
 
-    return result.userId;
-}
-
-/**
- * Безопасный wrapper для API действий
- * Используйте эту функцию для защиты всех критичных операций
- */
-export async function withTelegramAuth<T>(
-    initData: string,
-    action: (userId: number) => Promise<T>
-): Promise<T> {
-    const userId = await authenticateUser(initData);
-    return await action(userId);
+    if (result.userId !== userId) {
+        throw new Error("User ID mismatch");
+    }
 }
 
 /**

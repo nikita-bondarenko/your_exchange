@@ -9,14 +9,7 @@ export async function createTrackingSessionAction(
 ): Promise<CreateSessionResponse> {
   const { initData, user_id } = body;
 
-  if (!initData) {
-    throw new Error("Telegram WebApp initData required");
-  }
-
-  const authUserId = await authenticateUser(initData);
-  if (authUserId !== user_id) {
-    throw new Error("User ID mismatch");
-  }
+ await authenticateUser(initData, user_id);
 
   const props: FetchApiProps = {
     path: "/user/tracking/session",
@@ -24,7 +17,7 @@ export async function createTrackingSessionAction(
     body: { user_id },
     headers: {
       "Content-Type": "application/json",
-      "x-telegram-init-data": initData,
+      ...(initData ? { "x-telegram-init-data": initData } : {}),
     },
   };
   return await fetchApi<CreateSessionResponse>(props);

@@ -35,10 +35,11 @@ export const Menu = () => {
   const { menuButtons } = useMenuButtons({ closeMenu });
 
   return (
-    <div className="flex justify-end relative">
+    <div id="header-menu-container" className="flex justify-end relative">
       <button
         onClick={handleMenuToggle}
         ref={menuButtonRef}
+        id="header-menu-open-button"
         className="flex items-center justify-center"
       >
         <BurgerIcon
@@ -49,6 +50,7 @@ export const Menu = () => {
       </button>
 
       <div
+      id="header-menu-dropdown"
         ref={menuRef}
         className={clsx(
           "absolute right-0 top-[30px] z-50 min-w-180 bg-[var(--background-secondary)] rounded-10 shadow-lg border border-[var(--border-main)]  flex flex-col animate-fade-in rounded-6 text-[var(--text-main)] transition-opacity duration-500",

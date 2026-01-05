@@ -114,7 +114,7 @@ export default function ProfilePage() {
                 />
                 <ProfileInputField
                   name="email"
-                  type="email"
+                  type="text"
                   placeholder="Электронная почта"
                   trackingLabel="Электронная почта"
                 />
