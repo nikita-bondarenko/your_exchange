@@ -28,8 +28,8 @@ export default memo(function Page() {
   const selectedCurrencySellType = useAppSelector(
     (state) => state.exchange.selectedCurrencySellType
   );
-    const userId = useAppSelector((state) => state.user.id);
-    const isAppReady = useAppSelector((state) => state.ui.isAppReady);
+  const userId = useAppSelector((state) => state.user.id);
+  const isAppReady = useAppSelector((state) => state.ui.isAppReady);
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -38,7 +38,7 @@ export default memo(function Page() {
     router.push("/exchange/input");
   }, [router]);
 
-  const { callSupport } = useCallSupport({userId, isAppReady});
+  const { callSupport } = useCallSupport({ userId, isAppReady });
   const { trackUserAction } = useTrackUserAction();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default memo(function Page() {
   const { receiveTypesVariants } = useSetSelectedCurrencySellTypeEffect();
   useSetSelectedCurrencyTypesEffect();
 
-  const {debounce} = useDebounce()
+  const { debounce } = useDebounce()
 
   useEffect(() => {
     if (sessionId && selectedCurrencyBuyType && selectedCurrencySellType) {
@@ -78,6 +78,7 @@ export default memo(function Page() {
             Не нашли интересующий тип обмена?
           </p>
           <button
+            id='exchange-type-page-support'
             data-tracking-label="Связаться с поддержкой"
             onClick={callSupport}
             className="text-13 font-medium text-[var(--text-main)] underline underline-offset-2"

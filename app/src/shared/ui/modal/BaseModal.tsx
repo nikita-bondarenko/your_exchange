@@ -16,6 +16,8 @@ type BaseModalProps = {
   isSubmitButtonDisabled?: boolean;
   isSubmitButtonHidden?: boolean;
   renderTrigger?: number;
+  closeButtonId?: string,
+  modalContainerId?: string
 };
 
 export const BaseModal = forwardRef(
@@ -31,6 +33,8 @@ export const BaseModal = forwardRef(
       isSubmitButtonDisabled,
       isSubmitButtonHidden,
       renderTrigger,
+      closeButtonId,
+      modalContainerId
     }: BaseModalProps,
     ref: ForwardedRef<HTMLDivElement>
   ) => {
@@ -42,6 +46,7 @@ export const BaseModal = forwardRef(
 
     const element = (
       <div
+      id={modalContainerId}
         ref={ref}
         onClick={handleClose}
         className={clsx(
@@ -74,6 +79,7 @@ export const BaseModal = forwardRef(
           )}
           {!isCloseButtonHidden && (
             <button
+              id={closeButtonId}
               className="absolute top-[19px] right-[17px]"
               onClick={handleClose}
             >

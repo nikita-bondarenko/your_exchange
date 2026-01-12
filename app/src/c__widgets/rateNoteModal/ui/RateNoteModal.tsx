@@ -65,6 +65,8 @@ const RateNoteModal = () => {
             renderTrigger={renderTrigger}
             isOpen={isNoteModalOpen}
             handleClose={() => setIsNoteModalOpen(false)}
+            closeButtonId="rate-modal-close-button"
+            modalContainerId="rate-modal-container"
         >
             Напоминаем вам о&nbsp;том, что курс зависит от&nbsp;
             <strong className="font-semibold">волатильности рынка</strong> и&nbsp;
@@ -73,6 +75,7 @@ const RateNoteModal = () => {
             <br/> <br/>
             Если сумма ниже минимального порога,{" "}
             <a
+                id="rate-modal-support-link"
                 data-tracking-label="Обратитесь к операторам"
                 onClick={supportLinkHandler}
                 className="underline underline-offset-3 font-semibold"

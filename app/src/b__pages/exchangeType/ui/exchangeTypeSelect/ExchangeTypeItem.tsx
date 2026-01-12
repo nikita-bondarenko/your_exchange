@@ -19,6 +19,7 @@ const ExchangeTypeItem: React.FC<ExchangeTypeButton> = memo(
     };
     return (
       <button
+      id={`${position}-${type}`}
         className={clsx(
           "h-46 flex items-center justify-between w-[101%] duration-500 transition-all bg-[var(--background-secondary)] px-18 relative",
           {
