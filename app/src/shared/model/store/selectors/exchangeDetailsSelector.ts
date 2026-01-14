@@ -217,10 +217,7 @@ export const selectExchangeCreateData = createSelector(
     }
 
     // Determine what to send based on direction type
-    if (
-      selectedCurrencySellType === "BANK" &&
-      selectedCurrencyBuyType === "COIN"
-    ) {
+    if (selectedCurrencyBuyType === "COIN"    ) {
       // bank → coin: send wallet address for receiving crypto
       return {
         ...baseData,

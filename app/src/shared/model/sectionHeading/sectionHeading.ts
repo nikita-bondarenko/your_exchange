@@ -1,6 +1,7 @@
 import { HeadingRate } from "@/shared/ui";
 
 export type SectionHeading = {
+    id?: string;
     title: string;
     rate?: HeadingRate | undefined | null;
     minValue?: number | undefined | null;

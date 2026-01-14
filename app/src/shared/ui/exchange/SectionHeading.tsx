@@ -19,7 +19,7 @@ export type HeadingRate = {
 
 
 export const SectionHeading: React.FC<SectionHeadingProps> = memo(
-  ({ title, rate, minValue, error, note, conditionText = "минимально" }) => {
+  ({ title, rate, minValue, error, note, conditionText = "минимально", id }) => {
     const [isMessageOpen, setIsMessageOpen] = useState(false);
 
     const timeout = useRef<NodeJS.Timeout>(null);
@@ -45,13 +45,14 @@ export const SectionHeading: React.FC<SectionHeadingProps> = memo(
     };
 
     return (
-      <div className="flex items-end justify-between mb-10 pl-6  gap-10">
+      <div className="flex items-end justify-between mb-10 pl-6  gap-10" id={id}>
         <h2
           dangerouslySetInnerHTML={{ __html: title }}
           className="text-16 text-[var(--text-main)] font-medium leading-normal  shrink-0 min-w-100"
         ></h2>
         {rate && (
           <span
+          id={`rate-span`}
             className="text-13  leading-normal text-[var(--text-secondary)] text-right"
             dangerouslySetInnerHTML={{
               __html: `${valueMask(rate?.from.value)} ${
@@ -64,6 +65,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = memo(
         )}
         {minValue && (
           <button
+          id={`min-value-button`}
           data-tracking-label="Информация о минимальной сумме"
             onClick={handleMinValueClick}
             className=" relative block pl-17 max-w-200"
@@ -109,7 +111,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = memo(
           </button>
         )}
         {note && (
-          <div
+          <div id={`min-value-note`}
             className={clsx(
               "fixed z-50 top-[121px] right-1/2 translate-x-1/2 w-[280px] px-[21px] py-[14px]  leading-[120%] border border-[var(--border-main)] bg-[var(--background-secondary)] rounded-[8px] transition-opacity duration-500",
               {

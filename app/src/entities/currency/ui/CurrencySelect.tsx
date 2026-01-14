@@ -10,6 +10,7 @@ export type CurrencySelectProps = {
   options: Currency[];
   onChange: (value: Currency) => void;
   value: Currency;
+  id?: string
 };
 
 const ButtonDisplay = memo(({ icon, name }: Currency) => (
@@ -21,10 +22,11 @@ const ButtonDisplay = memo(({ icon, name }: Currency) => (
 
 ButtonDisplay.displayName = "ButtonDisplay";
 
-const CurrencySelect = memo(({ options, onChange, value: selected }: CurrencySelectProps) => {
+const CurrencySelect = memo(({ options, onChange, value: selected, id }: CurrencySelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <BaseSelect<Currency>
+      id={id}
       options={options}
       value={selected}
       onChange={onChange}

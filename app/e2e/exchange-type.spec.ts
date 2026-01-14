@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 import { supportButtonChecking } from './utils/support-button-checking';
 import { rateModalChecking } from './utils/rate-modal-checking';
+import { navigationButtonChecking } from './utils/navigation-button-checking';
 
 test.describe('Exhcange Type Page - Страница выбора направления обмена', () => {
     test.setTimeout(240000); // Устанавливаем таймаут 2 минуты для всех тестов
@@ -58,7 +59,7 @@ test.describe('Exhcange Type Page - Страница выбора направл
             }
 
         })
-        await page.waitForTimeout(10000);
+        await page.waitForTimeout(5000);
 
     });
 
@@ -79,6 +80,11 @@ test.describe('Exhcange Type Page - Страница выбора направл
             await supportButtonChecking(page, rateModalSupportButton)
         })
 
+    });
+
+    test('4. Проверка кнопки "Подтвердить выбор"', async ({ page }) => {
+        await rateModalChecking(page)
+        await navigationButtonChecking(page, 'Подтвердить выбор', '/exchange/input')
     });
 
 });

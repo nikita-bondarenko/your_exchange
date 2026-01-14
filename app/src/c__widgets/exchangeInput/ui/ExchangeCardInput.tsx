@@ -108,14 +108,16 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
     };
 
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col" >
         <div>
           <SectionHeading
+            id={`${position}-input-heading`}
             note={<MinValueNote />}
             {...sectionHeadingProps}
             error={!!valueError && areErrorsVisible}
           />
           <CurrencyInput
+            id={`${position}-card-input-currency-input`}
             position={position}
             placeholder={placeholder}
             inputValue={globalStateValue}
@@ -129,6 +131,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
 
         {bankOptions.length > 0 && (
           <BankSelect
+            id={`${position}-card-input-bank-select`}
             value={bankValue}
             options={bankOptions || []}
             onChange={handleBankChange}
@@ -137,9 +140,10 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
           />
         )}
         {position === "received" && (
-          <div className="-mb-16">
+          <div className="-mb-16" id={`${position}-card-bank-input`}>
             {isPhoneNumberUsed ? (
               <InputWrapper
+                id={`${position}-card-bank-input-phone-number-input`}
                 error={
                   phoneNumberError && areErrorsVisible ? phoneNumberError : null
                 }
@@ -156,6 +160,7 @@ const ExchangeCardInput: React.FC<ExchangeCardInputProps> = memo(
               </InputWrapper>
             ) : (
               <InputWrapper
+                id={`${position}-card-bank-input-card-number-input`}
                 error={
                   cardNumberError && areErrorsVisible ? cardNumberError : null
                 }

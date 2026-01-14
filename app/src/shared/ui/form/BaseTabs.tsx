@@ -11,12 +11,13 @@ type Props = {
   options: TabOption[];
   value: TabOption | null;
   onChange: (value: TabOption) => void;
+  id?: string
 };
 
-export const BaseTabs: React.FC<Props> = ({ onChange, options, value }) => {
+export const BaseTabs: React.FC<Props> = ({ onChange, options, value, id }) => {
 
   return (
-    <div className="flex gap-x-8 gap-y-11 flex-wrap">
+    <div className="flex gap-x-8 gap-y-11 flex-wrap" id={id}>
       {options.map((option, index) => (
         <button
           onClick={() => onChange(option)}

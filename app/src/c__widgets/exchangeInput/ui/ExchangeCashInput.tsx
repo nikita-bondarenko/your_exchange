@@ -71,11 +71,13 @@ const ExchangeCashInput: React.FC<ExchangeCashInputProps> = memo(
       <div className="flex flex-col">
         <div>
           <SectionHeading
+            id={`${position}-input-heading`}
             note={<MinValueNote />}
             {...sectionHeadingProps}
             error={!!valueError && areErrorsVisible}
           />
           <CurrencyInput
+            id={`${position}-cash-input-currency-input`}
             position={position}
             placeholder={placeholder}
             inputValue={globalStateValue}
@@ -88,6 +90,7 @@ const ExchangeCashInput: React.FC<ExchangeCashInputProps> = memo(
         </div>
 
         <PlaceSelect
+        id={`${position}-cash-input-city-select`}
           value={cityValue.value?.name || ""}
           options={cityOptions || []}
           onChange={onSelectCity}

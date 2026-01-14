@@ -85,11 +85,13 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(
       <div className="flex flex-col">
         <div>
           <SectionHeading
+            id={`${position}-input-heading`}
             note={<MinValueNote />}
             {...sectionHeadingProps}
             error={!!valueError && areErrorsVisible}
           />
           <CurrencyInput
+            id={`${position}-crypto-input-currency-input`}
             position={position}
             placeholder={placeholder}
             inputValue={globalStateValue}
@@ -103,8 +105,9 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(
 
         {netsOptions.length > 0 && (
           <div className="mt-13">
-            <SectionHeading title="Выберите сеть" />
+            <SectionHeading id={`${position}-crypto-input-net-select-heading`} title="Выберите сеть" />
             <CryptoNetSelect
+              id={`${position}-crypto-input-net-select`}
               onChange={handleNetChange}
               value={netValue as Network}
               options={netsOptions || []}
@@ -119,6 +122,7 @@ const ExchangeCryptoInput: React.FC<ExchangeCryptoInputProps> = memo(
             })}
           >
             <InputWrapper
+              id={`${position}-crypto-input-wallet-address-input`}
               error={
                 walletAddressError && areErrorsVisible
                   ? walletAddressError

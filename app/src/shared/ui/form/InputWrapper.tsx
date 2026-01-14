@@ -11,6 +11,7 @@ type InputWrapperProps = {
   errorTextClassName?: string;
   errorIcon?: boolean;
   showErrorText?: boolean;
+  id?: string
 };
 
 export const InputWrapper: React.FC<InputWrapperProps> = ({
@@ -22,9 +23,10 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
   errorTextClassName = "absolute left-0 -bottom-1",
   errorIcon = true,
   showErrorText = true,
+  id,
 }) => {
   return (
-    <div className={clsx("w-full pb-16 relative", className)}>
+    <div className={clsx("w-full pb-16 relative", className)} id={id}>
       {React.cloneElement(children, {
         className: clsx(children.props.className, {
           "[&]:border-[var(--border-error)]": error,

@@ -15,10 +15,11 @@ export type PlaceSelectProps = {
   placeholder: string;
   placeholderFocused?: string;
   error?: string | null;
+  id?: string
 };
 
 export const PlaceSelect: React.FC<PlaceSelectProps> = memo(
-  ({ options, onChange, value, placeholder, placeholderFocused, error }) => {
+  ({ options, onChange, value, placeholder, placeholderFocused, error, id }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [focused, setFocused] = useState(false);
     const [searchValue, setSearchValue] = useState(value);
@@ -75,6 +76,7 @@ export const PlaceSelect: React.FC<PlaceSelectProps> = memo(
 
     return (
       <BaseSelect<City>
+        id={id}
         options={options}
         value={options.find((opt) => opt.name === value) || null}
         onChange={handleSelect}

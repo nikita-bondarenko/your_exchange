@@ -13,14 +13,16 @@ export type BankSelectProps = {
   value: BankOption | null;
   placeholder: string;
   error?: string | null;
+  id?: string
 };
 
 export const BankSelect: React.FC<BankSelectProps> = memo(
-  ({ options, onChange, value, placeholder, error }) => {
+  ({ options, onChange, value, placeholder, error, id }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
       <BaseSelect
+        id={id}
         options={options}
         value={value}
         onChange={onChange}
@@ -31,6 +33,7 @@ export const BankSelect: React.FC<BankSelectProps> = memo(
         renderTrigger={({ isOpen }) => (
           <InputWrapper error={error} errorIcon={false}>
             <button
+            id={`${id}-trigger-button`}
               onClick={() => setIsOpen((prev) => !prev)}
               tabIndex={-1}
               className={clsx(

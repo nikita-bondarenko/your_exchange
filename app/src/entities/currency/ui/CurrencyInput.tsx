@@ -19,6 +19,7 @@ export type CurrencyInputProps = {
   placeholder?: string;
   error?: boolean;
   position?: ExchangeCurrencyPosition
+  id?: string
 };
 
 const CurrencyInput: React.FC<CurrencyInputProps> = memo(
@@ -30,7 +31,8 @@ const CurrencyInput: React.FC<CurrencyInputProps> = memo(
     placeholder,
     selectValue,
     error,
-    position
+    position,
+    id
   }) => {
     const [inputValue, setInputValue] = useState<string>("");
 
@@ -116,7 +118,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = memo(
     );
 
     return (
-      <div className="relative">
+      <div className="relative" id={id}>
         <InputWrapper
           error={error ? "error" : null}
           showErrorText={false}
@@ -132,6 +134,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = memo(
                 placeholder={placeholder}
               />
               <CurrencySelect
+                id={`${id}-currency-select`}
                 value={selectValue}
                 options={options}
                 onChange={onSelectChange}
