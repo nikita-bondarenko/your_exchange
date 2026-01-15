@@ -88,6 +88,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = memo(
             </WavesAnimation>
 
             <span
+            id="min-value-button-text"
               className={clsx(
                 "block text-13 leading-normal text-[var(--text-secondary)]  [&_span]:transition-all [&_span]:duration-500",
                 {
@@ -97,7 +98,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = memo(
               )}
             >
               <span className=" mr-6 ">{conditionText}</span>
-              <span
+              <span id="min-value-button-amount"
                 className={clsx(
                   "text-[var(--text-main)] transition-all duration-500 whitespace-nowrap",
                   {

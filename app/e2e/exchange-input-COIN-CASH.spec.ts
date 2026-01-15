@@ -5,7 +5,7 @@ import { navigationButtonChecking } from './utils/navigation-button-checking';
 import { exchangeHeadingChecking } from './utils/exchange-heading-checking';
 import { valueMask } from '@/shared/lib/string/valueMask';
 
-test.describe('Exhcange Input Page - Страница ввода данных обмена COIN - BANK', () => {
+test.describe('Exhcange Input Page - Страница ввода данных обмена COIN - CASH', () => {
     test.setTimeout(2400000); // Устанавливаем таймаут 40 минут для всех тестов
 
     test.beforeEach(async ({ page }) => {
@@ -18,7 +18,7 @@ test.describe('Exhcange Input Page - Страница ввода данных о
             await buttonGiven.click()
         }
         await page.waitForTimeout(500)
-        const buttonReceived = page.locator('#received-BANK')
+        const buttonReceived = page.locator('#received-CASH')
         if (!(await buttonReceived.getAttribute('class'))?.includes('[&]:bg-[var(--background-exchange-type-selected)]')) {
             await buttonReceived.click()
         }
@@ -33,33 +33,14 @@ test.describe('Exhcange Input Page - Страница ввода данных о
         await expect(givenInputCurrencyInput).toBeVisible()
         const givenInputNetSelect = page.locator('#given-crypto-input-net-select')
         await expect(givenInputNetSelect).toBeVisible()
-        const receivedInputCurrencyInput = page.locator('#received-card-input-currency-input')
+        const receivedInputCurrencyInput = page.locator('#received-cash-input-currency-input')
         await expect(receivedInputCurrencyInput).toBeVisible()
-        const receivedInputBankSelect = page.locator('#received-card-input-bank-select')
-        await expect(receivedInputBankSelect).toBeVisible()
-        const receivedInputBankSelectTriggerButton = page.locator('#received-card-input-bank-select-trigger-button')
-        const receivedInputBankSelectDropdown = page.locator('#received-card-input-bank-select-dropdown')
-        await expect(receivedInputBankSelectTriggerButton).toBeVisible()
-        await receivedInputBankSelectTriggerButton.click()
-        await page.waitForTimeout(1000)
-        const tinkoffButton = receivedInputBankSelectDropdown.locator('button', { hasText: 'Тинькофф' })
-        await tinkoffButton.scrollIntoViewIfNeeded()
-        await expect(tinkoffButton).toBeVisible()
-        await page.waitForTimeout(500)
-        await tinkoffButton.click()
-        await page.waitForTimeout(1000)
-        const cardNumberInput = page.locator('#received-card-bank-input-card-number-input')
-        await expect(cardNumberInput).toBeVisible()
-        await receivedInputBankSelectTriggerButton.click()
-        await page.waitForTimeout(1000)
-        const sbpButton = receivedInputBankSelectDropdown.locator('button', { hasText: 'СБП' })
-        await sbpButton.scrollIntoViewIfNeeded()
-        await expect(sbpButton).toBeVisible()
-        await page.waitForTimeout(500)
-        await sbpButton.click()
-        await page.waitForTimeout(1000)
-        const phoneNumberInput = page.locator('#received-card-bank-input-phone-number-input')
-        await expect(phoneNumberInput).toBeVisible()
+        const receivedInputCitySelect = page.locator('#received-cash-input-city-select')
+        await expect(receivedInputCitySelect).toBeVisible()
+        const receivedInputCitySelectTriggerButton = page.locator('#received-cash-input-city-select-trigger-button')
+        await expect(receivedInputCitySelectTriggerButton).toBeVisible()
+        await receivedInputCitySelectTriggerButton.click()
+
     });
 
 
@@ -92,7 +73,7 @@ test.describe('Exhcange Input Page - Страница ввода данных о
             const givenAmountInputPlaceholder = await page.locator('#given-crypto-input-currency-input input').getAttribute('placeholder');
             expect(givenAmountInputPlaceholder).toBe(valueMask(minValue));
 
-            const receivedAmountInput = page.locator('#received-card-input-currency-input input');
+            const receivedAmountInput = page.locator('#received-cash-input-currency-input input');
 
             const receivedAmountInputPlaceholder = await receivedAmountInput.getAttribute('placeholder');
             expect(receivedAmountInputPlaceholder).toBe(valueMask(Number((minValue * rate).toFixed(2))));
@@ -107,7 +88,7 @@ test.describe('Exhcange Input Page - Страница ввода данных о
             givenAmountInput.fill('1000')
             await page.waitForTimeout(1000);
 
-            const receivedAmountInputValue = await page.locator('#received-card-input-currency-input input').inputValue();
+            const receivedAmountInputValue = await page.locator('#received-cash-input-currency-input input').inputValue();
             expect(receivedAmountInputValue).toBe(valueMask(Number((1000 * rate).toFixed(2))));
             console.log("received amount input calculation is correct")
         }
@@ -116,7 +97,7 @@ test.describe('Exhcange Input Page - Страница ввода данных о
             await page.waitForTimeout(1000);
 
             const rate = Number(await page.locator('#rate-value').textContent())
-            const receivedAmountInput = page.locator('#received-card-input-currency-input input');
+            const receivedAmountInput = page.locator('#received-cash-input-currency-input input');
             receivedAmountInput.fill('10000')
             await page.waitForTimeout(1000);
 
@@ -186,11 +167,11 @@ test.describe('Exhcange Input Page - Страница ввода данных о
                 }
 
                 // Переполучаем валюты покупки после выбора сети
-                const receivedCurrencySelect = page.locator('#received-card-input-currency-input-currency-select');
+                const receivedCurrencySelect = page.locator('#received-cash-input-currency-input-currency-select');
                 const receivedCurrencySelectTrigger = receivedCurrencySelect.locator('button');
                 await receivedCurrencySelectTrigger.click();
                 await page.waitForTimeout(500);
-                const receivedCurrencyDropdown = page.locator('#received-card-input-currency-input-currency-select-dropdown');
+                const receivedCurrencyDropdown = page.locator('#received-cash-input-currency-input-currency-select-dropdown');
                 const receivedCurrencyButtons = receivedCurrencyDropdown.locator('button');
                 const receivedCurrencyCount = await receivedCurrencyButtons.count();
                 await randomBodyElement.click();
@@ -202,7 +183,7 @@ test.describe('Exhcange Input Page - Страница ввода данных о
                 for (let receivedIdx = 0; receivedIdx < receivedCurrencyCount; receivedIdx++) {
                     await receivedCurrencySelectTrigger.click();
                     await page.waitForTimeout(500);
-                    const receivedCurrencyDropdownCurrent = page.locator('#received-card-input-currency-input-currency-select-dropdown');
+                    const receivedCurrencyDropdownCurrent = page.locator('#received-cash-input-currency-input-currency-select-dropdown');
                     const receivedCurrencyButtonsCurrent = receivedCurrencyDropdownCurrent.locator('button');
                     const receivedButton = receivedCurrencyButtonsCurrent.nth(receivedIdx);
                     await receivedButton.scrollIntoViewIfNeeded();
@@ -215,35 +196,37 @@ test.describe('Exhcange Input Page - Страница ввода данных о
                     console.log(`      Валюта покупки [${receivedIdx + 1}/${receivedCurrencyCount}]: ${receivedCurrencyText}`);
 
                     // Переполучаем банки после выбора валюты покупки
-                    const bankSelectTrigger = page.locator('#received-card-input-bank-select-trigger-button');
-                    await bankSelectTrigger.click();
+                    const citySelectTrigger = await page.locator('#received-cash-input-city-select-trigger-button');
+                    await citySelectTrigger.click();
                     await page.waitForTimeout(500);
-                    const bankDropdown = page.locator('#received-card-input-bank-select-dropdown');
-                    const bankButtons = bankDropdown.locator('button');
-                    const bankCount = await bankButtons.count();
+                    const cityDropdown = page.locator('#received-cash-input-city-select-dropdown');
+
+                    const cityButtons = cityDropdown.locator('button');
+
+                    const cityCount = await cityButtons.count();
                     await randomBodyElement.click();
                     await page.waitForTimeout(500);
 
-                    console.log(`Найдено банков: ${bankCount}`);
+                    console.log(`Найдено городов: ${cityCount}`);
 
                     // Цикл 4: Банки для выбранной валюты покупки
-                    for (let bankIdx = 0; bankIdx < bankCount; bankIdx++) {
+                    for (let cityIdx = 0; cityIdx < cityCount; cityIdx++) {
                         totalCombinations++;
 
-                        await bankSelectTrigger.click();
+                        await citySelectTrigger.click();
                         await page.waitForTimeout(500);
-                        const bankDropdownCurrent = page.locator('#received-card-input-bank-select-dropdown');
-                        const bankButtonsCurrent = bankDropdownCurrent.locator('button');
-                        const bankButton = bankButtonsCurrent.nth(bankIdx);
-                        await bankButton.scrollIntoViewIfNeeded();
-                        const bankText = await bankButton.textContent() || `Банк ${bankIdx + 1}`;
-                        await bankButton.click();
+                        const cityDropdownCurrent = page.locator('#received-cash-input-city-select-dropdown');
+                        const cityButtonsCurrent = cityDropdownCurrent.locator('button');
+                        const cityButton = cityButtonsCurrent.nth(cityIdx);
+                        await cityButton.scrollIntoViewIfNeeded();
+                        const cityText = await cityButton.textContent() || `Город ${cityIdx + 1}`;
+                        await cityButton.click();
                         await page.waitForTimeout(1500);
                         await randomBodyElement.click();
                         await page.waitForTimeout(500);
 
                         // Проверяем rate-span
-                        const combination = `Given: ${givenCurrencyText}, Network: ${netText}, Received: ${receivedCurrencyText}, Bank: ${bankText}`;
+                        const combination = `Given: ${givenCurrencyText}, Network: ${netText}, Received: ${receivedCurrencyText}, City: ${cityText}`;
                         try {
                             await checkRateSpan();
                             await checkPlaceholderValueCalculation();
@@ -270,13 +253,11 @@ test.describe('Exhcange Input Page - Страница ввода данных о
 
         // Получаем локаторы полей
         const givenAmountInput = page.locator('#given-crypto-input-currency-input input');
-        const cardNumberInput = page.locator('#received-card-bank-input-card-number-input input');
         const submitButton = page.getByRole('button', { name: 'Далее' });
         const givenInputHeading = page.locator('#given-input-heading');
 
         await givenAmountInput.fill('');
 
-        await cardNumberInput.fill('');
 
         // Тест 1: Проверка валидации пустых полей
         // Сохраняем текущий URL перед кликом
@@ -297,114 +278,34 @@ test.describe('Exhcange Input Page - Страница ввода данных о
         // Проверяем, что кнопка с минимальной суммой существует (она показывает ошибку визуально)
 
         // Проверяем ошибку для номера карты
-        const cardNumberError = page.locator('#received-card-bank-input-card-number-input p')
-        expect(await cardNumberError.getAttribute('class')).toContain('text-[var(--text-error-light)]');
-        const cardNumberErrorText = await cardNumberError.textContent();
-        expect(cardNumberErrorText).toContain('Введите номер карты');
+        const citySelectError = page.locator('#received-cash-input-city-select p')
+        expect(await citySelectError.getAttribute('class')).toContain('text-[var(--text-error-light)]');
+        const citySelectErrorText = await citySelectError.textContent();
+        expect(citySelectErrorText).toContain('Выберите город');
 
-        // Тест 2: Проверка валидации невалидного номера карты (слишком короткий)
-        await cardNumberInput.fill('1234');
-        await page.waitForTimeout(500);
-        await submitButton.click();
-        await page.waitForTimeout(1000);
-
-        // Проверяем, что страница не изменилась
-        expect(page.url()).toBe(initialUrl);
-
-        const cardNumberErrorShort = page.locator('#received-card-bank-input-card-number-input p')
-        expect(await cardNumberErrorShort.getAttribute('class')).toContain('text-[var(--text-error-light)]');
-
-        await expect(cardNumberErrorShort).toBeVisible();
-        const cardNumberErrorShortText = await cardNumberErrorShort.textContent();
-        expect(cardNumberErrorShortText).toContain('Номер карты должен содержать от 16 до 19 цифр');
-
-        // Тест 3: Проверка валидации невалидного номера карты (слишком длинный)
-        await cardNumberInput.fill('12345678901234567890');
-        await page.waitForTimeout(500);
-        await submitButton.click();
-        await page.waitForTimeout(1000);
-
-        // Проверяем, что страница не изменилась
-        expect(page.url()).toBe(initialUrl);
-
-        const cardNumberErrorLong = page.locator('#received-card-bank-input-card-number-input p')
-        expect(await cardNumberErrorLong.getAttribute('class')).toContain('text-[var(--text-error-light)]');
-
-        await expect(cardNumberErrorLong).toBeVisible();
-        const cardNumberErrorLongText = await cardNumberErrorLong.textContent();
-        expect(cardNumberErrorLongText).toContain('Номер карты должен содержать от 16 до 19 цифр');
-
-        // Тест 4: Проверка валидации минимальной суммы (если есть minValue)
-        await givenAmountInput.fill('10');
-        await page.waitForTimeout(500);
-        await cardNumberInput.fill('1234567890123456'); // Валидный номер карты
-        await page.waitForTimeout(500);
-        await submitButton.click();
-        await page.waitForTimeout(1000);
-
-        // Проверяем визуальный индикатор ошибки для суммы
-        const minValueButtonAfterMin = givenInputHeading.locator('#min-value-button');
-        await expect(minValueButtonAfterMin).toBeVisible();
-
-        // Проверяем, что страница не изменилась (валидация заблокировала переход)
-        expect(page.url()).toBe(initialUrl);
-
-        // Тест 5: Проверка валидации номера телефона (переключаемся на СБП)
-        const bankSelectTrigger = page.locator('#received-card-input-bank-select-trigger-button');
-        await bankSelectTrigger.click();
-        await page.waitForTimeout(500);
-        const bankDropdownCurrent = page.locator('#received-card-input-bank-select-dropdown');
-        const sbpButton = bankDropdownCurrent.locator('button', { hasText: 'СБП' });
-        await sbpButton.scrollIntoViewIfNeeded();
-        await sbpButton.click();
-        await page.waitForTimeout(1000);
-
-        const phoneNumberInput = page.locator('#received-card-bank-input-phone-number-input input');
-        await phoneNumberInput.fill('');
-        // Проверяем пустое поле телефона
-        await submitButton.click();
-        await page.waitForTimeout(1000);
-
-        // Проверяем, что страница не изменилась
-        expect(page.url()).toBe(initialUrl);
-
-        const phoneNumberError = page.locator('#received-card-bank-input-phone-number-input p')
-        expect(await phoneNumberError.getAttribute('class')).toContain('text-[var(--text-error-light)]');
-        await expect(phoneNumberError).toBeVisible();
-        const phoneNumberErrorText = await phoneNumberError.textContent();
-        expect(phoneNumberErrorText).toContain('Введите номер телефона');
-
-        // Проверяем невалидный номер телефона (не 11 цифр)
-        await phoneNumberInput.fill('12345');
-        await page.waitForTimeout(500);
-        await submitButton.click();
-        await page.waitForTimeout(1000);
-
-        // Проверяем, что страница не изменилась
-        expect(page.url()).toBe(initialUrl);
-
-        const phoneNumberErrorInvalid = page.locator('#received-card-bank-input-phone-number-input p')
-        expect(await phoneNumberErrorInvalid.getAttribute('class')).toContain('text-[var(--text-error-light)]');
-        await expect(phoneNumberErrorInvalid).toBeVisible();
-        const phoneNumberErrorInvalidText = await phoneNumberErrorInvalid.textContent();
-        expect(phoneNumberErrorInvalidText).toContain('Номер телефона должен содержать 11 цифр');
 
         // Тест 6: Проверка валидных данных (должны пройти валидацию)
         await givenAmountInput.fill('999999999999');
         await page.waitForTimeout(500);
-        await phoneNumberInput.fill('79991234567');
-        await page.waitForTimeout(500);
 
-        // Проверяем, что ошибок нет
-        const phoneErrorAfterValid = page.locator('#received-card-bank-input-phone-number-input p')
-        expect(await phoneErrorAfterValid.getAttribute('class')).toContain('text-[var(--text-error-light)]');
-        const phoneErrorVisible = await phoneErrorAfterValid.isVisible().catch(() => false);
+        const citySelectTrigger = await page.locator('#received-cash-input-city-select-trigger-button');
+        citySelectTrigger.click()
+        await page.waitForTimeout(500)
+        const cityDropdown = page.locator('#received-cash-input-city-select-dropdown');
+        const button = cityDropdown.getByRole("button", { name: "Москва" })
+        button.click()
+        await page.waitForTimeout(1000)
 
-        // Ошибка телефона не должна быть видимой при валидных данных
-        expect(phoneErrorVisible).toBeFalsy();
+        const citySelectErrorUpdated = page.locator('#received-cash-input-city-select p')
+       const isErrorVisible = citySelectErrorUpdated.isVisible().catch(() => false);
+       expect(isErrorVisible).toBeFalsy();
 
-        // При валидных данных форма должна пройти валидацию
-        // Ошибки не должны отображаться при валидных значениях
+       const minValueButtonUpdated = givenInputHeading.locator('#min-value-button');
+       const minValueButtonTextUpdated = minValueButtonUpdated.locator('#min-value-button-text');
+       const alertIconUpdated = minValueButtonUpdated.locator('#alert-icon');
+
+       expect(await minValueButtonTextUpdated.getAttribute('class')).not.toContain('[&]:text-[var(--text-error-light)] [&_span]:text-[var(--text-error-bright)]');
+       expect(await alertIconUpdated.getAttribute('class')).not.toContain('[&]:opacity-100');
     })
 
     test("4. Проверка кнопки Далее", async ({ page }) => {
@@ -414,8 +315,13 @@ test.describe('Exhcange Input Page - Страница ввода данных о
         givenAmountInput.fill(minValue.toString())
         await page.waitForTimeout(1000)
 
-        const cardNumberInput = page.locator('#received-card-bank-input-card-number-input input');
-        await cardNumberInput.fill('1234567890123123');
+        const citySelectTrigger =  page.locator('#received-cash-input-city-select-trigger-button');
+        citySelectTrigger.click()
+        await page.waitForTimeout(500)
+        const cityDropdown = page.locator('#received-cash-input-city-select-dropdown');
+        const button = cityDropdown.getByRole("button", { name: "Москва" })
+        button.click()
+        await page.waitForTimeout(1000)
 
         await page.waitForTimeout(1000)
 
@@ -425,6 +331,7 @@ test.describe('Exhcange Input Page - Страница ввода данных о
         // Проверяем, что произошел переход на страницу выбора типа обмена
         await page.waitForURL(/\/exchange\/details/, { timeout: 5000 });
         expect(page.url()).toContain('/exchange/details');
+  
     })
 });
 

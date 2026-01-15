@@ -114,6 +114,7 @@ export const PlaceSelect: React.FC<PlaceSelectProps> = memo(
                 onFocus={handleFocus}
               />
               <button
+                            id={`${id}-trigger-button`}
                 type="button"
                 onClick={() => setIsOpen((prev) => !prev)}
                 tabIndex={-1}

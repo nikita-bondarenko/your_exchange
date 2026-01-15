@@ -9,12 +9,14 @@ type ButtonProps = {
   submit?: boolean;
   disabled?: boolean;
   trackingLabel?: string;
+  id?: string
 };
 
 export const Button: React.FC<ButtonProps> = memo(
-  ({ className, type, children, onClick, submit, disabled, trackingLabel }) => {
+  ({ className, type, children, onClick, submit, disabled, trackingLabel, id }) => {
     return (
       <button
+      id={id}
         data-tracking-label={trackingLabel}
         onClick={onClick}
         type={submit ? "submit" : "button"}

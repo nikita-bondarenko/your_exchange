@@ -35,7 +35,7 @@ export default memo(function ExchangeInputPage() {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const {trackUserAction} = useTrackUserAction()
+  const { trackUserAction } = useTrackUserAction()
 
   const onSubmit = useCallback(() => {
     dispatch(setAreErrorsVisible(true));
@@ -53,10 +53,10 @@ export default memo(function ExchangeInputPage() {
 
   useEffect(() => {
     dispatch(setIsLoading(false));
-    dispatch(setIsRateBeingPulled(true)); 
+    dispatch(setIsRateBeingPulled(true));
     return () => {
       dispatch(setAreErrorsVisible(false));
-      dispatch(setIsRateBeingPulled(false)); 
+      dispatch(setIsRateBeingPulled(false));
     };
   }, [dispatch]);
 
@@ -75,8 +75,11 @@ export default memo(function ExchangeInputPage() {
 
   useExchangeInputsValidation();
 
+  const rateValue = useAppSelector(state => state.exchange.exchangeRate?.course)
+
   return (
     <div className="container">
+      <div id="rate-value" hidden>{rateValue}</div>
       <div className={clsx("flex flex-col gap-30 mb-22 ")}>
         <ExchangeInput position={"given"} type={givenType}></ExchangeInput>
         <ExchangeInput
@@ -84,7 +87,7 @@ export default memo(function ExchangeInputPage() {
           type={receivedType}
         ></ExchangeInput>
       </div>
-      <Button trackingLabel="Далее" type="primary" onClick={onSubmit}>
+      <Button id="submit-button" trackingLabel="Далее" type="primary" onClick={onSubmit}>
         Далее
       </Button>
     </div>

@@ -5,6 +5,7 @@ export const AlertIcon = ({
   color = "var(--main-color)",
 }: SvgIcon) => (
   <svg
+  id="alert-icon"
     className={className}
     width="16"
     height="16"
