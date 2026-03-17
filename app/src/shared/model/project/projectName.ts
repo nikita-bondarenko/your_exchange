@@ -10,4 +10,5 @@ export type ProjectName =
   | "crypton"
   | "crypto-web"
   | "test"
-  | "white-way";
+  | "white-way"
+  | "tvoi"

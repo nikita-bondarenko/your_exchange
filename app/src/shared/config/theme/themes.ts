@@ -14,6 +14,7 @@ import { SUNSCRYPT_THEME } from "./sunscryptTheme";
 import { TOP_THEME } from "./topTheme";
 import { TEST_THEME } from "./testTheme";
 import { WHITE_THEME } from "./whiteWayTheme";
+import { TVOI_THEME } from "./tvoiTheme";
 
 export const BASE_THEMES: {[key in Theme]: BaseTheme}  = {
     'dark': DARK_THEME,
@@ -32,7 +33,8 @@ export const PROJECT_THEMES: {[key in ProjectName]: CurrentProjectTheme} ={
     'sunscrypt': SUNSCRYPT_THEME,
     'top': TOP_THEME,
     "test": TEST_THEME,
-    'white-way': WHITE_THEME
+    'white-way': WHITE_THEME,
+    'tvoi': TVOI_THEME
 }
 
 

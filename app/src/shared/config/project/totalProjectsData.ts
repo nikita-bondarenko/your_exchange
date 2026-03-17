@@ -11,6 +11,7 @@ import { CRYPTORO_PROJECT_DATA } from "./cryptoroData";
 import { SUNSCRYPT_PROJECT_DATA } from "./sunscryptData";
 import { TOP_PROJECT_DATA } from "./topData";
 import { WHITE_PROJECT_DATA } from "./whiteWayData";
+import { TVOI_PROJECT_DATA } from "./tvoiData";
 
 export const TOTAL_PROJECTS_DATA: { [key in ProjectName]: ProjectData } = {
   cryptus: CRYPTUS_PROJECT_DATA,
@@ -24,7 +25,8 @@ export const TOTAL_PROJECTS_DATA: { [key in ProjectName]: ProjectData } = {
   sunscrypt: SUNSCRYPT_PROJECT_DATA,
   top: TOP_PROJECT_DATA,
   test: TEST_PROJECT_DATA,
-  'white-way': WHITE_PROJECT_DATA
+  'white-way': WHITE_PROJECT_DATA,
+  'tvoi': TVOI_PROJECT_DATA
 };
 
 export const TOTAL_PROJECTS_DATA_ARR = Object.values(TOTAL_PROJECTS_DATA).map(
